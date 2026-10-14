@@ -1,0 +1,14 @@
+# gcloud run deploy --source uploads this folder as the build context. It reads this file and not
+# the repository .gitignore, so list everything that must stay out (deploy/02_deploy_backend.sh
+# refuses to run without it). The Dockerfile and .dockerignore must stay in.
+.venv/
+.data/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+tests/
+.git/
+.github/
+*.log

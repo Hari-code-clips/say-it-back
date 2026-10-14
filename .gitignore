@@ -1,0 +1,63 @@
+# Python and uv
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Backend local store (JSON files). Never committed.
+backend/.data/
+
+# Node and web build output
+node_modules/
+web/dist/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Playwright and browser test artifacts
+.playwright-mcp/
+playwright-report/
+blob-report/
+test-results/
+playwright/.cache/
+
+# Eval caches. eval/testset/ and eval/reports/ are committed and not listed here.
+eval/.cache/
+eval/cache/
+
+# Firebase CLI local state and logs
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# Dotenv-style files. Keys and local settings must never be committed.
+.env
+.env.*
+*.env
+.envrc
+
+# Key and credential files
+*.pem
+*.key
+*.p12
+*.pfx
+*-key.json
+*service-account*.json
+
+# OS files
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini

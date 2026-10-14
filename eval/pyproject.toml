@@ -1,0 +1,24 @@
+[project]
+name = "say-it-back-eval"
+version = "0.1.0"
+description = "Labelled synthetic eval set and runner for the Say It Back check workflow"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "google-genai>=2.29,<3",
+    "sayitback",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+sayitback = { path = "../backend", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

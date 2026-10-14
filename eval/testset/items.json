@@ -1,0 +1,868 @@
+{
+  "version": "2026-10-13",
+  "questions": {
+    "hot-work": {
+      "q1": {
+        "bn": "কাটিং শুরু করার আগে আপনি কী করবেন?",
+        "my": "မဖြတ်ခင် မင်း ဘာလုပ်မှာလဲ။",
+        "ta": "கட்டிங் வேலையை ஆரம்பிக்கிறதுக்கு முன்னாடி என்ன பண்ணுவீங்க?",
+        "zh": "开始切割之前你会做什么？"
+      },
+      "q2": {
+        "bn": "কাটিং শেষ করার পর আপনি কী করবেন?",
+        "my": "ဖြတ်ပြီးရင် မင်း ဘာလုပ်မှာလဲ။",
+        "ta": "கட்டிங் வேலை முடிஞ்ச அப்புறம் என்ன பண்ணுவீங்க?",
+        "zh": "切割完了之后你会做什么？"
+      }
+    },
+    "lifting-zone": {
+      "q1": {
+        "bn": "load সরানোর সময় আপনি কোথায় থাকবেন?",
+        "my": "load ရွေ့နေတုန်း မင်း ဘယ်မှာ နေမှာလဲ။",
+        "ta": "load மூவ் ஆகும்போது நீங்க எங்க இருப்பீங்க?",
+        "zh": "load移动的时候你会在哪里？"
+      },
+      "q2": {
+        "bn": "লিফটের সময় আপনি কার কাছ থেকে নির্দেশ নেবেন?",
+        "my": "load ရွှေ့နေတုန်း မင်း ဘယ်သူ့ဆီက ညွှန်ကြားချက် ယူမှာလဲ။",
+        "ta": "லிப்ட் பண்ணும்போது யாரு சொல்ற வழிமுறைகளை கேட்பீங்க?",
+        "zh": "吊装过程中，你听谁的指挥？"
+      }
+    },
+    "panel-isolation": {
+      "q1": {
+        "bn": "panel খোলার আগে আপনি কী করবেন?",
+        "my": "panel မဖွင့်ခင် မင်း ဘာလုပ်မှာလဲ။",
+        "ta": "panel-ஐ திறக்குறதுக்கு முன்னாடி என்ன பண்ணுவீங்க?",
+        "zh": "打开panel之前你会做什么？"
+      },
+      "q2": {
+        "bn": "তারগুলো ছোঁয়া নিরাপদ কি না তা কীভাবে বুঝবেন?",
+        "my": "ကြိုးတွေကို ကိုင်ဖို့ ဘေးကင်းပြီဆိုတာ ဘယ်လိုသိမလဲ။",
+        "ta": "வயர்களை தொடுறதுக்கு safe தான் அப்படின்னு எப்படி தெரிஞ்சிப்பீங்க?",
+        "zh": "你怎么确认碰电线是安全的？"
+      }
+    },
+    "scaffold-harness": {
+      "q1": {
+        "bn": "scaffold-এ প্রথম পা ফেলার আগে আপনি কী করবেন?",
+        "hi": "Scaffold पर पहला कदम रखने से पहले तुम क्या करोगे?",
+        "or": "scaffold ଉପରେ ପ୍ରଥମ ପାଦ ରଖିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ କରିବ?"
+      },
+      "q2": {
+        "bn": "কখন আপনি clip খুলে ফেলতে পারবেন?",
+        "hi": "तुम clip कब निकाल सकते हो?",
+        "or": "ତୁମେ କେତେବେଳେ clip କାଢ଼ିପାରିବ?"
+      }
+    },
+    "trench-entry": {
+      "q1": {
+        "bn": "trench-এ নামার আগে আপনি কী চেক করবেন এবং কী করবেন?",
+        "hi": "Trench में उतरने से पहले तुम क्या चेक करोगे और क्या करोगे?",
+        "or": "trench ଭିତରକୁ ଯିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ ଯାଞ୍ଚ କରିବ ଓ କ'ଣ କରିବ?"
+      },
+      "q2": {
+        "bn": "দেয়ালে পানি বা ফাটল দেখলে আপনি কী করবেন?",
+        "hi": "दीवार में पानी या दरारें दिखने पर तुम क्या करोगे?",
+        "or": "ଯଦି କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିବ ତେବେ ତୁମେ କ'ଣ କରିବ?"
+      }
+    }
+  },
+  "items": [
+    {
+      "id": "panel-isolation.q1.ta.demo.clean.r1",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "நான் அதை ஆஃப் பண்ணிட்டு திறப்பேன்.",
+      "answerGloss": "I'll switch it off and open it.",
+      "backTranslation": "I will turn it off and open it.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/panel-isolation.q1.ta.demo.clean.r1.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "panel-isolation.q1.ta.demo.clean.r2",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் பேனலைத் திறப்பேன்.",
+      "answerGloss": "First I'll switch off the breaker, then put on the lock and tag, and only after checking with the tester that there's no current will I open the panel.",
+      "backTranslation": "First I will turn off the breaker, then put the lock and attach the tag, check that there is no current using a tester, and only then open the panel.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/panel-isolation.q1.ta.demo.clean.r2.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "panel-isolation.q1.ta.contradicted.clean",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "நான் முதல்ல panel-ஐ திறப்பேன், அப்புறம் tester வச்சு செக் பண்ணுவேன், அதுக்கப்புறம் breaker-ஐ ஆஃப் பண்ணுவேன்.",
+      "answerGloss": "I'll open the panel first, then test it with the tester, and then switch off the breaker.",
+      "backTranslation": "First I will open the panel, then check with the tester, after that I will turn off the breaker.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "audio": "audio/panel-isolation.q1.ta.contradicted.clean.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "panel-isolation.q1.ta.vague.snr10",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "vague",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "சரிங்க, புரிஞ்சது.",
+      "answerGloss": "OK, understood.",
+      "backTranslation": "Okay, understood.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/panel-isolation.q1.ta.vague.snr10.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "முதல்ல breaker-ஐ ஆஃப் பண்ணிட்டு, என் lock மற்றும் tag போடுவேன், அப்புறம் current இல்லைன்னு tester வச்சு செக் பண்ணிட்டு panel-ஐ திறப்பேன்.",
+      "answerGloss": "First I'll switch off the breaker, put my lock and tag on it, check with the tester that there's no current, and then open the panel.",
+      "backTranslation": "First after turning off the breaker, I will put my lock and tag, then check that there is no current with a tester and open the panel.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/panel-isolation.q1.ta.code_switch.clean.wav",
+      "voice": "Orus"
+    },
+    {
+      "id": "panel-isolation.q2.ta.negation.snr5",
+      "taskId": "panel-isolation",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "tester-ல current இல்லைன்னு காட்டும் வரைக்கும் நான் வயர்களை தொட மாட்டேன்.",
+      "answerGloss": "I won't touch the wires until the tester shows there's no current.",
+      "backTranslation": "Until the tester shows there is no current, I will not touch the wires.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/panel-isolation.q2.ta.negation.snr5.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "panel-isolation.q1.bn.two_missing.snr10",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "two_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "আমি breaker-এ আমার lock লাগাব, তারপর panel খুলব।",
+      "answerGloss": "I'll put my lock on the breaker and then open the panel.",
+      "backTranslation": "I will put my lock on the breaker, then I will open the panel.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "audio": "audio/panel-isolation.q1.bn.two_missing.snr10.wav",
+      "voice": "Charon"
+    },
+    {
+      "id": "panel-isolation.q1.bn.contradicted.snr5",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "আমি lock লাগানোর ঝামেলায় যাব না। সুইচ অফ করব আর খুলে ফেলব, কারণ এতে তাড়াতাড়ি হয়।",
+      "answerGloss": "I won't bother with the lock. I'll switch it off and open it, because it's quicker.",
+      "backTranslation": "I will not go into the hassle of putting a lock. I will switch off and open it, because it is faster this way.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted",
+        "s3": "missed"
+      },
+      "audio": "audio/panel-isolation.q1.bn.contradicted.snr5.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "panel-isolation.q1.zh.complete.clean",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "先关掉breaker，然后挂上我的lock和tag，接着用tester测一下确认没电，最后才打开panel。",
+      "answerGloss": "First I switch off the breaker, then I put my lock and tag on it, then I test with the tester that there's no power, and only then open the panel.",
+      "backTranslation": "First turn off the breaker, then hang my lock and tag, next test with the tester to confirm there is no electricity, and finally open the panel.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/panel-isolation.q1.zh.complete.clean.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "panel-isolation.q1.zh.one_missing.clean",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "我会关掉breaker，用tester测一下没电流，然后打开panel。",
+      "answerGloss": "I'll switch off the breaker, test with the tester that there's no current, and then open the panel.",
+      "backTranslation": "I will turn off the breaker, test with the tester that there is no current, and then open the panel.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "covered"
+      },
+      "audio": "audio/panel-isolation.q1.zh.one_missing.clean.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.demo.clean.r1",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "मैं हार्नेस पहनूँगा और ऊपर चढ़ जाऊँगा।",
+      "answerGloss": "I'll put on the harness and go up.",
+      "backTranslation": "I will wear the harness and climb up.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "audio": "audio/scaffold-harness.q1.hi.demo.clean.r1.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.demo.clean.r2",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "पहले हार्नेस पहनकर बकल चेक करूँगा, फिर पहला कदम रखने से पहले हुक को लाइफ़लाइन में लगाऊँगा।",
+      "answerGloss": "First I'll put on the harness and check the buckles, then clip the hook to the lifeline before my first step.",
+      "backTranslation": "First after wearing the harness I will check the buckles, then before taking the first step I will attach the hook to the lifeline.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/scaffold-harness.q1.hi.demo.clean.r2.wav",
+      "voice": "Orus"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.one_missing.snr10",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "Scaffold पर पहला कदम रखने से पहले मैं lanyard को lifeline पर clip कर दूंगा।",
+      "answerGloss": "I'll clip the lanyard to the lifeline before my first step onto the scaffold.",
+      "backTranslation": "Before taking the first step onto the scaffold I will clip the lanyard to the lifeline.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "audio": "audio/scaffold-harness.q1.hi.one_missing.snr10.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.fluent_wrong.clean",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "मैं harness पहन लूंगा और frame पर जल्दी से ऊपर चढ़ जाऊंगा। थोड़ी सी चढ़ाई के लिए hook लगाने की ज़रूरत नहीं है।",
+      "answerGloss": "I'll put on the harness and go up the frame quickly. The hook doesn't need to be on for a short climb.",
+      "backTranslation": "I will wear the harness and quickly climb up the frame. For a short climb there is no need to attach the hook.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/scaffold-harness.q1.hi.fluent_wrong.clean.wav",
+      "voice": "Orus"
+    },
+    {
+      "id": "scaffold-harness.q2.hi.negation.clean",
+      "taskId": "scaffold-harness",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "जब तक मैं scaffold पर हूं, मैं clip नहीं निकालूंगा।",
+      "answerGloss": "I won't take the clip off while I'm on the scaffold.",
+      "backTranslation": "As long as I am on the scaffold, I will not remove the clip.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/scaffold-harness.q2.hi.negation.clean.wav",
+      "voice": "Orus"
+    },
+    {
+      "id": "scaffold-harness.q1.bn.contradicted.snr5",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "আমি আগে scaffold-এ উঠব, তারপর উপরে উঠে lanyard আটকে নেব।",
+      "answerGloss": "I'll step onto the scaffold first, and clip the lanyard on at the top once I'm up.",
+      "backTranslation": "I will get on the scaffold first, then after getting up I will fasten the lanyard.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/scaffold-harness.q1.bn.contradicted.snr5.wav",
+      "voice": "Charon"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.two_missing.clean",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "two_missing",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "मैं scaffold पर जल्दी से ऊपर चढ़ जाऊंगा।",
+      "answerGloss": "I'll go up the scaffold quickly.",
+      "backTranslation": "I will quickly climb up onto the scaffold.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "audio": "audio/scaffold-harness.q1.hi.two_missing.clean.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "scaffold-harness.q1.bn.code_switch.clean",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "প্রথম পা ফেলার আগে, আমি harness পরব, buckle-গুলো চেক করব, আর lifeline-এর সাথে lanyard আটকে নেব।",
+      "answerGloss": "Before my first step, I'll put on the harness, check the buckles, and clip the lanyard onto the lifeline.",
+      "backTranslation": "Before taking the first step, I will wear the harness, check the buckles, and fasten the lanyard to the lifeline.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/scaffold-harness.q1.bn.code_switch.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "hot-work.q1.ta.numbers.clean",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "numbers",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ஐந்து மீட்டருக்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்துவேன், பக்கத்துல fire watcher கூட extinguisher-ஐ வச்சுக்குவேன்.",
+      "answerGloss": "Within five metres I'll clear the things that can burn, and I'll keep the extinguisher nearby with a fire watcher.",
+      "backTranslation": "I will remove combustible materials within five meters, and keep an extinguisher nearby with the fire watcher.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "audio": "audio/hot-work.q1.ta.numbers.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "hot-work.q2.bn.numbers.snr10",
+      "taskId": "hot-work",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "numbers",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "কাজ শেষ করার পর আমি দশ মিনিট নজর রাখব।",
+      "answerGloss": "I'll keep watching for ten minutes after I finish.",
+      "backTranslation": "After finishing work I will keep watch for ten minutes.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/hot-work.q2.bn.numbers.snr10.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "hot-work.q2.zh.numbers.snr5",
+      "taskId": "hot-work",
+      "questionId": "q2",
+      "workerLang": "zh",
+      "pattern": "numbers",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "干完之后我会继续盯着三十分钟。",
+      "answerGloss": "I'll keep watching for thirty minutes after I finish.",
+      "backTranslation": "After finishing, I will continue to keep watch for thirty minutes.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/hot-work.q2.zh.numbers.snr5.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "hot-work.q1.zh.echo.clean",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "echo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "开始切割前我要做什么？我开始切割前，要做什么？",
+      "answerGloss": "What will I do before I start cutting? Before I start cutting, what will I do?",
+      "backTranslation": "What do I need to do before starting to cut? Before I start cutting, what do I need to do?",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "audio": "audio/hot-work.q1.zh.echo.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "hot-work.q1.zh.fluent_wrong.clean",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "我把extinguisher放在库房里免得挡道，然后直接开切。小活儿不需要fire watcher。",
+      "answerGloss": "I'll keep the extinguisher in the store room so it's out of the way, and start cutting. A fire watcher isn't needed for small jobs.",
+      "backTranslation": "I put the extinguisher in the storeroom to avoid blocking the way, and then directly start cutting. Small jobs do not need a fire watcher.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/hot-work.q1.zh.fluent_wrong.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "lifting-zone.q1.my.negation.clean",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ကျွန်တော် load အောက် မဝင်ဘူး။",
+      "answerGloss": "I won't go under the load.",
+      "backTranslation": "I will not go under the load.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "audio": "audio/lifting-zone.q1.my.negation.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "lifting-zone.q1.my.negation.clean.2",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "လမ်းကြောင်းပြဖို့ အောက်ထဲ ဝင်သွားမယ်။",
+      "answerGloss": "I'll go under it to guide it.",
+      "backTranslation": "I will go underneath to show the route.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "audio": "audio/lifting-zone.q1.my.negation.clean.2.wav",
+      "voice": "Orus"
+    },
+    {
+      "id": "lifting-zone.q1.my.complete.clean",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "my",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "load အောက် လုံးဝမဝင်ဘူး။ load ချပြီးတဲ့အထိ barrier အပြင်မှာပဲ နေမယ်။",
+      "answerGloss": "I never go under the load, and I stay outside the barrier until the load is landed.",
+      "backTranslation": "I will absolutely not go under the load. I will only stay outside the barrier until the load is lowered.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/lifting-zone.q1.my.complete.clean.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "lifting-zone.q2.my.code_switch.snr5",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "my",
+      "pattern": "code_switch",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "signalman ဆီက ညွှန်ကြားချက်ပဲ ယူတယ်။",
+      "answerGloss": "I only take directions from the signalman.",
+      "backTranslation": "I only take instructions from the signalman.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/lifting-zone.q2.my.code_switch.snr5.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "lifting-zone.q2.ta.fluent_wrong.snr10",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "crane டிரைவர் என்ன சிக்னல் குடுக்கிறாரோ அதைத்தான் கேட்பேன், ஏன்னா அவருக்குத்தான் load நல்லா தெரியும்.",
+      "answerGloss": "I'll follow whatever signal the crane driver gives me, because he can see the load better.",
+      "backTranslation": "Whatever signal the crane driver gives, that is what I will listen to, because only he knows the load well.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/lifting-zone.q2.ta.fluent_wrong.snr10.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "lifting-zone.q1.zh.two_missing.snr10",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "two_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "我就在crane旁边等着，看着load。",
+      "answerGloss": "I'll wait by the crane and watch the load.",
+      "backTranslation": "I will just wait beside the crane, looking at the load.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "audio": "audio/lifting-zone.q1.zh.two_missing.snr10.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "lifting-zone.q1.zh.silence.clean",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "zh",
+      "pattern": "silence",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "",
+      "answerGloss": "(no speech)",
+      "backTranslation": "",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "audio": "audio/lifting-zone.q1.zh.silence.clean.wav",
+      "voice": null
+    },
+    {
+      "id": "lifting-zone.q1.ta.contradicted.clean",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "load மூவ் ஆகிட்டு இருக்கும்போதே அதை கையால பிடிச்சு பேலன்ஸ் பண்ண barrier உள்ள போவேன்.",
+      "answerGloss": "I'll go inside the barrier to steady the load by hand while it's still moving.",
+      "backTranslation": "While the load is moving, I will go inside the barrier to hold it with hand and balance it.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/lifting-zone.q1.ta.contradicted.clean.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "trench-entry.q1.or.complete.clean",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ଭିତରକୁ ଯିବା ଆଗରୁ, ମୁଁ ଦେଖିବି shoring ଠିକ୍‌ ଭାବରେ ଲାଗିଛି କି ନାହିଁ, ଆଉ କେବଳ ladder ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+      "answerGloss": "Before going in, I'll check the shoring is in place, and I'll get in and out only by the ladder.",
+      "backTranslation": "Before going inside, I will check whether the shoring is installed properly or not, and I will enter and exit only using the ladder.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/trench-entry.q1.or.complete.clean.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "trench-entry.q1.or.one_missing.snr10",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "ମୁଁ ଭିତରକୁ ଯିବା ଆସିବା ପାଇଁ ladder ବ୍ୟବହାର କରିବି।",
+      "answerGloss": "I'll use the ladder to get in and out.",
+      "backTranslation": "I will use the ladder to go inside and come out.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "audio": "audio/trench-entry.q1.or.one_missing.snr10.wav",
+      "voice": "Aoede"
+    },
+    {
+      "id": "trench-entry.q2.or.echo.clean",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "echo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ, ମୁଁ କ'ଣ କରିବି? ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ...",
+      "answerGloss": "If I see water or cracks in the wall, what will I do? If I see water or cracks in the wall...",
+      "backTranslation": "If I see water or a crack on the wall, what will I do? If I see water or a crack on the wall...",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "missed"
+      },
+      "audio": "audio/trench-entry.q2.or.echo.clean.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "trench-entry.q1.or.fluent_wrong.clean",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ମୁଁ କାନ୍ଥ ପାଖ ପଟୁ ଭିତରକୁ ପଶିଯିବି, ସେଠି ମାଟି ଟାଣ ଦିଶୁଛି, ତେଣୁ ladder ଠାରୁ ଏଇଟା ଶୀଘ୍ର ହେବ।",
+      "answerGloss": "I'll go in from the wall side, the soil looks firm there, so it's faster than the ladder.",
+      "backTranslation": "I will enter from the wall side, the soil looks hard there, so this will be faster than a ladder.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/trench-entry.q1.or.fluent_wrong.clean.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "trench-entry.q1.hi.contradicted.clean",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "मैं पहले trench में नीचे उतर जाऊंगा और अंदर जाने के बाद shoring चेक करूंगा।",
+      "answerGloss": "I'll go down into the trench first and check the shoring after I'm inside.",
+      "backTranslation": "I will first go down into the trench and will check the shoring after going inside.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "audio": "audio/trench-entry.q1.hi.contradicted.clean.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "trench-entry.q2.hi.contradicted.snr5",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "अगर पानी दिखा, तो मैं काम चालू रखूंगा और हाथ से दीवार चेक कर लूंगा।",
+      "answerGloss": "If I see water, I'll keep working and check the wall with my hand.",
+      "backTranslation": "If water is seen, then I will keep the work going and will check the wall with hand.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/trench-entry.q2.hi.contradicted.snr5.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "trench-entry.q2.hi.vague.clean",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ठीक है, समझ गया।",
+      "answerGloss": "OK, understood.",
+      "backTranslation": "Okay, understood.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "missed"
+      },
+      "audio": "audio/trench-entry.q2.hi.vague.clean.wav",
+      "voice": "Puck"
+    },
+    {
+      "id": "trench-entry.q2.bn.complete.snr10",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "complete",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "যদি দেয়ালে পানি বা ফাটল দেখি, সাথে সাথে উঠে আসব আর supervisor-কে বলব।",
+      "answerGloss": "If I see water or cracks in the wall, I'll climb out at once and tell the supervisor.",
+      "backTranslation": "If I see water or crack on the wall, I will come up immediately and tell the supervisor.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/trench-entry.q2.bn.complete.snr10.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "trench-entry.q1.or.wrong_language.clean",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "wrong_language",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "मैं चेक करूंगा कि shoring अपनी जगह पर है, और अंदर-बाहर सिर्फ ladder से ही आऊंगा-जाऊंगा।",
+      "answerGloss": "[Spoken in Hindi, expected Odia] I'll check the shoring is in place, and I'll go in and out only by the ladder.",
+      "backTranslation": "I will check that the shoring is in its place, and will come and go inside and out only by ladder.",
+      "fidelity": "ok",
+      "gold": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "audio": "audio/trench-entry.q1.or.wrong_language.clean.wav",
+      "voice": "Leda"
+    },
+    {
+      "id": "trench-entry.q2.or.wrong_language.clean",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "wrong_language",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "अगर मुझे पानी या दरारें दिखीं, तो मैं तुरंत बाहर निकल आऊंगा और supervisor को बता दूंगा।",
+      "answerGloss": "[Spoken in Hindi, expected Odia] If I see water or cracks, I'll climb out at once and tell the supervisor.",
+      "backTranslation": "If I see water or cracks, I will immediately come outside and inform the supervisor.",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "unclear"
+      },
+      "audio": "audio/trench-entry.q2.or.wrong_language.clean.wav",
+      "voice": "Kore"
+    },
+    {
+      "id": "trench-entry.q2.bn.silence.clean",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "silence",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "",
+      "answerGloss": "(no speech)",
+      "backTranslation": "",
+      "fidelity": "ok",
+      "gold": {
+        "s3": "unclear"
+      },
+      "audio": "audio/trench-entry.q2.bn.silence.clean.wav",
+      "voice": null
+    }
+  ]
+}

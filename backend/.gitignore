@@ -1,0 +1,13 @@
+# Local store (briefing records, kept audio) and Python tooling output. Never committed.
+.data/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.log
+
+# Eval data staged for the image by deploy/02_deploy_backend.sh. The folder is tracked, its contents are not.
+eval_data/*
+!eval_data/.gitkeep

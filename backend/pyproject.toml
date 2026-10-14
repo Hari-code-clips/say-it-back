@@ -1,0 +1,69 @@
+[project]
+name = "sayitback"
+version = "0.2.0"
+description = "Say It Back backend: ADK 2.11 agents, FastAPI API and the Gemini Live relay"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "google-adk==2.11.*",
+  "google-genai>=2.29,<3",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.34",
+  "pydantic>=2.9",
+  "python-multipart>=0.0.9",
+  "google-cloud-firestore>=2.34",
+]
+
+[project.optional-dependencies]
+# SIB_BQ_DATASET: Google's BigQuery Agent Analytics plugin needs pyarrow and the BigQuery clients.
+bigquery = ["google-adk[bigquery-analytics]==2.11.*"]
+# SIB_TRACE_TO_CLOUD: ADK exports OpenTelemetry spans over OTLP/HTTP to telemetry.googleapis.com.
+trace = [
+  "opentelemetry-exporter-otlp-proto-http>=1.36",
+  "opentelemetry-resourcedetector-gcp>=1.9.0a0,<2",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8",
+  "pytest-asyncio>=0.24",
+  "httpx>=0.27",
+  "ruff>=0.6",
+  "websockets>=15.0.1,<16",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sayitback"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-ra"
+filterwarnings = [
+  # The check is an ADK Workflow. ADK 2.11 deprecates SequentialAgent, ParallelAgent and LoopAgent in
+  # favour of it, so bringing one back fails the suite.
+  "error:.*is deprecated in favor of Workflow.*:DeprecationWarning",
+  # Starlette's TestClient prefers httpx2; httpx is the declared dev dependency.
+  "ignore:Using .httpx. with .starlette.testclient.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [".data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "ASYNC", "S", "PTH"]
+ignore = [
+  "S101",  # assert is fine in tests and for invariants
+  "S311",  # random is used for retry jitter, never for secrets
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "B011", "E501", "SIM117"]
+"sayitback/agents/**" = ["E402"]
