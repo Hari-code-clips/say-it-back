@@ -7,7 +7,7 @@ PROJECT_ID="${PROJECT_ID:-}"
 
 REGION="asia-south1"                # Cloud Run and Firestore.
 LIVE_LOCATION="us-central1"         # Gemini Live is served from US or EU Agent Platform endpoints only.
-SERVICE="say-it-back-api"           # Cloud Run service name. firebase.json repeats it; keep them equal.
+SERVICE="say-it-back-api"           # Cloud Run service name. Step 3 reads its URL for VITE_API_BASE.
 RUNTIME_SA_NAME="say-it-back-run"   # Runtime service account. Its email address is derived below.
 
 # Optional BigQuery dataset for the ADK analytics plugin (letters, digits, underscores). Empty skips it.

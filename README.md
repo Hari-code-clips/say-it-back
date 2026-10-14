@@ -28,7 +28,7 @@ flowchart LR
   bq[("BigQuery<br/>analytics, content redacted")]
   chat["Google Chat<br/>decision webhook"]
 
-  phone -- "HTTPS /api via Hosting rewrite" --> api
+  phone -- "HTTPS /api direct to Cloud Run" --> api
   phone -- "WSS /api/live direct to Cloud Run" --> api
   api --> agents
   api --> briefer
@@ -42,7 +42,7 @@ flowchart LR
   api --> chat
 ```
 
-Firebase Hosting serves the web app and rewrites `/api/**` to Cloud Run. Hosting does not proxy the Live WebSocket, so the browser connects to the Cloud Run URL directly.
+Firebase Hosting serves the web app as static files. The browser calls the Cloud Run service directly, for the API and for the Live WebSocket, so every request reaches the service through the same hops and the per-address limits can trust `X-Forwarded-For` read from the right. Each browser sends a random device key (`X-SIB-Device`) that owns its briefings; there are no accounts.
 
 ## Built on Google
 
@@ -54,7 +54,7 @@ Firebase Hosting serves the web app and rewrites `/api/**` to Cloud Run. Hosting
 | ADK 2.11 (Python) | Every agent; the check as an ADK 2 `Workflow` graph (fan-out judges, `JoinNode`, guard `FunctionNode`); Live through `run_live`; App with plugins; `adk web` dev UI over the same agents | `run_live` and HITL verified by probe |
 | Gemini Enterprise Agent Platform | Gemini backend in the cloud on the service account | Verify in the hackathon project (Live: US/EU endpoints only) |
 | Cloud Run | Hosts the ADK service, REST plus WebSocket | Deploy pending |
-| Firebase Hosting | Serves the web app; rewrites `/api/**` to Cloud Run | Deploy pending |
+| Firebase Hosting | Serves the web app (static, strict CSP); deploys deny-all Firestore client rules | Deploy pending |
 | Firestore | Briefing records | Fake-tested; deploy pending |
 | Cloud Trace | Per-agent spans and latency through ADK's OpenTelemetry | Env-gated |
 | BigQuery | Agent event analytics through ADK's plugin; transcripts and audio redacted | Env-gated |

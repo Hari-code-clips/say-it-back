@@ -175,7 +175,7 @@
       "supervisorLang": "en",
       "workerLang": "ta",
       "rounds": [
-        { "questionId": "q1", "answer": { "ta": "நான் அதை ஆஃப் பண்ணிட்டு திறப்பேன்.", "en": "I'll switch it off and open it." }, "expected": { "s1": "covered", "s2": "missed", "s3": "missed" } },
+        { "questionId": "q1", "answer": { "ta": "நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.", "en": "I'll switch off the breaker and open it." }, "expected": { "s1": "covered", "s2": "missed", "s3": "missed" } },
         { "questionId": "q1", "answer": { "ta": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் பேனலைத் திறப்பேன்.", "en": "First I'll switch off the breaker, then put on the lock and tag, and only after checking with the tester that there's no current will I open the panel." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" } }
       ]
     },

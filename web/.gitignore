@@ -1,0 +1,6 @@
+node_modules
+dist
+*.tsbuildinfo
+.firebase
+.playwright-mcp
+.DS_Store

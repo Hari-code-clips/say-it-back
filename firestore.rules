@@ -1,0 +1,13 @@
+rules_version = '2';
+
+// No browser reads or writes Firestore. The backend uses the Admin SDK (the Cloud Run service account), which these rules
+// never apply to. Firebase Hosting serves the project's web API key to every visitor (/__/firebase/init.json), so without
+// deny-all rules anyone could use that key to read the briefings or to reset the daily call counter.
+// firebase.json deploys this file with the Hosting release (deploy/03_deploy_web.sh).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

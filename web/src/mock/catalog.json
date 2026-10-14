@@ -1,0 +1,194 @@
+{
+  "version": "2026-10-13",
+  "note": "Synthetic SOPs and scripted tasks for the prototype. Not real site documents. Tamil, Hindi and other non-English strings are drafts pending native-speaker review.",
+  "languages": {
+    "en": { "name": "English", "native": "English", "bcp47": "en-SG", "script": "Latn", "unicodeRanges": [["0041", "007A"]] },
+    "zh": { "name": "Mandarin Chinese", "native": "中文", "bcp47": "zh-CN", "script": "Hans", "unicodeRanges": [["4E00", "9FFF"]] },
+    "ta": { "name": "Tamil", "native": "தமிழ்", "bcp47": "ta-IN", "script": "Taml", "unicodeRanges": [["0B80", "0BFF"]] },
+    "bn": { "name": "Bengali", "native": "বাংলা", "bcp47": "bn-BD", "script": "Beng", "unicodeRanges": [["0980", "09FF"]] },
+    "my": { "name": "Burmese", "native": "မြန်မာ", "bcp47": "my-MM", "script": "Mymr", "unicodeRanges": [["1000", "109F"]] },
+    "hi": { "name": "Hindi", "native": "हिन्दी", "bcp47": "hi-IN", "script": "Deva", "unicodeRanges": [["0900", "097F"]] },
+    "or": { "name": "Odia", "native": "ଓଡ଼ିଆ", "bcp47": "or-IN", "script": "Orya", "unicodeRanges": [["0B00", "0B7F"]] }
+  },
+  "sites": [
+    {
+      "id": "sg",
+      "name": "Singapore",
+      "setting": "Construction site with a foreign Work Permit workforce",
+      "supervisorLanguages": ["en", "zh"],
+      "defaultSupervisorLanguage": "en",
+      "workerLanguages": ["ta", "bn", "zh", "my"],
+      "defaultWorkerLanguage": "ta",
+      "bcp47Overrides": { "bn": "bn-BD" },
+      "context": "Site language is English. Workers come largely from Bangladesh, India, China and Myanmar."
+    },
+    {
+      "id": "chennai",
+      "name": "Chennai",
+      "setting": "Construction site with an inter-state migrant workforce",
+      "supervisorLanguages": ["ta", "en"],
+      "defaultSupervisorLanguage": "ta",
+      "workerLanguages": ["hi", "or", "bn"],
+      "defaultWorkerLanguage": "hi",
+      "bcp47Overrides": { "bn": "bn-IN" },
+      "context": "Site language is Tamil. Many workers come from Odisha, Bihar, Jharkhand and West Bengal. Bhojpuri is not supported, so Bihar workers are briefed in Hindi."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "panel-isolation",
+      "icon": "electric",
+      "title": { "en": "Open a distribution panel", "ta": "டிஸ்ட்ரிபியூஷன் பேனலைத் திறத்தல்" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "ta" },
+      "sop": {
+        "id": "SOP-EL-04",
+        "version": "v3",
+        "title": "Isolation of low-voltage distribution panels",
+        "text": "1. Only authorised persons may open a distribution panel.\n2. Identify the correct supply from the single-line diagram.\n3. Switch off and isolate the supply at the upstream breaker.\n4. Fit your personal lock and a danger tag to the breaker (lock-out/tag-out). Keep the key on you.\n5. Test the panel dead with an approved voltage tester. Prove the tester on a known live source before and after.\n6. Only then open the panel cover.\n7. If any reading is unexpected, stop and tell the supervisor.\nHazards: electric shock and arc flash from live or back-fed conductors."
+      },
+      "sampleInstruction": {
+        "en": "Isolate the breaker, lock it, and test it dead before you open the panel.",
+        "ta": "பேனலைத் திறப்பதற்கு முன், பிரேக்கரை ஆஃப் செய்து, லாக் போட்டு, கரண்ட் இல்லை என்று டெஸ்ட் செய்யுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Switch off (isolate) the supply at the breaker", "hazard": "Electric shock from live parts", "essential": ["switch off or isolate the supply at the breaker"], "source": "instruction" },
+        { "id": "s2", "text": "Lock and tag the breaker so no one can switch it back on", "hazard": "Someone re-energises the panel while you work", "essential": ["put a lock (and tag) on the breaker"], "source": "instruction" },
+        { "id": "s3", "text": "Test that it is dead with a tester before touching anything", "hazard": "Back-feed, or the wrong breaker was switched off", "essential": ["test with a voltage tester that there is no power before touching"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you open the panel?", "stepIds": ["s1", "s2", "s3"] },
+        { "id": "q2", "text": "How will you know it is safe to touch the wires?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "scaffold-harness",
+      "icon": "height",
+      "title": { "en": "Step onto a scaffold (work at height)", "ta": "சாரத்தில் ஏறுதல் (உயரத்தில் வேலை)" },
+      "demoSite": "chennai",
+      "demoPair": { "supervisorLang": "ta", "workerLang": "hi" },
+      "sop": {
+        "id": "SOP-WAH-02",
+        "version": "v2",
+        "title": "Working at height on scaffolds",
+        "text": "1. Use only a scaffold that carries a green scaffold tag.\n2. Wear a full-body harness. Check the straps, buckles and webbing before use.\n3. Clip the lanyard to the lifeline or an approved anchor before stepping onto the scaffold.\n4. Stay clipped on at all times. With a double lanyard, unclip one hook only after the other is clipped.\n5. Do not climb the scaffold frame; use the access ladder.\nHazards: falls from height."
+      },
+      "sampleInstruction": {
+        "en": "Clip your harness to the lifeline before you step onto the scaffold.",
+        "ta": "சாரத்தில் ஏறுவதற்கு முன், உங்கள் ஹார்னஸை லைஃப்லைனில் கிளிப் செய்யுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Put on the full-body harness and check the straps and buckles", "hazard": "A loose or damaged harness fails in a fall", "essential": ["wear the harness"], "source": "sop" },
+        { "id": "s2", "text": "Clip the lanyard to the lifeline before the first step onto the scaffold", "hazard": "Fall from height", "essential": ["clip on to the lifeline", "before stepping onto the scaffold"], "source": "instruction" },
+        { "id": "s3", "text": "Stay clipped on the whole time; move one hook at a time", "hazard": "Fall while moving along the scaffold", "essential": ["never unclip while on the scaffold"], "source": "sop" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before your first step onto the scaffold?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "When can you take the clip off?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "hot-work",
+      "icon": "fire",
+      "title": { "en": "Cutting or grinding (hot work)", "ta": "கட்டிங் / கிரைண்டிங் (சூடான வேலை)" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "bn" },
+      "sop": {
+        "id": "SOP-HW-01",
+        "version": "v4",
+        "title": "Hot work: cutting, grinding and welding",
+        "text": "1. Get a hot work permit before starting.\n2. Remove or cover combustible material within 10 metres of the work.\n3. Keep a charged fire extinguisher within reach. A trained fire watcher must be present during the work.\n4. The fire watch continues for at least 30 minutes after the work ends.\n5. For gas cutting, check the hoses and flashback arrestors before lighting.\nHazards: fire from sparks and hot slag; smouldering fires after the work ends."
+      },
+      "sampleInstruction": {
+        "en": "Before you start cutting, clear anything that can burn within ten metres, keep the extinguisher next to you with a fire watcher, and keep watching for thirty minutes after you finish.",
+        "ta": "கட்டிங் தொடங்கும் முன், பத்து மீட்டருக்குள் எரியக்கூடிய எல்லாவற்றையும் அகற்றுங்கள்; தீயணைப்பான் பக்கத்தில் இருக்கட்டும், ஒரு ஃபயர் வாட்சரும் இருக்க வேண்டும்; வேலை முடிந்த பிறகு முப்பது நிமிடம் கவனித்துக்கொண்டே இருங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Clear or cover anything that can burn within 10 metres", "hazard": "Sparks set nearby material on fire", "essential": ["remove or cover things that can burn", "within 10 metres"], "source": "instruction" },
+        { "id": "s2", "text": "Keep a fire extinguisher at hand and a fire watcher present while cutting", "hazard": "A fire spreads before anyone notices", "essential": ["extinguisher nearby", "fire watcher present"], "source": "instruction" },
+        { "id": "s3", "text": "Keep watching for 30 minutes after finishing", "hazard": "A smouldering fire starts after everyone leaves", "essential": ["watch for 30 minutes after finishing"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you start cutting?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "What will you do after you finish cutting?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "lifting-zone",
+      "icon": "crane",
+      "title": { "en": "Crane lift: the lifting zone", "ta": "கிரேன் தூக்குதல்: லிஃப்டிங் பகுதி" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "my" },
+      "sop": {
+        "id": "SOP-LF-03",
+        "version": "v2",
+        "title": "Lifting operations with mobile and tower cranes",
+        "text": "1. The lifting zone is barricaded; only the rigging crew enters it.\n2. Never stand, walk or work under a suspended load.\n3. Stay outside the barricade until the load is landed and the all-clear is given.\n4. Only the appointed signalman gives signals to the crane operator. Follow only the signalman.\n5. Use tag lines to control the load; never steady a load by hand.\nHazards: being struck or crushed by a falling or swinging load."
+      },
+      "sampleInstruction": {
+        "en": "Never go under the load, stay outside the barrier until it's landed, and only follow the signalman.",
+        "ta": "லோடுக்கு அடியில் ஒருபோதும் போகாதீர்கள்; லோடு கீழே இறங்கும் வரை பேரிகேடுக்கு வெளியே நில்லுங்கள்; சிக்னல்மேன் சொல்வதை மட்டும் கேளுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Never stand or walk under the load", "hazard": "Crushed if the load falls", "essential": ["never go under the load"], "source": "instruction" },
+        { "id": "s2", "text": "Stay outside the barrier until the load is landed", "hazard": "Struck by a swinging load", "essential": ["stay outside the barrier", "until the load is landed"], "source": "instruction" },
+        { "id": "s3", "text": "Follow only the signalman's signals", "hazard": "Mixed signals cause a wrong crane movement", "essential": ["take directions only from the signalman"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "Where will you be while the load is moving?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "During the lift, who will you take directions from?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "trench-entry",
+      "icon": "trench",
+      "title": { "en": "Enter a trench to lay pipe", "ta": "குழாய் பதிக்க டிரெஞ்சில் இறங்குதல்" },
+      "demoSite": "chennai",
+      "demoPair": { "supervisorLang": "ta", "workerLang": "or" },
+      "designNote": "The sample instruction deliberately leaves out the shoring check, which only the SOP contains. The extractor should flag it as 'SOP-only: you did not say this'.",
+      "sop": {
+        "id": "SOP-EX-05",
+        "version": "v3",
+        "title": "Entering excavations and trenches",
+        "text": "1. Before anyone enters a trench deeper than 1.5 metres, the shoring or trench box must be in place and inspected by the competent person.\n2. Keep excavated soil at least 1 metre back from the edge.\n3. Enter and leave only by the ladder; never climb on the shoring.\n4. If you see water seeping, cracks, or soil falling from the wall, get out at once and tell the supervisor.\nHazards: collapse of the trench wall and burial; falls."
+      },
+      "sampleInstruction": {
+        "en": "Use only the ladder to get in and out of the trench, and if you see water or cracks in the wall, climb out at once and tell me.",
+        "ta": "டிரெஞ்சுக்குள் இறங்கவும் ஏறவும் ஏணியை மட்டும் பயன்படுத்துங்கள்; சுவரில் தண்ணீர் அல்லது விரிசல் தெரிந்தால் உடனே வெளியே வந்து என்னிடம் சொல்லுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Check that the shoring is in place before going in", "hazard": "The trench wall collapses and buries you", "essential": ["check the shoring or trench support is in place before entering"], "source": "sop" },
+        { "id": "s2", "text": "Use only the ladder to get in and out", "hazard": "Falls, or no quick way out", "essential": ["use the ladder to enter and leave"], "source": "instruction" },
+        { "id": "s3", "text": "If you see water or cracks in the wall, climb out at once and tell the supervisor", "hazard": "Wall collapse", "essential": ["get out at once", "tell the supervisor"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you check and do before you go into the trench?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "What will you do if you see water or cracks in the wall?", "stepIds": ["s3"] }
+      ]
+    }
+  ],
+  "demoScripts": [
+    {
+      "id": "sg-lead",
+      "taskId": "panel-isolation",
+      "siteId": "sg",
+      "supervisorLang": "en",
+      "workerLang": "ta",
+      "rounds": [
+        { "questionId": "q1", "answer": { "ta": "நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.", "en": "I'll switch off the breaker and open it." }, "expected": { "s1": "covered", "s2": "missed", "s3": "missed" } },
+        { "questionId": "q1", "answer": { "ta": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் பேனலைத் திறப்பேன்.", "en": "First I'll switch off the breaker, then put on the lock and tag, and only after checking with the tester that there's no current will I open the panel." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" } }
+      ]
+    },
+    {
+      "id": "chennai-second",
+      "taskId": "scaffold-harness",
+      "siteId": "chennai",
+      "supervisorLang": "ta",
+      "workerLang": "hi",
+      "rounds": [
+        { "questionId": "q1", "answer": { "hi": "मैं हार्नेस पहनूँगा और ऊपर चढ़ जाऊँगा।", "en": "I'll put on the harness and go up." }, "expected": { "s1": "covered", "s2": "missed" } },
+        { "questionId": "q1", "answer": { "hi": "पहले हार्नेस पहनकर बकल चेक करूँगा, फिर पहला कदम रखने से पहले हुक को लाइफ़लाइन में लगाऊँगा।", "en": "First I'll put on the harness and check the buckles, then clip the hook to the lifeline before my first step." }, "expected": { "s1": "covered", "s2": "covered" } }
+      ]
+    }
+  ]
+}

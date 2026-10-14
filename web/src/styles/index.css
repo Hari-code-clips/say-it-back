@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* Material Design 3 on Tailwind v4.
+   - Colours: generated at startup from one seed (src/theme/scheme.ts) into --md-sys-color-*
+     custom properties; `@theme inline` below turns them into utilities (bg-primary, ...).
+   - Type scale, shape, elevation and motion follow the M3 specs. */
+
+@theme {
+  /* Only M3 values exist: reset Tailwind's default palette, type scale, shapes and shadows. */
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --breakpoint-*: initial;
+  --ease-*: initial;
+
+  /* M3 window size classes: compact < 600, medium 600-839, expanded 840-1199, large 1200+ */
+  --breakpoint-sm: 37.5rem;
+  --breakpoint-md: 52.5rem;
+  --breakpoint-lg: 75rem;
+
+  --font-sans: "Noto Sans", "Noto Sans Tamil", "Noto Sans Bengali", "Noto Sans Devanagari",
+    "Noto Sans Oriya", "Noto Sans Myanmar", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* M3 type scale (size / line height / tracking / weight). UI text never goes below 14 px. */
+  --text-display-lg: 3.5625rem;
+  --text-display-lg--line-height: 4rem;
+  --text-display-lg--letter-spacing: -0.015625rem;
+  --text-display-md: 2.8125rem;
+  --text-display-md--line-height: 3.25rem;
+  --text-display-sm: 2.25rem;
+  --text-display-sm--line-height: 2.75rem;
+  --text-headline-lg: 2rem;
+  --text-headline-lg--line-height: 2.5rem;
+  --text-headline-md: 1.75rem;
+  --text-headline-md--line-height: 2.25rem;
+  --text-headline-sm: 1.5rem;
+  --text-headline-sm--line-height: 2rem;
+  --text-title-lg: 1.375rem;
+  --text-title-lg--line-height: 1.75rem;
+  --text-title-md: 1rem;
+  --text-title-md--line-height: 1.5rem;
+  --text-title-md--letter-spacing: 0.009375rem;
+  --text-title-md--font-weight: 500;
+  --text-title-sm: 0.875rem;
+  --text-title-sm--line-height: 1.25rem;
+  --text-title-sm--letter-spacing: 0.00625rem;
+  --text-title-sm--font-weight: 500;
+  --text-label-lg: 0.875rem;
+  --text-label-lg--line-height: 1.25rem;
+  --text-label-lg--letter-spacing: 0.00625rem;
+  --text-label-lg--font-weight: 500;
+  --text-body-lg: 1rem;
+  --text-body-lg--line-height: 1.5rem;
+  --text-body-lg--letter-spacing: 0.03125rem;
+  --text-body-md: 0.875rem;
+  --text-body-md--line-height: 1.25rem;
+  --text-body-md--letter-spacing: 0.015625rem;
+  /* Worker screen: very large, fluid, readable at arm's length. */
+  --text-worker: clamp(1.75rem, 1.35rem + 2vw, 2.75rem);
+  --text-worker--line-height: 1.4;
+  --text-worker--font-weight: 600;
+  --text-worker-sm: clamp(1.25rem, 1.05rem + 1vw, 1.75rem);
+  --text-worker-sm--line-height: 1.45;
+  /* Steps down from text-worker for a long live caption (screens/brief/Caption.tsx). The last, 1.375rem
+     (22 px, M3 title-large), is the floor: a caption never gets smaller than that. */
+  --text-worker-md: clamp(1.5rem, 1.2rem + 1.6vw, 2.1rem);
+  --text-worker-md--line-height: 1.4;
+  --text-worker-md--font-weight: 600;
+  --text-worker-min: 1.375rem;
+  --text-worker-min--line-height: 1.45;
+  --text-worker-min--font-weight: 600;
+
+  /* M3 shape scale */
+  --radius-none: 0;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 3rem;
+  --radius-full: 9999px;
+
+  /* M3 elevation: key light 30 % + ambient 15 % */
+  --shadow-elev-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-elev-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-elev-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+  --shadow-elev-4: 0 2px 3px 0 rgb(0 0 0 / 0.3), 0 6px 10px 4px rgb(0 0 0 / 0.15);
+
+  /* M3 motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
+  --animate-rise: rise 300ms var(--ease-decelerate) both;
+  --animate-fade-in: fade-in 200ms var(--ease-standard) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-orb-breathe: orb-breathe 2.4s ease-in-out infinite;
+  --animate-indeterminate: indeterminate 1.5s var(--ease-standard) infinite;
+
+  @keyframes indeterminate {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(300%); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes shimmer {
+    to { background-position: -200% 0; }
+  }
+  @keyframes orb-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+}
+
+/* Runtime colour variables (set by applyScheme) -> Tailwind colour utilities. */
+@theme inline {
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-primary: var(--md-sys-color-primary);
+  --color-on-primary: var(--md-sys-color-on-primary);
+  --color-primary-container: var(--md-sys-color-primary-container);
+  --color-on-primary-container: var(--md-sys-color-on-primary-container);
+  --color-secondary: var(--md-sys-color-secondary);
+  --color-on-secondary: var(--md-sys-color-on-secondary);
+  --color-secondary-container: var(--md-sys-color-secondary-container);
+  --color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+  --color-tertiary: var(--md-sys-color-tertiary);
+  --color-on-tertiary: var(--md-sys-color-on-tertiary);
+  --color-tertiary-container: var(--md-sys-color-tertiary-container);
+  --color-on-tertiary-container: var(--md-sys-color-on-tertiary-container);
+  --color-error: var(--md-sys-color-error);
+  --color-on-error: var(--md-sys-color-on-error);
+  --color-error-container: var(--md-sys-color-error-container);
+  --color-on-error-container: var(--md-sys-color-on-error-container);
+  --color-success: var(--md-sys-color-success);
+  --color-on-success: var(--md-sys-color-on-success);
+  --color-success-container: var(--md-sys-color-success-container);
+  --color-on-success-container: var(--md-sys-color-on-success-container);
+  --color-warning: var(--md-sys-color-warning);
+  --color-on-warning: var(--md-sys-color-on-warning);
+  --color-warning-container: var(--md-sys-color-warning-container);
+  --color-on-warning-container: var(--md-sys-color-on-warning-container);
+  --color-background: var(--md-sys-color-background);
+  --color-on-background: var(--md-sys-color-on-background);
+  --color-surface: var(--md-sys-color-surface);
+  --color-on-surface: var(--md-sys-color-on-surface);
+  --color-surface-variant: var(--md-sys-color-surface-variant);
+  --color-on-surface-variant: var(--md-sys-color-on-surface-variant);
+  --color-surface-dim: var(--md-sys-color-surface-dim);
+  --color-surface-bright: var(--md-sys-color-surface-bright);
+  --color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low: var(--md-sys-color-surface-container-low);
+  --color-surface-container: var(--md-sys-color-surface-container);
+  --color-surface-container-high: var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+  --color-outline: var(--md-sys-color-outline);
+  --color-outline-variant: var(--md-sys-color-outline-variant);
+  --color-inverse-surface: var(--md-sys-color-inverse-surface);
+  --color-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
+  --color-inverse-primary: var(--md-sys-color-inverse-primary);
+  --color-scrim: var(--md-sys-color-scrim);
+  --color-shadow: var(--md-sys-color-shadow);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Keep a focused control clear of the sticky header and the fixed action bar (WCAG 2.4.11). */
+    scroll-padding-top: 5rem;
+    scroll-padding-bottom: 9rem;
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+
+  /* M3 focus indicator: 3 px ring with a 2 px gap, keyboard only. */
+  :focus-visible {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+  [tabindex="-1"]:focus { outline: none; }
+
+  button { cursor: pointer; }
+  button:disabled { cursor: default; }
+}
+
+@layer components {
+  /* Material Symbols (font subset comes from Google Fonts; see vite.config.ts) */
+  .icon {
+    font-family: "Material Symbols Outlined";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    flex: none;
+    /* One em wide, clipped: if the icon font never loads, the ligature name cannot push the layout around. */
+    width: 1em;
+    overflow: clip;
+    white-space: nowrap;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0;
+    user-select: none;
+  }
+  .icon-filled { font-variation-settings: "FILL" 1; }
+
+  /* M3 state layer: hover 8 %, focus / press 10 %, painted with the content colour. */
+  .state-layer { position: relative; isolation: isolate; }
+  .state-layer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms var(--ease-standard);
+  }
+  @media (hover: hover) {
+    .state-layer:hover::before { opacity: 0.08; }
+  }
+  .state-layer:focus-visible::before,
+  .state-layer:active::before { opacity: 0.1; }
+  .state-layer:disabled::before,
+  .state-layer[aria-disabled="true"]::before { opacity: 0; }
+
+  /* Text in the worker's script: tall scripts get room so marks are never clipped. */
+  .script-text { line-height: 1.65; }
+  .script-text:lang(my) { line-height: 2.05; }
+  .script-text:lang(ta), .script-text:lang(bn), .script-text:lang(hi), .script-text:lang(or) { line-height: 1.75; }
+
+  /* A live caption (screens/brief/Caption.tsx): as tall as its text up to the room its flex parent leaves it. When the
+     text is longer, the box is anchored at the bottom, so it is the oldest lines that are cut off at the top, never the
+     newest words. A text shorter than the box stays at the top (the auto margin); the fade only shows once clipped. */
+  .caption-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    /* Safari's scroll anchoring holds the lines that are in view in place while text is added below them, so the box
+       would stop following the newest words once the text outgrows it. */
+    overflow-anchor: none;
+  }
+  .caption-box > * {
+    flex: none;
+    margin-bottom: auto;
+    /* Tall scripts have ink below the line box; overflow:hidden would shave it off the last line. */
+    padding-bottom: 0.14em;
+  }
+  .caption-box[data-clipped="true"] {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 1.6em);
+    mask-image: linear-gradient(to bottom, transparent, #000 1.6em);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--md-sys-color-surface-container) 25%, var(--md-sys-color-surface-container-high) 50%, var(--md-sys-color-surface-container) 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: var(--radius-md);
+  }
+
+  /* Listening orb: --level (0..1) is written from requestAnimationFrame, never via React state. */
+  .orb-ring {
+    transform: scale(calc(1 + var(--level, 0) * 0.32));
+    transition: transform 90ms linear;
+    will-change: transform;
+  }
+
+  .no-select { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .orb-ring { transform: none; }
+  /* A busy indicator is status, not decoration: keep it turning, slowly. */
+  .spinner { animation: spin 1.6s linear infinite !important; animation-iteration-count: infinite !important; animation-duration: 1.6s !important; }
+}
