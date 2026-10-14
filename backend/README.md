@@ -2,7 +2,8 @@
 
 Python 3.13, FastAPI, Google ADK 2.11 and Gemini 3.8. One service serves the 20 endpoints of
 [`docs/API.md`](../docs/API.md): REST for the briefing flow and a WebSocket that relays the live voice
-briefing. Every Gemini call, including the live voice, runs through ADK. The same code runs on the
+briefing. Every agent, including the live voice, runs through ADK; only turn-mode TTS is a plain
+google-genai call, because it needs no agent. The same code runs on the
 Gemini Developer API (a laptop with an API key) and on Gemini Enterprise Agent Platform (Cloud Run
 with its service account). See [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md) for the design.
 

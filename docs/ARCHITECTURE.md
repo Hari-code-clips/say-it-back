@@ -2,7 +2,7 @@
 
 Before a migrant worker starts a new or changed task, the supervisor's instruction is spoken to them in their own language. The worker explains back, out loud, what they will do. Gemini checks the answer against the task's critical steps and shows the supervisor, in the supervisor's language, which step was missed. The supervisor decides whether work starts. The AI informs the decision; it never makes it.
 
-v0.2 makes the build Google-native end to end. ADK runs every Gemini call, including the live voice briefing, and in the cloud all Gemini traffic goes through Gemini Enterprise Agent Platform (formerly Vertex AI). Changes from v0.1 are listed at the end.
+v0.2 makes the build Google-native end to end. ADK runs every agent, including the live voice briefing; only turn-mode TTS is a plain google-genai call, because it needs no agent. In the cloud all Gemini traffic goes through Gemini Enterprise Agent Platform (formerly Vertex AI). Changes from v0.1 are listed at the end.
 
 ## System
 
@@ -70,7 +70,7 @@ Gemini Developer API key on a laptop. The same code serves both (google-genai / 
 
 | Decision | Why |
 |---|---|
-| ADK runs every Gemini call, including Live, through `run_live` | One agent framework end to end, as Google's own guidance recommends; one place for instructions, schemas, callbacks, plugins and tracing; the dev UI shows the real agents. |
+| ADK runs every agent, including Live through `run_live` (turn-mode TTS is a plain google-genai call) | One agent framework end to end, as Google's own guidance recommends; one place for instructions, schemas, callbacks, plugins and tracing; the dev UI shows the real agents. |
 | Live is relayed by the backend, not opened from the browser | In the cloud all Gemini traffic, Live included, runs on Agent Platform with the service account and the trial credit. No API key is deployed, and no free-tier rate limit hits the judged demo. The lock is server-side by construction, and the server keeps the transcripts. The cost is one extra hop and a WebSocket that goes straight to the Cloud Run URL (Hosting can't proxy it). Browser-direct Live with config-locked ephemeral credentials was verified in probes, but those credentials exist only on the Developer API, so it isn't built. |
 | No accounts: each browser holds a random device key that owns its briefings | A public demo needs visitors kept apart without a sign-up step. The key scopes reads, writes, the list and the export to one browser; its ticket alone opens the Live socket. The production path is Firebase Authentication or Identity Platform for the org's users, plus App Check against scripted clients. |
 | The browser calls Cloud Run directly, not through a Hosting rewrite | Per-address limits read `X-Forwarded-For` from the right, so every request must arrive through the same hops; the WebSocket already goes direct. It also removes Hosting's 60 s cut on long requests. |
