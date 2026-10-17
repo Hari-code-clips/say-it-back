@@ -1,6 +1,6 @@
 # Say It Back
 
-[![CI](https://github.com/OWNER/say-it-back/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/say-it-back/actions/workflows/ci.yml)
+[![CI](https://github.com/Hari-code-clips/say-it-back/actions/workflows/ci.yml/badge.svg)](https://github.com/Hari-code-clips/say-it-back/actions/workflows/ci.yml)
 ![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
 ![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![Google ADK](https://img.shields.io/badge/Google%20ADK-2.11-4285F4)
