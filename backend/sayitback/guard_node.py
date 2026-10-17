@@ -16,12 +16,15 @@ from google.adk.workflow import FunctionNode
 from google.genai import types
 
 from sayitback import catalog, demo
-from sayitback.adk_common import INPUT_KEY
+from sayitback.adk_common import INPUT_KEY, refused_by
 from sayitback.check_state import (
     FINAL_KEY,
+    JUDGE_A,
     JUDGE_A_KEY,
+    JUDGE_B,
     JUDGE_B_KEY,
     TRANSCRIBE_KEY,
+    TRANSCRIBER,
     CheckInput,
     transcripts_from,
 )
@@ -31,9 +34,15 @@ NAME = "guard"
 
 
 def guard_state(state: Mapping[str, Any], cfg: GuardConfig) -> GuardResult:
-    """Apply guard rules 1-7 to what the earlier nodes left in `state`."""
+    """Apply guard rules 1-7 to what the earlier nodes left in `state`, including which model
+    replies the model's filter blocked (adk_common.record_refusal)."""
     inp = CheckInput(state.get(INPUT_KEY) or demo.check_input())
-    transcripts = transcripts_from(state.get(TRANSCRIBE_KEY), inp.ids, inp.clip_ids)
+    transcripts = transcripts_from(
+        state.get(TRANSCRIBE_KEY),
+        inp.ids,
+        inp.clip_ids,
+        refused=bool(refused_by(state, TRANSCRIBER)),
+    )
     return run_guards(
         steps=inp.steps,
         questions=inp.questions,
@@ -44,6 +53,8 @@ def guard_state(state: Mapping[str, Any], cfg: GuardConfig) -> GuardResult:
         worker_ranges=catalog.unicode_ranges(inp.worker_lang),
         cfg=cfg,
         script=inp.script,
+        refused_judges=[j for j in (JUDGE_A, JUDGE_B) if refused_by(state, j)],
+        supervisor_lang=str(inp.raw.get("supervisor_lang") or "en"),
     )
 
 

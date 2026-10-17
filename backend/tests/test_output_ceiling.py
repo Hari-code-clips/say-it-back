@@ -13,6 +13,7 @@ from sayitback.agents.back_translate import agent as back_translate
 from sayitback.agents.briefer_live import agent as briefer_live
 from sayitback.agents.check_answer import agent as check_answer
 from sayitback.agents.extract_steps import agent as extract_steps
+from sayitback.agents.hazard_report import agent as hazard_report
 from sayitback.agents.re_explain import agent as re_explain
 from sayitback.agents.transcribe_instruction import agent as transcribe_instruction
 from sayitback.agents.write_script import agent as write_script
@@ -39,13 +40,14 @@ CEILING = 3000  # not the default, so a hard-coded 8192 would show
 
 
 def flash_agents(rt: Runtime) -> dict[str, LlmAgent]:
-    """The eight Flash agents the service runs, by name: five phases and the check's three nodes."""
+    """The nine Flash agents the service runs, by name: six phases and the check's three nodes."""
     phase_modules = (
         extract_steps,
         write_script,
         back_translate,
         re_explain,
         transcribe_instruction,
+        hazard_report,
     )
     agents = {m.NAME: m.build_agent(rt) for m in phase_modules}
     nodes = graph_nodes(check_answer.build_agent(rt))
@@ -59,7 +61,7 @@ class TestEveryFlashCallHasTheCeiling:
         rt, _ = fake_runtime(settings=settings.with_overrides(max_output_tokens=CEILING))
         agents = flash_agents(rt)
 
-        assert set(agents) == set(DEFAULT_THINKING)  # all eight, and no agent left out
+        assert set(agents) == set(DEFAULT_THINKING)  # all nine, and no agent left out
         for name, agent in agents.items():
             config = agent.generate_content_config
             assert config.max_output_tokens == CEILING, name
@@ -99,7 +101,9 @@ class TestEveryFlashCallHasTheCeiling:
             JudgeOut,
         }
 
-    async def test_the_tts_call_has_it_and_the_live_briefer_has_none(self, settings):
+    async def test_neither_the_tts_call_nor_the_live_briefer_sends_it(self, settings):
+        """Agent Platform's TTS answers 400 INVALID_ARGUMENT to any request with max_output_tokens
+        (probed 15 Oct 2026), so the TTS config never carries it; the script's line limits bound it."""
         rt, _ = fake_runtime(settings=settings.with_overrides(max_output_tokens=CEILING))
         assert briefer_live.build_agent(rt).generate_content_config is None
         tts_client = FakeTtsClient()
@@ -107,7 +111,7 @@ class TestEveryFlashCallHasTheCeiling:
             settings=settings.with_overrides(max_output_tokens=CEILING), tts_client=tts_client
         )
         await Tts(rt).speak("hello")
-        assert tts_client.calls[0]["config"].max_output_tokens == CEILING
+        assert tts_client.calls[0]["config"].max_output_tokens is None
 
     async def test_the_real_client_puts_it_on_the_wire_for_every_check_request(self, settings):
         bodies: list[dict[str, Any]] = []

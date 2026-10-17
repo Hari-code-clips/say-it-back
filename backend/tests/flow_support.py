@@ -29,7 +29,7 @@ def round_1_scenario() -> Scenario:
 def round_2_answers(scenario: Scenario) -> None:
     scenario.transcripts = [transcript("q3", ANSWER_2)]
     scenario.judge_a = [
-        rating("s2", "covered", "லாக் போட்டு"),
+        rating("s2", "covered", "லாக் போட்டு டேக் மாட்டுவேன்"),
         rating("s3", "covered", "டெஸ்டர் வச்சு செக் பண்ணுவேன்"),
     ]
 

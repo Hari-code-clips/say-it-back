@@ -23,6 +23,7 @@ FORM_OVERHEAD_BYTES = 64 * 1024
 JSON_BODY_BYTES = 256 * 1024  # every other write: an instruction, a SOP, six steps, a decision
 TRANSCRIBE = re.compile(r"/api/transcribe")
 CHECK = re.compile(r"/api/briefings/[^/]+/rounds/[^/]+/check")
+HAZARD = re.compile(r"/api/briefings/[^/]+/hazards")  # v0.4: a voice report, one clip
 ANY = re.compile(r".*")
 
 
@@ -31,6 +32,7 @@ def limits_for(s: Settings) -> list[tuple[re.Pattern[str], int]]:
     return [
         (TRANSCRIBE, s.max_audio_bytes + FORM_OVERHEAD_BYTES),
         (CHECK, s.max_audio_files * s.max_audio_bytes + FORM_OVERHEAD_BYTES),
+        (HAZARD, s.max_audio_bytes + FORM_OVERHEAD_BYTES),
         (ANY, JSON_BODY_BYTES),
     ]
 

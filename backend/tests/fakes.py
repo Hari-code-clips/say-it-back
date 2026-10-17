@@ -20,9 +20,11 @@ from google.adk.models.llm_response import LlmResponse
 from google.genai import types
 from pydantic import Field
 
+from sayitback.backends import RefusalRetry, refusal_retry
 from sayitback.llm_schemas import (
     BackOut,
     ExtractOut,
+    HazardOut,
     JudgeOut,
     ReExplainOut,
     ScriptOut,
@@ -85,7 +87,9 @@ def usage(prompt: int, output: int, thinking: int) -> types.GenerateContentRespo
 class Reply:
     """A canned model reply with the metadata a real response carries: why it stopped, and its
     usage. `payload` is a dict (sent as JSON), a str (sent as is) or None (no content at all, as
-    when thinking used up the whole ceiling). `thought` makes the text thinking, not an answer."""
+    when thinking used up the whole ceiling). `thought` makes the text thinking, not an answer.
+    `blocked` is a prompt the API refused: no candidate at all, only `prompt_feedback`, as Agent
+    Platform answers "prompt is blocked due to safety" whatever the safety settings."""
 
     payload: Any = None
     finish_reason: types.FinishReason = types.FinishReason.STOP
@@ -93,8 +97,16 @@ class Reply:
         default_factory=lambda: usage(100, 50, 20)
     )
     thought: bool = False
+    blocked: types.BlockedReason | None = None
 
-    def response(self) -> types.GenerateContentResponse:
+    def response(self, model_version: str = "fake-flash-001") -> types.GenerateContentResponse:
+        if self.blocked is not None:
+            feedback = types.GenerateContentResponsePromptFeedback(
+                block_reason=self.blocked, block_reason_message="Prompt is blocked due to safety."
+            )
+            return types.GenerateContentResponse(
+                prompt_feedback=feedback, usage_metadata=self.usage, model_version=model_version
+            )
         content = None
         if self.payload is not None:
             text = self.payload
@@ -105,15 +117,16 @@ class Reply:
             )
         candidate = types.Candidate(content=content, finish_reason=self.finish_reason)
         return types.GenerateContentResponse(
-            candidates=[candidate], usage_metadata=self.usage, model_version="fake-flash-001"
+            candidates=[candidate], usage_metadata=self.usage, model_version=model_version
         )
 
 
-class FakeLlm(BaseLlm):
+class _FakeFlash(BaseLlm):
     model: str = "fake-flash"
     handler: Any = Field(default=None, exclude=True)
     seen: list[Any] = Field(default_factory=list, exclude=True)
     delay: float = Field(default=0.0, exclude=True)  # simulated model latency
+    version: str = Field(default="fake-flash-001", exclude=True)  # the id the "API" returns
 
     async def generate_content_async(
         self, llm_request: LlmRequest, stream: bool = False
@@ -136,7 +149,15 @@ class FakeLlm(BaseLlm):
         if isinstance(payload, Exception):
             raise payload
         reply = payload if isinstance(payload, Reply) else Reply(payload)
-        yield LlmResponse.create(reply.response())  # the conversion ADK's Gemini model applies
+        yield LlmResponse.create(reply.response(self.version))  # as ADK's Gemini model converts
+
+
+class FakeLlm(RefusalRetry, _FakeFlash):
+    """The Flash fake with production's refusal retry (backends.RefusalRetry): a blocked reply is
+    asked for again, `refusal_attempts` calls in all (1, unless fake_runtime sets it)."""
+
+    refusal_attempts: int = Field(default=1, exclude=True)
+    refusal_backoff_s: float = Field(default=0.0, exclude=True)
 
 
 def rating(step_id: str, verdict: str, quote: str = "", confidence: float = 0.9) -> dict[str, Any]:
@@ -172,6 +193,7 @@ class Scenario:
     judge_a: list[dict] = field(default_factory=list)
     judge_b: list[dict] | None = None  # None: same as judge A
     transcription_text: str = "Isolate the breaker."
+    hazard: dict[str, Any] = field(default_factory=lambda: dict(HAZARD_REPORT))
     script_drafts: list[dict[str, Any]] = field(default_factory=list)  # write_script's next
     # replies, used up in turn; once they are gone (or if there are none) the reply is `script`
 
@@ -187,6 +209,8 @@ class Scenario:
             return {"explanation": self.explanation}
         if schema is SpokenText:
             return {"text": self.transcription_text}
+        if schema is HazardOut:
+            return self.hazard
         if schema is TranscribeOut:
             return {"transcripts": self.transcripts}
         if schema is JudgeOut:
@@ -194,6 +218,12 @@ class Scenario:
             return {"ratings": self.judge_a if seen.has_audio else b}
         raise AssertionError(f"unexpected schema {schema}")
 
+
+HAZARD_REPORT = {
+    "original": "கிரேன் கயிறு அறுந்து போயிருக்கு",
+    "detected_lang": "ta",
+    "translation": "The crane sling is torn.",
+}
 
 PANEL_EXTRACT = {
     "steps": [
@@ -205,7 +235,8 @@ PANEL_EXTRACT = {
          "sop_quote": "Fit your personal lock and a danger tag to the breaker", "speakable": True},
         {"text": "Test that it is dead before touching", "hazard": "Back-feed",
          "essential": ["test with a tester before touching"], "source": "sop",
-         "sop_quote": "Test the panel dead with an approved voltage tester.", "speakable": True},
+         "sop_quote": "Before touching any conductor, test it dead with an approved voltage tester.",
+         "speakable": True},
     ],
     "conflicts": [{"step_number": 3, "message": "The SOP also asks to prove the tester."}],
 }  # fmt: skip
@@ -245,10 +276,13 @@ def fake_runtime(
     live: BaseLlm | None = None,
     tts_client: Any = None,
     live_made: list[Any] | None = None,
+    judge_b: BaseLlm | None = None,
 ) -> tuple[Runtime, FakeLlm]:
-    """`live_made` collects every FakeLiveLlm the runtime builds (one per Live socket)."""
+    """`live_made` collects every FakeLiveLlm the runtime builds (one per Live socket). `judge_b`
+    is judge B's own model (SIB_JUDGE_B_MODEL); without it judge B runs on the Flash fake."""
     scenario = scenario or Scenario()
-    llm = FakeLlm(handler=scenario.handler)
+    settings = settings or Settings()
+    llm = FakeLlm(handler=scenario.handler, **refusal_retry(settings))
 
     def live_factory(on_connected: Any) -> BaseLlm:
         model = live or FakeLiveLlm(on_connected=on_connected)
@@ -257,10 +291,11 @@ def fake_runtime(
         return model
 
     rt = Runtime(
-        settings=settings or Settings(),
+        settings=settings,
         flash=llm,
         live_factory=live_factory,
         tts_client_factory=lambda: tts_client,
+        judge_b_llm=judge_b,
     )
     return rt, llm
 

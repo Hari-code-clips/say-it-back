@@ -98,3 +98,11 @@ class JudgeRating(BaseModel):
 
 class JudgeOut(Output):
     ratings: list[JudgeRating]
+
+
+class HazardOut(Output):
+    """The hazard_report agent: a worker's spoken report, verbatim and translated (API.md v0.4)."""
+
+    original: str
+    detected_lang: str
+    translation: str

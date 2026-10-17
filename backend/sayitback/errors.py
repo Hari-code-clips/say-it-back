@@ -7,7 +7,7 @@ from typing import Any
 import httpx
 from google.genai import errors as genai_errors
 
-RETRYABLE_STATUS = frozenset({408, 429, 500, 502, 503, 504})
+RETRYABLE_STATUS = frozenset({408, 429, 499, 500, 502, 503, 504})  # backends.RETRY_STATUS
 CUT_OFF_MESSAGE = "The model's reply was cut off at its length limit. Try again."
 
 
@@ -74,7 +74,7 @@ class RateLimited(ApiError):
 
 
 class UpstreamBusy(ApiError):
-    """Gemini answered 429 or 5xx twice, or timed out."""
+    """Gemini answered 429 or 5xx, or timed out, on every attempt (SIB_RETRY_ATTEMPTS)."""
 
     status = 503
     code = "upstream_busy"
@@ -88,7 +88,7 @@ class UpstreamError(ApiError):
 
 
 def is_retryable(exc: BaseException) -> bool:
-    """True for a Gemini 429/5xx, which the API reports as upstream_busy."""
+    """True for a transient Gemini status (408, 429, 499, 5xx), reported as upstream_busy."""
     return isinstance(exc, genai_errors.APIError) and exc.code in RETRYABLE_STATUS
 
 

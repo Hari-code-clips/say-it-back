@@ -143,7 +143,7 @@ class LiveRelay:
     async def _claim_round(self) -> tuple[Briefing, Round] | None:
         try:
             briefing = await self.deps.repo.get(self.briefing_id, self.briefing_owner)
-            rnd = state_machine.require_unjudged_round(briefing, self.n)
+            rnd = state_machine.require_approved_round(briefing, self.n)  # as the ticket was
         except ApiError as err:
             return await self._reject("invalid_state", err.message)
         ttl = self.s.ws_max_session_s + self.s.live_lock_extra_s

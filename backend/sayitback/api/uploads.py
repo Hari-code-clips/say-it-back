@@ -17,9 +17,13 @@ META_FIELD = "meta"
 MAX_PARSED_FILES = 64  # parsing bound; the real limit (3) is counted below, with a clean 422
 
 
-async def read_wav(upload: UploadFile, s: Settings, name: str) -> tuple[bytes, WavInfo]:
-    """Read at most the per-file limit, then require a 16-bit PCM WAV within the clip length.
-    `name` is the form field's name, which the caller chose: an error quotes only a bit of it."""
+async def read_wav(
+    upload: UploadFile, s: Settings, name: str, max_seconds: float | None = None
+) -> tuple[bytes, WavInfo]:
+    """Read at most the per-file limit, then require a 16-bit PCM WAV within the clip length
+    (`max_seconds`, default SIB's clip limit). `name` is the form field's name, which the caller
+    chose: an error quotes only a bit of it."""
+    limit_s = s.max_clip_seconds if max_seconds is None else max_seconds
     data = await upload.read(s.max_audio_bytes + 1)
     shown = quote(name, s.max_echo_chars)
     if len(data) > s.max_audio_bytes:
@@ -28,10 +32,8 @@ async def read_wav(upload: UploadFile, s: Settings, name: str) -> tuple[bytes, W
         info = parse_wav(data)
     except WavError as exc:
         raise UnsupportedMedia(f"{shown}: {exc}") from None
-    if info.duration_s > s.max_clip_seconds:
-        raise Unprocessable(
-            f"{shown} is longer than {s.max_clip_seconds:g} s.", code="audio_too_long"
-        )
+    if info.duration_s > limit_s:
+        raise Unprocessable(f"{shown} is longer than {limit_s:g} s.", code="audio_too_long")
     return data, info
 
 
@@ -41,7 +43,9 @@ def parse_meta(raw: Any) -> CheckMeta:
     try:
         return CheckMeta.model_validate(json.loads(raw))
     except (ValueError, TypeError):
-        raise Unprocessable('meta must be JSON like {"mode": "live" | "turn"}.') from None
+        raise Unprocessable(
+            'meta must be JSON like {"mode": "live" | "turn", "sampleAnswers": ["q1"]}.'
+        ) from None
 
 
 async def read_check_form(request: Request, s: Settings) -> tuple[dict[str, bytes], CheckMeta]:
@@ -63,3 +67,38 @@ async def read_check_form(request: Request, s: Settings) -> tuple[dict[str, byte
     if len(clips) > s.max_audio_files:
         raise Unprocessable(f"At most {s.max_audio_files} files per check.", code="too_many_files")
     return clips, meta
+
+
+HAZARD_AUDIO = "audio"
+HAZARD_ROUND = "round"
+FORM_TYPES = ("multipart/form-data", "application/x-www-form-urlencoded")
+
+
+async def read_hazard_form(request: Request, s: Settings) -> tuple[bytes | None, int | None]:
+    """Endpoint 21: an optional `audio` file (a 16-bit PCM WAV of at most SIB's hazard length)
+    and an optional `round` number. No body at all is a tap."""
+    kind = request.headers.get("content-type", "").split(";")[0].strip().lower()
+    if kind and kind not in FORM_TYPES:
+        raise UnsupportedMedia("Send multipart/form-data with an optional audio and round.")
+    audio: bytes | None = None
+    round_n: int | None = None
+    async with request.form(max_files=2, max_fields=4) as form:
+        for name, value in form.multi_items():
+            if name == HAZARD_AUDIO and isinstance(value, FormFile):
+                if audio is not None:
+                    raise Unprocessable("Send at most one audio file.")
+                audio = (await read_wav(value, s, name, s.max_hazard_seconds))[0]
+            elif name == HAZARD_ROUND and not isinstance(value, FormFile):
+                round_n = _round_number(value)
+            else:
+                raise Unprocessable(f"Unexpected field {quote(name, s.max_echo_chars)}.")
+    return audio, round_n
+
+
+def _round_number(raw: str) -> int | None:
+    text = raw.strip()
+    if not text:
+        return None
+    if not text.isascii() or not text.isdigit() or len(text) > 3:
+        raise Unprocessable("round must be a round number.")
+    return int(text)

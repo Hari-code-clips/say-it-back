@@ -1,7 +1,8 @@
 """Briefing repository: typed access to the store, always for one owner.
 
 `mutate` is the only way a briefing changes. It runs inside the store's atomic read-modify-write,
-so a callback that re-checks the state (as every service method does) is race-free.
+so a callback that re-checks the state (as every service method does) is race-free. The record's
+hash chain (chain.py) is append-only: a change that alters or drops an earlier event is refused.
 
 A briefing belongs to the device key that created it (API.md, "Callers and ownership"): the record
 carries the key's SHA-256 beside the briefing's own fields, and every read and write here takes the
@@ -46,7 +47,7 @@ class Repo:
     async def create(self, briefing: Briefing, owner: str) -> Briefing:
         if not owner:
             raise ValueError("a briefing needs an owner")
-        await self.store.create({**briefing.wire(), "owner": owner})
+        await self.store.create({**briefing.stored(), "owner": owner})
         return briefing
 
     async def mutate(
@@ -56,9 +57,12 @@ class Repo:
             if not owns(raw, owner):  # inside the atomic step: no write for another owner
                 raise NotFound(NOT_FOUND)
             briefing = Briefing.model_validate(raw)
+            history = [e.wire() for e in briefing.events]
             change(briefing)
+            if [e.wire() for e in briefing.events[: len(history)]] != history:
+                raise RuntimeError("the record chain is append-only")  # a bug, never a request
             briefing.updated_at = now_iso()
-            return {**briefing.wire(), "owner": raw["owner"]}
+            return {**briefing.stored(), "owner": raw["owner"]}
 
         if not valid_briefing_id(briefing_id):
             raise NotFound(NOT_FOUND)
@@ -85,4 +89,5 @@ def summarise(b: Briefing) -> BriefingSummary:
         rounds=len(b.rounds),
         decision=b.decision,
         created_at=b.created_at,
+        permit=b.permit,
     )

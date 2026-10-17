@@ -173,6 +173,7 @@ class TestListAndExport:
             "status",
             "rounds",
             "createdAt",
+            "permit",  # v0.5.2: null without one
         }
         assert items[0]["taskTitle"] == "Open a distribution panel" and items[0]["rounds"] == 0
 
@@ -198,8 +199,11 @@ class TestListAndExport:
         response = client.get("/api/export/briefings.csv")
         assert response.headers["content-type"].startswith("text/csv")
         lines = response.text.strip().split("\n")
-        assert lines[0] == ("briefingId,createdAt,siteId,taskId,sopId,sopVersion,supervisorLang,workerLang,stepId,stepText,source,"
-                            "finalVerdict,rounds,decision,decisionReason,decidedBy,decidedAt")  # fmt: skip
+        assert lines[0] == (
+            "briefingId,createdAt,siteId,taskId,sopId,sopVersion,supervisorLang,workerLang,stepId,stepText,source,"
+            "finalVerdict,rounds,decision,decisionReason,decidedBy,decidedAt,"
+            "permitRef,crewSize,workerSlot,inPerson"
+        )  # fmt: skip  (v0.5.2: permitRef, crewSize, workerSlot; 2026-10-17: inPerson)
         assert len(lines) == 4 and lines[1].split(",")[0] == briefing
         assert (
             "'=cmd" in response.text and ",=cmd" not in response.text

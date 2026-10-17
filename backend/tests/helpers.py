@@ -59,10 +59,13 @@ def run_sync(coro: Any) -> Any:
         return pool.submit(asyncio.run, coro).result()
 
 
-def seed_round(store: Store, device: str = DEVICE, instruction: str | None = None) -> str:
+def seed_round(
+    store: Store, device: str = DEVICE, instruction: str | None = None, approved: bool = True
+) -> str:
     """A briefing owned by `device`, at round 1 with the scenario's script (or with `instruction`
     as its spoken instruction), written straight into the store: no model call and no reservation,
-    so a test of what a call costs spends nothing on its setup. Returns the briefing id."""
+    so a test of what a call costs spends nothing on its setup. The script is approved (API v0.4)
+    unless `approved=False`. It has no record chain. Returns the briefing id."""
     now = now_iso()
     questions = [
         Question(id=f"q{i}", text=q["text"], step_ids=q["step_ids"])
@@ -76,7 +79,12 @@ def seed_round(store: Store, device: str = DEVICE, instruction: str | None = Non
     )
     steps = [Step.model_validate(s) for s in catalog.reference_steps("panel-isolation")]
     round_1 = Round(
-        n=1, kind="initial", step_ids=[s.id for s in steps], script=script, created_at=now
+        n=1,
+        kind="initial",
+        step_ids=[s.id for s in steps],
+        script=script,
+        created_at=now,
+        approved_at=now if approved else None,
     )
     briefing = Briefing(
         id=new_briefing_id(),
@@ -99,9 +107,10 @@ def seed_round(store: Store, device: str = DEVICE, instruction: str | None = Non
 
 
 def drive_to_round(
-    client: TestClient, body: dict[str, Any] | None = None
+    client: TestClient, body: dict[str, Any] | None = None, approve: bool = True
 ) -> tuple[str, dict[str, Any]]:
-    """Create, extract, confirm and open round 1. Returns (briefing id, round)."""
+    """Create, extract, confirm and open round 1, and approve its script (API v0.4) unless
+    `approve=False`. Returns (briefing id, round)."""
     created = client.post("/api/briefings", json=body or PANEL)
     assert created.status_code == 200, created.text
     bid = created.json()["id"]
@@ -111,7 +120,16 @@ def drive_to_round(
     assert confirmed.status_code == 200, confirmed.text
     rnd = client.post(f"/api/briefings/{bid}/rounds", json={})
     assert rnd.status_code == 200, rnd.text
-    return bid, rnd.json()
+    if not approve:
+        return bid, rnd.json()
+    return bid, approve_round(client, bid, rnd.json()["n"])
+
+
+def approve_round(client: TestClient, bid: str, n: int, by: str | None = None) -> dict[str, Any]:
+    """The supervisor approves round `n`'s script (endpoint 23). Returns the round."""
+    approved = client.post(f"/api/briefings/{bid}/rounds/{n}/approve", json={"by": by})
+    assert approved.status_code == 200, approved.text
+    return approved.json()
 
 
 def check_files(**clips: bytes) -> list[tuple[str, tuple[str, bytes, str]]]:

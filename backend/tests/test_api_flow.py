@@ -15,7 +15,7 @@ from tests.flow_support import (
     round_1_scenario,
     round_2_answers,
 )
-from tests.helpers import PANEL, api_client, make_app, post_check
+from tests.helpers import PANEL, api_client, approve_round, make_app, post_check
 
 
 @pytest.fixture
@@ -64,9 +64,9 @@ class TestWireShapes:
         steps = env.client.get(f"/api/briefings/{env.bid}").json()["steps"]
         assert [s["id"] for s in steps] == ["s1", "s2", "s3"]
         assert {"id", "text", "hazard", "essential", "source", "speakable"} <= set(steps[0])
-        assert steps[2]["source"] == "sop" and steps[2]["sopQuote"].startswith(
-            "Test the panel dead"
-        )
+        assert steps[2]["source"] == "sop" and steps[2]["sopQuote"] == (
+            "Before touching any conductor, test it dead with an approved voltage tester."
+        )  # verbatim from SOP-EL-04 v4, line 6
         rnd = env.rnd
         assert (rnd["n"], rnd["kind"], rnd["stepIds"]) == (1, "initial", ["s1", "s2", "s3"])
         assert (
@@ -191,6 +191,7 @@ class TestWorkflow:
         env.scenario.script = {**env.scenario.script, "step_map": [m for m in env.scenario.script["step_map"] if m["step_id"] != "s1"],
                                "questions": [{"text": "புதிய கேள்வி?", "step_ids": ["s2", "s3"]}]}  # fmt: skip
         env.client.post(f"/api/briefings/{env.bid}/rounds", json={"supervisorNote": "again"})
+        approve_round(env.client, env.bid, 2)
         round_2_answers(env.scenario)
         result = post_check(env.client, env.bid, 2, q3=tone_wav()).json()
         assert result["nextAction"] == "decide"
@@ -213,6 +214,7 @@ class TestRoundCap:
                 ).status_code
                 == 200
             )
+            approve_round(env.client, env.bid, n)
             sc.transcripts = [transcript(f"q{n + 1}", ANSWER_1)]
             assert (
                 post_check(env.client, env.bid, n, **{f"q{n + 1}": tone_wav()}).status_code == 200

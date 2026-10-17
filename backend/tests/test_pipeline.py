@@ -31,7 +31,7 @@ def check(rt, **overrides):
 
 
 def covered_scenario(**kw):
-    rows = [rating("s1", "covered", "பிரேக்கரை ஆஃப் பண்ணுவேன்"), rating("s2", "covered", "லாக் போட்டு"),
+    rows = [rating("s1", "covered", "பிரேக்கரை ஆஃப் பண்ணுவேன்"), rating("s2", "covered", "லாக் போட்டு டேக் மாட்டுவேன்"),
             rating("s3", "covered", "டெஸ்டர் வச்சு செக் பண்ணுவேன்")]  # fmt: skip
     return Scenario(transcripts=[transcript("q1", ANSWER)], judge_a=rows, **kw)
 
@@ -232,7 +232,7 @@ async def test_a_transcript_the_model_invents_for_a_clip_that_was_never_uploaded
         transcripts=[transcript("q1", ""), transcript("q2", ANSWER)],
         judge_a=[
             rating("s1", "missed"),
-            rating("s2", "covered", "லாக் போட்டு"),
+            rating("s2", "covered", "லாக் போட்டு டேக் மாட்டுவேன்"),
             rating("s3", "missed"),
         ],
     )

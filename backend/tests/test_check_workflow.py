@@ -17,7 +17,16 @@ from sayitback.guard_node import guard_event
 from sayitback.guards import GuardConfig
 from sayitback.llm_schemas import TranscribeOut
 from sayitback.pipeline import CHECK_META_KEYS
-from tests.check_support import ANSWER, audio_parts, check, requests_by_node, scenario
+from tests.check_support import (
+    ANSWER,
+    LEAD_ANSWER,
+    PANEL,
+    audio_parts,
+    check,
+    lead_scenario,
+    requests_by_node,
+    scenario,
+)
 from tests.fakes import Scenario, fake_runtime, rating, tone_wav, transcript
 from tests.helpers import graph_edges, graph_nodes
 
@@ -123,10 +132,10 @@ class TestWhatEachNodeIsSent:
         sent = requests_by_node(llm)["blind_transcriber"]
         everything = sent.system + "\n" + sent.text
         secrets = [
-            *(s["text"] for s in demo.steps()),
-            *(s["hazard"] for s in demo.steps()),
-            *(e for s in demo.steps() for e in s["essential"]),
-            *(q["text"] for q in demo.questions()),
+            *(s["text"] for s in demo.steps(PANEL)),
+            *(s["hazard"] for s in demo.steps(PANEL)),
+            *(e for s in demo.steps(PANEL) for e in s["essential"]),
+            *(q["text"] for q in demo.questions(PANEL)),
         ]
         assert len(secrets) > 6
         assert [s for s in secrets if s in everything] == []
@@ -148,7 +157,7 @@ class TestWhatEachNodeIsSent:
         await check(rt)
         for node in ("judge_a", "judge_b"):
             system = requests_by_node(llm)[node].system
-            assert ANSWER in system and demo.steps()[0]["text"] in system
+            assert ANSWER in system and demo.steps(PANEL)[0]["text"] in system
 
 
 class TestOneJudgePass:
@@ -176,7 +185,7 @@ class TestOneJudgePass:
 class TestTheGuardNode:
     def test_it_writes_the_final_ratings_and_a_summary_without_the_transcript(self):
         state = {
-            "input": demo.check_input(),
+            "input": demo.check_input(PANEL),
             "transcribe_out": {"transcripts": [transcript("q1", ANSWER)]},
             "judge_a_out": {"ratings": scenario().judge_a},
             "judge_b_out": {"ratings": scenario().judge_a},
@@ -189,7 +198,9 @@ class TestTheGuardNode:
         assert ANSWER not in text and event.content.role == "model"
 
     async def test_an_empty_session_runs_on_the_demo_task_as_it_does_in_adk_web(self, settings):
-        rt, llm = fake_runtime(scenario(), settings)
+        """With no state, the workflow runs the lead demo (sg-lead): round 1's answer stands
+        under the load and steadies it by hand."""
+        rt, llm = fake_runtime(lead_scenario(), settings)
         run = await adk_run.run_phase(
             rt,
             build_agent(rt),
@@ -198,8 +209,17 @@ class TestTheGuardNode:
             parts=[types.Part.from_bytes(data=tone_wav(), mime_type="audio/wav")],
         )
         verdicts = {r["step_id"]: r["verdict"] for r in run.state[FINAL_KEY]["ratings"]}
-        assert verdicts == {"s1": "covered", "s2": "missed", "s3": "missed"}
+        # Only q1 has a clip. s3 is asked by q2 alone, which was never answered: unclear, not
+        # missed. s4's contradiction is quoted from q1, which was speech, so it stands (rule 5).
+        assert verdicts == {
+            "s1": "contradicted",
+            "s2": "missed",
+            "s3": "unclear",
+            "s4": "contradicted",
+        }
         assert len(llm.seen) == 3 and "q1" in requests_by_node(llm)["blind_transcriber"].system
+        judge = requests_by_node(llm)["judge_a"].system
+        assert LEAD_ANSWER in judge and "Never stand or walk under the load" in judge
 
     async def test_the_workflow_leaves_the_result_in_state_for_run_check(self, settings):
         rt, _ = fake_runtime(scenario(), settings)
@@ -207,7 +227,7 @@ class TestTheGuardNode:
             rt,
             build_agent(rt),
             app_name=NAME,
-            phase_input=demo.check_input(),
+            phase_input=demo.check_input(PANEL),
             parts=[types.Part.from_bytes(data=tone_wav(), mime_type="audio/wav")],
         )
         assert [r["verdict"] for r in run.state[FINAL_KEY]["ratings"]] == [

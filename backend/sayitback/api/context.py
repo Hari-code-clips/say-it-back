@@ -12,12 +12,14 @@ from fastapi import Depends, Request, WebSocket
 
 from sayitback.caller import Caller
 from sayitback.daily_cap import Clock, DailyCap, utc_now
-from sayitback.errors import DeviceRequired, UpstreamBusy
+from sayitback.errors import DeviceRequired, NotFound, UpstreamBusy
 from sayitback.evalset import EvalData
 from sayitback.live_relay import RelayDeps
 from sayitback.live_runner import LiveOpener, open_adk_session
+from sayitback.models import Briefing
+from sayitback.outbox import Outbox
 from sayitback.ratelimit import RateLimiter
-from sayitback.repo import Repo
+from sayitback.repo import NOT_FOUND, Repo
 from sayitback.rounds import Rounds
 from sayitback.runtime import Runtime
 from sayitback.service import Briefings
@@ -40,6 +42,7 @@ class AppContext:
     cap: DailyCap
     relay: RelayDeps
     evals: EvalData
+    outbox: Outbox | None = None  # SIB_OUTBOX: stored, retried, visible deliveries
 
 
 def build_context(
@@ -56,6 +59,15 @@ def build_context(
     cap = DailyCap(
         repo.store, settings.daily_gemini_calls, clock or utc_now, settings.daily_calls_per_ip
     )
+    sender = WebhookSender(
+        settings.webhook_urls,
+        settings.webhook_timeout_s,
+        webhook_transport,
+        secret=settings.webhook_secret,
+        vendor_url=settings.ptw_url,
+        field_map=settings.ptw_field_map,
+        vendor_token=settings.ptw_token,
+    )
     return AppContext(
         settings=settings,
         rt=rt,
@@ -63,11 +75,12 @@ def build_context(
         briefings=Briefings(rt, repo, cap),
         rounds=Rounds(rt, repo, cap),
         tts=Tts(rt),
-        webhook=WebhookSender(settings.webhook_url, settings.webhook_timeout_s, webhook_transport),
+        webhook=sender,
         limiter=RateLimiter(settings.rate_limit_per_min),
         cap=cap,
         relay=RelayDeps(rt, repo, live_opener or open_adk_session),
         evals=EvalData(settings.eval_dir),
+        outbox=Outbox(repo.store, sender, settings) if settings.outbox else None,
     )
 
 
@@ -88,7 +101,46 @@ def caller_of(request: Request) -> Caller:
     return caller
 
 
-CallerDep = Annotated[Caller, Depends(caller_of)]
+# Roles per site (security fixes B, M1). In firebase mode a member reaches a briefing only at a site
+# where they hold a role (an org admin holds `admin` at every site); any other is the 404 of an
+# unknown id. Device mode has no roles: a device reaches all of its own briefings, as before.
+
+
+def holds_site(caller: Caller, site_id: str) -> bool:
+    return caller.org_id is None or bool(caller.roles.get(site_id))
+
+
+async def site_briefing(request: Request, caller: Caller, briefing_id: str) -> Briefing:
+    """The caller's briefing, or 404 `not_found` (as for an unknown id) at a site where the caller
+    holds no role."""
+    briefing = await ctx_of(request).repo.get(briefing_id, caller.owner)
+    if not holds_site(caller, briefing.site_id):
+        raise NotFound(NOT_FOUND)
+    return briefing
+
+
+async def site_briefings(request: Request, caller: Caller, limit: int, scan: int) -> list[Briefing]:
+    """The caller's newest briefings, at most `limit`. Firebase mode keeps those at the member's
+    sites out of the org's newest `scan`, so a site whose briefings are all older shows fewer."""
+    repo = ctx_of(request).repo
+    if caller.org_id is None:
+        return await repo.recent(limit, caller.owner)
+    newest = await repo.recent(scan, caller.owner)
+    return [b for b in newest if holds_site(caller, b.site_id)][:limit]
+
+
+async def scoped_caller(request: Request) -> Caller:
+    """The caller of every route that takes `CallerDep`. On a route whose path names a briefing
+    (`{briefing_id}`, privacy.py's included) firebase mode checks its site first, so no route can
+    forget it: a 404 before any body is validated or any upload read. Device mode reads nothing."""
+    caller = caller_of(request)
+    briefing_id = request.path_params.get("briefing_id")
+    if caller.org_id is not None and isinstance(briefing_id, str):
+        await site_briefing(request, caller, briefing_id)
+    return caller
+
+
+CallerDep = Annotated[Caller, Depends(scoped_caller)]
 
 
 def rate_limited(request: Request) -> None:
@@ -99,8 +151,8 @@ def rate_limited(request: Request) -> None:
 
 
 async def within_budget[T](request: Request, work: Awaitable[T]) -> T:
-    """Bound a whole /api call that may chain model phases, so the client gets a JSON 503
-    instead of Firebase Hosting's 504 at 60 s."""
+    """Bound a whole /api call that may chain model phases (SIB_REQUEST_TIMEOUT_S), so the client
+    gets a JSON 503 before its own wait runs out."""
     try:
         async with asyncio.timeout(ctx_of(request).settings.request_timeout_s):
             return await work

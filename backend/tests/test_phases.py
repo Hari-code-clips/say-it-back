@@ -33,7 +33,9 @@ class TestExtract:
         assert [s.id for s in steps] == ["s1", "s2", "s3"]
         assert [s.source for s in steps] == ["instruction", "both", "sop"]
         assert steps[0].sop_quote is None
-        assert steps[2].sop_quote == "Test the panel dead with an approved voltage tester."
+        assert steps[2].sop_quote == (  # kept as written: it is verbatim in SOP-EL-04 v4, line 6
+            "Before touching any conductor, test it dead with an approved voltage tester."
+        )
         assert conflicts[0].step_id == "s3"
         assert meta.model_ids == {"extract": "fake-flash-001"}
         assert "Isolate the breaker." in llm.seen[0].system and SOP.text in llm.seen[0].system

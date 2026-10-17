@@ -11,8 +11,10 @@ def make_store(settings: Settings) -> Store:
     if settings.store == "firestore":
         from sayitback.store.firestore_store import FirestoreStore
 
-        return FirestoreStore.from_env()
-    return LocalStore(settings.data_dir)
+        store = FirestoreStore.from_env()
+        store.retention_days = settings.retention_days  # retention.py
+        return store
+    return LocalStore(settings.data_dir, settings.retention_days)
 
 
 __all__ = ["LocalStore", "Store", "make_store"]

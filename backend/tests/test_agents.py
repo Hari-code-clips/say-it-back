@@ -15,12 +15,14 @@ import sayitback
 from sayitback import adk_run, demo
 from sayitback.agents.check_answer.agent import build_agent, strip_media
 from sayitback.llm_schemas import JudgeOut, TranscribeOut
+from sayitback.settings import DEFAULT_THINKING
 from tests.fakes import Scenario, fake_runtime, rating, tone_wav, transcript
 from tests.helpers import graph_nodes
 
 AGENTS_DIR = Path(sayitback.__file__).parent / "agents"
+PANEL = "panel-isolation"
 PHASES = [
-    "back_translate", "briefer_live", "check_answer", "extract_steps",
+    "back_translate", "briefer_live", "check_answer", "extract_steps", "hazard_report",
     "re_explain", "transcribe_instruction", "write_script",
 ]  # fmt: skip
 
@@ -93,7 +95,9 @@ class TestCheckAnswerShape:
         rt, _ = fake_rt
         agents = {a.name: a for a in _walk(build_agent(rt)) if isinstance(a, LlmAgent)}
         cfg = agents["judge_a"].generate_content_config
-        assert cfg.thinking_config.thinking_level == types.ThinkingLevel.MEDIUM
+        assert (
+            cfg.thinking_config.thinking_level.value == rt.settings.thinking["judge_a"].upper()
+        )  # from settings
         assert (
             agents["blind_transcriber"].generate_content_config.thinking_config.thinking_level
             == types.ThinkingLevel.LOW
@@ -123,7 +127,7 @@ def judged_run(settings):
     rt, llm = fake_runtime(scenario, settings)
 
     async def go():
-        inp = demo.check_input()
+        inp = demo.check_input(PANEL)  # the scenario answers the panel task's steps
         parts = [
             types.Part(text="Clip for question q1:"),
             types.Part.from_bytes(data=tone_wav(), mime_type="audio/wav"),
@@ -168,7 +172,12 @@ class TestWhatEachAgentIsSent:
         for seen in llm.seen:
             assert not seen.tools
             assert seen.temperature is None
-        assert {s.thinking_level for s in llm.seen} == {"LOW", "MEDIUM"}
+        levels = {a: v.upper() for a, v in DEFAULT_THINKING.items()}
+        assert {s.thinking_level for s in llm.seen} == {
+            levels["blind_transcriber"],
+            levels["judge_a"],
+            levels["judge_b"],
+        }
 
     async def test_json_braces_in_step_text_are_never_template_substituted(self, settings):
         steps = demo.steps()
@@ -217,8 +226,27 @@ def test_adk_web_defaults_load_the_sg_lead_demo_when_state_is_empty(settings):
     transcriber = nodes["blind_transcriber"]
     assert "q1" in transcriber.instruction(ctx) and "Tamil" in transcriber.instruction(ctx)
     judge_text = nodes["judge_a"].instruction(ctx)
-    assert "Switch off (isolate) the supply at the breaker" in judge_text
+    assert "Never stand or walk under the load" in judge_text
+    assert "Switch off (isolate)" not in judge_text  # not the deprecated panel demo
     assert demo.check_input()["worker_lang"] == "ta"
+
+
+def test_every_agents_empty_state_default_is_the_lead_task():
+    """adk web shows the lead demo (sg-lead, lifting-zone) in every phase, not the old panel one."""
+    lead = demo.catalog.task("lifting-zone")
+    assert demo.extract_input()["instruction"] == lead["sampleInstruction"]["en"]
+    assert demo.extract_input()["sop"]["id"] == lead["sop"]["id"]
+    assert demo.script_input()["steps"] == demo.steps("lifting-zone")
+    assert demo.back_translate_input()["sentences"] == [lead["sampleInstruction"]["ta"]]
+    assert demo.briefer_input()["instruction"] == lead["sampleInstruction"]["ta"]
+    reexplain = {s["id"]: s["verdict"] for s in demo.re_explain_input()["steps"]}
+    # Round 1 of sg-lead: q1's answer leaves s1 and s2 open, q3's follow-up (2026-10-16) s4; q2's
+    # follow-up covers s3, so s3 is not re-explained.
+    assert reexplain == {"s1": "contradicted", "s2": "missed", "s4": "contradicted"}
+    assert demo.round_expected("sg-lead", 0) == {**reexplain, "s3": "covered"}
+    assert demo.re_explain_input()["sop_title"] == lead["sop"]["title"]
+    assert [s["id"] for s in demo.check_input()["steps"]] == ["s1", "s2", "s3", "s4"]
+    assert demo.check_input(PANEL)["steps"] == demo.steps(PANEL) != demo.steps()
 
 
 async def test_spoken_instructions_are_treated_as_data_by_the_transcriber_and_the_judges(

@@ -1,9 +1,11 @@
-"""Rounds: create a round's script, run the check, hand out Live tickets.
+"""Rounds: create a round's script, approve it, run the check, hand out Live tickets.
 
-Each is for a caller (caller.py), whose briefings only it can reach. Each of the three reserves its
-share of the daily Gemini cap (daily_cap.py), against the caller's address too, after its
-validation and state checks, just before its first model call. A round whose script needs a retry
-reserves that one more call just before the retry runs (`phases.make_script`'s `before_retry`).
+Each is for a caller (caller.py), whose briefings only it can reach. Each of the three model-backed
+ones reserves its share of the daily Gemini cap (daily_cap.py), against the caller's address too,
+after its validation and state checks, just before its first model call. A round whose script needs
+a retry reserves that one more call just before the retry runs (`phases.make_script`'s
+`before_retry`). Approval (v0.4) is the supervisor's gate: nothing is spoken (live ticket, TTS) or
+judged before it. Each change appends its event to the record chain (chain.py).
 """
 
 from __future__ import annotations
@@ -15,7 +17,16 @@ from collections.abc import Callable
 from functools import partial
 from typing import Any
 
-from sayitback import catalog, live_session, phases, state_machine, validators
+from sayitback import (
+    catalog,
+    chain,
+    consent,
+    guards,
+    live_session,
+    phases,
+    state_machine,
+    validators,
+)
 from sayitback.caller import Caller
 from sayitback.daily_cap import (
     LIVE_TICKET_CALLS,
@@ -27,7 +38,9 @@ from sayitback.daily_cap import (
 from sayitback.delivery import delivery_checks
 from sayitback.errors import InvalidState, Unprocessable
 from sayitback.models import (
+    ApproveBody,
     Briefing,
+    CheckMeta,
     CheckResult,
     CreateRound,
     DeliveryCheck,
@@ -87,6 +100,7 @@ def append_round(
             raise InvalidState("The steps were edited while the script was written. Retry.")
         cur.rounds.append(created)
         cur.status = "briefing"
+        chain.append(cur, "round_created", chain.round_created(created), at=created.created_at)
 
     return change
 
@@ -154,12 +168,36 @@ class Rounds:
         _merge(meta, explain_meta)
         return explanation
 
-    async def live_ticket(self, briefing_id: str, n: int, caller: Caller) -> dict[str, Any]:
+    async def approve(self, briefing_id: str, n: int, body: ApproveBody, caller: Caller) -> Round:
+        """Endpoint 23: the supervisor has read round `n`'s script and its back-translation. A
+        second approval is a no-op that returns the round as it is."""
+        s = self.rt.settings
+        by = validators.clean_text(body.by, field="by", limit=s.approve_by_max_chars)
+        current = state_machine.require_round(await self.repo.get(briefing_id, caller.owner), n)
+        if current.approved_at is not None:
+            return current
+
+        def change(cur: Briefing) -> None:
+            rnd = state_machine.require_round(cur, n)
+            if rnd.approved_at is not None:  # approved by a request that raced this one
+                return
+            rnd = state_machine.require_unjudged_round(cur, n)
+            rnd.approved_at, rnd.approved_by = now_iso(), by or None
+            chain.append(cur, "script_approved", chain.script_approved(rnd), at=rnd.approved_at)
+
+        return (await self.repo.mutate(briefing_id, caller.owner, change)).rounds[n - 1]
+
+    async def live_ticket(
+        self, briefing_id: str, n: int, caller: Caller, samples_only: bool = False
+    ) -> dict[str, Any]:
         """Endpoint 11: a single-use WebSocket ticket for round `n`, issued to the briefing's owner
-        (the WebSocket carries no device key: the ticket is its capability)."""
+        (the WebSocket carries no device key: the ticket is its capability). The round's script
+        must be approved (409 script_not_approved). Security fixes B: with SIB_REQUIRE_CONSENT, a
+        round with no recorded choice needs the request's `samplesOnly` (409 consent_required)."""
         s = self.rt.settings
         b = await self.repo.get(briefing_id, caller.owner)
-        state_machine.require_unjudged_round(b, n)
+        rnd = state_machine.require_approved_round(b, n)
+        consent.require_for_live(rnd, samples_only, s.require_consent)  # privacy, 16 Oct
         # The round's ticket allowance (429 `limit`) is a refusal too, so it is checked first and
         # costs nothing. If the daily cap then refuses, the ticket is never returned (it expires
         # unused) but it did use one of the round's two slots.
@@ -175,16 +213,21 @@ class Rounds:
         }
 
     async def precheck(self, briefing_id: str, n: int, caller: Caller) -> None:
-        """The round exists and is unjudged (else 404 or 409), before any upload is read."""
-        state_machine.require_unjudged_round(await self.repo.get(briefing_id, caller.owner), n)
+        """The round exists, is unjudged and approved (else 404 or 409), before any upload is
+        read."""
+        b = await self.repo.get(briefing_id, caller.owner)
+        consent.refuse_declined(state_machine.require_approved_round(b, n))  # privacy, 16 Oct
 
     async def check(
-        self, briefing_id: str, n: int, clips: dict[str, bytes], mode: Mode, caller: Caller
+        self, briefing_id: str, n: int, clips: dict[str, bytes], meta: CheckMeta, caller: Caller
     ) -> Round:
         s = self.rt.settings
+        mode = meta.mode
         b = await self.repo.get(briefing_id, caller.owner)
-        rnd = state_machine.require_unjudged_round(b, n)
-        live = rnd.live if mode == "live" else None
+        rnd = state_machine.require_approved_round(b, n)
+        samples = sample_answers(meta.sample_answers, rnd, clips)
+        consent.require_for_check(rnd, samples, s.require_consent)  # privacy, 16 Oct
+        live = rnd.live  # whatever the mode: anything Live said reached the worker
         if mode == "live" and live is None:
             rnd = await self._wait_for_live(briefing_id, n, caller.owner)
             live = rnd.live
@@ -205,14 +248,24 @@ class Rounds:
                 live.delivered,
                 catalog.unicode_ranges(b.worker_lang),
                 min_script_share=s.delivery_min_script_share,
+                min_similarity=s.delivery_min_similarity,
+                markers=catalog.markers(b.worker_lang),
+                reply_max_chars=s.reply_max_chars,
             )
             if live
             else []
         )
+        if mode == "turn":  # TTS read the script: only what Live did say is checked
+            delivery = [d for d in delivery if "not_spoken" not in d.issues]
+        if delivery:  # guard rule 8, whenever Live spoke: run_check (and eval/) know nothing of it
+            ratings, next_action = guards.apply_delivery(
+                result.ratings, delivery, rnd.script.questions, rnd.step_ids
+            )
+            result = result.model_copy(update={"ratings": ratings, "next_action": next_action})
         self._keep_audio(briefing_id, n, clips)
 
         def change(cur: Briefing) -> None:
-            record_check(cur, n, mode, result, delivery)
+            record_check(cur, n, mode, result, delivery, samples)
 
         return (await self.repo.mutate(briefing_id, caller.owner, change)).rounds[n - 1]
 
@@ -245,13 +298,35 @@ class Rounds:
         )
 
 
+def sample_answers(
+    requested: list[str] | None, rnd: Round, clips: dict[str, bytes]
+) -> list[str] | None:
+    """`meta.sampleAnswers`: question ids of this round, each answered by a clip in this request
+    that the browser played from a stored synthetic sample (endpoint 24), not a person."""
+    if not requested:
+        return None
+    asked = [q.id for q in rnd.script.questions]
+    wanted = set(requested)
+    if not wanted <= set(asked) or not wanted <= set(clips):
+        raise Unprocessable(
+            "meta.sampleAnswers must list question ids of this round that have a clip here."
+        )
+    return [qid for qid in asked if qid in wanted]
+
+
 def record_check(
-    cur: Briefing, n: int, mode: Mode, result: CheckResult, delivery: list[DeliveryCheck]
+    cur: Briefing,
+    n: int,
+    mode: Mode,
+    result: CheckResult,
+    delivery: list[DeliveryCheck],
+    samples: list[str] | None = None,
 ) -> None:
-    """Write a check's outcome into round `n` and move the briefing to `judged`."""
-    state_machine.require_unjudged_round(cur, n)
+    """Write a check's outcome into round `n`, move the briefing to `judged` and record it."""
+    consent.refuse_declined(state_machine.require_approved_round(cur, n))  # declined mid-check
     target = cur.rounds[n - 1]
     target.mode = mode
+    target.sample_answers = samples
     target.transcripts, target.pass_a, target.pass_b = (
         result.transcripts,
         result.pass_a,
@@ -267,6 +342,7 @@ def record_check(
     target.judged_at = now_iso()
     cur.latest_verdicts = {**cur.latest_verdicts, **{r.step_id: r.verdict for r in result.ratings}}
     cur.status = "judged"
+    chain.append(cur, "round_judged", chain.round_judged(target), at=target.judged_at)
 
 
 def _merge(into: phases.Meta, other: phases.Meta) -> None:

@@ -5,7 +5,8 @@ counts: one `usage` line per model call, and one `audit` line per run. It also n
 were cut off at the output ceiling (SIB_MAX_OUTPUT_TOKENS), which adk_run.run_phase refuses. The
 BigQuery plugin gets a content formatter that drops transcripts, audio and prompt text, and its
 STATE_DELTA rows (which would carry them) are denied. Cloud Trace spans are exported with ADK's
-message-content capture switched off.
+message-content capture switched off. An unhandled error goes to Cloud Error Reporting as one JSON
+line on stderr with its stack frames and exception type, never its message (report_error).
 """
 
 from __future__ import annotations
@@ -13,7 +14,9 @@ from __future__ import annotations
 import json
 import logging
 import os
+import sys
 import time
+import traceback
 from collections import Counter, defaultdict
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -22,6 +25,7 @@ from typing import Any
 from google.adk.plugins.base_plugin import BasePlugin
 from google.genai import types
 
+from sayitback import __version__
 from sayitback.settings import ConfigError, Settings
 
 log = logging.getLogger("sayitback.audit")
@@ -44,12 +48,77 @@ CAPTURE_SPAN_CONTENT_ENV = "ADK_CAPTURE_MESSAGE_CONTENT_IN_SPANS"
 
 def configure_logging() -> None:
     """Show our INFO lines (the audit log) and keep httpx from logging request URLs: a Chat
-    webhook URL carries a key and a secret."""
+    webhook URL carries a key and a secret. uvicorn's traceback of an error that escaped the app
+    becomes an Error Reporting line instead (ServerTracebackFilter)."""
     if not logging.getLogger().handlers:
         logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s %(message)s")
     logging.getLogger("sayitback").setLevel(logging.INFO)
     for noisy in ("httpx", "httpcore"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
+    server = logging.getLogger(SERVER_LOGGER)
+    if not any(isinstance(f, ServerTracebackFilter) for f in server.filters):
+        server.addFilter(ServerTracebackFilter())
+
+
+# Cloud Error Reporting ---------------------------------------------------------------------------
+
+ERROR_EVENT_TYPE = (
+    "type.googleapis.com/google.devtools.clouderrorreporting.v1beta1.ReportedErrorEvent"
+)
+SERVER_LOGGER = "uvicorn.error"  # where uvicorn logs an error that escaped the app, message and all
+_REPORTED = "_sib_error_reported"
+
+
+def error_trace(exc: BaseException) -> str:
+    """The stack trace in the layout of traceback.format_exc(), which Error Reporting parses for
+    Python: the frames (file, line, function, source line), then the exception's type alone. No
+    message, its own or a cause's: a message can carry what the request held (a validation error
+    echoes its input, a KeyError its key), and a cause is often the error that was being handled."""
+    kind = type(exc)
+    name = kind.__qualname__
+    if kind.__module__ not in ("builtins", "__main__"):
+        name = f"{kind.__module__}.{name}"
+    frames = traceback.format_list(traceback.extract_tb(exc.__traceback__))
+    return "Traceback (most recent call last):\n" + "".join(frames) + name
+
+
+def error_report(exc: BaseException) -> dict[str, Any]:
+    """The Error Reporting entry for an unhandled error. Cloud Run's logging agent reads a JSON line
+    on stderr as a structured entry: `severity` becomes the entry's severity, the rest its
+    jsonPayload. The service and version are the Cloud Run service and revision, so an error group
+    names the revision to roll back from."""
+    return {
+        "severity": "ERROR",
+        "@type": ERROR_EVENT_TYPE,
+        "message": error_trace(exc),
+        "serviceContext": {
+            "service": os.environ.get("K_SERVICE") or "say-it-back-api",
+            "version": os.environ.get("K_REVISION") or __version__,
+        },
+    }
+
+
+def report_error(exc: BaseException) -> None:
+    """Write the error's report to stderr as one line, and mark the exception reported, so the
+    server's own traceback of it (with its message) is dropped rather than logged twice."""
+    setattr(exc, _REPORTED, True)  # every exception has a __dict__, __slots__ or not
+    sys.stderr.write(json.dumps(error_report(exc), sort_keys=True) + "\n")
+    sys.stderr.flush()
+
+
+class ServerTracebackFilter(logging.Filter):
+    """On uvicorn's error logger. Starlette re-raises every error its 500 handler answered, and
+    uvicorn then logs the full traceback, message included, as plain lines. Such a record is
+    dropped: reported once already (main.py's handler), or reported here in the same format when
+    the app never saw it (a WebSocket route, the lifespan)."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        exc = record.exc_info[1] if record.exc_info else None
+        if exc is None:
+            return True
+        if not getattr(exc, _REPORTED, False):
+            report_error(exc)
+        return False
 
 
 @dataclass(frozen=True)

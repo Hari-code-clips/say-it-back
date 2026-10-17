@@ -16,6 +16,8 @@ TRANSCRIBE_KEY = "transcribe_out"
 JUDGE_A_KEY = "judge_a_out"
 JUDGE_B_KEY = "judge_b_out"
 FINAL_KEY = "final"
+TRANSCRIBER, JUDGE_A, JUDGE_B = "blind_transcriber", "judge_a", "judge_b"  # the model nodes
+MODEL_REFUSED = "model_refused"  # the model's filter blocked the reply about this clip (v0.5.1)
 SENTENCE_SEPARATOR = "\n"  # Script.instruction holds one sentence per line; stepMap indexes lines
 
 
@@ -48,14 +50,27 @@ def empty_transcript(question_id: str) -> Transcript:
     )
 
 
+def refused_transcript(question_id: str) -> Transcript:
+    """A clip the transcriber's reply was blocked for: the worker may well have spoken, but there is
+    nothing to quote, so nothing can be covered by it."""
+    return empty_transcript(question_id).model_copy(update={"flags": [MODEL_REFUSED]})
+
+
 def transcripts_from(
-    out: Mapping[str, Any] | None, ids: Sequence[str], clip_ids: Sequence[str] | None = None
+    out: Mapping[str, Any] | None,
+    ids: Sequence[str],
+    clip_ids: Sequence[str] | None = None,
+    *,
+    refused: bool = False,
 ) -> list[Transcript]:
     """One Transcript per question id, in question order. Only a clip that was uploaded
     (`clip_ids`) can have a transcript: anything the model returns for another id is dropped, so
     it can never be quoted as evidence. A clip the model skipped, and a question with no clip,
-    become empty `no_speech` transcripts."""
+    become empty `no_speech` transcripts. When the transcriber's reply was blocked (`refused`),
+    each uploaded clip becomes an empty `model_refused` transcript instead."""
     allowed = set(ids if clip_ids is None else clip_ids) & set(ids)
+    if refused:
+        return [refused_transcript(q) if q in allowed else empty_transcript(q) for q in ids]
     seen: dict[str, Transcript] = {}
     for item in (out or {}).get("transcripts", []):
         qid = item.get("question_id")

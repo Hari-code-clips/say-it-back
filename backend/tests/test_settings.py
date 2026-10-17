@@ -135,3 +135,75 @@ def test_an_output_ceiling_below_1024_fails_at_start_up(bad):
     """A ceiling that low would cut off ordinary replies, thinking included."""
     with pytest.raises(ConfigError, match="SIB_MAX_OUTPUT_TOKENS must be at least 1024"):
         Settings.from_env({"SIB_MAX_OUTPUT_TOKENS": bad})
+
+
+# API v0.4 -------------------------------------------------------------------------------------
+
+V04 = {
+    "SIB_DELIVERY_MIN_SIMILARITY": ("delivery_min_similarity", 0.8, "0.9", 0.9),
+    "SIB_DELIVERY_MIN_SCRIPT_SHARE": ("delivery_min_script_share", 0.7, "0.5", 0.5),
+    "SIB_REPLY_MAX_CHARS": ("reply_max_chars", 60, "80", 80),
+    "SIB_MAX_HAZARDS": ("max_hazards", 5, "2", 2),
+    "SIB_JUDGE_B_MODEL": ("judge_b_model", "gemini-3.1-flash-lite", "m-lite", "m-lite"),
+    "SIB_WEBHOOK_SECRET": ("webhook_secret", "", "k", "k"),
+    "SIB_PHASE_TIMEOUT_S": ("phase_timeout_s", 110.0, "30", 30.0),
+    "SIB_REQUEST_TIMEOUT_S": ("request_timeout_s", 120.0, "40", 40.0),
+}
+
+
+@pytest.mark.parametrize("name", list(V04))
+def test_the_v04_settings_default_and_are_read_from_the_environment(name):
+    field, default, raw, value = V04[name]
+    assert getattr(Settings.from_env({}), field) == default == getattr(Settings(), field)
+    assert getattr(Settings.from_env({name: raw}), field) == value
+
+
+def test_the_hazard_report_has_its_own_thinking_level():
+    assert Settings.from_env({}).thinking["hazard_report"] == "low"
+    assert (
+        Settings.from_env({"SIB_THINKING_HAZARD_REPORT": "high"}).thinking["hazard_report"]
+        == "high"
+    )
+    with pytest.raises(ConfigError, match="SIB_THINKING_HAZARD_REPORT"):
+        Settings.from_env({"SIB_THINKING_HAZARD_REPORT": "minimal"})
+
+
+@pytest.mark.parametrize(
+    "env",
+    [
+        {"SIB_DELIVERY_MIN_SIMILARITY": "1.5"},
+        {"SIB_DELIVERY_MIN_SIMILARITY": "high"},
+        {"SIB_DELIVERY_MIN_SCRIPT_SHARE": "-0.1"},
+        {"SIB_REPLY_MAX_CHARS": "0"},
+        {"SIB_REPLY_MAX_CHARS": "sixty"},
+        {"SIB_MAX_HAZARDS": "0"},
+        {"SIB_MAX_HAZARDS": "2.5"},
+        {"SIB_PHASE_TIMEOUT_S": "0"},
+        {"SIB_REQUEST_TIMEOUT_S": "-5"},
+        {"SIB_WEBHOOK_URL": "not a url"},
+        {
+            "SIB_WEBHOOK_URL": "https://a.example,https://b.example,https://c.example,https://d.example"
+        },
+    ],
+)
+def test_invalid_v04_values_fail_at_start_up(env):
+    with pytest.raises(ConfigError):
+        Settings.from_env(env)
+
+
+def test_the_extractor_thinks_low_by_default():
+    """Real Agent Platform runs on 15 Oct 2026 (lifting-zone, the sample instruction): at `low` the
+    extractor flagged the SOP-only tag-line step in 3 of 3 runs, at `medium` in 0 of 3, and took no
+    longer. The flagged step is the demo's "Not in your briefing" moment, so low is the default."""
+    from sayitback.settings import DEFAULT_THINKING
+
+    assert DEFAULT_THINKING["extract_steps"] == "low"
+    assert Settings.from_env({}).thinking["extract_steps"] == "low"
+
+
+def test_the_judges_think_low_by_default():
+    """The 15 Oct paid eval (58 answers, eval/reports/2026-10-15-paid-judges-*.md): at low and at medium,
+    0 false passes of 68 and 87.5% exact; low passed 39 of 44 correct answers (medium 38), and is faster."""
+    from sayitback.settings import DEFAULT_THINKING
+
+    assert DEFAULT_THINKING["judge_a"] == DEFAULT_THINKING["judge_b"] == "low"

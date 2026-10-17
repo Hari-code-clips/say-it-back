@@ -202,10 +202,18 @@ class TestTheJudgePromptFencesTheTranscripts:
             assert prompts.FENCE_CLOSE in nodes[judge].system, judge
 
     def test_the_prompt_version_is_bumped_with_a_reason_line(self):
-        assert prompts.PROMPT_VERSION == "2026-10-14.6"
+        assert prompts.PROMPT_VERSION == "2026-10-16.12"
         source = PROMPTS_SOURCE.read_text()
         reason = next(ln for ln in source.splitlines() if ln.startswith("# .6:"))
         assert "fence" in reason and "S14" in reason
+        v04 = next(ln for ln in source.splitlines() if ln.startswith("# .7:"))
+        assert "hazard_report" in v04
+        rules = next(ln for ln in source.splitlines() if ln.startswith("# .9:"))
+        assert "quote rules" in rules
+        latest = next(ln for ln in source.splitlines() if ln.startswith("# .10:"))
+        assert "guide" in latest and "leak" in latest
+        judge = next(ln for ln in source.splitlines() if ln.startswith("# .11:"))
+        assert "vocabulary" in judge and "missed" in judge
 
 
 class TestTheCsvGuardStillHolds:

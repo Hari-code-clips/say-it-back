@@ -1,9 +1,11 @@
 """Run one ADK phase: a Runner and App built for this request, over an in-memory session.
 
 ADK sessions are deliberately in-memory so audio never lands in a persistent session. The
-briefing state lives in the store. A 429 or 5xx is retried once inside the model call (see
-backends.retry_options); what still fails maps to 503 upstream_busy or 502 upstream_error. A reply
-that hit the output ceiling (SIB_MAX_OUTPUT_TOKENS) is a 502 too, whatever else ADK made of it.
+briefing state lives in the store. A 429, a 5xx or an attempt cut off at SIB_CALL_TIMEOUT_S is
+retried inside the model call, up to SIB_RETRY_ATTEMPTS in all (backends.retry_options), and the
+phase timeout bounds the lot; what still fails maps to 503 upstream_busy or 502 upstream_error. A
+reply that hit the output ceiling (SIB_MAX_OUTPUT_TOKENS) is a 502 too, whatever else ADK made of
+it.
 """
 
 from __future__ import annotations

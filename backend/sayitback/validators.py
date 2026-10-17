@@ -49,14 +49,17 @@ def sop_for(body: CreateBriefing, s: Settings) -> Sop:
     return Sop.model_validate(task["sop"])
 
 
-def briefing_request(body: CreateBriefing, s: Settings) -> Sop:
-    """Validate a create-briefing request and return its SOP."""
+def briefing_request(body: CreateBriefing, s: Settings) -> Sop | None:
+    """Validate a create-briefing request and return its SOP (None with a library `sopRef`, which
+    the service resolves against the store: SopLibrary.briefing_sop)."""
     if catalog.site(body.site_id) is None:
         what = quote(body.site_id, s.max_echo_chars)
         raise Unprocessable(f"Unknown siteId {what}.", code="unknown_site")
     catalog.require_lang(body.supervisor_lang, "supervisorLang")
     catalog.require_lang(body.worker_lang, "workerLang")
     instruction(body.instruction, s)
+    if body.sop_ref is not None:  # library (2026-10-16)
+        return None
     return sop_for(body, s)
 
 

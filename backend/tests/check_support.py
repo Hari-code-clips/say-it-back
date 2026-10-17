@@ -11,19 +11,35 @@ from sayitback.models import Question, Step
 from sayitback.pipeline import run_check
 from tests.fakes import Scenario, rating, tone_wav, transcript
 
+PANEL = "panel-isolation"  # the sg-panel demo; demo.py defaults to the lead task, lifting-zone
 ANSWER = "நான் அதை ஆஃப் பண்ணிட்டு திறப்பேன்."
-STEPS = [Step.model_validate(s) for s in catalog.reference_steps("panel-isolation")]
+STEPS = [Step.model_validate(s) for s in catalog.reference_steps(PANEL)]
+LEAD_ANSWER = "லோடுக்கு அடியில நின்னு, கையால பிடிச்சு அதை நேரா வைப்பேன்."  # sg-lead round 1
 QUESTIONS = [Question(id="q1", text="q?", step_ids=["s1", "s2", "s3"])]
 
 
 def scenario() -> Scenario:
-    """Round 1 of the sg-lead demo: s1 covered, s2 and s3 missed."""
+    """Round 1 of the sg-panel demo: s1 covered, s2 and s3 missed."""
     return Scenario(
         transcripts=[transcript("q1", ANSWER)],
         judge_a=[
             rating("s1", "covered", "ஆஃப் பண்ணிட்டு"),
             rating("s2", "missed"),
             rating("s3", "missed"),
+        ],
+    )
+
+
+def lead_scenario() -> Scenario:
+    """Round 1 of the sg-lead demo: standing under the load (s1) and steadying it by hand (s4)
+    contradict their steps; the barrier (s2) and the signalman (s3) are not mentioned."""
+    return Scenario(
+        transcripts=[transcript("q1", LEAD_ANSWER)],
+        judge_a=[
+            rating("s1", "contradicted", "லோடுக்கு அடியில நின்னு"),
+            rating("s2", "missed"),
+            rating("s3", "missed"),
+            rating("s4", "contradicted", "கையால பிடிச்சு அதை நேரா வைப்பேன்"),
         ],
     )
 

@@ -3,8 +3,11 @@
 `generate_content` with the AUDIO modality runs on both backends. The model returns raw 24 kHz
 16-bit PCM, which is wrapped as WAV. It speaks only lines of a round's own script (`part_of_script`;
 the API refuses anything else), so the language is the script's: the model detects it from the
-text, and no language is sent. Like every Flash call, a call has an output ceiling
-(SIB_MAX_OUTPUT_TOKENS), and a reply cut off at it is refused, never played or cached.
+text, and no language is sent. Unlike the Flash calls, a TTS call sends no `max_output_tokens`:
+Agent Platform refuses any TTS request that carries one (400 INVALID_ARGUMENT, probed 15 Oct 2026),
+which would break turn mode in the cloud. Its cost is bounded by the text instead: only lines of the
+approved script, each at most SIB_MAX_LINE_CHARS. A reply the model still reports as cut off
+(MAX_TOKENS) is refused, never played or cached.
 """
 
 from __future__ import annotations
@@ -23,6 +26,7 @@ from sayitback.errors import CUT_OFF_MESSAGE, UpstreamError, as_upstream_error, 
 from sayitback.models import Script
 from sayitback.runtime import BeforeCall, Runtime
 from sayitback.script_checks import clean
+from sayitback.settings import Settings
 from sayitback.wav import make_wav
 
 log = logging.getLogger("sayitback.tts")
@@ -68,15 +72,20 @@ class Tts:
             _, dropped = self._cache.popitem(last=False)
             self._bytes -= len(dropped)
 
-    def _config(self) -> types.GenerateContentConfig:
-        voice = types.PrebuiltVoiceConfig(voice_name=self.rt.settings.tts_voice)
+    @staticmethod
+    def config_for(settings: Settings) -> types.GenerateContentConfig:
+        """The one TTS request config, shared with the deploy-day probe (probe.py) so the two never
+        drift. No max_output_tokens: Agent Platform's TTS refuses it (module docstring)."""
+        voice = types.PrebuiltVoiceConfig(voice_name=settings.tts_voice)
         return types.GenerateContentConfig(
             response_modalities=["AUDIO"],
             speech_config=types.SpeechConfig(
                 voice_config=types.VoiceConfig(prebuilt_voice_config=voice)
             ),
-            max_output_tokens=self.rt.settings.max_output_tokens,
         )
+
+    def _config(self) -> types.GenerateContentConfig:
+        return self.config_for(self.rt.settings)
 
     async def speak(self, text: str, *, before_call: BeforeCall | None = None) -> bytes:
         """WAV (24 kHz mono 16-bit) for `text`. Raises 503 upstream_busy or 502 upstream_error (also

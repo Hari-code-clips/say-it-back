@@ -19,6 +19,15 @@ def _join(old: str, new: str) -> str:
     return f"{old} {new}".strip() if old else new.strip()
 
 
+def _appended(earlier: dict[str, str], now: dict[str, str]) -> dict[str, str]:
+    """A later session's speech for a segment follows the earlier session's, never replaces it:
+    the worker heard both, so the delivery check must see both."""
+    merged = dict(earlier)
+    for segment, text in now.items():
+        merged[segment] = _join(merged.get(segment, ""), text)
+    return merged
+
+
 class LiveTranscripts:
     def __init__(self) -> None:
         self.delivered: dict[str, str] = {}
@@ -56,7 +65,8 @@ class LiveTranscripts:
         return full
 
     def record_into(self, b: Briefing, n: int, *, model: str, started_at: str) -> None:
-        """Merge this session's speech into round n's `live` record, keeping earlier sessions.
+        """Merge this session's speech into round n's `live` record after earlier sessions' (a
+        segment both spoke holds both, with a space between).
 
         A round judged, or a briefing decided, while the socket was open is final: nothing is
         written then.
@@ -66,6 +76,6 @@ class LiveTranscripts:
             return
         live = rnd.live or LiveRecord(model=model, started_at=started_at)
         live.ended_at = now_iso()
-        live.delivered = {**live.delivered, **self.delivered}
-        live.heard = {**live.heard, **self.heard}
+        live.delivered = _appended(live.delivered, self.delivered)
+        live.heard = _appended(live.heard, self.heard)
         rnd.live = live

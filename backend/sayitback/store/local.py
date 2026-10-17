@@ -17,12 +17,15 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from sayitback import retention
 from sayitback.store.base import (
     BRIEFING_ID,
     DIGEST,
+    ORG_ID,
     Briefing,
     Reserved,
     Store,
+    check_key_is_live,
     iso,
     parse_iso,
     ticket_is_live,
@@ -32,9 +35,19 @@ SAFE_KEY = "abcdefghijklmnopqrstuvwxyz0123456789_."
 
 
 class LocalStore(Store):
-    def __init__(self, root: Path) -> None:
+    def __init__(self, root: Path, retention_days: int = 0) -> None:
         self._root = root
         self._lock = threading.RLock()
+        self.retention_days = retention_days  # retention.py: 0 = keep; make_store sets it
+
+    def _briefing(self, path: Path) -> dict[str, Any] | None:
+        """A stored briefing, or None. An expired one is deleted as it is read (retention.py)."""
+        raw = self._read(path)
+        if raw is not None and retention.is_expired(raw):
+            path.unlink(missing_ok=True)
+            (self._root / "outbox" / path.name).unlink(missing_ok=True)  # its deliveries go too
+            return None
+        return raw
 
     def _path(self, kind: str, name: str) -> Path:
         if not name or any(c not in SAFE_KEY for c in name):
@@ -62,30 +75,37 @@ class LocalStore(Store):
 
     async def create(self, briefing: Briefing) -> None:
         with self._lock:
-            self._write(self._path("briefings", briefing["id"]), briefing)
+            stored = retention.stamp(briefing, self.retention_days)
+            self._write(self._path("briefings", briefing["id"]), stored)
 
     async def get(self, briefing_id: str) -> Briefing | None:
         if not BRIEFING_ID.fullmatch(briefing_id):
             return None
         with self._lock:
-            return self._read(self._path("briefings", briefing_id))
+            return self._briefing(self._path("briefings", briefing_id))
+
+    async def delete(self, briefing_id: str) -> None:
+        if BRIEFING_ID.fullmatch(briefing_id):
+            with self._lock:
+                self._path("briefings", briefing_id).unlink(missing_ok=True)
+                self._path("outbox", briefing_id).unlink(missing_ok=True)  # outbox.py: deliveries
 
     async def update(self, briefing_id: str, fn: Callable[[Briefing], Briefing]) -> Briefing:
         if not BRIEFING_ID.fullmatch(briefing_id):
             raise KeyError(briefing_id)
         with self._lock:
             path = self._path("briefings", briefing_id)
-            current = self._read(path)
+            current = self._briefing(path)
             if current is None:
                 raise KeyError(briefing_id)
-            updated = fn(deepcopy(current))
+            updated = retention.keep_expiry(current, fn(deepcopy(current)))
             self._write(path, updated)
             return updated
 
     async def recent(self, limit: int, owner: str) -> list[Briefing]:
         with self._lock:
             folder = self._root / "briefings"
-            items = [self._read(p) for p in folder.glob("b_*.json")] if folder.is_dir() else []
+            items = [self._briefing(p) for p in folder.glob("b_*.json")] if folder.is_dir() else []
         rows = [i for i in items if i and owner and i.get("owner") == owner]
         return sorted(rows, key=lambda b: b["createdAt"], reverse=True)[:limit]
 
@@ -154,3 +174,117 @@ class LocalStore(Store):
             if mine is not None:
                 self._write(mine, {"calls": mine_used + calls})
             return Reserved.GRANTED
+
+    # Idempotent answer uploads (idempotency.py) ---------------------------------------------------
+
+    def _check_key(self, digest: str) -> Path:
+        if not DIGEST.fullmatch(digest):
+            raise ValueError("check key digest must be a SHA-256 hex string")
+        return self._path("check_keys", digest)
+
+    async def claim_check_key(
+        self, digest: str, record: dict[str, Any], now: datetime
+    ) -> dict[str, Any] | None:
+        with self._lock:
+            path = self._check_key(digest)
+            held = self._read(path)
+            if check_key_is_live(held, now):
+                return held
+            self._write(path, record)
+            return None
+
+    async def set_check_key(self, digest: str, record: dict[str, Any] | None) -> None:
+        with self._lock:
+            path = self._check_key(digest)
+            if record is None:
+                path.unlink(missing_ok=True)
+            else:
+                self._write(path, record)
+
+    # The SOP library (sop_library.py) ----------------------------------------------------------
+
+    async def get_sop_library(self, key: str) -> dict[str, Any] | None:
+        if not DIGEST.fullmatch(key):
+            return None
+        with self._lock:
+            return self._read(self._path("sop_library", key))
+
+    async def update_sop_library(
+        self, key: str, fn: Callable[[dict[str, Any] | None], dict[str, Any]]
+    ) -> dict[str, Any]:
+        if not DIGEST.fullmatch(key):
+            raise KeyError(key)
+        with self._lock:
+            path = self._path("sop_library", key)
+            updated = fn(self._read(path))
+            self._write(path, updated)
+            return updated
+
+    # Org members (auth.py) -----------------------------------------------------------------------
+
+    def _member_dir(self, org_id: str) -> Path:
+        if not ORG_ID.fullmatch(org_id):
+            raise KeyError(org_id)
+        return self._root / "orgs" / org_id / "members"
+
+    async def member_get(self, org_id: str, member_id: str) -> dict[str, Any] | None:
+        if not (ORG_ID.fullmatch(org_id) and DIGEST.fullmatch(member_id)):
+            return None
+        with self._lock:
+            return self._read(self._member_dir(org_id) / f"{member_id}.json")
+
+    async def member_update(
+        self,
+        org_id: str,
+        member_id: str,
+        fn: Callable[[dict[str, Any] | None], dict[str, Any] | None],
+    ) -> dict[str, Any] | None:
+        if not DIGEST.fullmatch(member_id):
+            raise KeyError(member_id)
+        with self._lock:
+            path = self._member_dir(org_id) / f"{member_id}.json"
+            current = self._read(path)
+            updated = fn(deepcopy(current))
+            if updated is None:
+                return current
+            self._write(path, updated)
+            return updated
+
+    async def members_list(self, org_id: str, limit: int) -> list[dict[str, Any]]:
+        if not ORG_ID.fullmatch(org_id):
+            return []
+        with self._lock:
+            folder = self._member_dir(org_id)
+            paths = sorted(folder.glob("*.json")) if folder.is_dir() else []
+            return [m for m in (self._read(p) for p in paths[:limit]) if m]
+
+    # The delivery outbox (outbox.py) -------------------------------------------------------------
+
+    async def outbox_get(self, briefing_id: str) -> dict[str, Any] | None:
+        if not BRIEFING_ID.fullmatch(briefing_id):
+            return None
+        with self._lock:
+            return self._read(self._path("outbox", briefing_id))
+
+    async def outbox_update(
+        self, briefing_id: str, fn: Callable[[dict[str, Any] | None], dict[str, Any] | None]
+    ) -> dict[str, Any] | None:
+        if not BRIEFING_ID.fullmatch(briefing_id):
+            raise KeyError(briefing_id)
+        with self._lock:
+            path = self._path("outbox", briefing_id)
+            current = self._read(path)
+            updated = fn(deepcopy(current))
+            if updated is None:
+                return current
+            parent = None if current else self._read(self._path("briefings", briefing_id))
+            updated = retention.inherit_expiry(current, updated, parent)  # dies with its briefing
+            self._write(path, updated)
+            return updated
+
+    async def outbox_due(self, now: str, limit: int) -> list[str]:
+        with self._lock:
+            folder = self._root / "outbox"
+            docs = [self._read(p) for p in folder.glob("b_*.json")] if folder.is_dir() else []
+        due = sorted((d["due"], d["briefingId"]) for d in docs if d and d["due"] <= now)
+        return [briefing_id for _, briefing_id in due[:limit]]

@@ -76,28 +76,13 @@ def by_step(result):
 
 
 class TestRule1Combine:
+    """The table of all 16 pairs, and which quote and reason a split shows, is in
+    test_guards_rule1.py."""
+
     def test_both_covered_stays_covered(self):
         r = guard(covered_all())
         assert [x.verdict for x in r.ratings] == ["covered"] * 3
         assert all("passes_disagreed" not in x.flags for x in r.ratings)
-
-    @pytest.mark.parametrize(
-        ("a", "b", "final"),
-        [
-            ("covered", "missed", "missed"),
-            ("covered", "unclear", "unclear"),
-            ("unclear", "missed", "missed"),
-            ("missed", "contradicted", "contradicted"),
-            ("covered", "contradicted", "contradicted"),
-            ("unclear", "contradicted", "contradicted"),
-        ],
-    )
-    def test_the_more_severe_verdict_wins_and_disagreement_is_flagged(self, a, b, final):
-        quote = "பிரேக்கரை ஆஃப் பண்ணி"
-        r = guard(judge(verdict("s1", a, quote)), judge(verdict("s1", b, quote)), steps=STEPS[:1])
-        only = r.ratings[0]
-        assert only.verdict == final
-        assert "passes_disagreed" in only.flags
 
     def test_agreement_on_missed_is_not_flagged(self):
         r = guard(judge(verdict("s1", "missed")), judge(verdict("s1", "missed")), steps=STEPS[:1])
@@ -256,7 +241,7 @@ class TestRule4Language:
         odia = "ମୁଁ ପ୍ରଥମେ ବ୍ରେକର ବନ୍ଦ କରିବି ଏବଂ ତାଲା ଲଗାଇବି"
         assert not is_language_mismatch(odia, catalog.unicode_ranges("or"), CFG)
         r = guard(
-            judge(verdict("s1", "covered", "ବ୍ରେକର ବନ୍ଦ")),
+            judge(verdict("s1", "covered", "ବ୍ରେକର ବନ୍ଦ କରିବି")),  # weight 10 (v0.5)
             transcripts=[transcript(odia)],
             steps=STEPS[:1],
             lang="or",

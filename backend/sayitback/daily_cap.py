@@ -45,6 +45,7 @@ SCRIPT_RETRY_CALLS = 1  # endpoint 10: the second write_script call, reserved ju
 LIVE_TICKET_CALLS = 4  # endpoint 11: a weight for one Live session, charged with its ticket
 TTS_CALLS = 1  # endpoint 12: one generate_content; a cache hit makes none
 CHECK_BASE_CALLS = 1  # endpoints 13 and 19: the blind transcriber, plus one call per judge pass
+HAZARD_CALLS = 1  # endpoint 21 with audio: hazard_report; a tap (no audio) makes none
 
 Clock = Callable[[], datetime]
 

@@ -12,3 +12,6 @@ tests/
 .git/
 .github/
 *.log
+# Dotenv files never ship (the service reads its settings from Cloud Run).
+.env
+.env.*

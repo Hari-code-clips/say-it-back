@@ -4,13 +4,14 @@
 
 - blind_transcriber: LlmAgent, audio in, steps withheld.
 - judge_a: LlmAgent on the audio plus the blind transcript. judge_b: the transcript only,
-  `include_contents="none"` with media stripped. They run in parallel: a tuple in the chain
-  fans out.
+  `include_contents="none"` with media stripped, on a second model (SIB_JUDGE_B_MODEL). They run
+  in parallel: a tuple in the chain fans out.
 - join_judges: a JoinNode, it waits for both judges.
 - guard: a FunctionNode, no model: guards.py rules 1-7.
 
 With SIB_JUDGE_PASSES=1 only judge A runs: START -> blind_transcriber -> judge_a -> guard.
-If the session state is empty (adk web), every node loads the catalog's sg-lead demo task.
+If the session state is empty (adk web), every node loads the catalog's lead demo task
+(`lifting-zone`, demo script `sg-lead`; demo.py).
 """
 
 from __future__ import annotations
@@ -21,11 +22,14 @@ from google.adk.agents.readonly_context import ReadonlyContext
 from google.adk.workflow import START, JoinNode, Workflow
 
 from sayitback import catalog, demo, prompts
-from sayitback.adk_common import build_llm_agent, read_input
+from sayitback.adk_common import build_llm_agent, read_input, refused_by
 from sayitback.check_state import (
+    JUDGE_A,
     JUDGE_A_KEY,
+    JUDGE_B,
     JUDGE_B_KEY,
     TRANSCRIBE_KEY,
+    TRANSCRIBER,
     question_ids,
     script_view,
     transcripts_from,
@@ -36,7 +40,7 @@ from sayitback.llm_schemas import JudgeOut, TranscribeOut
 from sayitback.runtime import Runtime, get_runtime
 
 NAME = "check_answer"
-TRANSCRIBER, JUDGE_A, JUDGE_B, JOIN = "blind_transcriber", "judge_a", "judge_b", "join_judges"
+JOIN = "join_judges"
 
 
 def transcriber_instruction(ctx: ReadonlyContext) -> str:
@@ -58,7 +62,10 @@ def judge_provider(*, with_audio: bool):
     def instruction(ctx: ReadonlyContext) -> str:
         inp = read_input(ctx, demo.check_input)
         transcripts = transcripts_from(
-            ctx.state.get(TRANSCRIBE_KEY), question_ids(inp), inp.get("clip_ids")
+            ctx.state.get(TRANSCRIBE_KEY),
+            question_ids(inp),
+            inp.get("clip_ids"),
+            refused=bool(refused_by(ctx.state, TRANSCRIBER)),
         )
         return prompts.judge_instruction(
             {
@@ -123,6 +130,7 @@ def build_agent(rt: Runtime | None = None, *, passes: int | None = None) -> Work
             description="Judges each step on the blind transcript only.",
             include_contents="none",
             before_model_callback=strip_media,
+            model=rt.judge_b,
         )
         chain = (START, transcriber, (judge_a, judge_b), JoinNode(name=JOIN), guard)
     return Workflow(

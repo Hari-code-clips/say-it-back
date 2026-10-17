@@ -1,6 +1,6 @@
 """The FastAPI app: `uvicorn sayitback.main:app --port 8080`.
 
-All 20 endpoints of API.md, camelCase on the wire, errors as {"error": {"code", "message"}}.
+All 25 endpoints of API.md (v0.4), camelCase on the wire, errors as {"error": {"code", "message"}}.
 """
 
 from __future__ import annotations
@@ -16,16 +16,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from sayitback import __version__
-from sayitback.api import briefings, evaluation, live, misc
+from sayitback import __version__, auth
+from sayitback.api import briefings, evaluation, live, misc, orgs, privacy, sops
+from sayitback.api import outbox as outbox_api
 from sayitback.api.context import AppContext, build_context
 from sayitback.api.device import DOCS_URL, OPENAPI_URL, DeviceMiddleware, open_paths
 from sayitback.api.limits import BodyLimitMiddleware, limits_for
 from sayitback.caller import DEVICE_HEADER
 from sayitback.daily_cap import Clock
 from sayitback.errors import ApiError, RateLimited, safe_describe
+from sayitback.idempotency import KEY_HEADER
 from sayitback.live_runner import LiveOpener
-from sayitback.observability import configure_logging, setup_cloud_trace
+from sayitback.observability import configure_logging, report_error, setup_cloud_trace
 from sayitback.runtime import Runtime
 from sayitback.settings import Settings
 from sayitback.store import Store
@@ -73,6 +75,7 @@ def _install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(Exception)
     async def unexpected(_: Request, exc: Exception) -> JSONResponse:
         log.error("unhandled error: %s", safe_describe(exc))
+        report_error(exc)  # Cloud Error Reporting: stack frames and type, never the message
         return _error(500, "internal_error", "Something went wrong.")
 
 
@@ -84,6 +87,7 @@ def create_app(
     webhook_transport: httpx.AsyncBaseTransport | None = None,
     live_opener: LiveOpener | None = None,
     clock: Clock | None = None,
+    token_verifier: auth.Verifier | None = None,
 ) -> FastAPI:
     """Build the app. Tests pass fakes for the model layer, store, webhook transport and Live, and
     a clock for the daily Gemini cap's UTC day."""
@@ -113,10 +117,14 @@ def create_app(
         redoc_url=None,
     )
     app.state.ctx = ctx
+    app.state.auth = auth.build_auth(settings, ctx.repo.store, token_verifier)
     _install_http(app, settings)
     _install_error_handlers(app)
-    for router in (misc.router, briefings.router, evaluation.router, live.router):
+    routers = (misc.router, briefings.router, evaluation.router, evaluation.samples, live.router)
+    for router in (*routers, orgs.router, sops.router):  # sops: the SOP library (2026-10-16)
         app.include_router(router)
+    app.include_router(privacy.router)  # consent and deletion (privacy, 2026-10-16)
+    app.include_router(outbox_api.router)  # POST /admin/outbox/retry (SIB_OUTBOX)
     return app
 
 
@@ -126,14 +134,27 @@ def _install_http(app: FastAPI, settings: Settings) -> None:
     cross-origin browser needs to read it, and outside the body limit, so a request without a key
     is refused before any of its body is read."""
     app.add_middleware(BodyLimitMiddleware, limits=limits_for(settings))
-    app.add_middleware(
-        DeviceMiddleware, hops=settings.trusted_proxy_hops, open_paths=open_paths(settings)
-    )
+    if app.state.auth is not None:  # SIB_AUTH_MODE=firebase: the ID token instead of the key
+        app.add_middleware(
+            auth.FirebaseMiddleware,
+            auth=app.state.auth,
+            hops=settings.trusted_proxy_hops,
+            open_paths=open_paths(settings),
+        )
+    else:
+        app.add_middleware(
+            DeviceMiddleware, hops=settings.trusted_proxy_hops, open_paths=open_paths(settings)
+        )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(settings.allowed_origins),
-        allow_methods=["GET", "POST", "PUT", "PATCH", "OPTIONS"],
-        allow_headers=["Content-Type", DEVICE_HEADER],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],  # DELETE: privacy
+        allow_headers=[
+            "Content-Type",
+            DEVICE_HEADER,
+            KEY_HEADER,  # 2026-10-16 signal: the check upload's Idempotency-Key
+            *auth.cors_headers(settings),
+        ],
         expose_headers=["Retry-After"],  # a cross-origin page may read none of it otherwise
         max_age=settings.cors_max_age_s,
     )

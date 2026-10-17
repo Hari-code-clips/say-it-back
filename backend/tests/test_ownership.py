@@ -48,8 +48,12 @@ def briefing_routes(bid: str) -> dict[str, tuple[str, str, dict]]:
         "extract": ("POST", f"{base}/steps/extract", {}),
         "confirm steps": ("PUT", f"{base}/steps", {"json": {"steps": [{"id": "s1", "text": "x"}]}}),
         "create a round": ("POST", f"{base}/rounds", {"json": {}}),
+        "approve a script": ("POST", f"{base}/rounds/1/approve", {"json": {"by": "mallory"}}),
         "get a live ticket": ("POST", f"{base}/rounds/1/live-session", {}),
         "check": ("POST", f"{base}/rounds/1/check", {"files": clip}),
+        "report a hazard": ("POST", f"{base}/hazards", {}),
+        "acknowledge a hazard": ("POST", f"{base}/hazards/h1/ack", {"json": {"note": "All fine."}}),
+        "verify": ("GET", f"{base}/verify", {}),
         "decide": ("POST", f"{base}/decision", {"json": {"value": "no_go", "by": "mallory"}}),
     }
 
@@ -87,6 +91,8 @@ class TestTheDeviceKeyIsRequired:
         "eval items": ("GET", "/api/eval/items", {}),
         "eval audio": ("GET", "/api/eval/items/x/audio", {}),
         "eval try": ("POST", "/api/eval/items/x/try", {}),
+        "sample answers": ("GET", "/api/demo-answers", {}),
+        "sample answer audio": ("GET", "/api/demo-answers/lifting-zone/ta/1/audio", {}),
         **{f"briefing: {k}": v for k, v in briefing_routes(UNKNOWN).items()},
     }
 
@@ -276,6 +282,11 @@ class TestTheOwnerIsNeverShown:
             look(TestClient(app_parts[0]).get("/api/briefings"))  # a 401
             look(victim.post("/api/tts", json={"briefingId": bid, "n": 1, "text": SPOKEN[:5]}))
             look(victim.post("/api/tts", json={"briefingId": bid, "n": 1, "text": "not in it"}))
+            look(victim.post(f"/api/briefings/{bid}/rounds/1/approve"))
+            look(victim.post(f"/api/briefings/{bid}/hazards"))
+            look(victim.post(f"/api/briefings/{bid}/hazards/h1/ack", json={"note": "Checked it."}))
+            look(victim.get(f"/api/briefings/{bid}/verify"))
+            look(victim.get("/api/demo-answers"))
             with victim.websocket_connect(f"/api/live/{bid}/1", headers={"origin": ORIGIN}) as ws:
                 wire = Wire(ws)
                 wire.start(ticket["ticket"])
@@ -283,7 +294,7 @@ class TestTheOwnerIsNeverShown:
                 wire.next()
             look(victim.get(f"/api/briefings/{bid}"))  # after the relay wrote round.live
 
-        assert rnd["n"] == 1 and len(seen) >= 9
+        assert rnd["n"] == 1 and len(seen) >= 14
         assert not [text for text in seen if owner in text or DEVICE in text or address in text]
         for secret_text in (owner, DEVICE, address):  # key, hash and client address: none is logged
             assert secret_text not in caplog.text

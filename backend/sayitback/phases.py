@@ -1,5 +1,6 @@
-"""The model phases before and after the check: extract, script (+ back-translation), re-explain
-and the supervisor's speech-to-text. Each runs one ADK agent in its own Runner (adk_run).
+"""The model phases before and after the check: extract, script (+ back-translation), re-explain,
+the supervisor's speech-to-text and a worker's spoken hazard report. Each runs one ADK agent in its
+own Runner (adk_run).
 """
 
 from __future__ import annotations
@@ -13,11 +14,14 @@ from typing import Any
 from google.genai import types
 
 from sayitback import catalog
+from sayitback.adk_common import any_refusal
 from sayitback.adk_run import PhaseRun, run_phase
 from sayitback.agents.back_translate.agent import OUTPUT_KEY as BACK_KEY
 from sayitback.agents.back_translate.agent import build_agent as build_back_translate
 from sayitback.agents.extract_steps.agent import OUTPUT_KEY as EXTRACT_KEY
 from sayitback.agents.extract_steps.agent import build_agent as build_extract
+from sayitback.agents.hazard_report.agent import OUTPUT_KEY as HAZARD_KEY
+from sayitback.agents.hazard_report.agent import build_agent as build_hazard_report
 from sayitback.agents.re_explain.agent import OUTPUT_KEY as REEXPLAIN_KEY
 from sayitback.agents.re_explain.agent import build_agent as build_re_explain
 from sayitback.agents.transcribe_instruction.agent import OUTPUT_KEY as TRANSCRIPT_KEY
@@ -25,7 +29,14 @@ from sayitback.agents.transcribe_instruction.agent import build_agent as build_t
 from sayitback.agents.write_script.agent import OUTPUT_KEY as SCRIPT_KEY
 from sayitback.agents.write_script.agent import build_agent as build_write_script
 from sayitback.errors import UpstreamError
-from sayitback.llm_schemas import BackOut, ExtractOut, ReExplainOut, ScriptOut, SpokenText
+from sayitback.llm_schemas import (
+    BackOut,
+    ExtractOut,
+    HazardOut,
+    ReExplainOut,
+    ScriptOut,
+    SpokenText,
+)
 from sayitback.models import Conflict, Rating, Script, Sop, Step
 from sayitback.runtime import BeforeCall, Runtime
 from sayitback.script_checks import (
@@ -45,7 +56,9 @@ META_KEYS = {
     "back_translate": "back_translate",
     "re_explain": "re_explain",
     "transcribe_instruction": "transcribe_instruction",
+    "hazard_report": "hazard_report",
 }
+NO_SPEECH_LANGS = ("other", "none")
 
 
 @dataclass
@@ -63,9 +76,25 @@ class Meta:
             self.timings_ms[key] = round(self.timings_ms.get(key, 0.0) + ms, 1)
 
 
+# A phase whose reply the model's safety filter blocked (adk_common.record_refusal): what the user
+# is told instead of "no result" (v0.5.1). The check is not here: its guard flags `model_refused`.
+REFUSED_MESSAGES = {
+    "transcribe_instruction": (
+        "The model could not process this recording. Record it again, or type the instruction."
+    ),
+    "hazard_report": (
+        "The model could not process this report. Report it with a tap instead, or tell your "
+        "supervisor in person."
+    ),
+}
+REFUSED_MESSAGE = "The model could not process this request. Try again, or change the wording."
+
+
 def _result(run: PhaseRun, key: str, schema: type) -> Any:
     raw = run.state.get(key)
     if not raw:
+        if any_refusal(run.state):
+            raise UpstreamError(REFUSED_MESSAGES.get(run.audit.phase, REFUSED_MESSAGE))
         raise UpstreamError("The model returned no result.")
     return schema.model_validate(raw)
 
@@ -258,3 +287,27 @@ async def transcribe_instruction(rt: Runtime, audio: bytes, lang: str) -> str:
         rt, build_transcribe(rt), app_name="transcribe_instruction", phase_input=inp, parts=parts
     )
     return clean(_result(run, TRANSCRIPT_KEY, SpokenText).text)
+
+
+async def report_hazard(
+    rt: Runtime, audio: bytes, *, worker_lang: str, supervisor_lang: str
+) -> tuple[str, str, str]:
+    """A worker's spoken hazard report: (original, detected language, translation). The original is
+    verbatim in the worker's own script and the translation is in the supervisor's language."""
+    inp = {
+        "worker_lang_name": catalog.lang_name(worker_lang),
+        "worker_native": catalog.language_native(worker_lang),
+        "supervisor_lang_name": catalog.lang_name(supervisor_lang),
+        "lang_codes": list(catalog.lang_codes()),
+    }
+    parts = [types.Part.from_bytes(data=audio, mime_type="audio/wav")]
+    run = await run_phase(
+        rt, build_hazard_report(rt), app_name="hazard_report", phase_input=inp, parts=parts
+    )
+    out: HazardOut = _result(run, HAZARD_KEY, HazardOut)
+    original, translation = clean(out.original), clean(out.translation)
+    if not original:
+        return "", "none", ""
+    lang = out.detected_lang.strip().lower()
+    known = (*catalog.lang_codes(), *NO_SPEECH_LANGS)
+    return original, lang if lang in known else "other", translation

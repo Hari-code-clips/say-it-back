@@ -177,10 +177,11 @@ class TestTheTextIsValidated:
 
 
 class TestTheOutputCeiling:
-    def test_the_call_carries_the_ceiling(self, settings):
+    def test_the_call_carries_no_ceiling_agent_platform_refuses_it(self, settings):
         w = World(settings, max_output_tokens=4096)
         assert w.speak(SENTENCES[0]).status_code == 200
-        assert w.tts.calls[0]["config"].max_output_tokens == 4096
+        assert w.tts.calls[0]["config"].max_output_tokens is None
+        assert w.tts.calls[0]["config"].response_modalities == ["AUDIO"]
 
     def test_a_reply_cut_off_at_it_is_a_502_and_is_never_played(self, world):
         world.tts.finish_reason = types.FinishReason.MAX_TOKENS

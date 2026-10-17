@@ -266,3 +266,38 @@ def test_agreement_and_the_unsafe_flag():
     }
     assert is_unsafe(gold, {"s1": "covered", "s2": "covered", "s3": "missed"}) is True
     assert is_unsafe(gold, {"s1": "unclear", "s2": "unclear", "s3": "missed"}) is False
+
+
+def test_a_covered_rating_on_a_gold_unclear_step_is_unsafe():
+    """API.md "Eval report": gold `unclear` (silence, wrong language) is a gold miss, so passing it
+    is the unsafe error, as for gold missed or contradicted."""
+    gold = {"s1": "unclear", "s2": "unclear"}
+    assert is_unsafe(gold, {"s1": "covered", "s2": "unclear"}) is True
+    assert is_unsafe(gold, {"s1": "unclear", "s2": "unclear"}) is False
+    assert is_unsafe({"s1": "covered"}, {"s1": "covered"}) is False
+
+
+def test_an_item_whose_audio_is_pending_has_no_clip(tmp_path):
+    """eval/ lists "audio" in an item's `pending` when the clip on disk is stale or missing: it is
+    never served (endpoints 18, 19, 24) and endpoint 17 says hasAudio false."""
+    testset = tmp_path / "testset"
+    (testset / "audio").mkdir(parents=True)
+    (testset / "audio" / "a.wav").write_bytes(b"RIFF")
+    current = {
+        "id": "x.current",
+        "taskId": "lifting-zone",
+        "questionId": "q1",
+        "audio": "audio/a.wav",
+        "pending": [],
+    }
+    stale = {**current, "id": "x.stale", "pending": ["backTranslation", "audio"]}
+    other = {**current, "id": "x.other", "pending": ["backTranslation"]}
+    doc = {"version": "v", "items": [current, stale, other]}
+    (testset / "items.json").write_text(json.dumps(doc), encoding="utf-8")
+    data = EvalData(tmp_path)
+    assert data.has_audio(current) and data.has_audio(other) and not data.has_audio(stale)
+    with pytest.raises(NotFound):
+        data.audio_path(stale)
+    assert {i["id"]: i["hasAudio"] for i in data.public_items()} == {
+        "x.current": True, "x.stale": False, "x.other": True,
+    }  # fmt: skip

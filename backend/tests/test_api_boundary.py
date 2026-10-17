@@ -23,6 +23,7 @@ class TestHealthCatalogAndErrors:
         assert body["ok"] is True and body["store"] == "local" and body["judgePasses"] == 2
         assert body["models"] == {
             "flash": "gemini-3.8-flash",
+            "judgeB": "gemini-3.1-flash-lite",  # v0.4: judge B runs on a second model
             "live": "gemini-3.8-live",
             "tts": "gemini-3.8-flash-tts",
         }
@@ -169,10 +170,10 @@ class TestEvalEndpoints:
     def test_try_runs_the_real_check_on_the_stored_clip(self, settings):
         item_id = self.make_eval(settings)
         scenario = Scenario(
-            transcripts=[transcript("q1", "பிரேக்கரை ஆஃப் பண்ணி லாக் போட்டு டெஸ்டர் வச்சு")],
+            transcripts=[transcript("q1", "பிரேக்கரை ஆஃப் பண்ணி லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு")],
             judge_a=[
                 rating("s1", "covered", "பிரேக்கரை ஆஃப் பண்ணி"),
-                rating("s2", "covered", "லாக் போட்டு"),
+                rating("s2", "covered", "லாக் போட்டு டேக் மாட்டுவேன்"),
                 rating("s3", "missed"),
             ],
         )
@@ -195,10 +196,10 @@ class TestEvalEndpoints:
         data["items"][0]["gold"] = {"s1": "covered", "s2": "missed", "s3": "covered"}
         path.write_text(json.dumps(data))
         scenario = Scenario(
-            transcripts=[transcript("q1", "பிரேக்கரை ஆஃப் பண்ணி லாக் போட்டு")],
+            transcripts=[transcript("q1", "பிரேக்கரை ஆஃப் பண்ணி லாக் போட்டு டேக் மாட்டுவேன்")],
             judge_a=[
                 rating("s1", "covered", "பிரேக்கரை ஆஃப் பண்ணி"),
-                rating("s2", "covered", "லாக் போட்டு"),
+                rating("s2", "covered", "லாக் போட்டு டேக் மாட்டுவேன்"),
                 rating("s3", "covered", "பிரேக்கரை ஆஃப்"),
             ],
         )

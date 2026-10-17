@@ -1,4 +1,5 @@
-"""Endpoints 16-19: the evaluation report, the labelled items, their audio, and a live try."""
+"""Endpoints 16-19: the evaluation report, the labelled items, their audio, and a live try.
+Endpoint 24 (v0.4): the stored synthetic sample answers an evaluator can play into a briefing."""
 
 from __future__ import annotations
 
@@ -14,6 +15,7 @@ from sayitback.evalset import EVAL_SUPERVISOR_LANG, agreement, is_unsafe, public
 from sayitback.pipeline import run_check
 
 router = APIRouter(prefix="/api/eval")
+samples = APIRouter(prefix="/api/demo-answers")
 
 
 @router.get("/latest")
@@ -23,8 +25,7 @@ async def latest(request: Request) -> dict[str, Any]:
 
 @router.get("/items")
 async def items(request: Request) -> dict[str, Any]:
-    data = ctx_of(request).evals.items_file()
-    return {"items": [public_item(i) for i in data.get("items", [])]}
+    return {"items": ctx_of(request).evals.public_items()}
 
 
 @router.get("/items/{item_id}/audio")
@@ -61,3 +62,30 @@ async def try_item(item_id: str, request: Request, caller: CallerDep) -> dict[st
         "agreement": agreement(gold, predicted),
         "unsafe": is_unsafe(gold, predicted),
     }
+
+
+@samples.get("")
+async def demo_answers(request: Request) -> dict[str, Any]:
+    """The catalog's demo answers that have a stored synthetic clip, one per question of a round
+    (2026-10-16: `questionId` and `stepIds` added). No Gemini call."""
+    answers = ctx_of(request).evals.demo_answers()
+    keys = ("taskId", "workerLang", "round", "questionId", "stepIds", "gloss")
+    return {"items": [{k: a[k] for k in keys} for a in answers]}
+
+
+@samples.get("/{task_id}/{worker_lang}/{n}/audio")
+async def demo_answer_audio(
+    task_id: str, worker_lang: str, n: int, request: Request
+) -> FileResponse:
+    """The round's own first answer: the route from before the per-question one."""
+    path = ctx_of(request).evals.demo_answer_audio(task_id, worker_lang, n)
+    return FileResponse(path, media_type="audio/wav")
+
+
+@samples.get("/{task_id}/{worker_lang}/{n}/{question_id}/audio")
+async def demo_question_audio(
+    task_id: str, worker_lang: str, n: int, question_id: str, request: Request
+) -> FileResponse:
+    """The stored answer to one question of the round (2026-10-16)."""
+    path = ctx_of(request).evals.demo_answer_audio(task_id, worker_lang, n, question_id)
+    return FileResponse(path, media_type="audio/wav")

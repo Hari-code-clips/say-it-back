@@ -16,7 +16,16 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 from typing import Any, TypeVar
 
-from sayitback.store.base import Briefing, Reserved, Store, iso, parse_iso, ticket_is_live
+from sayitback import retention
+from sayitback.store.base import (
+    Briefing,
+    Reserved,
+    Store,
+    check_key_is_live,
+    iso,
+    parse_iso,
+    ticket_is_live,
+)
 
 T = TypeVar("T")
 BRIEFINGS = "briefings"
@@ -25,11 +34,16 @@ COUNTERS = "live_counters"
 LOCKS = "live_locks"
 CALLS = "gemini_calls"
 ADDRESS_CALLS = "gemini_calls_ip"
+OUTBOX = "outbox"  # outbox.py: one document per decided briefing
+SOP_LIBRARY = "sop_library"  # 2026-10-16, sop_library.py
+ORGS, MEMBERS = "orgs", "members"  # 2026-10-16, auth.py: orgs/{orgId}/members/{memberId}
+CHECK_KEYS = "check_keys"  # 2026-10-16, idempotency.py: check_keys/{sha256}
 
 
 class FirestoreStore(Store):
-    def __init__(self, client: Any) -> None:
+    def __init__(self, client: Any, retention_days: int = 0) -> None:
         self._db = client  # google.cloud.firestore.AsyncClient
+        self.retention_days = retention_days  # retention.py: 0 = keep; make_store sets it
 
     @classmethod
     def from_env(cls) -> FirestoreStore:
@@ -51,22 +65,39 @@ class FirestoreStore(Store):
 
     # Briefings -------------------------------------------------------------------------------
 
+    # `expireAt` (retention.py) is a Timestamp in Firestore, so its TTL policy can delete the
+    # document, and the ISO string it was written from everywhere above this store. An expired
+    # document the TTL has not removed yet (it can lag by a day) is treated as gone.
+
     async def create(self, briefing: Briefing) -> None:
-        await self._ref(BRIEFINGS, briefing["id"]).set(briefing)
+        stored = retention.stamp(briefing, self.retention_days)
+        await self._ref(BRIEFINGS, briefing["id"]).set(retention.to_firestore(stored))
 
     async def get(self, briefing_id: str) -> Briefing | None:
         snap = await self._ref(BRIEFINGS, briefing_id).get()
-        return snap.to_dict() if snap.exists else None
+        raw = retention.from_firestore(snap.to_dict()) if snap.exists else None
+        return None if retention.is_expired(raw) else raw
+
+    async def delete(self, briefing_id: str) -> None:
+        ref = self._ref(BRIEFINGS, briefing_id)
+
+        async def body(txn: Any) -> None:
+            await ref.get(transaction=txn)  # held until the deletes commit
+            txn.delete(ref)
+            txn.delete(self._ref(OUTBOX, briefing_id))  # outbox.py: its deliveries go with it
+
+        await self._txn(body)
 
     async def update(self, briefing_id: str, fn: Callable[[Briefing], Briefing]) -> Briefing:
         ref = self._ref(BRIEFINGS, briefing_id)
 
         async def body(txn: Any) -> Briefing:
             snap = await ref.get(transaction=txn)
-            if not snap.exists:
+            current = retention.from_firestore(snap.to_dict()) if snap.exists else None
+            if current is None or retention.is_expired(current):
                 raise KeyError(briefing_id)
-            updated = fn(deepcopy(snap.to_dict()))
-            txn.set(ref, updated)
+            updated = retention.keep_expiry(current, fn(deepcopy(current)))
+            txn.set(ref, retention.to_firestore(updated))
             return updated
 
         return await self._txn(body)
@@ -79,7 +110,8 @@ class FirestoreStore(Store):
             .where(filter=FieldFilter("owner", "==", owner))
             .order_by("createdAt", direction="DESCENDING")
         )
-        return [snap.to_dict() async for snap in query.limit(limit).stream()]
+        rows = [retention.from_firestore(s.to_dict()) async for s in query.limit(limit).stream()]
+        return [r for r in rows if r is not None and not retention.is_expired(r)]
 
     # Tickets and the live lease ---------------------------------------------------------------
 
@@ -166,3 +198,115 @@ class FirestoreStore(Store):
             return Reserved.GRANTED
 
         return await self._txn(body)
+
+    # Idempotent answer uploads (idempotency.py): check_keys/{sha256} ------------------------------
+
+    async def claim_check_key(
+        self, digest: str, record: dict[str, Any], now: datetime
+    ) -> dict[str, Any] | None:
+        ref = self._ref(CHECK_KEYS, digest)
+
+        async def body(txn: Any) -> dict[str, Any] | None:
+            snap = await ref.get(transaction=txn)
+            held = snap.to_dict() if snap.exists else None
+            if check_key_is_live(held, now):
+                return held
+            txn.set(ref, record)
+            return None
+
+        return await self._txn(body)
+
+    async def set_check_key(self, digest: str, record: dict[str, Any] | None) -> None:
+        ref = self._ref(CHECK_KEYS, digest)
+
+        async def body(txn: Any) -> None:
+            if record is None:
+                txn.delete(ref)
+            else:
+                txn.set(ref, record)
+
+        await self._txn(body)
+
+    # The SOP library (sop_library.py): sop_library/{sha256 of site and scope} ------------------
+
+    async def get_sop_library(self, key: str) -> dict[str, Any] | None:
+        snap = await self._ref(SOP_LIBRARY, key).get()
+        return snap.to_dict() if snap.exists else None
+
+    async def update_sop_library(
+        self, key: str, fn: Callable[[dict[str, Any] | None], dict[str, Any]]
+    ) -> dict[str, Any]:
+        ref = self._ref(SOP_LIBRARY, key)
+
+        async def body(txn: Any) -> dict[str, Any]:
+            snap = await ref.get(transaction=txn)
+            updated = fn(snap.to_dict() if snap.exists else None)
+            txn.set(ref, updated)
+            return updated
+
+        return await self._txn(body)
+
+    # Org members (auth.py): orgs/{orgId}/members/{memberId} --------------------------------------
+
+    def _members(self, org_id: str) -> Any:
+        return self._db.collection(f"{ORGS}/{org_id}/{MEMBERS}")
+
+    async def member_get(self, org_id: str, member_id: str) -> dict[str, Any] | None:
+        snap = await self._members(org_id).document(member_id).get()
+        return snap.to_dict() if snap.exists else None
+
+    async def member_update(
+        self,
+        org_id: str,
+        member_id: str,
+        fn: Callable[[dict[str, Any] | None], dict[str, Any] | None],
+    ) -> dict[str, Any] | None:
+        ref = self._members(org_id).document(member_id)
+
+        async def body(txn: Any) -> dict[str, Any] | None:
+            snap = await ref.get(transaction=txn)
+            current = snap.to_dict() if snap.exists else None
+            updated = fn(deepcopy(current))
+            if updated is None:
+                return current
+            txn.set(ref, updated)
+            return updated
+
+        return await self._txn(body)
+
+    async def members_list(self, org_id: str, limit: int) -> list[dict[str, Any]]:
+        query = self._members(org_id).order_by("memberId").limit(limit)
+        return [snap.to_dict() async for snap in query.stream()]
+
+    # The delivery outbox (outbox.py): outbox/{briefingId} ---------------------------------------
+
+    async def outbox_get(self, briefing_id: str) -> dict[str, Any] | None:
+        snap = await self._ref(OUTBOX, briefing_id).get()
+        return retention.from_firestore(snap.to_dict()) if snap.exists else None
+
+    async def outbox_update(
+        self, briefing_id: str, fn: Callable[[dict[str, Any] | None], dict[str, Any] | None]
+    ) -> dict[str, Any] | None:
+        ref = self._ref(OUTBOX, briefing_id)
+
+        async def body(txn: Any) -> dict[str, Any] | None:
+            snap = await ref.get(transaction=txn)
+            current = retention.from_firestore(snap.to_dict()) if snap.exists else None
+            parent = None  # retention.py: a new outbox document expires with its briefing
+            if current is None:
+                found = await self._ref(BRIEFINGS, briefing_id).get(transaction=txn)
+                parent = retention.from_firestore(found.to_dict()) if found.exists else None
+            updated = fn(deepcopy(current))
+            if updated is None:
+                return current
+            updated = retention.inherit_expiry(current, updated, parent)
+            txn.set(ref, retention.to_firestore(updated))
+            return updated
+
+        return await self._txn(body)
+
+    async def outbox_due(self, now: str, limit: int) -> list[str]:
+        """Ordered by `due` alone, a single-field order: no composite index."""
+        query = self._db.collection(OUTBOX).order_by("due").limit(limit)
+        rows = [snap.to_dict() async for snap in query.stream()]
+        return [row["briefingId"] for row in rows if row["due"] <= now]

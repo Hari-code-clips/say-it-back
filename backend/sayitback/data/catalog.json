@@ -1,14 +1,47 @@
 {
-  "version": "2026-10-13",
-  "note": "Synthetic SOPs and scripted tasks for the prototype. Not real site documents. Tamil, Hindi and other non-English strings are drafts pending native-speaker review.",
+  "version": "2026-10-15",
+  "note": "Synthetic SOPs and scripted tasks for the prototype. Not real site documents. Tamil, Hindi and other non-English strings, and every language's negationMarkers and numberWords, are drafts pending native-speaker review.",
   "languages": {
-    "en": { "name": "English", "native": "English", "bcp47": "en-SG", "script": "Latn", "unicodeRanges": [["0041", "007A"]] },
-    "zh": { "name": "Mandarin Chinese", "native": "中文", "bcp47": "zh-CN", "script": "Hans", "unicodeRanges": [["4E00", "9FFF"]] },
-    "ta": { "name": "Tamil", "native": "தமிழ்", "bcp47": "ta-IN", "script": "Taml", "unicodeRanges": [["0B80", "0BFF"]] },
-    "bn": { "name": "Bengali", "native": "বাংলা", "bcp47": "bn-BD", "script": "Beng", "unicodeRanges": [["0980", "09FF"]] },
-    "my": { "name": "Burmese", "native": "မြန်မာ", "bcp47": "my-MM", "script": "Mymr", "unicodeRanges": [["1000", "109F"]] },
-    "hi": { "name": "Hindi", "native": "हिन्दी", "bcp47": "hi-IN", "script": "Deva", "unicodeRanges": [["0900", "097F"]] },
-    "or": { "name": "Odia", "native": "ଓଡ଼ିଆ", "bcp47": "or-IN", "script": "Orya", "unicodeRanges": [["0B00", "0B7F"]] }
+    "en": { "name": "English", "native": "English", "bcp47": "en-SG", "script": "Latn", "unicodeRanges": [["0041", "007A"]],
+            "match": "word",
+            "negationMarkers": ["not", "no", "never", "nobody", "nothing", "nowhere", "none", "without", "cannot", "don't", "doesn't", "didn't", "won't", "can't", "isn't", "aren't", "mustn't", "shouldn't", "wouldn't", "couldn't", "wasn't", "weren't", "hasn't", "haven't", "needn't"],
+            "numberWords": ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "fifteen", "twenty", "thirty", "forty", "fifty", "hundred", "thousand", "half", "thirteen", "fourteen", "sixteen", "seventeen", "eighteen", "nineteen", "sixty", "seventy", "eighty", "ninety"],
+            "thanksWords": ["thank", "thanks", "you", "your", "okay", "good", "please", "wait", "for", "the", "answer", "supervisor", "i", "we"] },
+    "zh": { "name": "Mandarin Chinese", "native": "中文", "bcp47": "zh-CN", "script": "Hans", "unicodeRanges": [["4E00", "9FFF"]],
+            "match": "substring",
+            "negationMarkers": ["不", "没", "别", "勿", "禁止", "未", "无", "莫"],
+            "numberWords": ["零", "一", "二", "两", "三", "四", "五", "六", "七", "八", "九", "十", "百", "千", "半", "万", "零点"],
+            "thanksWords": ["谢谢", "好的", "请", "您", "你", "回答", "主管", "等", "我"] },
+    "ta": { "name": "Tamil", "native": "தமிழ்", "bcp47": "ta-IN", "script": "Taml", "unicodeRanges": [["0B80", "0BFF"]],
+            "match": "substring",
+            "negationMarkers": ["இல்லை", "வேண்டாம்", "கூடாது", "ஒருபோதும்", "மாட்ட", "ாதீர்கள்", "ாதே", "ாமல்"],
+            "numberWords": ["ஒன்று", "இரண்டு", "மூன்று", "நான்கு", "ஐந்து", "ஆறு", "ஏழு", "எட்டு", "ஒன்பது", "பத்து", "இருபது", "முப்பது", "நூறு", "அரை", "பதினொன்று", "பன்னிரண்டு", "பதினைந்து", "இருபத்தைந்து", "நாற்பது", "ஐம்பது", "அறுபது", "எழுபது", "எண்பது", "தொண்ணூறு", "ஆயிரம்", "ஒன்றரை"],
+            "thanksWords": ["நன்றி", "சரி", "நல்லது", "உங்கள்", "பதிலுக்கு", "சூப்பர்வைசருக்காக", "காத்திருங்கள்", "மேற்பார்வையாளருக்காக", "நீங்கள்", "நான்"] },
+    "bn": { "name": "Bengali", "native": "বাংলা", "bcp47": "bn-BD", "script": "Beng", "unicodeRanges": [["0980", "09FF"]],
+            "match": "word",
+            "negationMarkers": ["না", "নয়", "নেই", "নি", "কখনো", "কখনই", "ছাড়া", "নিষেধ"],
+            "numberWords": ["এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ", "বিশ", "ত্রিশ", "একশো", "আধা", "এগারো", "বারো", "তেরো", "চোদ্দ", "পনেরো", "ষোলো", "কুড়ি", "পঁচিশ", "চল্লিশ", "পঞ্চাশ", "ষাট", "সত্তর", "আশি", "নব্বই", "হাজার", "দেড়", "আড়াই"],
+            "thanksWords": ["ধন্যবাদ", "ঠিক", "আছে", "আপনার", "উত্তরের", "জন্য", "সুপারভাইজারের", "অপেক্ষা", "করুন", "আপনি", "আমি"] },
+    "my": { "name": "Burmese", "native": "မြန်မာ", "bcp47": "my-MM", "script": "Mymr", "unicodeRanges": [["1000", "109F"]],
+            "match": "substring",
+            "negationMarkers": ["ဘူး", "ပါနဲ့", "ဘယ်တော့မှ", "မရ"],
+            "numberWords": ["တစ်", "နှစ်", "သုံး", "လေး", "ငါး", "ခြောက်", "ခုနစ်", "ရှစ်", "ကိုး", "ဆယ်", "အစိတ်", "သုံးဆယ်", "တစ်ရာ", "ဆယ့်", "ရာ", "ထောင်", "ခွဲ"],
+            "thanksWords": ["ကျေးဇူးတင်ပါတယ်", "ကောင်းပါပြီ", "ခင်ဗျာ", "ရှင့်", "စောင့်ပါ", "ကျွန်တော်", "ကျွန်မ"] },
+    "hi": { "name": "Hindi", "native": "हिन्दी", "bcp47": "hi-IN", "script": "Deva", "unicodeRanges": [["0900", "097F"]],
+            "match": "word",
+            "negationMarkers": ["नहीं", "मत", "न", "ना", "कभी", "बिना", "मना"],
+            "numberWords": ["एक", "दो", "तीन", "चार", "पाँच", "पांच", "छह", "सात", "आठ", "नौ", "दस", "बीस", "तीस", "सौ", "आधा", "ग्यारह", "बारह", "तेरह", "चौदह", "पंद्रह", "सोलह", "सत्रह", "अठारह", "उन्नीस", "इक्कीस", "पच्चीस", "चालीस", "पचास", "साठ", "सत्तर", "अस्सी", "नब्बे", "हज़ार", "हजार", "डेढ़", "ढाई"],
+            "thanksWords": ["धन्यवाद", "शुक्रिया", "ठीक", "है", "आपके", "जवाब", "लिए", "सुपरवाइज़र", "इंतज़ार", "कीजिए", "करें", "आप", "मैं"] },
+    "or": { "name": "Odia", "native": "ଓଡ଼ିଆ", "bcp47": "or-IN", "script": "Orya", "unicodeRanges": [["0B00", "0B7F"]],
+            "match": "word",
+            "negationMarkers": ["ନାହିଁ", "ନା", "ନୁହେଁ", "ମନା", "କେବେ", "ବିନା"],
+            "numberWords": ["ଏକ", "ଦୁଇ", "ତିନି", "ଚାରି", "ପାଞ୍ଚ", "ଛଅ", "ସାତ", "ଆଠ", "ନଅ", "ଦଶ", "କୋଡ଼ିଏ", "ତିରିଶ", "ଶହେ", "ଅଧା", "ଏଗାର", "ବାର", "ତେର", "ଚଉଦ", "ପନ୍ଦର", "ଷୋହଳ", "ପଚିଶ", "ଚାଳିଶ", "ପଚାଶ", "ଷାଠିଏ", "ହଜାର", "ଦେଢ଼", "ଅଢ଼େଇ"],
+            "thanksWords": ["ଧନ୍ୟବାଦ", "ଠିକ", "ଅଛି", "ଆପଣଙ୍କ", "ଉତ୍ତର", "ପାଇଁ", "ସୁପରଭାଇଜର", "ଅପେକ୍ଷା", "କରନ୍ତୁ", "ଆପଣ", "ମୁଁ"] },
+    "te": { "name": "Telugu", "native": "తెలుగు", "bcp47": "te-IN", "script": "Telu", "unicodeRanges": [["0C00", "0C7F"]],
+            "match": "substring",
+            "negationMarkers": ["లేదు", "లేను", "కాదు", "వద్దు", "కూడదు", "రాదు", "కండి", "కకండి", "కవద్దు", "కకూడదు", "కరాదు", "కుండా", "కపోతే", "నిషేధ"],
+            "numberWords": ["సున్నా", "ఒకటి", "ఒక్క", "రెండు", "మూడు", "నాలుగు", "ఐదు", "అయిదు", "ఆరు", "ఏడు", "ఎనిమిది", "తొమ్మిది", "పది", "పదకొండు", "పన్నెండు", "పదమూడు", "పద్నాలుగు", "పదిహేను", "పదహారు", "పదిహేడు", "పద్దెనిమిది", "పందొమ్మిది", "ఇరవై", "ముప్పై", "నలభై", "యాభై", "అరవై", "డెబ్బై", "ఎనభై", "తొంభై", "వంద", "వెయ్యి", "సగం", "న్నర"],
+            "thanksWords": ["ధన్యవాదాలు", "ధన్యవాదం", "సరే", "మంచిది", "మీ", "మీకు", "మీరు", "సమాధానానికి", "జవాబుకు", "దయచేసి", "సూపర్‌వైజర్", "కోసం", "వేచి", "ఉండండి", "నేను"] }
   },
   "sites": [
     {
@@ -18,6 +51,7 @@
       "supervisorLanguages": ["en", "zh"],
       "defaultSupervisorLanguage": "en",
       "workerLanguages": ["ta", "bn", "zh", "my"],
+      "evaluatorLanguages": ["en"],
       "defaultWorkerLanguage": "ta",
       "bcp47Overrides": { "bn": "bn-BD" },
       "context": "Site language is English. Workers come largely from Bangladesh, India, China and Myanmar."
@@ -28,7 +62,8 @@
       "setting": "Construction site with an inter-state migrant workforce",
       "supervisorLanguages": ["ta", "en"],
       "defaultSupervisorLanguage": "ta",
-      "workerLanguages": ["hi", "or", "bn"],
+      "workerLanguages": ["hi", "or", "bn", "te"],
+      "evaluatorLanguages": ["en"],
       "defaultWorkerLanguage": "hi",
       "bcp47Overrides": { "bn": "bn-IN" },
       "context": "Site language is Tamil. Many workers come from Odisha, Bihar, Jharkhand and West Bengal. Bhojpuri is not supported, so Bihar workers are briefed in Hindi."
@@ -36,25 +71,57 @@
   ],
   "tasks": [
     {
+      "id": "lifting-zone",
+      "icon": "crane",
+      "domain": "construction",
+      "title": { "en": "Crane lift: the lifting zone", "ta": "கிரேன் தூக்குதல்: லிஃப்டிங் பகுதி" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "ta" },
+      "designNote": "Lead demo. The sample instruction deliberately leaves out tag lines, which only the SOP contains, so the extractor should flag them as 'Not in your briefing'. Round 1's scripted answer uses the right words for the wrong action (standing under the load), which a keyword check would pass.",
+      "sop": {
+        "id": "SOP-LF-03",
+        "version": "v2",
+        "title": "Lifting operations with mobile and tower cranes",
+        "text": "1. The lifting zone is barricaded; only the rigging crew enters it.\n2. Never stand, walk or work under a suspended load.\n3. Stay outside the barricade until the load is landed and the all-clear is given.\n4. Only the appointed signalman gives signals to the crane operator. Follow only the signalman.\n5. Use tag lines to control the load; never steady a load by hand.\nHazards: being struck or crushed by a falling or swinging load."
+      },
+      "sampleInstruction": {
+        "en": "Never go under the load, stay outside the barrier until it's landed, and only follow the signalman.",
+        "ta": "லோடுக்கு அடியில் ஒருபோதும் போகாதீர்கள்; லோடு கீழே இறங்கும் வரை பேரிகேடுக்கு வெளியே நில்லுங்கள்; சிக்னல்மேன் சொல்வதை மட்டும் கேளுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Never stand or walk under the load", "hazard": "Crushed if the load falls", "essential": ["never go under the load"], "source": "instruction" },
+        { "id": "s2", "text": "Stay outside the barrier until the load is landed", "hazard": "Struck by a swinging load", "essential": ["stay outside the barrier", "until the load is landed"], "source": "instruction" },
+        { "id": "s3", "text": "Follow only the signalman's signals", "hazard": "Mixed signals cause a wrong crane movement", "essential": ["take directions only from the signalman"], "source": "instruction" },
+        { "id": "s4", "text": "Control the load with tag lines; never steady it by hand", "hazard": "Hands and body pulled into a swinging load", "essential": ["use the tag line", "never hold or steady the load by hand"], "source": "sop" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "Where will you be while the load is moving?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "During the lift, who will you take directions from?", "stepIds": ["s3"] },
+        { "id": "q3", "text": "If the load starts to swing, what will you do?", "stepIds": ["s4"] }
+      ]
+    },
+    {
       "id": "panel-isolation",
       "icon": "electric",
+      "domain": "construction",
       "title": { "en": "Open a distribution panel", "ta": "டிஸ்ட்ரிபியூஷன் பேனலைத் திறத்தல்" },
       "demoSite": "sg",
       "demoPair": { "supervisorLang": "en", "workerLang": "ta" },
+      "designNote": "In Singapore only a Licensed Electrical Worker, or a person working under the LEW's permit, does electrical maintenance. The SOP proves the panel dead after it is opened and before anything is touched (HSE HSG85). Step s3 names that order (v0.5), so an answer that tests before opening states the wrong order, and the sg-panel round-2 answer follows the SOP order. DRAFT, 16 Oct: the Tamil sample instruction says the everyday word for a padlock where it spelled lock letter for letter in Tamil script; the scripted worker answers keep the words workers say. Machine draft pending native review (build-notes/27-everyday-words.md).",
       "sop": {
         "id": "SOP-EL-04",
-        "version": "v3",
+        "version": "v4",
         "title": "Isolation of low-voltage distribution panels",
-        "text": "1. Only authorised persons may open a distribution panel.\n2. Identify the correct supply from the single-line diagram.\n3. Switch off and isolate the supply at the upstream breaker.\n4. Fit your personal lock and a danger tag to the breaker (lock-out/tag-out). Keep the key on you.\n5. Test the panel dead with an approved voltage tester. Prove the tester on a known live source before and after.\n6. Only then open the panel cover.\n7. If any reading is unexpected, stop and tell the supervisor.\nHazards: electric shock and arc flash from live or back-fed conductors."
+        "text": "1. Only a Licensed Electrical Worker (LEW), or an electrical worker under the LEW's permit to work, may open a distribution panel.\n2. Identify the correct supply from the single-line diagram.\n3. Switch off and isolate the supply at the upstream breaker.\n4. Fit your personal lock and a danger tag to the breaker (lock-out/tag-out). Keep the key on you.\n5. Open the panel cover.\n6. Before touching any conductor, test it dead with an approved voltage tester. Prove the tester on a known live source before and after.\n7. If any reading is unexpected, stop and tell the supervisor.\nHazards: electric shock and arc flash from live or back-fed conductors."
       },
       "sampleInstruction": {
-        "en": "Isolate the breaker, lock it, and test it dead before you open the panel.",
-        "ta": "பேனலைத் திறப்பதற்கு முன், பிரேக்கரை ஆஃப் செய்து, லாக் போட்டு, கரண்ட் இல்லை என்று டெஸ்ட் செய்யுங்கள்."
+        "en": "Isolate the breaker, lock and tag it, and test it dead before you touch anything inside the panel.",
+        "ta": "பிரேக்கரை ஆஃப் செய்து, பூட்டு போட்டு டேக் மாட்டுங்கள்; பேனலுக்குள் எதையும் தொடுவதற்கு முன் கரண்ட் இல்லை என்று டெஸ்ட் செய்யுங்கள்."
       },
       "referenceSteps": [
         { "id": "s1", "text": "Switch off (isolate) the supply at the breaker", "hazard": "Electric shock from live parts", "essential": ["switch off or isolate the supply at the breaker"], "source": "instruction" },
         { "id": "s2", "text": "Lock and tag the breaker so no one can switch it back on", "hazard": "Someone re-energises the panel while you work", "essential": ["put a lock (and tag) on the breaker"], "source": "instruction" },
-        { "id": "s3", "text": "Test that it is dead with a tester before touching anything", "hazard": "Back-feed, or the wrong breaker was switched off", "essential": ["test with a voltage tester that there is no power before touching"], "source": "instruction" }
+        { "id": "s3", "text": "After opening, test that it is dead with a tester before touching anything", "hazard": "Back-feed, or the wrong breaker was switched off", "essential": ["after opening, test with a voltage tester that there is no power before touching"], "source": "instruction" }
       ],
       "referenceQuestions": [
         { "id": "q1", "text": "What will you do before you open the panel?", "stepIds": ["s1", "s2", "s3"] },
@@ -64,9 +131,11 @@
     {
       "id": "scaffold-harness",
       "icon": "height",
+      "domain": "construction",
       "title": { "en": "Step onto a scaffold (work at height)", "ta": "சாரத்தில் ஏறுதல் (உயரத்தில் வேலை)" },
       "demoSite": "chennai",
       "demoPair": { "supervisorLang": "ta", "workerLang": "hi" },
+      "designNote": "DRAFT, 16 Oct: the Tamil sample instruction says the everyday words (belt, hook, rope) where it spelled harness, lifeline and clip letter for letter in Tamil script. 'Belt' alone can also mean a waist belt, which is not allowed for fall arrest, so the sentence says it is the belt that goes round the whole body. Machine draft pending native review (build-notes/27-everyday-words.md).",
       "sop": {
         "id": "SOP-WAH-02",
         "version": "v2",
@@ -75,7 +144,7 @@
       },
       "sampleInstruction": {
         "en": "Clip your harness to the lifeline before you step onto the scaffold.",
-        "ta": "சாரத்தில் ஏறுவதற்கு முன், உங்கள் ஹார்னஸை லைஃப்லைனில் கிளிப் செய்யுங்கள்."
+        "ta": "சாரத்தில் ஏறுவதற்கு முன், உடல் முழுவதும் மாட்டும் பெல்ட்டின் கொக்கியை, பாதுகாப்புக் கயிற்றில் மாட்டுங்கள்."
       },
       "referenceSteps": [
         { "id": "s1", "text": "Put on the full-body harness and check the straps and buckles", "hazard": "A loose or damaged harness fails in a fall", "essential": ["wear the harness"], "source": "sop" },
@@ -90,9 +159,11 @@
     {
       "id": "hot-work",
       "icon": "fire",
+      "domain": "construction",
       "title": { "en": "Cutting or grinding (hot work)", "ta": "கட்டிங் / கிரைண்டிங் (சூடான வேலை)" },
       "demoSite": "sg",
       "demoPair": { "supervisorLang": "en", "workerLang": "bn" },
+      "designNote": "DRAFT, 16 Oct: the Tamil sample instruction says 'someone to watch the fire' where it spelled fire watcher letter for letter in Tamil script. Machine draft pending native review (build-notes/27-everyday-words.md).",
       "sop": {
         "id": "SOP-HW-01",
         "version": "v4",
@@ -101,7 +172,7 @@
       },
       "sampleInstruction": {
         "en": "Before you start cutting, clear anything that can burn within ten metres, keep the extinguisher next to you with a fire watcher, and keep watching for thirty minutes after you finish.",
-        "ta": "கட்டிங் தொடங்கும் முன், பத்து மீட்டருக்குள் எரியக்கூடிய எல்லாவற்றையும் அகற்றுங்கள்; தீயணைப்பான் பக்கத்தில் இருக்கட்டும், ஒரு ஃபயர் வாட்சரும் இருக்க வேண்டும்; வேலை முடிந்த பிறகு முப்பது நிமிடம் கவனித்துக்கொண்டே இருங்கள்."
+        "ta": "கட்டிங் தொடங்கும் முன், பத்து மீட்டருக்குள் எரியக்கூடிய எல்லாவற்றையும் அகற்றுங்கள்; தீயணைப்பான் பக்கத்தில் இருக்கட்டும், நெருப்பைக் கவனிக்க ஒருவரும் இருக்க வேண்டும்; வேலை முடிந்த பிறகு முப்பது நிமிடம் கவனித்துக்கொண்டே இருங்கள்."
       },
       "referenceSteps": [
         { "id": "s1", "text": "Clear or cover anything that can burn within 10 metres", "hazard": "Sparks set nearby material on fire", "essential": ["remove or cover things that can burn", "within 10 metres"], "source": "instruction" },
@@ -114,38 +185,13 @@
       ]
     },
     {
-      "id": "lifting-zone",
-      "icon": "crane",
-      "title": { "en": "Crane lift: the lifting zone", "ta": "கிரேன் தூக்குதல்: லிஃப்டிங் பகுதி" },
-      "demoSite": "sg",
-      "demoPair": { "supervisorLang": "en", "workerLang": "my" },
-      "sop": {
-        "id": "SOP-LF-03",
-        "version": "v2",
-        "title": "Lifting operations with mobile and tower cranes",
-        "text": "1. The lifting zone is barricaded; only the rigging crew enters it.\n2. Never stand, walk or work under a suspended load.\n3. Stay outside the barricade until the load is landed and the all-clear is given.\n4. Only the appointed signalman gives signals to the crane operator. Follow only the signalman.\n5. Use tag lines to control the load; never steady a load by hand.\nHazards: being struck or crushed by a falling or swinging load."
-      },
-      "sampleInstruction": {
-        "en": "Never go under the load, stay outside the barrier until it's landed, and only follow the signalman.",
-        "ta": "லோடுக்கு அடியில் ஒருபோதும் போகாதீர்கள்; லோடு கீழே இறங்கும் வரை பேரிகேடுக்கு வெளியே நில்லுங்கள்; சிக்னல்மேன் சொல்வதை மட்டும் கேளுங்கள்."
-      },
-      "referenceSteps": [
-        { "id": "s1", "text": "Never stand or walk under the load", "hazard": "Crushed if the load falls", "essential": ["never go under the load"], "source": "instruction" },
-        { "id": "s2", "text": "Stay outside the barrier until the load is landed", "hazard": "Struck by a swinging load", "essential": ["stay outside the barrier", "until the load is landed"], "source": "instruction" },
-        { "id": "s3", "text": "Follow only the signalman's signals", "hazard": "Mixed signals cause a wrong crane movement", "essential": ["take directions only from the signalman"], "source": "instruction" }
-      ],
-      "referenceQuestions": [
-        { "id": "q1", "text": "Where will you be while the load is moving?", "stepIds": ["s1", "s2"] },
-        { "id": "q2", "text": "During the lift, who will you take directions from?", "stepIds": ["s3"] }
-      ]
-    },
-    {
       "id": "trench-entry",
       "icon": "trench",
+      "domain": "construction",
       "title": { "en": "Enter a trench to lay pipe", "ta": "குழாய் பதிக்க டிரெஞ்சில் இறங்குதல்" },
       "demoSite": "chennai",
       "demoPair": { "supervisorLang": "ta", "workerLang": "or" },
-      "designNote": "The sample instruction deliberately leaves out the shoring check, which only the SOP contains. The extractor should flag it as 'SOP-only: you did not say this'.",
+      "designNote": "The sample instruction deliberately leaves out the shoring check, which only the SOP contains. The extractor should flag it as 'SOP-only: you did not say this'. DRAFT, 16 Oct: the Tamil sample instruction says the everyday word for a pit where it spelled trench letter for letter in Tamil script. Machine draft pending native review (build-notes/27-everyday-words.md).",
       "sop": {
         "id": "SOP-EX-05",
         "version": "v3",
@@ -154,7 +200,7 @@
       },
       "sampleInstruction": {
         "en": "Use only the ladder to get in and out of the trench, and if you see water or cracks in the wall, climb out at once and tell me.",
-        "ta": "டிரெஞ்சுக்குள் இறங்கவும் ஏறவும் ஏணியை மட்டும் பயன்படுத்துங்கள்; சுவரில் தண்ணீர் அல்லது விரிசல் தெரிந்தால் உடனே வெளியே வந்து என்னிடம் சொல்லுங்கள்."
+        "ta": "குழிக்குள் இறங்கவும் ஏறவும் ஏணியை மட்டும் பயன்படுத்துங்கள்; சுவரில் தண்ணீர் அல்லது விரிசல் தெரிந்தால் உடனே வெளியே வந்து என்னிடம் சொல்லுங்கள்."
       },
       "referenceSteps": [
         { "id": "s1", "text": "Check that the shoring is in place before going in", "hazard": "The trench wall collapses and buries you", "essential": ["check the shoring or trench support is in place before entering"], "source": "sop" },
@@ -165,18 +211,209 @@
         { "id": "q1", "text": "What will you check and do before you go into the trench?", "stepIds": ["s1", "s2"] },
         { "id": "q2", "text": "What will you do if you see water or cracks in the wall?", "stepIds": ["s3"] }
       ]
+    },
+    {
+      "id": "confined-space",
+      "icon": "confined",
+      "domain": "utilities",
+      "title": { "en": "Enter a sewer manhole (confined space)", "ta": "சாக்கடை மேன்ஹோலுக்குள் இறங்குதல் (அடைபட்ட இடம்)" },
+      "demoSite": "chennai",
+      "demoPair": { "supervisorLang": "ta", "workerLang": "hi" },
+      "designNote": "Held-out eval task (v0.5): it has no demo script, and no prompt example uses its words, so eval items on it test judgement, not recall. The sample instruction deliberately leaves out the harness and retrieval line, which only the SOP contains, so the extractor should flag it as 'Not in your briefing'. DRAFT: the Tamil title and sample instruction are machine drafts pending native review.",
+      "sop": {
+        "id": "SOP-CS-06",
+        "version": "v1",
+        "title": "Entry into manholes, sewers and other confined spaces",
+        "text": "1. Enter only under a confined-space entry permit issued by the competent person.\n2. Ventilate the space with a forced-air blower before entry, and keep the blower running throughout the work.\n3. Test the atmosphere with a calibrated four-gas detector (oxygen, flammable gas, hydrogen sulphide, carbon monoxide) before entry. The entrant wears the detector, switched on, throughout the work.\n4. Wear a full-body harness attached to a retrieval line on the tripod winch.\n5. A trained attendant stays at the opening for the whole entry, keeps contact with the entrant, and never enters the space.\n6. If the entrant stops responding or the detector alarms, never enter to rescue. Raise the alarm and bring the entrant out with the retrieval line.\nHazards: toxic gas (hydrogen sulphide), too little oxygen, and rescuers overcome by the same air."
+      },
+      "sampleInstruction": {
+        "en": "Test the air with the gas detector before you go down and keep it on the whole time, keep the blower running, and if your partner inside stops answering, never go in after them: raise the alarm.",
+        "ta": "கீழே இறங்கும் முன் கேஸ் டிடெக்டரால் காற்றைச் சோதியுங்கள், வேலை முழுவதும் அதை ஆனில் வையுங்கள்; ப்ளோவர் ஓடிக்கொண்டே இருக்கட்டும்; உள்ளே இருப்பவர் பதில் சொல்லவில்லை என்றால், அவரைத் தேடி ஒருபோதும் உள்ளே இறங்காதீர்கள்: உடனே அலாரம் அடியுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Test the air with the gas detector before going in, and keep it on while inside", "hazard": "Hydrogen sulphide or too little oxygen knocks you out within a few breaths", "essential": ["test the air with the gas detector before going in", "keep the detector on while inside"], "source": "instruction" },
+        { "id": "s2", "text": "Keep the blower running before and during the work", "hazard": "Gas builds up again while you work", "essential": ["keep the blower (forced ventilation) running"], "source": "instruction" },
+        { "id": "s3", "text": "Wear the harness attached to the retrieval line", "hazard": "If you collapse, nobody can lift you out without going in", "essential": ["wear the harness", "attached to the retrieval line"], "source": "sop" },
+        { "id": "s4", "text": "If the person inside stops answering, never go in to rescue them: stay outside and raise the alarm", "hazard": "A rescuer who goes in is overcome by the same gas", "essential": ["never go in to rescue", "raise the alarm"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you go down the manhole?", "stepIds": ["s1", "s2", "s3"] },
+        { "id": "q2", "text": "If your partner inside stops answering you, what will you do?", "stepIds": ["s4"] }
+      ]
+    },
+    {
+      "id": "fragile-roof",
+      "icon": "roof",
+      "domain": "construction",
+      "title": { "en": "Work on a fragile roof", "ta": "உடையக்கூடிய கூரையில் வேலை செய்தல்" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "bn" },
+      "designNote": "Held-out eval task (v0.5): it has no demo script, and no prompt example uses its words, so eval items on it test judgement, not recall. The sample instruction deliberately leaves out the edge protection, which only the SOP contains, so the extractor should flag it as 'Not in your briefing'. DRAFT: the Tamil title and sample instruction are machine drafts pending native review. 16 Oct: the Tamil sample instruction now says the everyday words (belt, hook, rope, boards laid for walking) where it spelled harness, lifeline, clip and crawling boards letter for letter in Tamil script.",
+      "sop": {
+        "id": "SOP-RF-07",
+        "version": "v1",
+        "title": "Work on fragile roofs and roof lights",
+        "text": "1. Work on a fragile roof only under a permit to work, after the competent person has checked the edge protection and the safety netting.\n2. Clip your harness lanyard to the lifeline before stepping onto the roof, and stay clipped on.\n3. Never step on roof sheets, skylights or roof lights. Treat every sheet as fragile, even if it looks strong.\n4. Walk and kneel only on crawling boards. Move a board only while standing on another one.\n5. Keep the edge protection in place. Never remove a guardrail, not even to pass up materials.\nHazards: falls through fragile sheets and skylights; falls from the roof edge."
+      },
+      "sampleInstruction": {
+        "en": "Clip your harness to the lifeline before you step onto the roof, never step on the sheets or skylights, and walk only on the crawling boards.",
+        "ta": "கூரையில் கால் வைக்கும் முன், உடல் முழுவதும் மாட்டும் பெல்ட்டின் கொக்கியைப் பாதுகாப்புக் கயிற்றில் மாட்டுங்கள்; ஷீட்டுகள் மீதோ ஸ்கைலைட்டுகள் மீதோ ஒருபோதும் கால் வைக்காதீர்கள்; நடப்பதற்காகப் போட்டிருக்கும் பலகைகள் மீது மட்டுமே நடங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Clip the harness to the lifeline before stepping onto the roof", "hazard": "A slip sends you over the edge or through a sheet", "essential": ["clip the harness to the lifeline", "before stepping onto the roof"], "source": "instruction" },
+        { "id": "s2", "text": "Never step on the roof sheets or skylights", "hazard": "Fragile sheets and skylights break under your weight", "essential": ["never step on roof sheets or skylights"], "source": "instruction" },
+        { "id": "s3", "text": "Walk only on the crawling boards", "hazard": "A foot off the board goes through the roof", "essential": ["walk only on the crawling boards"], "source": "instruction" },
+        { "id": "s4", "text": "Keep the edge protection in place; never remove a guardrail", "hazard": "Fall from the roof edge", "essential": ["never remove the guardrail or edge protection"], "source": "sop" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you step onto the roof?", "stepIds": ["s1"] },
+        { "id": "q2", "text": "How will you get across the roof to the far side?", "stepIds": ["s2", "s3"] },
+        { "id": "q3", "text": "If the guardrail is in your way when you pass materials up, what will you do?", "stepIds": ["s4"] }
+      ]
+    },
+    {
+      "id": "hydro-jetting",
+      "icon": "jet",
+      "domain": "marine",
+      "title": { "en": "High-pressure water jetting on a ship's hull", "ta": "கப்பலின் வெளிப்புறத்தில் அதிக அழுத்தத் தண்ணீர் அடித்தல்" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "bn" },
+      "designNote": "Marine (a shipyard dry dock), 17 Oct domain suites (build-notes/37-domain-suites.md). The sample instruction deliberately leaves out stopping the pump and releasing the pressure before a nozzle change, which only the SOP contains, so the extractor should flag it as 'From the SOP, not in your instruction'. Round 1's scripted answer ties the trigger down so that the hand does not tire (s2 contradicted). DRAFT, 17 Oct: the Tamil title and sample instruction and every Bengali answer are machine drafts pending native review.",
+      "sop": {
+        "id": "SOP-MR-08",
+        "version": "v1",
+        "title": "High-pressure water jetting in dry dock",
+        "text": "1. Jet only under a permit to work, with a trained crew of two: the gun operator and a standby person at the pump.\n2. Barricade the jetting zone and put up signs. Nobody but the jetting crew enters it while the pump is running.\n3. Never point the gun at any person, yourself included. Never tie, tape or wedge the trigger: the jet must stop the moment the trigger is let go.\n4. Before changing a nozzle, stop the pump and release the pressure. Touch the nozzle only when the gauge reads zero.\n5. Any cut or puncture from the jet, however small, is an emergency: go to hospital at once and show the medical card.\nHazards: the jet cutting the skin and forcing water under it; a nozzle blowing off when it is changed under pressure."
+      },
+      "sampleInstruction": {
+        "en": "Nobody comes inside the barricade while the pump is running, never point the gun at anyone, and never tie the trigger down.",
+        "ta": "பம்ப் ஓடும்போது தண்ணீர் அடிக்கும் குழுவைத் தவிர யாரும் தடுப்புக்குள் வரக்கூடாது; கன்னை யார் பக்கமும் ஒருபோதும் திருப்பாதீர்கள்; டிரிக்கரை ஒருபோதும் கட்டி வைக்காதீர்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Keep everyone outside the barricade while the pump is running", "hazard": "Someone walks into the jet and is cut", "essential": ["nobody but the jetting crew inside the barricade", "while the pump is running"], "source": "instruction" },
+        { "id": "s2", "text": "Never point the gun at anyone, and never tie or wedge the trigger", "hazard": "The jet cuts through skin, and a tied trigger cannot stop it", "essential": ["never point the gun at a person", "never tie or block the trigger"], "source": "instruction" },
+        { "id": "s3", "text": "Stop the pump and release the pressure before changing the nozzle", "hazard": "The nozzle blows off and the jet hits the hand", "essential": ["stop the pump and release the pressure", "touch the nozzle only when the gauge reads zero"], "source": "sop" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "While the pump is running, what will you make sure of?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "What will you do before you change the nozzle?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "steam-line-break",
+      "icon": "steam",
+      "domain": "process",
+      "title": { "en": "Open a steam line for repair (line break)", "ta": "பழுது பார்க்க நீராவிக் குழாயைப் பிரித்தல்" },
+      "demoSite": "sg",
+      "demoPair": { "supervisorLang": "en", "workerLang": "ta" },
+      "designNote": "Process plant, 17 Oct domain suites (build-notes/37-domain-suites.md). The sample instruction deliberately leaves out the worker's own lock and tag on both isolation valves, which only the SOP contains, so the extractor should flag it as 'From the SOP, not in your instruction'. Round 1's scripted answer says no lock is needed because the operator has closed the valves (s1 contradicted). DRAFT, 17 Oct: the Tamil title, the Tamil sample instruction and every Tamil answer are machine drafts pending native review.",
+      "sop": {
+        "id": "SOP-PR-09",
+        "version": "v1",
+        "title": "Breaking into a steam line",
+        "text": "1. Break into a steam line only under a line-break permit, after operations have taken the line out of service.\n2. Close both isolation valves, upstream and downstream, and fit your own lock and tag to each one.\n3. Open the drain valve between them and check that the pressure gauge reads zero. Let the line cool before you touch a bolt.\n4. Loosen the bolts on the far side of the joint first, so anything left in the line sprays away from you. Keep your face and body out of line with the joint.\n5. If steam or hot water comes out, stop, move away and tell the supervisor.\nHazards: scalding by steam or hot water left in the line when the joint opens; steam let back in when someone opens an isolation valve while the line is open."
+      },
+      "sampleInstruction": {
+        "en": "Open the drain and make sure the gauge reads zero before you touch a bolt, then loosen the far-side bolts first and keep your face away from the joint.",
+        "ta": "டிரெயின் வால்வைத் திறந்து, கேஜில் பூஜ்ஜியம் காட்டுவதைப் பார்த்த பிறகுதான் போல்ட்டைத் தொடுங்கள்; முதலில் எதிர்ப் பக்க போல்ட்டுகளைத் தளர்த்துங்கள், முகத்தை இணைப்புக்கு நேராக வைக்காதீர்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Put your own lock and tag on both isolation valves", "hazard": "Someone opens a valve and steam comes back into the open line", "essential": ["both isolation valves closed", "your own lock and tag on each one"], "source": "sop" },
+        { "id": "s2", "text": "Open the drain and check the gauge reads zero before touching a bolt", "hazard": "Steam or hot water left in the line scalds you", "essential": ["open the drain", "the gauge reads zero before any bolt is touched"], "source": "instruction" },
+        { "id": "s3", "text": "Loosen the far-side bolts first and keep your face out of line with the joint", "hazard": "Trapped steam sprays straight into your face", "essential": ["loosen the far-side bolts first", "face and body out of line with the joint"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you touch the first bolt?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "How will you open the joint?", "stepIds": ["s3"] }
+      ]
+    },
+    {
+      "id": "press-lockout",
+      "icon": "press",
+      "domain": "manufacturing",
+      "title": { "en": "Clear a jam in a power press (lockout)", "ta": "பிரஸ் மெஷினில் சிக்கிய பீஸை எடுத்தல் (பூட்டுப் போட்டு)" },
+      "demoSite": "chennai",
+      "demoPair": { "supervisorLang": "ta", "workerLang": "hi" },
+      "designNote": "Manufacturing (an auto-parts press shop), 17 Oct domain suites (build-notes/37-domain-suites.md). The sample instruction deliberately leaves out the safety block between the dies, which only the SOP contains, so the extractor should flag it as 'From the SOP, not in your instruction'. Round 1's scripted answer pulls the stuck piece out by hand because finding the tongs takes time (s4 contradicted), the act that costs press workers their fingers. DRAFT, 17 Oct: the Tamil title and sample instruction and every Hindi answer are machine drafts pending native review.",
+      "sop": {
+        "id": "SOP-MF-10",
+        "version": "v1",
+        "title": "Clearing a jam in a mechanical power press",
+        "text": "1. Only a trained operator clears a jam. Stop the press with the stop button first.\n2. Switch off the main isolator and fit your own lock and tag to it. Keep the key on you.\n3. Press the start button to prove the press will not move, then set the control back to off.\n4. Wait until the flywheel has stopped turning, then put the safety block between the upper and lower dies before reaching or leaning in.\n5. Take the stuck part out with the hand tool (tongs or a magnet). Never put a hand or a finger between the dies.\nHazards: hands crushed between the dies if the press is started; the slide dropping under its own weight onto anyone who reaches or leans into the die area."
+      },
+      "sampleInstruction": {
+        "en": "Switch off the main switch and put your own lock on it, press start to check it won't run, and take the stuck part out with the tongs, never your hand.",
+        "ta": "மெயின் சுவிட்சை ஆஃப் செய்து, அதில் உங்கள் சொந்தப் பூட்டைப் போடுங்கள்; ஸ்டார்ட் பட்டனை அழுத்தி, மெஷின் ஓடவில்லை என்று பாருங்கள்; சிக்கிய பீஸை இடுக்கியால் மட்டும் எடுங்கள், கையால் ஒருபோதும் எடுக்காதீர்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Switch off the main switch and put your own lock on it", "hazard": "Someone starts the press while you are at the dies", "essential": ["switch off the main switch", "put your own lock on it"], "source": "instruction" },
+        { "id": "s2", "text": "Press the start button to check that the press does not run", "hazard": "The wrong switch was locked and the press still runs", "essential": ["press the start button to test it", "the press must not move"], "source": "instruction" },
+        { "id": "s3", "text": "Put the safety block between the dies before reaching or leaning in", "hazard": "The slide drops under its own weight", "essential": ["put the safety block between the dies", "before reaching or leaning in"], "source": "sop" },
+        { "id": "s4", "text": "Take the stuck part out with the tongs, never with your hand", "hazard": "Fingers crushed or cut off between the dies", "essential": ["use the tongs", "never by hand"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you clear the jam?", "stepIds": ["s1", "s2", "s3"] },
+        { "id": "q2", "text": "How will you take out the stuck piece?", "stepIds": ["s4"] }
+      ]
+    },
+    {
+      "id": "telecom-tower",
+      "icon": "tower",
+      "domain": "telecom",
+      "title": { "en": "Climb a telecom tower to fix an antenna", "ta": "ஆன்டெனாவைச் சரிசெய்ய மொபைல் டவரில் ஏறுதல்" },
+      "demoSite": "chennai",
+      "demoPair": { "supervisorLang": "ta", "workerLang": "te" },
+      "designNote": "Telecom, 17 Oct domain suites (build-notes/37-domain-suites.md). The sample instruction deliberately leaves out getting the antenna switched off before the climb, which only the SOP contains, so the extractor should flag it as 'From the SOP, not in your instruction'. Round 1's scripted answer never mentions it (s2 missed). DRAFT, 17 Oct: the Tamil title and sample instruction and every Telugu answer are machine drafts pending native review.",
+      "sop": {
+        "id": "SOP-TC-11",
+        "version": "v1",
+        "title": "Climbing a telecom tower to work on an antenna",
+        "text": "1. Climb only under a work permit, with a second person on the ground who watches the climber the whole time.\n2. Close off the area under the tower and keep everyone out of it. Send tools up in a bag on a rope; never carry them loose.\n3. Before you climb, ask the operator's control room to switch off each antenna you will work in front of, and wait until they confirm it is off. Wear the RF monitor.\n4. Wear a full-body harness and check it before the climb. Stay hooked on to the tower at all times: with two lanyards, move one hook only while the other is hooked on.\n5. Do not climb in rain, lightning or strong wind. If the weather turns, come down.\nHazards: falls from the tower; tools dropped on people below; radio-wave (RF) burns from working in front of a live antenna."
+      },
+      "sampleInstruction": {
+        "en": "Keep everyone out from under the tower and send the tools up in the bag, and stay hooked on the whole way up, moving one hook at a time.",
+        "ta": "டவருக்குக் கீழே யாரும் இருக்கக்கூடாது, கருவிகளைப் பையில் போட்டுக் கயிற்றில் மேலே அனுப்புங்கள்; ஏறும் வழி முழுவதும் கொக்கியை டவரில் மாட்டியே வைத்திருங்கள், ஒரு நேரத்தில் ஒரு கொக்கியை மட்டும் மாற்றுங்கள்."
+      },
+      "referenceSteps": [
+        { "id": "s1", "text": "Keep everyone out from under the tower, and send the tools up in the bag", "hazard": "A dropped tool hits someone below", "essential": ["nobody under the tower", "tools go up in the bag on the rope"], "source": "instruction" },
+        { "id": "s2", "text": "Before climbing, get the antenna switched off and confirmed off by the control room", "hazard": "Radio waves from a live antenna burn the body", "essential": ["the control room switches the antenna off", "wait for them to confirm it is off before climbing"], "source": "sop" },
+        { "id": "s3", "text": "Stay hooked on to the tower the whole time, moving one hook at a time", "hazard": "A fall from the tower", "essential": ["stay hooked on the whole time", "move one hook at a time"], "source": "instruction" }
+      ],
+      "referenceQuestions": [
+        { "id": "q1", "text": "What will you do before you start to climb?", "stepIds": ["s1", "s2"] },
+        { "id": "q2", "text": "How will you go up the tower?", "stepIds": ["s3"] }
+      ]
     }
   ],
   "demoScripts": [
     {
       "id": "sg-lead",
+      "taskId": "lifting-zone",
+      "siteId": "sg",
+      "supervisorLang": "en",
+      "workerLang": "ta",
+      "rounds": [
+        { "questionId": "q1", "answer": { "ta": "லோடுக்கு அடியில நின்னு, கையால பிடிச்சு அதை நேரா வைப்பேன்.", "en": "I'll stand under the load and hold it straight with my hand." }, "expected": { "s1": "contradicted", "s2": "missed" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "ta": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன்.", "en": "I'll listen only to what the signalman says." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." },
+            { "questionId": "q3", "answer": { "ta": "லோடு ஆடுனா, கையால பிடிச்சு ஆடாம நிறுத்துவேன்.", "en": "If the load swings, I'll grab it with my hand and stop it swinging." }, "expected": { "s4": "contradicted" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "ta": "லோடு நகரும்போது பேரிகேடுக்கு வெளியே நிப்பேன். லோடு கீழே இறங்குற வரைக்கும் உள்ள போக மாட்டேன். லோடுக்கு அடியில ஒருபோதும் போக மாட்டேன்.", "en": "While the load is moving I'll stand outside the barricade. I won't go in until the load is down. I'll never go under the load." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "ta": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன். வேற யார் சிக்னல் குடுத்தாலும் கேக்க மாட்டேன்.", "en": "I'll listen only to the signalman. I won't follow anyone else's signals." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." },
+            { "questionId": "q3", "answer": { "ta": "லோடு ஆடுனா டேக் லைன் வச்சு மட்டும்தான் நிறுத்துவேன். லோடை கையால ஒருபோதும் பிடிக்க மாட்டேன்.", "en": "If the load swings, I'll steady it only with the tag line. I'll never hold the load with my hand." }, "expected": { "s4": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "sg-panel",
       "taskId": "panel-isolation",
       "siteId": "sg",
       "supervisorLang": "en",
       "workerLang": "ta",
       "rounds": [
         { "questionId": "q1", "answer": { "ta": "நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.", "en": "I'll switch off the breaker and open it." }, "expected": { "s1": "covered", "s2": "missed", "s3": "missed" } },
-        { "questionId": "q1", "answer": { "ta": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் பேனலைத் திறப்பேன்.", "en": "First I'll switch off the breaker, then put on the lock and tag, and only after checking with the tester that there's no current will I open the panel." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" } }
+        { "questionId": "q1", "answer": { "ta": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன். பேனலைத் திறந்த பிறகு, எதையும் தொடுறதுக்கு முன்னாடி டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணுவேன்.", "en": "First I'll switch off the breaker, then put on the lock and tag. After I open the panel, I'll check with the tester that there's no current before I touch anything." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" } }
       ]
     },
     {
@@ -186,8 +423,122 @@
       "supervisorLang": "ta",
       "workerLang": "hi",
       "rounds": [
-        { "questionId": "q1", "answer": { "hi": "मैं हार्नेस पहनूँगा और ऊपर चढ़ जाऊँगा।", "en": "I'll put on the harness and go up." }, "expected": { "s1": "covered", "s2": "missed" } },
-        { "questionId": "q1", "answer": { "hi": "पहले हार्नेस पहनकर बकल चेक करूँगा, फिर पहला कदम रखने से पहले हुक को लाइफ़लाइन में लगाऊँगा।", "en": "First I'll put on the harness and check the buckles, then clip the hook to the lifeline before my first step." }, "expected": { "s1": "covered", "s2": "covered" } }
+        { "questionId": "q1", "answer": { "hi": "मैं हार्नेस पहनूँगा और ऊपर चढ़ जाऊँगा।", "en": "I'll put on the harness and go up." }, "expected": { "s1": "covered", "s2": "missed" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "hi": "ऊपर पहुँच के हुक खोल दूँगा, ताकि आराम से काम कर सकूँ।", "en": "Once I'm up, I'll unclip the hook so I can work comfortably." }, "expected": { "s3": "contradicted" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "hi": "पहले हार्नेस पहनकर बकल चेक करूँगा, फिर पहला कदम रखने से पहले हुक को लाइफ़लाइन में लगाऊँगा।", "en": "First I'll put on the harness and check the buckles, then clip the hook to the lifeline before my first step." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "hi": "नीचे ज़मीन पर आने के बाद ही। पूरे टाइम हुक लगा रहेगा, और एक बार में एक ही हुक बदलूँगा।", "en": "Only once I'm back on the ground. The hook stays on the whole time, and I move one hook at a time." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/30-sample-answers-every-question.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "sg-hot-work",
+      "taskId": "hot-work",
+      "siteId": "sg",
+      "supervisorLang": "en",
+      "workerLang": "bn",
+      "note": "DRAFT, 16 Oct: every Bengali answer here is machine-written, pending native review (build-notes/34-breadth.md). Round 1 leaves as soon as the cutting ends (s3 contradicted); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "bn": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব, নাহলে ঢেকে দেব। আগুন নেভানোর সিলিন্ডার পাশে রাখব, আর আগুন পাহারা দেওয়ার একজন লোক থাকবে।", "en": "Before I start cutting, I'll move away everything within ten metres that can burn, or else cover it. I'll keep the fire extinguisher beside me, and one person will be there keeping watch for fire." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "bn": "কাটিং শেষ হলেই মেশিন গুছিয়ে সাথে সাথে চলে যাব।", "en": "As soon as the cutting is finished, I'll pack up the machine and leave straight away." }, "expected": { "s3": "contradicted" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/34-breadth.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "bn": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব বা ঢেকে দেব। আগুন নেভানোর সিলিন্ডার হাতের কাছে রাখব। আগুন পাহারা দেওয়ার লোক পাশে না থাকলে কাটিং শুরু করব না।", "en": "Before I start cutting, I'll move away or cover everything within ten metres that can burn. I'll keep the fire extinguisher within reach. I won't start cutting unless the person keeping watch for fire is beside me." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "bn": "কাটিং শেষ হওয়ার পরও ত্রিশ মিনিট ধরে আগুনের দিকে নজর রাখব। ত্রিশ মিনিটের আগে জায়গা ছেড়ে যাব না।", "en": "After the cutting is finished, I'll keep watching for fire for thirty minutes. I won't leave the place before thirty minutes." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/34-breadth.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "chennai-trench",
+      "taskId": "trench-entry",
+      "siteId": "chennai",
+      "supervisorLang": "ta",
+      "workerLang": "or",
+      "note": "DRAFT, 16 Oct: every Odia answer here is machine-written, pending native review (build-notes/34-breadth.md). Round 1 never mentions the shoring, the step only the SOP has (s1 missed); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "or": "ମୁଁ କେବଳ ସିଡ଼ି ଦେଇ ତଳକୁ ଓହ୍ଲାଇବି, ଆଉ ସିଡ଼ି ଦେଇ ଉପରକୁ ଉଠିବି।", "en": "I'll go down only by the ladder, and come back up by the ladder." }, "expected": { "s1": "missed", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "or": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।", "en": "If I see water or a crack in the wall, I'll come out straight away and tell the supervisor." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/34-breadth.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "or": "ଭିତରକୁ ଯିବା ଆଗରୁ ଦେଖିବି, କାନ୍ଥକୁ ଧରି ରଖିଥିବା ସପୋର୍ଟ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ସପୋର୍ଟ ନ ଥିଲେ ଭିତରକୁ ଯିବି ନାହିଁ। କେବଳ ସିଡ଼ି ଦେଇ ଯିବି ଆସିବି, ସିଡ଼ି ଛଡ଼ା ଅନ୍ୟ ବାଟରେ କେବେ ବି ଯିବି ନାହିଁ।", "en": "Before going in, I'll check that the supports holding up the walls (the shoring) are properly in place. If the supports aren't there, I won't go in. I'll go in and come out only by the ladder; I'll never go any other way than the ladder." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "or": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ସିଡ଼ି ଦେଇ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି। ଭିତରେ ରହି କାମ ଜାରି ରଖିବି ନାହିଁ।", "en": "If I see water or a crack in the wall, I'll climb out by the ladder straight away and tell the supervisor. I won't stay inside and carry on working." }, "expected": { "s3": "covered" }, "note": "DRAFT, 16 Oct: machine-written, pending native review (build-notes/34-breadth.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "sg-hydrojet",
+      "taskId": "hydro-jetting",
+      "siteId": "sg",
+      "supervisorLang": "en",
+      "workerLang": "bn",
+      "note": "DRAFT, 17 Oct: every Bengali answer here is machine-written, pending native review (build-notes/37-domain-suites.md). Round 1 ties the trigger down so that the hand does not tire (s2 contradicted); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "bn": "পাম্প চলার সময় ফিতা দিয়ে ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কাউকে ঢুকতে দেব না। হাত ব্যথা হয়ে গেলে ট্রিগারটা দড়ি দিয়ে বেঁধে রাখব।", "en": "While the pump is running, I won't let anyone but our crew inside the taped-off area. If my hand starts to hurt, I'll tie the trigger down with a rope." }, "expected": { "s1": "covered", "s2": "contradicted" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "bn": "নজেল বদলানোর আগে পাম্প বন্ধ করব, তারপর চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে নামলে তবেই নজেলে হাত দেব।", "en": "Before changing the nozzle, I'll stop the pump and then release all the pressure. I'll touch the nozzle only once the gauge needle drops to zero." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "bn": "পাম্প চলার সময় ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কেউ ঢুকবে না। পানির বন্দুক কখনো কারও দিকে তাক করব না। ট্রিগার কখনো বাঁধব না; হাত ব্যথা হলে বন্দুক নামিয়ে বিশ্রাম নেব।", "en": "While the pump is running, nobody but our crew will come inside the fenced-off area. I'll never point the water gun at anyone. I'll never tie the trigger; if my hand hurts, I'll put the gun down and rest." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "bn": "নজেল বদলানোর আগে পাম্প বন্ধ করে চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে না নামা পর্যন্ত নজেলে হাত দেব না।", "en": "Before changing the nozzle, I'll stop the pump and release all the pressure. I won't touch the nozzle until the gauge needle drops to zero." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "sg-steam-line",
+      "taskId": "steam-line-break",
+      "siteId": "sg",
+      "supervisorLang": "en",
+      "workerLang": "ta",
+      "note": "DRAFT, 17 Oct: every Tamil answer here is machine-written, pending native review (build-notes/37-domain-suites.md). Round 1 says no lock is needed because the operator closed the valves, against the step only the SOP has (s1 contradicted); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "ta": "ரெண்டு வால்வையும் ஆபரேட்டர் ஏற்கனவே மூடிட்டாரு, அதனால என் பூட்டு போட வேண்டியதில்லை. டிரெயின் வால்வைத் திறந்து, கேஜ்ல பூஜ்ஜியம் காட்டுனதுக்கு அப்புறம்தான் போல்ட்டைத் தொடுவேன்.", "en": "The operator has already closed both valves, so I don't need to put my lock on. I'll open the drain valve, and I'll touch a bolt only after the gauge shows zero." }, "expected": { "s1": "contradicted", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "ta": "முதல்ல எனக்கு எதிர்ப் பக்கம் இருக்கிற போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன்; உள்ள மிச்சம் இருக்கிற நீராவி அந்தப் பக்கமா போகும். முகத்தை இணைப்புக்கு நேரா வைக்காம, ஓரமா நின்னு செய்வேன்.", "en": "First I'll loosen the bolts on the side away from me, so any steam left inside goes out that way. I'll keep my face out of line with the joint and work standing to the side." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "ta": "ரெண்டு வால்வும் மூடியிருக்கான்னு பார்த்து, ரெண்டுலயும் என் சொந்தப் பூட்டையும் டேக்கையும் போடுவேன். அப்புறம் டிரெயின் வால்வைத் திறப்பேன்; கேஜ்ல பூஜ்ஜியம் காட்டுற வரைக்கும் எந்த போல்ட்டையும் தொட மாட்டேன்.", "en": "I'll check that both valves are closed and put my own lock and tag on both of them. Then I'll open the drain valve; until the gauge shows zero, I won't touch any bolt." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "ta": "முதல்ல எதிர்ப் பக்க போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன், நீராவி மிச்சம் இருந்தா அந்தப் பக்கமா அடிக்கும். இணைப்புக்கு நேரா முகத்தை வைக்க மாட்டேன், ஓரமா நின்னுதான் செய்வேன்.", "en": "First I'll loosen only the far-side bolts, so any steam left will blow out that way. I won't put my face in line with the joint; I'll only work standing to the side." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "chennai-press",
+      "taskId": "press-lockout",
+      "siteId": "chennai",
+      "supervisorLang": "ta",
+      "workerLang": "hi",
+      "note": "DRAFT, 17 Oct: every Hindi answer here is machine-written, pending native review (build-notes/37-domain-suites.md). Round 1 pulls the stuck piece out by hand (s4 contradicted); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "hi": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा और उस पर अपना ताला और टैग लगाऊँगा। फिर स्टार्ट बटन दबाकर देखूँगा कि मशीन चलती तो नहीं। उसके बाद ऊपर और नीचे की डाई के बीच ब्लॉक लगाऊँगा।", "en": "First I'll stop the machine, switch off the main switch and put my own lock and tag on it. Then I'll press the start button to check the machine doesn't run. After that I'll put the block between the upper and lower dies." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "hi": "फँसा हुआ पीस हाथ से जल्दी खींच लूँगा, चिमटा ढूँढने में टाइम लगता है।", "en": "I'll quickly pull the stuck piece out by hand; finding the tongs takes time." }, "expected": { "s4": "contradicted" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "hi": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा, उस पर अपना ताला और टैग लगाऊँगा और चाबी अपने पास रखूँगा। फिर स्टार्ट बटन दबाकर पक्का करूँगा कि मशीन नहीं चलती। उसके बाद डाई के बीच ब्लॉक लगाऊँगा; ब्लॉक के बिना अंदर नहीं झुकूँगा।", "en": "First I'll stop the machine and switch off the main switch, put my own lock and tag on it and keep the key with me. Then I'll press the start button to make sure the machine doesn't run. After that I'll put the block between the dies; I won't lean in without the block." }, "expected": { "s1": "covered", "s2": "covered", "s3": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "hi": "फँसा हुआ पीस सिर्फ़ चिमटे से निकालूँगा। डाई के बीच कभी हाथ या उँगली नहीं डालूँगा।", "en": "I'll take the stuck piece out only with the tongs. I'll never put a hand or a finger between the dies." }, "expected": { "s4": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] }
+      ]
+    },
+    {
+      "id": "chennai-tower",
+      "taskId": "telecom-tower",
+      "siteId": "chennai",
+      "supervisorLang": "ta",
+      "workerLang": "te",
+      "note": "DRAFT, 17 Oct: every Telugu answer here is machine-written, pending native review (build-notes/37-domain-suites.md). Round 1 never mentions getting the antenna switched off, the step only the SOP has (s2 missed); round 2 says every step and each negation.",
+      "rounds": [
+        { "questionId": "q1", "answer": { "te": "ఎక్కే ముందు టవరు కింద ఎవరూ లేరని చూసుకుంటాను. పనిముట్లన్నీ సంచిలో పెట్టి తాడుతో పైకి లాగుతాను.", "en": "Before I climb, I'll make sure nobody is under the tower. I'll put all the tools in the bag and pull them up with the rope." }, "expected": { "s1": "covered", "s2": "missed" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "te": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది. ఒకసారికి ఒక్క హుక్కు మాత్రమే తీసి పైకి మారుస్తాను.", "en": "While I climb up, one hook always stays on the tower. I'll take off only one hook at a time and move it higher." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] },
+        { "questionId": "q1", "answer": { "te": "ఎక్కే ముందు టవరు కింద ఎవరూ లేకుండా చూసుకుంటాను, పనిముట్లు సంచిలో పెట్టి తాడుతో పైకి పంపిస్తాను. కంట్రోల్ రూముకి ఫోన్ చేసి నేను పని చేసే యాంటెన్నాను ఆఫ్ చేయమంటాను; ఆఫ్ అయిందని వాళ్ళు చెప్పేవరకు ఎక్కకూడదు.", "en": "Before I climb, I'll make sure nobody is under the tower, and I'll send the tools up in the bag on the rope. I'll phone the control room and ask them to switch off the antenna I'll work on; I must not climb until they say it is off." }, "expected": { "s1": "covered", "s2": "covered" },
+          "followUps": [
+            { "questionId": "q2", "answer": { "te": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది, ఒకసారికి ఒక్క హుక్కు మాత్రమే మారుస్తాను. రెండు హుక్కులూ ఒకేసారి తీయకూడదు.", "en": "While I climb up, one hook always stays on the tower, and I'll move only one hook at a time. I must never take both hooks off at once." }, "expected": { "s3": "covered" }, "note": "DRAFT, 17 Oct: machine-written, pending native review (build-notes/37-domain-suites.md)." }
+          ] }
       ]
     }
   ]

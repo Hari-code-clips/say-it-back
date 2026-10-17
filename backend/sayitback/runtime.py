@@ -28,14 +28,24 @@ class Runtime:
     flash: BaseLlm
     live_factory: LiveFactory
     tts_client_factory: Callable[[], genai.Client]
+    judge_b_llm: BaseLlm | None = None  # SIB_JUDGE_B_MODEL; None = the Flash model
+
+    @property
+    def judge_b(self) -> BaseLlm:
+        """The model judge B runs on: a second model, so the judges' mistakes correlate less."""
+        return self.judge_b_llm or self.flash
 
     @classmethod
     def from_settings(cls, settings: Settings) -> Runtime:
+        flash = backends.make_flash(settings)
+        second = settings.judge_b_model_id
+        judge_b = None if second == settings.flash_model else backends.make_flash(settings, second)
         return cls(
             settings=settings,
-            flash=backends.make_flash(settings),
+            flash=flash,
             live_factory=lambda on_connected: backends.make_live(settings, on_connected),
             tts_client_factory=lambda: backends.make_genai_client("tts", settings),
+            judge_b_llm=judge_b,
         )
 
 

@@ -94,7 +94,7 @@ def test_retry_once_with_backoff_on_429_and_5xx():
     opts = backends.retry_options(Settings(retry_attempts=2, retry_backoff_s=1.5))
     assert opts.attempts == 2  # the first call plus one retry
     assert opts.initial_delay == 1.5
-    assert set(opts.http_status_codes) == {429, 500, 502, 503, 504}
+    assert set(opts.http_status_codes) == {408, 429, 499, 500, 502, 503, 504}  # v0.5.1: 408, 499
 
 
 def test_thinking_levels_for_gemini_3_8():
@@ -175,3 +175,39 @@ async def test_live_gemini_does_not_signal_when_connect_fails(monkeypatch):
         async with live.connect(object()):
             pass
     assert opened == []
+
+
+class TestTtsLocation:
+    """API v0.5: SIB_TTS_LOCATION moves only the TTS client on Agent Platform (some regions lack
+    the TTS model); empty means GOOGLE_CLOUD_LOCATION."""
+
+    def test_it_defaults_to_the_cloud_location(self):
+        s = Settings.from_env({**PLATFORM, "GOOGLE_CLOUD_LOCATION": "asia-south1"})
+        assert s.tts_location == "" and s.tts_location_id == "asia-south1"
+        assert backends.client_kwargs("tts", s)["location"] == "asia-south1"
+
+    def test_it_moves_tts_and_nothing_else(self):
+        got = kwargs({**PLATFORM, "SIB_TTS_LOCATION": "us-central1"})
+        assert got["tts"] == {"enterprise": True, "location": "us-central1", "project": "demo-proj"}
+        assert got["flash"]["location"] == "global"
+        assert got["live"]["location"] == "us-central1"
+        other = kwargs({**PLATFORM, "SIB_TTS_LOCATION": "europe-west4"})
+        assert (
+            other["tts"]["location"] == "europe-west4"
+            and other["live"]["location"] == "us-central1"
+        )
+
+    def test_the_developer_api_has_no_location(self):
+        assert kwargs({"SIB_TTS_LOCATION": "us-central1"})["tts"] == {"enterprise": False}
+        on_dev = kwargs({**PLATFORM, "SIB_TTS_BACKEND": "developer-api", "SIB_TTS_LOCATION": "x"})
+        assert on_dev["tts"] == {"enterprise": False}
+
+    def test_the_real_tts_client_uses_the_regional_endpoint(self):
+        s = Settings.from_env({**PLATFORM, "SIB_TTS_LOCATION": "us-central1"})
+        tts = backends.make_genai_client("tts", s)
+        assert tts._api_client.location == "us-central1"
+        assert (
+            str(tts._api_client._http_options.base_url)
+            == "https://us-central1-aiplatform.googleapis.com/"
+        )
+        assert backends.make_genai_client("flash", s)._api_client.location == "global"

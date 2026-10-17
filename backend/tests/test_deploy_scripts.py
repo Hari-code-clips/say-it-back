@@ -1,10 +1,12 @@
-"""deploy/01 and deploy/02 under a stub `gcloud`: what they would run, and in what state.
+"""deploy/01, 02 and 04 under a stub `gcloud`: what they would run, and in what state.
 
 The scripts create billable resources, so they are never run for real here. A stub `gcloud` and `bq`
 put on PATH record each call and answer the few questions the scripts ask (does the database exist,
 is the index there, what is the service URL). These tests cover the changes of the security review:
 the BigQuery role only with a dataset (S13), the composite index behind a caller's list of briefings,
-and the evaluation data that the image has to carry.
+and the evaluation data that the image has to carry. API v0.4 adds the pinned model ids, the daily
+caps and minimum instances from config.sh, the webhook URLs (never printed) and the webhook secret
+(only by name, through Secret Manager), and step 4, the permit-to-work stub.
 """
 
 from __future__ import annotations
@@ -37,8 +39,12 @@ printf '%s\\n' "$call" >> "$STUB_LOG"
 case "$call" in
   "gcloud firestore indexes composite list"*) printf '%s' "${STUB_INDEX:-}" ;;
   "gcloud firestore databases describe"*"value(locationId)"*) echo asia-south1 ;;
+  "gcloud firestore databases describe"*) [[ -z "${STUB_NO_FIRESTORE:-}" ]] || exit 1 ;;
   "gcloud run services describe"*) echo https://say-it-back-api-abc.a.run.app ;;
   "bq show"*) exit 1 ;; # the dataset does not exist yet
+  "gcloud artifacts repositories describe"*) [[ -n "${STUB_AR_EXISTS:-}" ]] || exit 1 ;;
+  "gcloud billing budgets list"*) printf '%s' "${STUB_BUDGET:-}" ;;
+  "gcloud iam roles describe"*) [[ -z "${STUB_NO_TELEMETRY_ROLE:-}" ]] || exit 1 ;;
   "gcloud run deploy"*)
     {
       echo "DEPLOY ARGS: $*"
@@ -64,6 +70,10 @@ def sandbox(tmp_path) -> SimpleNamespace:
     (repo / "eval" / "testset" / "audio" / "a.wav").write_bytes(b"RIFF")
     (repo / "eval" / "reports").mkdir()
     (repo / "eval" / "reports" / "latest.json").write_text('{"nItems": 7}')
+    stub = repo / "integrations" / "ptw-stub"
+    stub.mkdir(parents=True)
+    (stub / "Dockerfile").write_text("FROM scratch\n")
+    (stub / ".gcloudignore").write_text(".venv/\n")
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
     for name in ("gcloud", "bq"):
@@ -109,7 +119,12 @@ def roles_granted(box) -> list[str]:
 
 
 class TestBigQueryRole:
-    BASE = ["roles/aiplatform.user", "roles/cloudtrace.agent", "roles/datastore.user"]
+    BASE = [
+        "roles/aiplatform.user",
+        "roles/cloudtrace.agent",
+        "roles/datastore.user",
+        "roles/telemetry.tracesWriter",
+    ]
 
     def test_review_s13_no_bigquery_role_without_a_dataset(self, sandbox):
         result = run_script(sandbox, "01_setup_project.sh", BQ_DATASET="")
@@ -250,7 +265,7 @@ class TestEvalDataInTheImage:
     def test_the_new_settings_are_set_on_the_service(self, sandbox):
         run_script(sandbox, "02_deploy_backend.sh")
         (deploy,) = calls(sandbox, "gcloud run deploy")
-        assert "@SIB_DAILY_CALLS_PER_IP=100@" in deploy
+        assert "@SIB_DAILY_CALLS_PER_IP=300@" in deploy
         assert "@SIB_TRUSTED_PROXY_HOPS=1@" in deploy
         assert "SIB_API_DOCS" not in deploy  # docs stay off in the cloud
 
@@ -276,3 +291,368 @@ class TestTheBuildContext:
             lines = [ln.strip() for ln in (BACKEND / name).read_text().splitlines()]
             assert not any(ln.startswith("eval_data") for ln in lines), name
         assert "eval_data/*" in (BACKEND / ".gitignore").read_text()  # and git keeps it out
+
+
+WEBHOOKS = "https://ptw.example.run.app/webhook,https://chat.googleapis.com/v1/spaces/S/messages?key=KEYVAL9&token=TOKVAL9"
+
+
+def env_vars(box) -> dict[str, str]:
+    """The --update-env-vars of the deploy, as the stub gcloud saw it (^@^-delimited)."""
+    (deploy,) = calls(box, "gcloud run deploy")
+    value = deploy.split("--update-env-vars ", 1)[1].split(" --", 1)[0]
+    assert value.startswith("^@^")
+    return dict(pair.split("=", 1) for pair in value[3:].split("@"))
+
+
+class TestTheV04Settings:
+    def test_the_model_ids_are_pinned_from_config(self, sandbox):
+        assert run_script(sandbox, "02_deploy_backend.sh").returncode == 0
+        env = env_vars(sandbox)
+        assert (env["SIB_FLASH_MODEL"], env["SIB_JUDGE_B_MODEL"]) == (
+            "gemini-3.8-flash",
+            "gemini-3.1-flash-lite",
+        )
+        assert (env["SIB_LIVE_MODEL"], env["SIB_TTS_MODEL"]) == (
+            "gemini-3.8-live",
+            "gemini-3.8-flash-tts",
+        )
+        lines = (DEPLOY / "config.sh").read_text().splitlines()
+        for name in ("FLASH_MODEL", "JUDGE_B_MODEL", "LIVE_MODEL", "TTS_MODEL"):
+            i = next(i for i, ln in enumerate(lines) if ln.startswith(f"{name}="))
+            comment = " ".join(ln.split("#", 1)[1].strip() for ln in lines[i : i + 2] if "#" in ln)
+            assert "Check the exact Agent Platform id at deploy" in comment, name
+
+    def test_each_pin_can_be_set_and_an_empty_judge_b_means_flash(self, sandbox):
+        result = run_script(
+            sandbox, "02_deploy_backend.sh", FLASH_MODEL="gemini-3.8-flash-001", JUDGE_B_MODEL=""
+        )
+        assert result.returncode == 0, result.stderr
+        env = env_vars(sandbox)
+        assert env["SIB_FLASH_MODEL"] == "gemini-3.8-flash-001" and env["SIB_JUDGE_B_MODEL"] == ""
+
+    def test_a_model_id_that_is_not_one_is_refused(self, sandbox):
+        result = run_script(sandbox, "02_deploy_backend.sh", LIVE_MODEL="gemini live; rm -rf /")
+        assert result.returncode != 0 and "LIVE_MODEL is not a model id" in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    def test_the_daily_caps_and_minimum_instances_come_from_config(self, sandbox):
+        """v0.5: the defaults are sized for the judging window and the free-trial credit."""
+        run_script(sandbox, "02_deploy_backend.sh")
+        env = env_vars(sandbox)
+        assert (env["SIB_DAILY_GEMINI_CALLS"], env["SIB_DAILY_CALLS_PER_IP"]) == ("600", "300")
+        assert "--min-instances=1" in calls(sandbox, "gcloud run deploy")[0]
+        text = (DEPLOY / "config.sh").read_text()
+        assert "judging window" in text.split("MIN_INSTANCES=", 1)[1].split("\n\n", 1)[0]
+        caps = text.split("# Daily cost bounds", 1)[1].split("\n\n", 1)[0]
+        assert "free-trial credit" in caps and "a room of judges" in caps
+
+    def test_lowered_after_judging(self, sandbox):
+        result = run_script(
+            sandbox,
+            "02_deploy_backend.sh",
+            DAILY_CALLS="150",
+            DAILY_CALLS_PER_IP="50",
+            MIN_INSTANCES="0",
+        )
+        assert result.returncode == 0, result.stderr
+        env = env_vars(sandbox)
+        assert (env["SIB_DAILY_GEMINI_CALLS"], env["SIB_DAILY_CALLS_PER_IP"]) == ("150", "50")
+        assert "--min-instances=0" in calls(sandbox, "gcloud run deploy")[0]
+
+    def test_the_v05_limits_reach_the_service(self, sandbox):
+        assert run_script(sandbox, "02_deploy_backend.sh").returncode == 0
+        env = env_vars(sandbox)
+        assert env["SIB_RATE_LIMIT_PER_MIN"] == "120" and env["SIB_MAX_SOCKETS_PER_IP"] == "12"
+        assert env["SIB_MAX_OUTPUT_TOKENS"] == "4096" and env["SIB_WEBHOOK_TIMEOUT_S"] == "5"
+        assert env["SIB_TTS_LOCATION"] == "global"
+
+    def test_extra_origins_are_added_to_the_allow_list(self, sandbox):
+        result = run_script(
+            sandbox, "02_deploy_backend.sh", EXTRA_ORIGINS="https://say-it-back-demo.web.app"
+        )
+        assert result.returncode == 0, result.stderr
+        assert env_vars(sandbox)["SIB_ALLOWED_ORIGINS"] == (
+            "https://say-it-back-test.web.app,https://say-it-back-test.firebaseapp.com,"
+            "https://say-it-back-demo.web.app"
+        )
+
+    @pytest.mark.parametrize(
+        "origin", ["http://plain.web.app", "https://a.web.app/path", "https://a.web.app,x"]
+    )
+    def test_an_origin_that_is_not_one_is_refused(self, sandbox, origin):
+        result = run_script(sandbox, "02_deploy_backend.sh", EXTRA_ORIGINS=origin)
+        assert result.returncode != 0 and "EXTRA_ORIGINS entries" in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    @pytest.mark.parametrize(
+        "name",
+        [
+            "DAILY_CALLS",
+            "DAILY_CALLS_PER_IP",
+            "MIN_INSTANCES",
+            "PTW_MIN_INSTANCES",
+            "RATE_LIMIT_PER_MIN",
+            "MAX_SOCKETS_PER_IP",
+            "MAX_OUTPUT_TOKENS",
+        ],
+    )
+    def test_a_count_that_is_not_a_whole_number_is_refused(self, sandbox, name):
+        result = run_script(sandbox, "02_deploy_backend.sh", **{name: "lots"})
+        assert result.returncode != 0 and f"{name} must be a whole number" in result.stderr
+
+
+class TestTheWebhooks:
+    def test_no_urls_sets_an_empty_list_and_no_secret(self, sandbox):
+        run_script(sandbox, "02_deploy_backend.sh")
+        assert env_vars(sandbox)["SIB_WEBHOOK_URL"] == ""
+        assert "--set-secrets" not in calls(sandbox, "gcloud run deploy")[0]
+
+    def test_the_urls_are_set_but_never_printed(self, sandbox):
+        result = run_script(sandbox, "02_deploy_backend.sh", WEBHOOK_URLS=WEBHOOKS)
+        assert result.returncode == 0, result.stderr
+        assert env_vars(sandbox)["SIB_WEBHOOK_URL"] == WEBHOOKS
+        printed = result.stdout + result.stderr
+        assert (
+            "KEYVAL9" not in printed and "TOKVAL9" not in printed and "ptw.example" not in printed
+        )
+        assert "SIB_WEBHOOK_URL=<hidden>" in result.stderr
+
+    @pytest.mark.parametrize(
+        ("urls", "message"),
+        [
+            (
+                "https://a.example/x,https://b.example/x,https://c.example/x,https://d.example/x",
+                "at most 3",
+            ),
+            ("http://plain.example/webhook", "entry 1 is not https"),
+            ("https://user@host.example/x", "may not contain '@'"),
+        ],
+    )
+    def test_bad_urls_are_refused_without_printing_them(self, sandbox, urls, message):
+        result = run_script(sandbox, "02_deploy_backend.sh", WEBHOOK_URLS=urls)
+        assert result.returncode != 0 and message in result.stderr
+        assert "example" not in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    def test_the_secret_is_set_by_name_from_secret_manager(self, sandbox):
+        result = run_script(
+            sandbox, "02_deploy_backend.sh", WEBHOOK_SECRET_NAME="sib-webhook-secret"
+        )
+        assert result.returncode == 0, result.stderr
+        (deploy,) = calls(sandbox, "gcloud run deploy")
+        assert "--set-secrets SIB_WEBHOOK_SECRET=sib-webhook-secret:latest" in deploy
+        assert "SIB_WEBHOOK_SECRET" not in env_vars(sandbox)  # never a plain variable
+        (grant,) = calls(sandbox, "gcloud secrets add-iam-policy-binding")
+        assert grant.startswith("gcloud secrets add-iam-policy-binding sib-webhook-secret ")
+        assert "--role=roles/secretmanager.secretAccessor" in grant
+        assert "serviceAccount:say-it-back-run@" in grant
+
+    def test_both_secrets_go_in_one_set_secrets(self, sandbox):
+        result = run_script(
+            sandbox, "02_deploy_backend.sh", WEBHOOK_SECRET_NAME="hook", USE_DEVELOPER_API_KEY="1"
+        )
+        assert result.returncode == 0, result.stderr
+        (deploy,) = calls(sandbox, "gcloud run deploy")
+        assert (
+            "--set-secrets GOOGLE_API_KEY=say-it-back-gemini-key:latest,SIB_WEBHOOK_SECRET=hook:latest"
+            in deploy
+        )
+        assert deploy.count("--set-secrets") == 1
+
+
+class TestThePermitToWorkStub:
+    def test_it_refuses_to_deploy_without_the_shared_secret(self, sandbox):
+        result = run_script(sandbox, "04_deploy_ptw_stub.sh")
+        assert result.returncode != 0 and "WEBHOOK_SECRET_NAME is empty" in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    def test_it_deploys_a_second_public_service_with_the_same_secret(self, sandbox):
+        result = run_script(
+            sandbox, "04_deploy_ptw_stub.sh", WEBHOOK_SECRET_NAME="sib-webhook-secret"
+        )
+        assert result.returncode == 0, result.stderr
+        (deploy,) = calls(sandbox, "gcloud run deploy")
+        for part in (
+            "gcloud run deploy say-it-back-ptw ",
+            "--source " + str(sandbox.repo / "integrations" / "ptw-stub"),
+            "--allow-unauthenticated",
+            "--set-secrets SIB_WEBHOOK_SECRET=sib-webhook-secret:latest",
+            "--service-account say-it-back-ptw@say-it-back-test.iam.gserviceaccount.com",
+            "--max-instances=1",
+            "--min-instances=0",  # v0.5.1: permits persist in Firestore, so it may scale to zero
+            "--set-env-vars PTW_STORE=firestore",
+        ):
+            assert part in deploy, part
+        (grant,) = calls(sandbox, "gcloud secrets add-iam-policy-binding")
+        assert "serviceAccount:say-it-back-ptw@" in grant and "secretAccessor" in grant
+        assert "Permit board: https://say-it-back-api-abc.a.run.app/" in result.stdout
+        assert "/webhook to WEBHOOK_URLS" in result.stdout
+
+    def test_its_account_may_use_firestore_and_nothing_else_project_wide(self, sandbox):
+        """v0.5.1: the stub keeps its permits in Firestore (collection `permits`)."""
+        result = run_script(sandbox, "04_deploy_ptw_stub.sh", WEBHOOK_SECRET_NAME="s")
+        assert result.returncode == 0, result.stderr
+        bound = calls(sandbox, "gcloud projects add-iam-policy-binding")
+        assert bound == [ln for ln in bound if "serviceAccount:say-it-back-ptw@" in ln]
+        assert roles_granted(sandbox) == ["roles/datastore.user"]
+        assert "--condition=None" in bound[0] and "say-it-back-test" in bound[0]
+
+    def test_it_needs_the_firestore_database_01_creates(self, sandbox):
+        result = run_script(
+            sandbox, "04_deploy_ptw_stub.sh", WEBHOOK_SECRET_NAME="s", STUB_NO_FIRESTORE="1"
+        )
+        assert result.returncode != 0 and "Run deploy/01_setup_project.sh first" in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+        assert calls(sandbox, "gcloud projects add-iam-policy-binding") == []
+
+    def test_it_needs_its_ignore_file(self, sandbox):
+        (sandbox.repo / "integrations" / "ptw-stub" / ".gcloudignore").unlink()
+        result = run_script(sandbox, "04_deploy_ptw_stub.sh", WEBHOOK_SECRET_NAME="s")
+        assert result.returncode != 0 and ".gcloudignore is missing" in result.stderr
+
+    def test_the_real_stub_folder_has_what_the_script_needs(self):
+        stub = REPO / "integrations" / "ptw-stub"
+        for name in ("Dockerfile", ".gcloudignore", "pyproject.toml", "uv.lock"):
+            assert (stub / name).is_file(), name
+        assert "tests/" in (stub / ".gcloudignore").read_text()
+        assert (
+            "$PORT" in (stub / "Dockerfile").read_text()
+            or "${PORT" in (stub / "Dockerfile").read_text()
+        )
+
+
+class TestTheV05Setup:
+    """v0.5: a non-interactive first deploy, telemetry, and an optional budget that ignores credits."""
+
+    def test_the_artifact_registry_repository_is_created_when_missing(self, sandbox):
+        assert run_script(sandbox, "01_setup_project.sh").returncode == 0
+        (created,) = calls(sandbox, "gcloud artifacts repositories create")
+        assert "cloud-run-source-deploy" in created and "--location=asia-south1" in created
+        assert "--repository-format=docker" in created
+
+    def test_an_existing_repository_is_left_alone(self, sandbox):
+        assert run_script(sandbox, "01_setup_project.sh", STUB_AR_EXISTS="1").returncode == 0
+        assert calls(sandbox, "gcloud artifacts repositories create") == []
+
+    def test_the_apis_03_and_the_trace_exporter_need_are_enabled(self, sandbox):
+        assert run_script(sandbox, "01_setup_project.sh").returncode == 0
+        (enabled,) = [
+            c for c in calls(sandbox, "gcloud services enable") if "run.googleapis.com" in c
+        ]
+        for api in (
+            "firebase.googleapis.com",
+            "firebaserules.googleapis.com",
+            "telemetry.googleapis.com",
+        ):
+            assert api in enabled, api
+
+    def test_no_budget_without_a_billing_account(self, sandbox):
+        result = run_script(sandbox, "01_setup_project.sh")
+        assert result.returncode == 0 and calls(sandbox, "gcloud billing budgets") == []
+        assert "no budget alert created" in result.stderr
+
+    def test_the_budget_ignores_credits_and_alerts_early(self, sandbox):
+        result = run_script(sandbox, "01_setup_project.sh", BILLING_ACCOUNT="0123AB-4567CD-89EF01")
+        assert result.returncode == 0, result.stderr
+        (created,) = calls(sandbox, "gcloud billing budgets create")
+        assert "--credit-types-treatment=exclude-all-credits" in created
+        assert (
+            "--budget-amount=28797INR" in created
+            and "--filter-projects=projects/say-it-back-test" in created
+        )
+        assert created.count("--threshold-rule=") == 5 and "percent=0.10" in created
+        assert (
+            "--billing-project=say-it-back-test" in created
+        )  # not gcloud's configured quota project
+
+    def test_an_existing_budget_is_not_created_twice(self, sandbox):
+        run_script(
+            sandbox,
+            "01_setup_project.sh",
+            BILLING_ACCOUNT="0123AB-4567CD-89EF01",
+            STUB_BUDGET="budgets/1",
+        )
+        assert calls(sandbox, "gcloud billing budgets create") == []
+
+    def test_a_billing_account_that_is_not_one_is_refused(self, sandbox):
+        result = run_script(sandbox, "01_setup_project.sh", BILLING_ACCOUNT="my account")
+        assert result.returncode != 0 and "BILLING_ACCOUNT must look like" in result.stderr
+
+    def test_the_stub_can_still_be_kept_warm(self, sandbox):
+        """v0.5.1: PTW_MIN_INSTANCES defaults to 0 (permits persist in Firestore); 1 still works."""
+        result = run_script(
+            sandbox, "04_deploy_ptw_stub.sh", WEBHOOK_SECRET_NAME="s", PTW_MIN_INSTANCES="1"
+        )
+        assert result.returncode == 0, result.stderr
+        assert "--min-instances=1" in calls(sandbox, "gcloud run deploy")[0]
+
+
+class TestTheModelProbe:
+    """deploy/probe_models.sh runs the backend's probe with exactly the ids and locations 02 deploys."""
+
+    def test_it_probes_the_pinned_models_on_agent_platform(self, sandbox):
+        uv = sandbox.bin / "uv"
+        uv.write_text(
+            "#!/usr/bin/env bash\n"
+            'printf \'%s|%s|%s|%s|%s|%s\\n\' "$*" "$GOOGLE_GENAI_USE_ENTERPRISE" "$GOOGLE_CLOUD_PROJECT" '
+            '"$SIB_JUDGE_B_MODEL" "$SIB_TTS_LOCATION" "$SIB_LIVE_LOCATION" >> "$STUB_LOG"\n'
+        )
+        uv.chmod(uv.stat().st_mode | stat.S_IEXEC)
+        result = run_script(sandbox, "probe_models.sh", TTS_LOCATION="us-central1")
+        assert result.returncode == 0, result.stderr
+        (probe,) = calls(sandbox, "run python -m sayitback.probe")
+        assert probe == (
+            "run python -m sayitback.probe --also-location us-central1|true|say-it-back-test|"
+            "gemini-3.1-flash-lite|us-central1|us-central1"
+        )
+
+
+class TestTheDemoVideoLink:
+    """config.sh refuses a DEMO_VIDEO_URL that is not an https link before any script does anything."""
+
+    @pytest.mark.parametrize("url", ["javascript:alert(1)", "http://youtu.be/x", "https://a b"])
+    def test_a_link_that_is_not_https_is_refused(self, sandbox, url):
+        result = run_script(sandbox, "02_deploy_backend.sh", DEMO_VIDEO_URL=url)
+        assert result.returncode != 0 and "DEMO_VIDEO_URL must be an https:// link" in result.stderr
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    def test_an_https_link_is_accepted(self, sandbox):
+        assert (
+            run_script(
+                sandbox, "02_deploy_backend.sh", DEMO_VIDEO_URL="https://youtu.be/abc"
+            ).returncode
+            == 0
+        )
+
+    def test_step_3_builds_it_into_the_page(self):
+        text = (DEPLOY / "03_deploy_web.sh").read_text()
+        assert 'VITE_DEMO_VIDEO_URL="$DEMO_VIDEO_URL" npm run build' in text
+        assert "node noMock.ts dist" in text
+
+
+class TestTheServiceRanges:
+    """config.sh refuses values the service would reject at start-up, so a deploy never ends in a failed revision."""
+
+    @pytest.mark.parametrize("value", ["0", "0.0", "10.5", "11", "abc", "-1"])
+    def test_a_webhook_timeout_outside_0_to_10_is_refused(self, sandbox, value):
+        result = run_script(sandbox, "02_deploy_backend.sh", WEBHOOK_TIMEOUT_S=value)
+        assert (
+            result.returncode != 0
+            and "WEBHOOK_TIMEOUT_S must be above 0 and at most 10" in result.stderr
+        )
+        assert calls(sandbox, "gcloud run deploy") == []
+
+    @pytest.mark.parametrize("value", ["0.5", "2.5", "10"])
+    def test_a_webhook_timeout_in_range_is_accepted(self, sandbox, value):
+        assert run_script(sandbox, "02_deploy_backend.sh", WEBHOOK_TIMEOUT_S=value).returncode == 0
+        assert env_vars(sandbox)["SIB_WEBHOOK_TIMEOUT_S"] == value
+
+    def test_an_output_ceiling_under_1024_is_refused(self, sandbox):
+        result = run_script(sandbox, "02_deploy_backend.sh", MAX_OUTPUT_TOKENS="512")
+        assert result.returncode != 0 and "MAX_OUTPUT_TOKENS must be at least 1024" in result.stderr
+
+    def test_without_the_telemetry_role_setup_warns_and_goes_on(self, sandbox):
+        result = run_script(sandbox, "01_setup_project.sh", STUB_NO_TELEMETRY_ROLE="1")
+        assert result.returncode == 0, result.stderr
+        assert "roles/telemetry.tracesWriter not found" in result.stderr
+        assert "roles/telemetry.tracesWriter" not in roles_granted(sandbox)
