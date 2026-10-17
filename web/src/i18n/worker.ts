@@ -112,9 +112,9 @@ export const WORKER_WORDS: Record<Lang, WorkerWords> = {
   bn: {
     start: 'শুরু করুন', listen: 'শুনুন', speak: 'এখন বলুন', done: 'শেষ', wait: 'অপেক্ষা করুন',
     readyHow: 'শুনুন। তারপর নিজের কথায় আবার বলুন।', readyKind: 'এটা আপনার পরীক্ষা নয়। কিছু পরিষ্কার না হলে, বলুন।', thanks: 'ধন্যবাদ',
-    report: 'সমস্যা জানান', reportTitle: 'কী সমস্যা?', reportSpeak: 'বলে জানান', reportLimit: '৩০ সেকেন্ড পর্যন্ত', reportTap: 'না বলে পাঠান',
+    report: 'সমস্যা জানান', reportTitle: 'কী সমস্যা?', reportSpeak: 'বলে জানান', reportLimit: '৩০ সেকেন্ড পর্যন্ত', reportTap: 'কিছু না বলে পাঠান',
     reportRecording: 'রেকর্ড হচ্ছে। কী সমস্যা বলুন।', reportSend: 'পাঠান', reportCancel: 'বাতিল', reportSending: 'পাঠানো হচ্ছে…',
-    reportSent: 'জানানোর জন্য ধন্যবাদ। আপনার সুপারভাইজার এটা দেখবেন।', reportFailed: 'পাঠানো যায়নি। আবার চেষ্টা করুন।', reportNoMic: 'মাইক কাজ করছে না। না বলেও পাঠাতে পারেন।',
+    reportSent: 'জানানোর জন্য ধন্যবাদ। আপনার সুপারভাইজার এটা দেখবেন।', reportFailed: 'পাঠানো যায়নি। আবার চেষ্টা করুন।', reportNoMic: 'মাইক কাজ করছে না। কিছু না বলেও পাঠাতে পারেন।',
     handBack: 'ফোনটা আপনার সুপারভাইজারকে ফেরত দিন',
     giveSupervisor: 'ফোনটা আপনার সুপারভাইজারকে দিন',
     reportDiscard: 'রিপোর্ট মুছুন', reportDiscardTitle: 'এই রিপোর্টটি মুছবেন?', reportDiscardBody: 'আপনার সুপারভাইজার এটা দেখতে পাবেন না।', reportDiscardConfirm: 'মুছুন', reportKeep: 'রেখে দিন',
