@@ -115,6 +115,7 @@ say-it-back/
 | `SIB_LIVE_VOICE` / `SIB_TTS_VOICE` | `Kore` / `Kore` | prebuilt voices |
 | `SIB_JUDGE_PASSES` | `2` | 1 = judge A only |
 | `SIB_JUDGE_B_MODEL` | `gemini-3.1-flash-lite` | judge B's model (a Gemini 3.x model); empty = `SIB_FLASH_MODEL` |
+| `SIB_FLASH_FALLBACK_MODEL` | empty | asked instead of `SIB_FLASH_MODEL` for one call when that model answers 429 on every retry (Agent Platform's shared pool out of capacity); a Gemini 3.x model; empty = none. Judge B has no fallback. The deployment sets `gemini-3.7-flash` (17 Oct) |
 | `SIB_THINKING_<AGENT>` | per agent (`settings.py`) | `low`/`medium`/`high` for each Flash agent, `HAZARD_REPORT` (default `low`) included |
 | `SIB_COVERED_MIN_CONFIDENCE` | `0.75` | below this, `covered` becomes `unclear` |
 | `SIB_STORE` | `local` | `local` (JSON files in `backend/.data/`) or `firestore` |

@@ -129,6 +129,9 @@ class Settings:
     live_model: str = "gemini-3.8-live"
     tts_model: str = "gemini-3.8-flash-tts"
     judge_b_model: str = "gemini-3.1-flash-lite"  # "" = the Flash model (judge_b_model_id)
+    # 17 Oct: asked instead of SIB_FLASH_MODEL when that model is out of capacity (429 after all its
+    # retries); "" = never. Judge B (SIB_JUDGE_B_MODEL) has none (backends.make_flash).
+    flash_fallback_model: str = ""
     live_voice: str = "Kore"
     tts_voice: str = "Kore"
     # Google platform switches
@@ -289,6 +292,9 @@ class Settings:
             live_model=e.get("SIB_LIVE_MODEL", defaults.live_model).strip(),
             tts_model=e.get("SIB_TTS_MODEL", defaults.tts_model).strip(),
             judge_b_model=e.get("SIB_JUDGE_B_MODEL", defaults.judge_b_model).strip(),
+            flash_fallback_model=e.get(
+                "SIB_FLASH_FALLBACK_MODEL", defaults.flash_fallback_model
+            ).strip(),
             live_voice=e.get("SIB_LIVE_VOICE", defaults.live_voice).strip(),
             tts_voice=e.get("SIB_TTS_VOICE", defaults.tts_voice).strip(),
             agent_platform=platform,

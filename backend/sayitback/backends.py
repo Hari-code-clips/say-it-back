@@ -26,6 +26,7 @@ from google.adk.models.base_llm import BaseLlm
 from google.adk.models.base_llm_connection import BaseLlmConnection
 from google.adk.models.llm_request import LlmRequest
 from google.adk.models.llm_response import LlmResponse
+from google.genai import errors as genai_errors
 from google.genai import types
 from pydantic import Field
 
@@ -131,10 +132,44 @@ class RefusalRetry:
 
 class FlashGemini(RefusalRetry, Gemini):
     """ADK's Gemini with the refusal retry: every Flash and Flash-Lite agent's model. Its client
-    for a loop is closed in that loop when the loop shuts down (loop_clients)."""
+    for a loop is closed in that loop when the loop shuts down (loop_clients).
+
+    17 Oct: when the model is out of capacity (Agent Platform's shared pool answers 429
+    RESOURCE_EXHAUSTED on every one of its HTTP retries), the same request goes once to
+    `fallback_model`, with its own retries, if one is set. Only a 429 before any reply falls back:
+    any other error, or a stream that has already yielded, is raised as before. The reply's
+    `model_version` names the model that answered, so the round's `modelIds` and the audit line
+    record the fallback (observability.AuditPlugin)."""
 
     refusal_attempts: int = Field(default=1, exclude=True)
     refusal_backoff_s: float = Field(default=0.0, exclude=True)
+    fallback_model: str = Field(default="", exclude=True)
+
+    async def generate_content_async(
+        self, llm_request: LlmRequest, stream: bool = False
+    ) -> AsyncIterator[LlmResponse]:
+        answered = False
+        try:
+            async for reply in super().generate_content_async(llm_request, stream):
+                answered = True
+                yield reply
+            return
+        except genai_errors.APIError as exc:
+            if (
+                answered
+                or exc.code != 429
+                or not self.fallback_model
+                or llm_request.model == self.fallback_model
+            ):
+                raise
+            log.warning(
+                "%s is out of capacity (429 on every retry); asking %s instead",
+                llm_request.model,
+                self.fallback_model,
+            )
+        llm_request.model = self.fallback_model
+        async for reply in super().generate_content_async(llm_request, stream):
+            yield reply
 
     @property
     def api_client(self) -> genai.Client:
@@ -151,11 +186,15 @@ def refusal_retry(s: Settings) -> dict[str, Any]:
 
 def make_flash(s: Settings, model: str | None = None) -> FlashGemini:
     """A Flash-kind model: SIB_FLASH_MODEL, or `model` (judge B's SIB_JUDGE_B_MODEL), on the same
-    backend, with the same HTTP retry, and asked again when the safety filter blocks a reply."""
+    backend, with the same HTTP retry, and asked again when the safety filter blocks a reply.
+    Only SIB_FLASH_MODEL gets SIB_FLASH_FALLBACK_MODEL: judge B keeps its own model, so a fallback
+    never puts both judges on one model by itself."""
+    name = model or s.flash_model
     return FlashGemini(
-        model=model or s.flash_model,
+        model=name,
         client_kwargs=client_kwargs("flash", s),
         retry_options=retry_options(s),
+        fallback_model=s.flash_fallback_model if name == s.flash_model else "",
         **refusal_retry(s),
     )
 

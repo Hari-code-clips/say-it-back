@@ -146,6 +146,7 @@ Environment variables only. There are no dotenv files.
 | `GOOGLE_API_KEY` | unset | Developer API key. Read by the SDK only, never sent to the browser or logged |
 | `SIB_FLASH_MODEL`, `SIB_LIVE_MODEL`, `SIB_TTS_MODEL` | `gemini-3.8-flash`, `gemini-3.8-live`, `gemini-3.8-flash-tts` | model ids |
 | `SIB_JUDGE_B_MODEL` | `gemini-3.1-flash-lite` | judge B's model, on the Flash backend; empty means `SIB_FLASH_MODEL`. Must be a Gemini 3.x model (thinking level) |
+| `SIB_FLASH_FALLBACK_MODEL` | empty | asked instead of `SIB_FLASH_MODEL` for one call when that model answers 429 on every retry; empty means none. Judge B has none. Must be a Gemini 3.x model |
 | `SIB_LIVE_VOICE`, `SIB_TTS_VOICE` | `Kore`, `Kore` | prebuilt voices |
 | `SIB_JUDGE_PASSES` | `2` | 1 drops judge B |
 | `SIB_COVERED_MIN_CONFIDENCE` | `0.75` | below this a `covered` becomes `unclear` |
