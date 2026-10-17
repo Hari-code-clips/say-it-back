@@ -1,5 +1,6 @@
 // Types shared by the two ways of running a briefing round: Live (WebSocket relay) and Turn (TTS).
 import type { AnswerClip } from '../audio/capture.ts'
+import type { ClipSource } from '../audio/clipSource.ts'
 
 export type SegmentKind = 'instruction' | 'question' | 'thanks' | 'closing'
 
@@ -48,6 +49,8 @@ export class SessionError extends Error {
 export interface SessionResult {
   /** One answer clip per question id, in the order asked. */
   clips: Record<string, AnswerClip>
+  /** v0.4: question ids answered with a stored sample answer (sent as `meta.sampleAnswers`). */
+  sampleAnswers: string[]
   model?: string
   turnTaking?: 'manual' | 'auto'
 }
@@ -56,6 +59,11 @@ export interface BriefingSession {
   run(): Promise<SessionResult>
   /** The "Done" tap: end the open answer window now. */
   finishAnswer(): void
+  /**
+   * "Use the sample answer": play a stored clip into the open answer window instead of the mic. False when none is open, or
+   * when the open window is not `qid`'s (the question it was tapped for).
+   */
+  useSample(source: ClipSource, qid: string): boolean
   /** Supervisor ends the briefing. */
   abort(): void
 }

@@ -6,10 +6,15 @@ import { formatDateTime } from '../../lib/format.ts'
 import { Card, Section } from '../../ui/Card.tsx'
 import { StatusChip } from '../../ui/Chip.tsx'
 import { cx } from '../../ui/cx.ts'
+import { Banner } from '../../ui/Feedback.tsx'
+import { Icon } from '../../ui/Icon.tsx'
+import { COMPARE_LABEL, comparisonRows, passBarKey, type CompareKey } from './compare.ts'
+import { patternLabel } from './labels.ts'
 
-const pct = (v: number): string => `${Math.round(v * 1000) / 10}%`
+/** A share as a percentage; a dash when there was nothing to measure (a null ratio). */
+const pct = (v: number | null | undefined): string => (v === null || v === undefined ? '—' : `${Math.round(v * 1000) / 10}%`)
 
-function Stat({ label, value, hint, emphasis }: { label: string; value: string; hint?: string; emphasis?: boolean }) {
+function Stat({ label, value, hint, emphasis, note }: { label: string; value: string; hint?: string; emphasis?: boolean; note?: string }) {
   return (
     <Card
       variant={emphasis ? 'filled' : 'outlined'}
@@ -18,9 +23,20 @@ function Stat({ label, value, hint, emphasis }: { label: string; value: string; 
       <div className="space-y-1">
         <p className="text-label-lg text-on-surface-variant">{label}</p>
         <p className={cx('font-semibold tabular-nums tracking-tight text-on-surface', emphasis ? 'text-display-sm' : 'text-headline-md')}>{value}</p>
+        {note && <IllustrativeNote text={note} />}
       </div>
       {hint && <p className={cx('text-body-md text-on-surface-variant', emphasis && 'lg:max-w-xl lg:text-body-lg')}>{hint}</p>}
     </Card>
+  )
+}
+
+/** "Illustrative, mock only" under a number that mock mode made up, so no crop of the page passes it off as measured. */
+function IllustrativeNote({ text }: { text: string }) {
+  return (
+    <p className="flex items-center gap-1.5 text-label-lg text-on-surface-variant">
+      <Icon name="science" className="text-[1.125rem]" />
+      {text}
+    </p>
   )
 }
 
@@ -29,21 +45,24 @@ function Breakdown({ title, rows, label }: { title: string; rows: Record<string,
   const entries = Object.entries(rows)
   if (entries.length === 0) return null
   return (
-    <Card className="overflow-x-auto p-4 sm:p-5">
-      <table className="w-full min-w-[20rem] text-left">
+    // No minimum width: at 320 px the table fits the card (the bar steps aside below 600 px) instead of pushing the page sideways.
+    // On a phone the count moves under the row label (its own column would leave a Tamil label no room) and the two
+    // share columns take the width of their header; fixed columns, the count among them, from 600 px.
+    <Card className="min-w-0 p-3 sm:p-5">
+      <table className="w-full table-auto text-left sm:table-fixed">
         <caption className="sr-only">{title}</caption>
         <thead>
           <tr className="text-label-lg text-on-surface-variant">
-            <th scope="col" className="py-2 pr-3 font-medium">
+            <th scope="col" className="py-2 pr-2 font-medium sm:w-[40%]">
               <span className="sr-only">{title}</span>
             </th>
-            <th scope="col" className="py-2 pr-3 text-right font-medium">
+            <th scope="col" className="hidden whitespace-nowrap py-2 pr-2 text-right font-medium sm:table-cell sm:w-[16%]">
               {t('eval.n')}
             </th>
-            <th scope="col" className="py-2 pr-3 font-medium">
-              {t('eval.exact')}
+            <th scope="col" className="whitespace-nowrap py-2 pr-2 font-medium">
+              {t('eval.exactShort')}
             </th>
-            <th scope="col" className="py-2 text-right font-medium">
+            <th scope="col" className="whitespace-nowrap py-2 text-right font-medium sm:w-[22%]">
               {t('eval.unsafeShort')}
             </th>
           </tr>
@@ -51,14 +70,15 @@ function Breakdown({ title, rows, label }: { title: string; rows: Record<string,
         <tbody>
           {entries.map(([key, row]) => (
             <tr key={key} className="border-t border-outline-variant">
-              <th scope="row" className="py-2 pr-3 text-body-lg font-normal">
+              <th scope="row" className="py-2 pr-2 text-body-md font-normal [overflow-wrap:anywhere] sm:text-body-lg">
                 {label(key)}
+                <span className="block text-label-lg tabular-nums text-on-surface-variant sm:hidden">{t('eval.nSteps', { n: row.n })}</span>
               </th>
-              <td className="py-2 pr-3 text-right tabular-nums">{row.n}</td>
-              <td className="py-2 pr-3">
+              <td className="hidden py-2 pr-2 text-right tabular-nums sm:table-cell">{row.n}</td>
+              <td className="py-2 pr-2">
                 <span className="flex items-center gap-2">
-                  <span aria-hidden="true" className="h-2 w-16 overflow-hidden rounded-full bg-surface-container-high">
-                    <span className="block h-full rounded-full bg-primary" style={{ width: `${Math.round(row.exactAccuracy * 100)}%` }} />
+                  <span aria-hidden="true" className="hidden h-2 w-16 shrink-0 overflow-hidden rounded-full bg-surface-container-high sm:block">
+                    <span className="block h-full rounded-full bg-primary" style={{ width: `${Math.round((row.exactAccuracy ?? 0) * 100)}%` }} />
                   </span>
                   <span className="tabular-nums">{pct(row.exactAccuracy)}</span>
                 </span>
@@ -72,22 +92,38 @@ function Breakdown({ title, rows, label }: { title: string; rows: Record<string,
   )
 }
 
-/** Headline numbers of eval/reports/latest.json. The one that matters most is unsafe errors. */
-export function MetricsPanel({ report }: { report: EvalReport }) {
+/**
+ * Headline numbers of eval/reports/latest.json. The one that matters most is unsafe errors. `illustrative` (mock mode): the
+ * numbers are made up, so each carries a label saying so, and there is no pass-bar verdict on them.
+ */
+export function MetricsPanel({ report, illustrative = false }: { report: EvalReport; illustrative?: boolean }) {
   const t = useT()
   const { lang } = useUiLang()
   const { data: catalog } = useCatalog()
   const m = report.metrics
   const passed = report.passBar.passed
+  const note = illustrative ? t('eval.illustrative') : undefined
+  const compare = comparisonRows(report)
 
   return (
     <div className="space-y-8">
+      {report.complete === false && (
+        <Banner tone="warning" title={t('eval.partialTitle')}>
+          {t('eval.partialBody', { n: report.nItems })}
+        </Banner>
+      )}
       <div className="flex flex-wrap items-center gap-3">
-        <StatusChip tone={passed ? 'success' : 'warning'} icon={passed ? 'check_circle' : 'warning'} className="text-title-sm">
-          {passed ? t('eval.passMet') : t('eval.passNotMet')}
-        </StatusChip>
+        {illustrative ? (
+          <StatusChip tone="warning" icon="science" className="text-title-sm">
+            {t('eval.illustrative')}
+          </StatusChip>
+        ) : (
+          <StatusChip tone={passed ? 'success' : 'warning'} icon={passed ? 'check_circle' : 'warning'} className="text-title-sm">
+            {passed ? t('eval.passMet') : t('eval.passNotMet')}
+          </StatusChip>
+        )}
         <p className="text-body-md text-on-surface-variant">
-          {t('eval.passBar', { acc: pct(report.passBar.exactAccuracyMin), unsafe: report.passBar.unsafeErrorsMax })}
+          {t(passBarKey(report), { acc: pct(report.passBar.exactAccuracyMin), unsafe: report.passBar.unsafeErrorsMax, correct: pct(report.passBar.correctPassMin) })}
         </p>
       </div>
 
@@ -97,11 +133,17 @@ export function MetricsPanel({ report }: { report: EvalReport }) {
           label={t('eval.unsafe.label')}
           value={t('eval.unsafe.value', { n: m.unsafeErrors, d: m.unsafeDenominator })}
           hint={m.unsafeErrors === 0 ? t('eval.unsafe.bound', { bound: pct(m.unsafeUpperBound95) }) : t('eval.unsafe.hint')}
+          note={note}
         />
-        <Stat label={t('eval.exact')} value={pct(m.exactAccuracy)} hint={t('eval.exact.hint')} />
-        <Stat label={t('eval.catch')} value={pct(m.catchRate)} hint={t('eval.catch.hint')} />
-        <Stat label={t('eval.overflag')} value={pct(m.overFlagRate)} hint={t('eval.overflag.hint')} />
-        <Stat label={t('eval.unclear')} value={pct(m.unclearRate)} hint={t('eval.unclear.hint')} />
+        <Stat label={t('eval.exact')} value={pct(m.exactAccuracy)} hint={t('eval.exact.hint')} note={note} />
+        <Stat label={t('eval.catch')} value={pct(m.catchRate)} hint={t('eval.catch.hint')} note={note} />
+        {/* v0.5: the share the pass bar now asks about. It is 1 - over-flag rate, so it takes that card's place. */}
+        {m.correctPassRate === undefined ? (
+          <Stat label={t('eval.overflag')} value={pct(m.overFlagRate)} hint={t('eval.overflag.hint')} note={note} />
+        ) : (
+          <Stat label={t('eval.correct')} value={pct(m.correctPassRate)} hint={t('eval.correct.hint')} note={note} />
+        )}
+        <Stat label={t('eval.unclear')} value={pct(m.unclearRate)} hint={t('eval.unclear.hint')} note={note} />
       </div>
 
       <p className="text-body-md text-on-surface-variant">
@@ -118,12 +160,18 @@ export function MetricsPanel({ report }: { report: EvalReport }) {
           .join(' · ')}
       </p>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      {note && <IllustrativeNote text={note} />}
+      {compare && (
+        <Section title={t('eval.baselineTitle')} hint={t('eval.baselineHint')} id="eval-baseline">
+          <Breakdown title={t('eval.baselineTitle')} rows={compare} label={(k) => t(COMPARE_LABEL[k as CompareKey])} />
+        </Section>
+      )}
+      <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
         <Section title={t('eval.byLanguage')} id="eval-lang">
           <Breakdown title={t('eval.byLanguage')} rows={report.byLanguage} label={(k) => langNative(catalog, k as Lang)} />
         </Section>
         <Section title={t('eval.byPattern')} id="eval-pattern">
-          <Breakdown title={t('eval.byPattern')} rows={report.byPattern} label={(k) => k} />
+          <Breakdown title={t('eval.byPattern')} rows={report.byPattern} label={(k) => patternLabel(t, k)} />
         </Section>
       </div>
     </div>

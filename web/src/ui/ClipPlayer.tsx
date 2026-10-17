@@ -59,7 +59,7 @@ export function ClipPlayer({ blob, load, playLabel, stopLabel, className }: Clip
 
   return (
     <Button
-      variant="tonal"
+      variant="outlined"
       icon={state === 'playing' ? 'stop' : 'play_arrow'}
       busy={state === 'loading'}
       onClick={state === 'playing' ? stop : play}

@@ -4,8 +4,11 @@ import { cx } from './cx.ts'
 
 interface PageHeadingProps {
   title: string
-  /** Small line above the title (e.g. "Step 2 of 7"). */
-  eyebrow?: string
+  /**
+   * The screen's one context line, plain text above the title: "Crane lift · English → தமிழ் · Round 1 of 3". Not an eyebrow:
+   * no capitals, no accent colour, no decoration (web/design.md).
+   */
+  context?: ReactNode
   subtitle?: ReactNode
   /** Plain-text title for document.title when `title` is not enough. */
   documentTitle?: string
@@ -37,14 +40,14 @@ export function usePageFocus(title: string) {
   return ref
 }
 
-/** The screen's one h1. */
-export function PageHeading({ title, eyebrow, subtitle, documentTitle, className }: PageHeadingProps) {
+/** The screen's one h1, with at most one context line above it and one subtitle below. */
+export function PageHeading({ title, context, subtitle, documentTitle, className }: PageHeadingProps) {
   const ref = usePageFocus(documentTitle ?? title)
 
   return (
     <header className={cx('space-y-2', className)}>
-      {eyebrow && <p className="text-label-lg uppercase tracking-wide text-primary">{eyebrow}</p>}
-      <h1 ref={ref} tabIndex={-1} className="text-headline-md font-semibold text-on-surface sm:text-headline-lg">
+      {context && <div className="text-body-md text-on-surface-variant tabular-nums">{context}</div>}
+      <h1 ref={ref} tabIndex={-1} className="text-headline-md text-on-surface sm:text-headline-lg">
         {title}
       </h1>
       {subtitle && <div className="max-w-2xl text-body-lg text-on-surface-variant">{subtitle}</div>}

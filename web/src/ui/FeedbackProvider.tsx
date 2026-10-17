@@ -70,12 +70,12 @@ export function FeedbackProvider({ children, dismissLabel }: { children: ReactNo
       <div
         role={snack?.tone === 'error' ? 'alert' : 'status'}
         aria-live={snack?.tone === 'error' ? 'assertive' : 'polite'}
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:pb-8"
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[calc(var(--sib-bar-h,calc(4.5rem+env(safe-area-inset-bottom)))+1rem)] sm:pb-8"
       >
         {snack && (
           <div
             className={cx(
-              'pointer-events-auto flex min-h-12 max-w-xl animate-rise items-center gap-3 rounded-sm px-4 py-2 shadow-elev-3',
+              'pointer-events-auto flex min-h-12 max-w-xl animate-rise items-center gap-3 rounded-md px-4 py-2 shadow-elev-3',
               snack.tone === 'error' ? 'bg-error text-on-error' : 'bg-inverse-surface text-inverse-on-surface',
             )}
           >
@@ -97,7 +97,7 @@ export function FeedbackProvider({ children, dismissLabel }: { children: ReactNo
               type="button"
               aria-label={dismissLabel}
               onClick={() => setSnack(null)}
-              className="state-layer grid size-12 shrink-0 place-items-center rounded-full"
+              className="state-layer grid size-12 shrink-0 place-items-center rounded-md"
             >
               <Icon name="close" />
             </button>

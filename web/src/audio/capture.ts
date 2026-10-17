@@ -1,5 +1,5 @@
 import { EndpointDetector, type EndReason, type EndpointConfig } from './endpoint.ts'
-import type { Mic } from './mic.ts'
+import type { ChunkSource } from './source.ts'
 import { concatInt16, encodeWav } from './wav.ts'
 
 export interface AnswerClip {
@@ -26,11 +26,11 @@ export interface CaptureHandle {
 }
 
 /**
- * One answer window: takes the mic, records every chunk, forwards the same chunk, and ends on
- * ~1.5 s of silence after speech, on finish() (Done tap), or at the 30 s cap. On end the mic sink
- * is released synchronously, so nothing is forwarded after the window closes.
+ * One answer window: takes the source (the mic, or a stored sample answer), records every chunk, forwards the same chunk,
+ * and ends on ~1.5 s of silence after speech, on finish() (Done tap), or at the 30 s cap. On end the source's sink is
+ * released synchronously, so nothing is forwarded after the window closes.
  */
-export function captureAnswer(mic: Mic, opts: CaptureOptions = {}): CaptureHandle {
+export function captureAnswer(mic: ChunkSource, opts: CaptureOptions = {}): CaptureHandle {
   const detector = new EndpointDetector(opts.config)
   const chunks: Int16Array[] = []
   let ended = false

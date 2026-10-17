@@ -25,9 +25,22 @@ describe('string tables', () => {
     })
   }
 
+  // The supervisor approving the SCRIPT (product rule 4: safety content is approved before anyone hears it; build-notes/25 F1 names the
+  // button "Approve script") is not the AI approving work (rule 2). Only these three lines may say it; "approved" itself stays banned
+  // everywhere by rule2.test.ts, and the Tamil and Chinese UI keep to "confirm" (their banned words are in rule2.test.ts).
+  const SUPERVISOR_APPROVES_THE_SCRIPT = new Set(['script.approve', 'script.approvalRecorded', 'error.script_not_approved'])
+
   it('the app never says "approved" or calls the work safe (English)', () => {
-    const offenders = Object.entries(en).filter(([, text]) => /approv|all clear|safe to start|marked safe/i.test(text))
+    const offenders = Object.entries(en).filter(([key, text]) => /approv|all clear|safe to start|marked safe/i.test(text) && !SUPERVISOR_APPROVES_THE_SCRIPT.has(key))
     assert.deepEqual(offenders.map(([key]) => key), [])
+  })
+
+  it('the three lines that may say "approve" are the supervisor approving the script, and nothing else', () => {
+    assert.deepEqual(
+      [en['script.approve'], en['script.approvalRecorded'], en['error.script_not_approved']],
+      ['Approve script', 'Your approval was recorded at {time}.', 'Nothing is spoken until you approve the script. Go back to the script and approve it there.'],
+    )
+    assert.ok([...SUPERVISOR_APPROVES_THE_SCRIPT].every((key) => key.startsWith('script.') || key === 'error.script_not_approved'))
   })
 
   it('verdict labels stay the four words of the contract', () => {

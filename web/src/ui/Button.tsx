@@ -1,64 +1,38 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
+/* Hallmark · component: button · genre: modern-minimal · theme: design.md (ink fill, 12 px radius, never a pill)
+ * states: default · hover (state layer, hover-capable pointers only) · focus-visible (3 px ink ring, instant) · active (state layer + 1 px press)
+ *         · disabled (light neutral; `disabledReason` shows why and keeps it focusable) · loading (`busy`: spinner, label stays)
+ *         · error (`status="error"`) · success (`status="success"`)
+ * sizes: md 48 px · lg 64 px (the primary, full width at the bottom) · xl 76 px (the worker's one action)
+ */
+import { useId, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type MouseEvent, type ReactNode } from 'react'
 import { Link } from 'wouter'
 import type { IconName } from '../theme/iconNames.ts'
+import { availability, buttonClass, type ButtonStatus, type Look } from './buttonLook.ts'
 import { cx } from './cx.ts'
 import { Icon } from './Icon.tsx'
 
-export type ButtonVariant = 'filled' | 'tonal' | 'outlined' | 'text' | 'error' | 'success'
-export type ButtonSize = 'md' | 'lg' | 'xl'
+export type { ButtonSize, ButtonStatus, ButtonVariant } from './buttonLook.ts'
 
-const BASE =
-  'state-layer inline-flex select-none items-center justify-center gap-2 rounded-full text-center transition-[box-shadow,background-color,color] ' +
-  'disabled:pointer-events-none aria-disabled:pointer-events-none'
-
-const VARIANT: Record<ButtonVariant, string> = {
-  filled: 'bg-primary text-on-primary hover:shadow-elev-1 disabled:bg-on-surface/12 disabled:text-on-surface/38',
-  tonal:
-    'bg-secondary-container text-on-secondary-container hover:shadow-elev-1 disabled:bg-on-surface/12 disabled:text-on-surface/38',
-  outlined: 'border border-outline bg-transparent text-primary disabled:border-on-surface/12 disabled:text-on-surface/38',
-  text: 'bg-transparent text-primary disabled:text-on-surface/38',
-  error: 'bg-error-container text-on-error-container hover:shadow-elev-1 disabled:bg-on-surface/12 disabled:text-on-surface/38',
-  success:
-    'bg-success text-on-success hover:shadow-elev-1 disabled:bg-on-surface/12 disabled:text-on-surface/38',
-}
-
-const SIZE: Record<ButtonSize, string> = {
-  md: 'min-h-12 px-6 text-label-lg',
-  lg: 'min-h-14 px-8 text-title-md',
-  xl: 'min-h-[4.75rem] w-full px-10 text-worker-sm font-semibold',
-}
-
-interface Look {
-  variant?: ButtonVariant
-  size?: ButtonSize
+interface Content {
   icon?: IconName
   trailingIcon?: IconName
   busy?: boolean
-  full?: boolean
-  className?: string
   children?: ReactNode
 }
 
-export function buttonClass({ variant = 'filled', size = 'md', full, className }: Look, hasIcon: boolean): string {
-  return cx(
-    BASE,
-    VARIANT[variant],
-    SIZE[size],
-    variant === 'text' && 'px-3',
-    hasIcon && size === 'md' && variant !== 'text' && 'pl-4',
-    full && 'w-full',
-    className,
-  )
-}
+type ButtonLook = Look & Content
 
-function Content({ icon, trailingIcon, busy, children, size = 'md' }: Look) {
+const STATUS_ICON: Record<ButtonStatus, IconName> = { error: 'error', success: 'check_circle' }
+
+function Inner({ icon, trailingIcon, busy, status, children, size = 'md' }: ButtonLook) {
   const iconSize = size === 'xl' ? 'text-[2.25rem]' : size === 'lg' ? 'text-[1.5rem]' : 'text-[1.125rem]'
+  const lead = status ? STATUS_ICON[status] : icon
   return (
     <>
       {busy ? (
         <span aria-hidden="true" className={cx('spinner size-5 animate-spin rounded-full border-2 border-current border-t-transparent')} />
       ) : (
-        icon && <Icon name={icon} className={iconSize} />
+        lead && <Icon name={lead} filled={Boolean(status)} className={iconSize} />
       )}
       <span>{children}</span>
       {trailingIcon && !busy && <Icon name={trailingIcon} className={iconSize} />}
@@ -66,41 +40,77 @@ function Content({ icon, trailingIcon, busy, children, size = 'md' }: Look) {
   )
 }
 
-type ButtonProps = Look & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>
+interface ButtonOwnProps extends Look, Content {
+  /** Visible text saying why the button is disabled. Shown next to it; the button stays focusable and announces it. */
+  disabledReason?: string
+}
 
-export function Button({ variant, size, icon, trailingIcon, busy, full, className, children, disabled, type = 'button', ...rest }: ButtonProps) {
-  const look = { variant, size, icon, trailingIcon, busy, full, className, children }
-  return (
+type ButtonProps = ButtonOwnProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>
+
+export function Button({
+  variant,
+  size,
+  icon,
+  trailingIcon,
+  busy,
+  full,
+  status,
+  className,
+  children,
+  disabled,
+  disabledReason,
+  onClick,
+  type = 'button',
+  ...rest
+}: ButtonProps) {
+  const reasonId = useId()
+  const { nativeDisabled, ariaDisabled, reason } = availability({ disabled, busy, disabledReason })
+  const look = { variant, size, icon, trailingIcon, busy, full, status, className, children }
+  const button = (
     <button
       type={type}
-      disabled={disabled || busy}
+      disabled={nativeDisabled}
+      aria-disabled={ariaDisabled || undefined}
       aria-busy={busy || undefined}
-      className={buttonClass(look, Boolean(icon) || Boolean(busy))}
+      aria-describedby={reason ? reasonId : undefined}
+      // An explained-disabled button is still focusable, so its click must do nothing (and submit nothing).
+      onClick={ariaDisabled ? (e: MouseEvent<HTMLButtonElement>) => e.preventDefault() : onClick}
+      className={buttonClass(look, Boolean(icon) || Boolean(busy) || Boolean(status))}
       {...rest}
     >
-      <Content {...look} />
+      <Inner {...look} />
     </button>
+  )
+  if (!reason) return button
+  return (
+    <div className={cx('flex flex-col gap-2 sm:items-end', (full || size === 'xl') && 'w-full')}>
+      <p id={reasonId} className="flex items-start gap-2 text-body-md text-on-surface-variant">
+        <Icon name="info" className="mt-px text-[1.125rem]" />
+        <span className="min-w-0">{reason}</span>
+      </p>
+      {button}
+    </div>
   )
 }
 
-type LinkButtonProps = Look & { href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children' | 'href'>
+type LinkButtonProps = ButtonLook & { href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children' | 'href'>
 
 /** A client-side route link that looks like a button. */
-export function LinkButton({ variant, size, icon, trailingIcon, full, className, children, href, ...rest }: LinkButtonProps) {
-  const look = { variant, size, icon, trailingIcon, full, className, children }
+export function LinkButton({ variant, size, icon, trailingIcon, busy, full, status, className, children, href, ...rest }: LinkButtonProps) {
+  const look = { variant, size, icon, trailingIcon, busy, full, status, className, children }
   return (
-    <Link href={href} className={buttonClass(look, Boolean(icon))} {...rest}>
-      <Content {...look} />
+    <Link href={href} className={buttonClass(look, Boolean(icon) || Boolean(status))} {...rest}>
+      <Inner {...look} />
     </Link>
   )
 }
 
 /** A plain download / external link that looks like a button. */
-export function AnchorButton({ variant, size, icon, trailingIcon, full, className, children, ...rest }: Look & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>) {
-  const look = { variant, size, icon, trailingIcon, full, className, children }
+export function AnchorButton({ variant, size, icon, trailingIcon, busy, full, status, className, children, ...rest }: ButtonLook & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>) {
+  const look = { variant, size, icon, trailingIcon, busy, full, status, className, children }
   return (
-    <a className={buttonClass(look, Boolean(icon))} {...rest}>
-      <Content {...look} />
+    <a className={buttonClass(look, Boolean(icon) || Boolean(status))} {...rest}>
+      <Inner {...look} />
     </a>
   )
 }
@@ -114,18 +124,23 @@ interface IconButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 
 }
 
 const ICON_TONE = {
-  standard: 'text-on-surface-variant',
+  standard: 'text-on-surface',
   tonal: 'bg-secondary-container text-on-secondary-container',
   filled: 'bg-primary text-on-primary',
 }
 
+/** 48 px square, 12 px corners. Disabled: the glyph goes light and stays readable (it has a label and a title). */
 export function IconButton({ icon, label, tone = 'standard', className, type = 'button', ...rest }: IconButtonProps) {
   return (
     <button
       type={type}
       aria-label={label}
       title={label}
-      className={cx('state-layer inline-flex size-12 shrink-0 items-center justify-center rounded-full disabled:opacity-40', ICON_TONE[tone], className)}
+      className={cx(
+        'state-layer inline-flex size-12 shrink-0 items-center justify-center rounded-md active:translate-y-px disabled:pointer-events-none disabled:text-outline',
+        ICON_TONE[tone],
+        className,
+      )}
       {...rest}
     >
       <Icon name={icon} />

@@ -9,9 +9,12 @@
 // Mic audio leaves the device only between answer_start and answer_end: the mic sink is attached
 // after answer_start is sent and released before answer_end is sent. The same chunks are kept as
 // the question's WAV for POST /check. The browser never talks to Gemini; it only sends cues and audio.
-import { captureAnswer, type AnswerClip, type CaptureHandle } from '../audio/capture.ts'
+// A stored sample answer (endpoint 24) can replace the mic inside a window: its chunks go out the same way, at real-time pace.
+import type { AnswerClip } from '../audio/capture.ts'
+import type { ClipSource } from '../audio/clipSource.ts'
 import type { Mic } from '../audio/mic.ts'
 import type { Player } from '../audio/player.ts'
+import { AnswerWindow } from './answerWindow.ts'
 import { CaptionPacer, playerClock, type PacerClock } from './captionPacer.ts'
 import { CaptionMerger } from './captions.ts'
 import { resolveWsUrl } from './liveUrl.ts'
@@ -99,7 +102,7 @@ export class LiveSession implements BriefingSession {
   private ws: LiveSocket | null = null
   private ready = deferred<{ model: string; turnTaking: 'manual' | 'auto' }>()
   private turn: Deferred<void> | null = null
-  private capture: CaptureHandle | null = null
+  private readonly window = new AnswerWindow()
   private armIdle: (() => void) | null = null
   private opened = false
   private closing = false
@@ -127,7 +130,7 @@ export class LiveSession implements BriefingSession {
       this.closing = true // from here a close is the expected end, not a failure
       this.send({ type: 'stop' })
       await this.waitForServerClose(this.init.stopWaitMs ?? STOP_WAIT_MS)
-      return { clips, model: info.model, turnTaking: info.turnTaking }
+      return { clips, sampleAnswers: this.window.sampleAnswers, model: info.model, turnTaking: info.turnTaking }
     } catch (e) {
       this.init.player.flush()
       throw e instanceof SessionError ? e : new SessionError('unknown', e instanceof Error ? e.message : String(e))
@@ -137,7 +140,11 @@ export class LiveSession implements BriefingSession {
   }
 
   finishAnswer(): void {
-    this.capture?.finish('done')
+    this.window.finish('done')
+  }
+
+  useSample(source: ClipSource, qid: string): boolean {
+    return this.window.useSample(source, qid)
   }
 
   abort(): void {
@@ -234,19 +241,13 @@ export class LiveSession implements BriefingSession {
     this.captions.reset('worker')
     events.onPhase({ kind: 'listening', qid })
     this.send({ type: 'answer_start', qid })
-    const capture = captureAnswer(mic, {
-      forward: (chunk) => this.sendAudio(chunk),
-      onSpeech: (speaking) => events.onSpeech?.(speaking),
-    })
-    this.capture = capture
-    let clip: AnswerClip
-    try {
-      clip = await Promise.race([capture.done, this.failure.promise])
-    } finally {
-      capture.finish('abort') // no-op when it already ended; guarantees the sink is released
-      this.capture = null
-    }
-    // The mic sink is released: no audio can be sent after this line.
+    const clip = await this.window.run(
+      qid,
+      mic,
+      { forward: (chunk) => this.sendAudio(chunk), onSpeech: (speaking) => events.onSpeech?.(speaking) },
+      (done) => Promise.race([done, this.failure.promise]),
+    )
+    // The mic sink (or the sample's) is released: no audio can be sent after this line.
     this.pacer.drop() // the thanks is a new utterance
     const thanks = this.expectTurn()
     this.send({ type: 'answer_end', qid })
@@ -340,8 +341,7 @@ export class LiveSession implements BriefingSession {
 
   private cleanup(): void {
     this.pacer.drop()
-    this.capture?.finish('abort')
-    this.capture = null
+    this.window.finish('abort')
     this.init.mic.setSink(null)
     const ws = this.ws
     this.closing = true

@@ -1,9 +1,13 @@
+/* Hallmark · component: what the worker said, question by question · genre: modern-minimal · theme: design.md
+ * Sits inside the result's disclosure, which is the one card: rows divided by hairlines, no card per question and no tinted box.
+ * states: static rows; the clip button is a Button (all its states).
+ */
 import type { Briefing, Round } from '../../api/types.ts'
 import { useT } from '../../i18n/index.tsx'
-import { Card } from '../../ui/Card.tsx'
 import { StatusChip } from '../../ui/Chip.tsx'
 import { ClipPlayer } from '../../ui/ClipPlayer.tsx'
 import { FlagChip } from '../../ui/VerdictChip.tsx'
+import { transcriptNote } from './verdict.ts'
 
 interface Props {
   briefing: Briefing
@@ -21,16 +25,24 @@ interface Props {
 export function AnswersSection({ briefing, round, clips, supervisorTag, workerTag, workerName, supervisorName, detectedName }: Props) {
   const t = useT()
   return (
-    <ul className="space-y-4">
+    <ul className="divide-y divide-outline-variant border-t border-outline-variant">
       {round.script.questions.map((q, i) => {
         const tr = round.transcripts.find((x) => x.questionId === q.id)
         const blob = clips?.[q.id]
         const mismatch = tr && tr.detectedLang !== briefing.workerLang && tr.detectedLang !== 'none'
+        const sample = round.sampleAnswers?.includes(q.id)
         return (
-          <Card as="li" key={q.id} className="space-y-3 p-4 sm:p-5">
+          <li key={q.id} className="space-y-3 py-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0 space-y-1">
-                <p className="text-label-lg text-on-surface-variant">{t('result.question', { n: i + 1 })}</p>
+                <p className="flex flex-wrap items-center gap-2 text-label-lg text-on-surface-variant">
+                  {t('result.question', { n: i + 1 })}
+                  {sample && (
+                    <StatusChip tone="primary" icon="graphic_eq">
+                      {t('result.sample')}
+                    </StatusChip>
+                  )}
+                </p>
                 <p lang={workerTag} className="script-text text-title-md">
                   {q.text}
                 </p>
@@ -42,9 +54,12 @@ export function AnswersSection({ briefing, round, clips, supervisorTag, workerTa
             </div>
 
             {tr ? (
-              <div className="space-y-2 rounded-md bg-surface-container px-4 py-3">
+              <div className="space-y-2">
                 <p className="text-label-lg text-on-surface-variant">{t('result.workerSaid', { lang: workerName })}</p>
-                {tr.original ? (
+                {transcriptNote(tr.flags) ? (
+                  // v0.5.1: the model refused the clip: there is no transcript, and "No speech" would not be true.
+                  <p className="text-body-lg text-on-surface">{t(transcriptNote(tr.flags)!)}</p>
+                ) : tr.original ? (
                   <p lang={workerTag} className="script-text text-title-lg">
                     {tr.original}
                   </p>
@@ -73,7 +88,7 @@ export function AnswersSection({ briefing, round, clips, supervisorTag, workerTa
             ) : (
               <p className="text-body-md text-on-surface-variant">{t('result.noTranscript')}</p>
             )}
-          </Card>
+          </li>
         )
       })}
     </ul>

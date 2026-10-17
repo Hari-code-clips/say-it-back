@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Link, useLocation } from 'wouter'
+import { useLocation } from 'wouter'
 import { bcp47, useCatalog } from '../api/catalog.tsx'
 import { api } from '../api/endpoints.ts'
 import type { Step } from '../api/types.ts'
@@ -8,11 +8,22 @@ import { FlowFrame } from '../flow/FlowFrame.tsx'
 import { recoverFromConflict } from '../flow/recover.ts'
 import { useSopLabel, useT } from '../i18n/index.tsx'
 import { apiErrorText } from '../lib/apiError.ts'
-import { Button } from '../ui/Button.tsx'
-import { Card } from '../ui/Card.tsx'
-import { Banner, BusyPanel } from '../ui/Feedback.tsx'
+import { retryFor } from '../lib/dailyLimit.ts'
+import { AnchorButton, Button, LinkButton } from '../ui/Button.tsx'
+import { Banner } from '../ui/Feedback.tsx'
 import { useFeedback } from '../ui/FeedbackProvider.tsx'
+import { WaitInView } from './instruction/WaitInView.tsx'
 import { StepCard } from './steps/StepCard.tsx'
+
+/* Hallmark · screen: steps · genre: modern-minimal · macrostructure: Workbench · theme: design.md
+ * The instruction is plain text under a sentence-case heading (no uppercase caption, no card), the steps are one hairline card each.
+ * The 15-40 s waits come first, scrolled into view, so they are on screen at 320-414 px. A disabled primary says what to fix.
+ * states: default · invalid (empty step: the bar says so) · loading (WaitInView, button busy) · error (snackbar with Retry, conflict
+ *         banners) · empty (banner with the way out) · success (navigates).
+ * A briefing started from a signed-off library version (`sopRef`; security fixes A, H2) shows its steps read-only, with one line
+ * above the list saying where they were signed off and how they change; Confirm sends them back as they came (the server refuses
+ * any other list). The header's "edit, remove or add" line is left out there.
+ */
 
 const MAX_STEPS = 6
 
@@ -28,6 +39,9 @@ const clean = (s: Step): Step => {
   return { ...s, text, hazard: s.hazard.trim(), essential: essential.length ? essential : [text] }
 }
 
+/** What Confirm sends: a signed-off version's steps exactly as they came (the server takes no other list), any other steps cleaned. */
+export const stepsToConfirm = (steps: Step[], locked: boolean): Step[] => (locked ? steps : steps.map(clean))
+
 export function StepsScreen() {
   const t = useT()
   const sopLabel = useSopLabel()
@@ -41,6 +55,7 @@ export function StepsScreen() {
   const list = useRef<HTMLOListElement>(null)
 
   const lang = bcp47(catalog, briefing.supervisorLang, briefing.siteId)
+  const locked = Boolean(briefing.sopRef)
   const valid = steps.length >= 1 && steps.length <= MAX_STEPS && steps.every((s) => s.text.trim())
   const patch = (id: string, change: Partial<Step>) => setSteps((all) => all.map((s) => (s.id === id ? { ...s, ...change } : s)))
 
@@ -58,7 +73,7 @@ export function StepsScreen() {
   }
 
   const fail = (e: unknown, retry: () => void) =>
-    feedback.snack({ message: apiErrorText(t, e), tone: 'error', actionLabel: t('action.retry'), onAction: retry })
+    feedback.snack({ message: apiErrorText(t, e), tone: 'error', ...retryFor(e, t('action.retry'), retry) })
 
   const extract = async () => {
     setBusy('extract')
@@ -75,7 +90,7 @@ export function StepsScreen() {
   const confirm = async () => {
     setBusy('confirm')
     try {
-      setBriefing(await api.confirmSteps(briefing.id, steps.map(clean)))
+      setBriefing(await api.confirmSteps(briefing.id, stepsToConfirm(steps, locked)))
       setBusy('script')
       await api.createRound(briefing.id)
       await refresh()
@@ -89,37 +104,41 @@ export function StepsScreen() {
   }
 
   const noSteps = steps.length === 0
+  // What stops Confirm, in words: no steps at all, or a step with no text.
+  const need = valid ? undefined : noSteps ? t('steps.need.none') : steps.length > MAX_STEPS ? t('steps.max', { max: MAX_STEPS }) : t('steps.need.text')
   return (
     <FlowFrame
       step="steps"
       title={t('steps.title')}
-      subtitle={t('steps.subtitle')}
+      subtitle={locked ? undefined : t('steps.subtitle')}
       primary={
         noSteps && briefing.status !== 'steps_confirmed' ? (
           <Button size="lg" icon="refresh" busy={busy === 'extract'} onClick={() => void extract()}>
             {t('steps.extract')}
           </Button>
         ) : (
-          <Button size="lg" icon="check" disabled={!valid || busy !== null} busy={busy === 'confirm' || busy === 'script'} onClick={() => void confirm()}>
+          <Button size="lg" icon="check" disabled={!valid || busy !== null} disabledReason={need} busy={busy === 'confirm' || busy === 'script'} onClick={() => void confirm()}>
             {t('steps.confirm')}
           </Button>
         )
       }
     >
-      <Card variant="filled" className="space-y-3 p-4 sm:p-5">
-        <p className="text-title-sm uppercase tracking-wide text-on-surface-variant">{t('steps.yourInstruction')}</p>
+      {busy === 'script' && <WaitInView title={t('steps.writing', { lang: catalog?.languages[briefing.workerLang]?.name ?? briefing.workerLang })} hint={t('steps.writingHint')} />}
+      {busy === 'extract' && <WaitInView title={t('instr.extracting')} hint={t('instr.extractingHint')} />}
+
+      <section aria-labelledby="steps-instruction" className="space-y-1 border-b border-outline-variant pb-4">
+        <h2 id="steps-instruction" className="text-title-md text-on-surface-variant">
+          {t('steps.yourInstruction')}
+        </h2>
         <p lang={lang} className="script-text text-body-lg text-on-surface">
           {briefing.instruction}
         </p>
         {briefing.status !== 'steps_confirmed' && (
-          <Link
-            href={`/b/${briefing.id}/instruction`}
-            className="state-layer inline-flex min-h-12 items-center rounded-full px-3 text-label-lg text-primary"
-          >
+          <LinkButton href={`/b/${briefing.id}/instruction`} variant="text" className="-ml-3">
             {t('steps.editInstruction')}
-          </Link>
+          </LinkButton>
         )}
-      </Card>
+      </section>
 
       {briefing.conflicts.length > 0 && (
         <div className="space-y-3" aria-label={t('steps.conflicts')} role="group">
@@ -131,9 +150,9 @@ export function StepsScreen() {
               live="assertive"
               action={
                 c.stepId && steps.some((s) => s.id === c.stepId) ? (
-                  <a href={`#step-${c.stepId}`} className="state-layer inline-flex min-h-12 items-center rounded-full border border-current px-4 text-label-lg">
+                  <AnchorButton href={`#step-${c.stepId}`} variant="outlined" className="border-on-error-container! text-on-error-container!">
                     {t('steps.goToStep', { n: steps.findIndex((s) => s.id === c.stepId) + 1 })}
-                  </a>
+                  </AnchorButton>
                 ) : undefined
               }
             >
@@ -143,9 +162,6 @@ export function StepsScreen() {
         </div>
       )}
 
-      {busy === 'script' && <BusyPanel title={t('steps.writing', { lang: catalog?.languages[briefing.workerLang]?.name ?? briefing.workerLang })} hint={t('steps.writingHint')} />}
-      {busy === 'extract' && <BusyPanel title={t('instr.extracting')} hint={t('instr.extractingHint')} />}
-
       <fieldset disabled={busy !== null} className="space-y-4">
         <legend className="sr-only">{t('steps.title')}</legend>
         {noSteps ? (
@@ -153,30 +169,36 @@ export function StepsScreen() {
             {t('steps.emptyHint')}
           </Banner>
         ) : (
-          <ol ref={list} className="space-y-4">
-            {steps.map((s, i) => (
-              <StepCard
-                key={s.id}
-                index={i}
-                step={s}
-                conflicts={briefing.conflicts.filter((c) => c.stepId === s.id)}
-                sopId={sopLabel(briefing.sop)}
-                lang={lang}
-                showTextError={touched.has(s.id)}
-                onChange={(change) => patch(s.id, change)}
-                onBlurText={() => setTouched((set) => new Set(set).add(s.id))}
-                onRemove={() => remove(s)}
-                canRemove={steps.length > 1}
-              />
-            ))}
-          </ol>
+          <>
+            {locked && <p className="text-body-md text-on-surface-variant">{t('steps.locked', { sop: sopLabel(briefing.sop) })}</p>}
+            <ol ref={list} className="space-y-4">
+              {steps.map((s, i) => (
+                <StepCard
+                  key={s.id}
+                  index={i}
+                  step={s}
+                  conflicts={briefing.conflicts.filter((c) => c.stepId === s.id)}
+                  sopId={sopLabel(briefing.sop)}
+                  lang={lang}
+                  showTextError={touched.has(s.id)}
+                  onChange={(change) => patch(s.id, change)}
+                  onBlurText={() => setTouched((set) => new Set(set).add(s.id))}
+                  onRemove={() => remove(s)}
+                  canRemove={steps.length > 1}
+                  readOnly={locked}
+                />
+              ))}
+            </ol>
+          </>
         )}
-        <div className="flex flex-wrap items-center gap-3">
-          <Button variant="outlined" icon="add" onClick={add} disabled={steps.length >= MAX_STEPS}>
-            {t('steps.add')}
-          </Button>
-          <p className="text-body-md text-on-surface-variant">{steps.length >= MAX_STEPS ? t('steps.max', { max: MAX_STEPS }) : t('steps.count', { n: steps.length, max: MAX_STEPS })}</p>
-        </div>
+        {!locked && (
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="outlined" icon="add" onClick={add} disabled={steps.length >= MAX_STEPS}>
+              {t('steps.add')}
+            </Button>
+            <p className="text-body-md text-on-surface-variant">{steps.length >= MAX_STEPS ? t('steps.max', { max: MAX_STEPS }) : t('steps.count', { n: steps.length, max: MAX_STEPS })}</p>
+          </div>
+        )}
       </fieldset>
     </FlowFrame>
   )

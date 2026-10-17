@@ -7,7 +7,9 @@ import { StatusChip } from '../ui/Chip.tsx'
 import { cx } from '../ui/cx.ts'
 import { Icon } from '../ui/Icon.tsx'
 import { Logo } from '../ui/Logo.tsx'
+import { DailyLimitNotice } from './DailyLimitNotice.tsx'
 import { LangMenu } from './LangMenu.tsx'
+import { MicBrowserBanner } from './MicBrowserBanner.tsx'
 
 interface NavItem {
   href: string
@@ -27,9 +29,9 @@ const isActive = (location: string, href: string) => location === href || locati
 export function Brand() {
   const t = useT()
   return (
-    <Link href="/" className="state-layer -ml-2 flex min-h-12 items-center gap-3 rounded-full px-2 pr-4" aria-label={t('app.home')}>
+    <Link href="/" className="state-layer -ml-2 flex min-h-12 items-center gap-3 rounded-md px-2 pr-4" aria-label={t('app.home')}>
       <Logo className="size-9" />
-      <span className="text-title-lg font-semibold tracking-tight text-on-surface">Say It Back</span>
+      <span className="whitespace-nowrap text-title-lg font-bold tracking-tight text-on-surface">Say It Back</span>
     </Link>
   )
 }
@@ -47,8 +49,8 @@ function TopNav() {
             href={item.href}
             aria-current={active ? 'page' : undefined}
             className={cx(
-              'state-layer inline-flex min-h-12 items-center gap-2 rounded-full px-4 text-label-lg',
-              active ? 'bg-secondary-container text-on-secondary-container' : 'text-on-surface-variant',
+              'state-layer inline-flex min-h-12 items-center gap-2 rounded-md px-4 text-label-lg',
+              active ? 'bg-secondary-container text-on-surface shadow-[inset_0_-2px_0_0_var(--color-primary)]' : 'text-on-surface-variant',
             )}
           >
             <Icon name={item.icon} filled={active} className="text-[1.25rem]" />
@@ -67,7 +69,7 @@ function BottomNav() {
   return (
     <nav
       aria-label={t('nav.label')}
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-outline-variant bg-surface-container pb-[env(safe-area-inset-bottom)] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-outline-variant bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <ul className="mx-auto flex max-w-md">
         {NAV.map((item) => {
@@ -77,17 +79,17 @@ function BottomNav() {
               <Link
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
-                className="state-layer flex min-h-[4.5rem] flex-col items-center justify-center gap-1 text-label-lg text-on-surface-variant"
+                className="state-layer flex min-h-[4.5rem] flex-col items-center justify-center gap-1 text-label-lg text-on-surface-variant active:translate-y-px"
               >
                 <span
                   className={cx(
-                    'grid h-8 w-16 place-items-center rounded-full transition-colors',
-                    active && 'bg-secondary-container text-on-secondary-container',
+                    'grid h-8 w-16 place-items-center rounded-md transition-colors',
+                    active && 'bg-primary text-on-primary',
                   )}
                 >
                   <Icon name={item.icon} filled={active} />
                 </span>
-                <span className={cx(active && 'font-semibold text-on-surface')}>{t(item.label)}</span>
+                <span className={cx(active && 'text-on-surface underline decoration-2 underline-offset-4')}>{t(item.label)}</span>
               </Link>
             </li>
           )
@@ -103,7 +105,7 @@ export function SkipLink() {
     // Parked above the viewport until it takes focus (not display:none, so screen readers still list it).
     <a
       href="#main"
-      className="absolute left-4 top-2 z-50 inline-flex min-h-12 -translate-y-[200%] items-center rounded-full bg-primary px-6 text-label-lg text-on-primary shadow-elev-2 transition-transform focus:translate-y-0"
+      className="absolute left-4 top-2 z-50 inline-flex min-h-12 -translate-y-[200%] items-center rounded-md bg-primary px-6 text-label-lg text-on-primary shadow-elev-2 transition-transform focus:translate-y-0"
     >
       {t('a11y.skip')}
     </a>
@@ -114,8 +116,10 @@ export function MockBadge() {
   const t = useT()
   if (!IS_MOCK) return null
   return (
-    <StatusChip tone="warning" icon="science">
-      {t('app.mock')}
+    // Icon only on the narrowest phones, so the brand beside it keeps to one line; the word stays for screen readers.
+    // Neutral: the mock build is not a verdict, so it takes none of the verdict colours (amber is Ask again).
+    <StatusChip tone="neutral" icon="science">
+      <span className="max-[22.5rem]:sr-only">{t('app.mock')}</span>
     </StatusChip>
   )
 }
@@ -124,7 +128,7 @@ export function MockBadge() {
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-30 border-b border-outline-variant/70 bg-surface/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-outline-variant bg-surface">
         <SkipLink />
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 px-4 sm:px-6">
           <Brand />
@@ -136,6 +140,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 pb-32 pt-8 sm:px-6 md:pb-16 md:pt-12">
+        <div className="mb-8 space-y-4 empty:hidden">
+          <MicBrowserBanner />
+          <DailyLimitNotice />
+        </div>
         {children}
       </main>
       <BottomNav />

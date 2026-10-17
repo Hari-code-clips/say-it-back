@@ -1,9 +1,12 @@
 // Turn mode (fallback): each segment is spoken from POST /api/tts audio (lines of the round's own script), and each answer is
-// recorded locally exactly like Live (same mic, same end-of-answer rule, same WAV for /check).
-import { captureAnswer, type AnswerClip, type CaptureHandle } from '../audio/capture.ts'
+// recorded locally exactly like Live (same mic, same end-of-answer rule, same WAV for /check). A stored sample answer
+// (endpoint 24) can replace the mic in a window, and is then the recorded WAV.
+import type { AnswerClip } from '../audio/capture.ts'
+import type { ClipSource } from '../audio/clipSource.ts'
 import type { Mic } from '../audio/mic.ts'
 import type { Player } from '../audio/player.ts'
 import { chunkForTts, revealPlan, type RevealStep } from '../lib/sentences.ts'
+import { AnswerWindow } from './answerWindow.ts'
 import { CaptionPacer, playerClock, type PacerClock } from './captionPacer.ts'
 import { SessionError, sleep, type BriefingSession, type SessionResult, type StageEvents, type StagePhase } from './session.ts'
 
@@ -23,7 +26,7 @@ export interface TurnSessionInit {
 export class TurnSession implements BriefingSession {
   private readonly init: TurnSessionInit
   private readonly pacer: CaptionPacer
-  private capture: CaptureHandle | null = null
+  private readonly window = new AnswerWindow()
   private aborted = false
 
   constructor(init: TurnSessionInit) {
@@ -54,7 +57,7 @@ export class TurnSession implements BriefingSession {
       }
       await this.speak(audio, 'closing', closing, { kind: 'speaking', segment: 'closing' })
       events.onPhase({ kind: 'finishing' })
-      return { clips }
+      return { clips, sampleAnswers: this.window.sampleAnswers }
     } catch (e) {
       this.init.player.flush()
       if (e instanceof SessionError) throw e
@@ -62,19 +65,23 @@ export class TurnSession implements BriefingSession {
       throw new SessionError('tts_failed', e instanceof Error ? e.message : 'The voice could not be prepared.', undefined, { cause: e })
     } finally {
       this.pacer.drop()
-      this.capture?.finish('abort')
+      this.window.finish('abort')
       this.init.mic.setSink(null)
     }
   }
 
   finishAnswer(): void {
-    this.capture?.finish('done')
+    this.window.finish('done')
+  }
+
+  useSample(source: ClipSource, qid: string): boolean {
+    return this.window.useSample(source, qid)
   }
 
   abort(): void {
     this.aborted = true
     this.pacer.drop()
-    this.capture?.finish('abort')
+    this.window.finish('abort')
     this.init.player.flush()
   }
 
@@ -111,10 +118,7 @@ export class TurnSession implements BriefingSession {
     this.checkAbort()
     events.onCaption('worker', '', true)
     events.onPhase({ kind: 'listening', qid })
-    const capture = captureAnswer(mic, { onSpeech: (s) => events.onSpeech?.(s) })
-    this.capture = capture
-    const clip = await capture.done
-    this.capture = null
+    const clip = await this.window.run(qid, mic, { onSpeech: (s) => events.onSpeech?.(s) }, (done) => done)
     this.checkAbort()
     return clip
   }

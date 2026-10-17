@@ -15,7 +15,12 @@ export interface GoogleProduct {
 export const GOOGLE_PRODUCTS: readonly GoogleProduct[] = [
   {
     name: 'Gemini 3.8 Flash',
-    role: 'Extracts the critical steps, writes the worker-language script, back-translates it, transcribes answers blind, runs two judges and writes re-explanations.',
+    role: "Extracts the critical steps, writes the worker-language script, back-translates it, transcribes answers blind, runs judge A, writes re-explanations and transcribes the worker's problem reports.",
+    icon: 'auto_awesome',
+  },
+  {
+    name: 'Gemini 3.1 Flash-Lite',
+    role: "Judge B: a second model reads the transcript only, so the two judges' mistakes are less alike. If the judges agree, that stands; if either finds a contradiction, that stands; any other disagreement is Ask again, never Got it.",
     icon: 'auto_awesome',
   },
   { name: 'Gemini 3.8 Live', role: "Speaks the confirmed script in the worker's language and listens to the answer.", icon: 'auto_awesome' },

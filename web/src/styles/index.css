@@ -1,12 +1,20 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Workbench (app screens) + Long Document (About, Eval, Sample) · design-system: design.md · designed-as-app
+ * theme: custom v2, 16 Oct (vibe: "warm paper, the site's own safety-sign colours") · paper oklch(98.3% 0.006 85) · accent: ISO 7010 action blue
+ * oklch(44% 0.145 256) · verdicts green / amber / red · Noto Sans · axes: light / geometric-sans / cool
+ * pre-emit critique: P5 H4 E4 S5 R4 V4 · contrast: pass (46–50) · tokens: pass (58) · mobile: pass (36, 59, 62, 63)
+ * accent footprint (25): one full-width primary fill per screen, about 7–8 % of a phone viewport, owner-requested (design.md)
+ */
 @import "tailwindcss";
 
-/* Material Design 3 on Tailwind v4.
-   - Colours: generated at startup from one seed (src/theme/scheme.ts) into --md-sys-color-*
-     custom properties; `@theme inline` below turns them into utilities (bg-primary, ...).
-   - Type scale, shape, elevation and motion follow the M3 specs. */
+/* Say It Back design system (web/design.md). Tailwind v4 theme, OKLCH tokens, light scheme only.
+   - Token NAMES are Material 3's (bg-primary, text-on-surface-variant, ...) so every screen keeps working; the VALUES are the
+     design system's: warm paper and near-black ink, coloured the way a site's safety signs are (ISO 7010 / ISO 3864): blue
+     is "do this" (primary = actions, selection, focus, and the worker's ground), green is safe (success = Got it), yellow-amber
+     is caution (warning = Ask again), red is stop (error = Wrong / hazard). Missed has no fill: it is an ink outline.
+   - Every colour in the app is a token below. No colour literal anywhere else (tests/theme/palette.test.ts). */
 
 @theme {
-  /* Only M3 values exist: reset Tailwind's default palette, type scale, shapes and shadows. */
+  /* Reset what Tailwind ships: only the tokens below exist. */
   --color-*: initial;
   --text-*: initial;
   --radius-*: initial;
@@ -16,48 +24,113 @@
   --breakpoint-*: initial;
   --ease-*: initial;
 
-  /* M3 window size classes: compact < 600, medium 600-839, expanded 840-1199, large 1200+ */
-  --breakpoint-sm: 37.5rem;
-  --breakpoint-md: 52.5rem;
-  --breakpoint-lg: 75rem;
+  /* ---- Colour -------------------------------------------------------------------------------------------------- */
+  --color-transparent: transparent;
+  --color-current: currentColor;
 
+  /* Paper (hue 85) and ink (hue 70): the neutral ramp. Chroma stays under 0.015. */
+  --color-background: oklch(98.3% 0.006 85);
+  --color-on-background: oklch(19% 0.01 70);
+  --color-surface: oklch(98.3% 0.006 85);
+  --color-on-surface: oklch(19% 0.01 70);
+  --color-surface-variant: oklch(94% 0.008 85);
+  --color-on-surface-variant: oklch(41% 0.012 70);
+  --color-surface-dim: oklch(90.3% 0.009 85);
+  --color-surface-bright: oklch(98.3% 0.006 85);
+  --color-surface-container-lowest: oklch(99.4% 0.005 85);
+  --color-surface-container-low: oklch(97% 0.006 85);
+  --color-surface-container: oklch(95.2% 0.007 85);
+  --color-surface-container-high: oklch(92.8% 0.008 85);
+  --color-surface-container-highest: oklch(90.3% 0.009 85);
+  --color-outline: oklch(52% 0.012 70);
+  --color-outline-variant: oklch(85% 0.008 80);
+
+  /* Primary is the action blue of a mandatory-action sign (ISO 7010 / ISO 3864 safety blue): filled buttons, selection, the
+     focus ring, progress. Its tint (primary-container) marks a selected or informative label; `worker` is the calm ground of
+     every worker-held screen, so the handover shows at a glance. Blue is never a verdict, and no verdict is blue. */
+  --color-primary: oklch(44% 0.145 256);
+  --color-on-primary: oklch(98.3% 0.006 85);
+  --color-primary-container: oklch(93% 0.032 252);
+  --color-on-primary-container: oklch(32% 0.11 258);
+  --color-worker-ground: oklch(95.5% 0.02 248);
+  --color-secondary: oklch(41% 0.012 70);
+  --color-on-secondary: oklch(98.3% 0.006 85);
+  --color-secondary-container: oklch(94% 0.008 85);
+  --color-on-secondary-container: oklch(19% 0.01 70);
+  --color-tertiary: oklch(41% 0.012 70);
+  --color-on-tertiary: oklch(98.3% 0.006 85);
+  --color-tertiary-container: oklch(94% 0.008 85);
+  --color-on-tertiary-container: oklch(19% 0.01 70);
+  --color-focus: oklch(44% 0.145 256);
+
+  /* Verdicts: green, amber and red, each its own family. success = Got it, warning = Ask again, error = Wrong, the worker's
+     problem button, hazard cards, and failure / validation messages. */
+  --color-success: oklch(46% 0.12 150);
+  --color-on-success: oklch(98.3% 0.006 85);
+  --color-success-container: oklch(93.5% 0.05 150);
+  --color-on-success-container: oklch(30% 0.08 150);
+  --color-warning: oklch(50% 0.105 70);
+  --color-on-warning: oklch(98.3% 0.006 85);
+  --color-warning-container: oklch(94.5% 0.065 90);
+  --color-on-warning-container: oklch(32% 0.07 70);
+  --color-error: oklch(48% 0.19 27);
+  --color-on-error: oklch(98.3% 0.006 85);
+  --color-error-container: oklch(94% 0.028 25);
+  --color-on-error-container: oklch(33% 0.13 27);
+
+  --color-inverse-surface: oklch(19% 0.01 70);
+  --color-inverse-on-surface: oklch(98.3% 0.006 85);
+  --color-inverse-primary: oklch(84% 0.07 250);
+  --color-scrim: oklch(19% 0.01 70);
+  --color-shadow: oklch(19% 0.01 70);
+
+  /* ---- Type ---------------------------------------------------------------------------------------------------- */
+  /* Noto Sans: the one free family for Latin, Tamil, Bengali, Devanagari, Odia, Myanmar, Simplified Chinese and Telugu. */
   --font-sans: "Noto Sans", "Noto Sans Tamil", "Noto Sans Bengali", "Noto Sans Devanagari",
-    "Noto Sans Oriya", "Noto Sans Myanmar", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+    "Noto Sans Oriya", "Noto Sans Myanmar", "Noto Sans SC", "Noto Sans Telugu", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* M3 type scale (size / line height / tracking / weight). UI text never goes below 14 px. */
+  /* Sizes keep their Material names (size / line height / tracking / weight). Weights are 400, 600, 700 only. UI text never
+     goes below 14 px. Tracking comes from --tracking-display (tight in Latin, none in other scripts: see @layer base). */
   --text-display-lg: 3.5625rem;
   --text-display-lg--line-height: 4rem;
-  --text-display-lg--letter-spacing: -0.015625rem;
+  --text-display-lg--letter-spacing: var(--tracking-display);
+  --text-display-lg--font-weight: 700;
   --text-display-md: 2.8125rem;
   --text-display-md--line-height: 3.25rem;
+  --text-display-md--letter-spacing: var(--tracking-display);
+  --text-display-md--font-weight: 700;
   --text-display-sm: 2.25rem;
   --text-display-sm--line-height: 2.75rem;
+  --text-display-sm--letter-spacing: var(--tracking-display);
+  --text-display-sm--font-weight: 700;
   --text-headline-lg: 2rem;
   --text-headline-lg--line-height: 2.5rem;
+  --text-headline-lg--letter-spacing: var(--tracking-display);
+  --text-headline-lg--font-weight: 700;
   --text-headline-md: 1.75rem;
   --text-headline-md--line-height: 2.25rem;
+  --text-headline-md--letter-spacing: var(--tracking-display);
+  --text-headline-md--font-weight: 700;
   --text-headline-sm: 1.5rem;
   --text-headline-sm--line-height: 2rem;
+  --text-headline-sm--letter-spacing: var(--tracking-display);
+  --text-headline-sm--font-weight: 700;
   --text-title-lg: 1.375rem;
   --text-title-lg--line-height: 1.75rem;
+  --text-title-lg--font-weight: 600;
   --text-title-md: 1rem;
   --text-title-md--line-height: 1.5rem;
-  --text-title-md--letter-spacing: 0.009375rem;
-  --text-title-md--font-weight: 500;
+  --text-title-md--font-weight: 600;
   --text-title-sm: 0.875rem;
   --text-title-sm--line-height: 1.25rem;
-  --text-title-sm--letter-spacing: 0.00625rem;
-  --text-title-sm--font-weight: 500;
+  --text-title-sm--font-weight: 600;
   --text-label-lg: 0.875rem;
   --text-label-lg--line-height: 1.25rem;
-  --text-label-lg--letter-spacing: 0.00625rem;
-  --text-label-lg--font-weight: 500;
+  --text-label-lg--font-weight: 600;
   --text-body-lg: 1rem;
   --text-body-lg--line-height: 1.5rem;
-  --text-body-lg--letter-spacing: 0.03125rem;
   --text-body-md: 0.875rem;
   --text-body-md--line-height: 1.25rem;
-  --text-body-md--letter-spacing: 0.015625rem;
   /* Worker screen: very large, fluid, readable at arm's length. */
   --text-worker: clamp(1.75rem, 1.35rem + 2vw, 2.75rem);
   --text-worker--line-height: 1.4;
@@ -65,7 +138,7 @@
   --text-worker-sm: clamp(1.25rem, 1.05rem + 1vw, 1.75rem);
   --text-worker-sm--line-height: 1.45;
   /* Steps down from text-worker for a long live caption (screens/brief/Caption.tsx). The last, 1.375rem
-     (22 px, M3 title-large), is the floor: a caption never gets smaller than that. */
+     (22 px), is the floor: a caption never gets smaller than that. */
   --text-worker-md: clamp(1.5rem, 1.2rem + 1.6vw, 2.1rem);
   --text-worker-md--line-height: 1.4;
   --text-worker-md--font-weight: 600;
@@ -73,31 +146,37 @@
   --text-worker-min--line-height: 1.45;
   --text-worker-min--font-weight: 600;
 
-  /* M3 shape scale */
+  /* M3 window size classes: compact < 600, medium 600-839, expanded 840-1199, large 1200+ */
+  --breakpoint-sm: 37.5rem;
+  --breakpoint-md: 52.5rem;
+  --breakpoint-lg: 75rem;
+
+  /* ---- Shape: 12 px controls (not pills), 8 px tags, 16 px overlays. Circles are rounded-full. -------------------- */
   --radius-none: 0;
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.75rem;
-  --radius-2xl: 3rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* M3 elevation: key light 30 % + ambient 15 % */
-  --shadow-elev-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
-  --shadow-elev-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
-  --shadow-elev-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
-  --shadow-elev-4: 0 2px 3px 0 rgb(0 0 0 / 0.3), 0 6px 10px 4px rgb(0 0 0 / 0.15);
+  /* ---- Depth: only what floats (dialog, menu, snackbar). A card is a hairline, never a shadow. ------------------- */
+  --shadow-elev-1: 0 1px 2px 0 color-mix(in oklab, var(--color-shadow) 14%, transparent);
+  --shadow-elev-2: 0 2px 8px -2px color-mix(in oklab, var(--color-shadow) 18%, transparent);
+  --shadow-elev-3: 0 8px 24px -8px color-mix(in oklab, var(--color-shadow) 28%, transparent);
+  --shadow-elev-4: 0 12px 32px -8px color-mix(in oklab, var(--color-shadow) 32%, transparent);
 
-  /* M3 motion */
+  /* ---- Motion: state changes only, transform and opacity, 200 ms at most. ---------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --default-transition-duration: 200ms;
-  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-rise: rise 300ms var(--ease-decelerate) both;
-  --animate-fade-in: fade-in 200ms var(--ease-standard) both;
+  --animate-rise: rise 200ms var(--ease-out) both;
+  --animate-fade-in: fade-in 160ms var(--ease-out) both;
   --animate-shimmer: shimmer 1.6s linear infinite;
   --animate-orb-breathe: orb-breathe 2.4s ease-in-out infinite;
   --animate-indeterminate: indeterminate 1.5s var(--ease-standard) infinite;
@@ -107,7 +186,7 @@
     to { transform: translateX(300%); }
   }
   @keyframes rise {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes fade-in {
@@ -123,89 +202,47 @@
   }
 }
 
-/* Runtime colour variables (set by applyScheme) -> Tailwind colour utilities. */
-@theme inline {
-  --color-transparent: transparent;
-  --color-current: currentColor;
-  --color-primary: var(--md-sys-color-primary);
-  --color-on-primary: var(--md-sys-color-on-primary);
-  --color-primary-container: var(--md-sys-color-primary-container);
-  --color-on-primary-container: var(--md-sys-color-on-primary-container);
-  --color-secondary: var(--md-sys-color-secondary);
-  --color-on-secondary: var(--md-sys-color-on-secondary);
-  --color-secondary-container: var(--md-sys-color-secondary-container);
-  --color-on-secondary-container: var(--md-sys-color-on-secondary-container);
-  --color-tertiary: var(--md-sys-color-tertiary);
-  --color-on-tertiary: var(--md-sys-color-on-tertiary);
-  --color-tertiary-container: var(--md-sys-color-tertiary-container);
-  --color-on-tertiary-container: var(--md-sys-color-on-tertiary-container);
-  --color-error: var(--md-sys-color-error);
-  --color-on-error: var(--md-sys-color-on-error);
-  --color-error-container: var(--md-sys-color-error-container);
-  --color-on-error-container: var(--md-sys-color-on-error-container);
-  --color-success: var(--md-sys-color-success);
-  --color-on-success: var(--md-sys-color-on-success);
-  --color-success-container: var(--md-sys-color-success-container);
-  --color-on-success-container: var(--md-sys-color-on-success-container);
-  --color-warning: var(--md-sys-color-warning);
-  --color-on-warning: var(--md-sys-color-on-warning);
-  --color-warning-container: var(--md-sys-color-warning-container);
-  --color-on-warning-container: var(--md-sys-color-on-warning-container);
-  --color-background: var(--md-sys-color-background);
-  --color-on-background: var(--md-sys-color-on-background);
-  --color-surface: var(--md-sys-color-surface);
-  --color-on-surface: var(--md-sys-color-on-surface);
-  --color-surface-variant: var(--md-sys-color-surface-variant);
-  --color-on-surface-variant: var(--md-sys-color-on-surface-variant);
-  --color-surface-dim: var(--md-sys-color-surface-dim);
-  --color-surface-bright: var(--md-sys-color-surface-bright);
-  --color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
-  --color-surface-container-low: var(--md-sys-color-surface-container-low);
-  --color-surface-container: var(--md-sys-color-surface-container);
-  --color-surface-container-high: var(--md-sys-color-surface-container-high);
-  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
-  --color-outline: var(--md-sys-color-outline);
-  --color-outline-variant: var(--md-sys-color-outline-variant);
-  --color-inverse-surface: var(--md-sys-color-inverse-surface);
-  --color-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
-  --color-inverse-primary: var(--md-sys-color-inverse-primary);
-  --color-scrim: var(--md-sys-color-scrim);
-  --color-shadow: var(--md-sys-color-shadow);
-}
-
 @layer base {
   html {
     color-scheme: light;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Keep a focused control clear of the sticky header and the fixed action bar (WCAG 2.4.11). */
+    overflow-x: clip;
+    /* Display tracking: tight in Latin only. Negative tracking breaks Indic and CJK shaping. */
+    --tracking-display: 0em;
+    /* Keep a focused control clear of the sticky header and the fixed action bar (WCAG 2.4.11). --sib-bar-h is the measured
+       height of the bar (flow/FlowFrame.tsx). */
     scroll-padding-top: 5rem;
-    scroll-padding-bottom: 9rem;
+    scroll-padding-bottom: calc(var(--sib-bar-h, 5rem) + 1.5rem);
   }
+  html:lang(en) { --tracking-display: -0.02em; }
+  :where(:lang(ta), :lang(zh), :lang(hi), :lang(bn), :lang(or), :lang(my)) { --tracking-display: 0em; }
   body {
     min-height: 100dvh;
-    background: var(--md-sys-color-surface);
-    color: var(--md-sys-color-on-surface);
+    overflow-x: clip;
+    background: var(--color-surface);
+    color: var(--color-on-surface);
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
   }
-  h1, h2, h3 { text-wrap: balance; }
+  h1, h2, h3 { text-wrap: balance; overflow-wrap: anywhere; min-width: 0; }
   p { text-wrap: pretty; }
-  ::selection { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+  ::selection { background: var(--color-primary); color: var(--color-on-primary); }
 
-  /* M3 focus indicator: 3 px ring with a 2 px gap, keyboard only. */
+  /* Focus ring: 3 px ink, 2 px gap, keyboard only. 15:1 against paper; shown instantly, never transitioned. */
   :focus-visible {
-    outline: 3px solid var(--md-sys-color-primary);
+    outline: 3px solid var(--color-focus);
     outline-offset: 2px;
   }
   :focus:not(:focus-visible) { outline: none; }
   [tabindex="-1"]:focus { outline: none; }
 
   button { cursor: pointer; }
-  button:disabled { cursor: default; }
+  button:disabled { cursor: not-allowed; }
+  [aria-disabled="true"] { cursor: not-allowed; }
 }
 
 @layer components {
@@ -233,7 +270,7 @@
   }
   .icon-filled { font-variation-settings: "FILL" 1; }
 
-  /* M3 state layer: hover 8 %, focus / press 10 %, painted with the content colour. */
+  /* State layer: hover 7 %, press 14 %, painted with the content colour. The focus signal is the ring, not the layer. */
   .state-layer { position: relative; isolation: isolate; }
   .state-layer::before {
     content: "";
@@ -244,13 +281,12 @@
     background: currentColor;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 150ms var(--ease-standard);
+    transition: opacity 120ms var(--ease-out);
   }
   @media (hover: hover) {
-    .state-layer:hover::before { opacity: 0.08; }
+    .state-layer:hover::before { opacity: 0.07; }
   }
-  .state-layer:focus-visible::before,
-  .state-layer:active::before { opacity: 0.1; }
+  .state-layer:active::before { opacity: 0.14; }
   .state-layer:disabled::before,
   .state-layer[aria-disabled="true"]::before { opacity: 0; }
 
@@ -278,12 +314,13 @@
     padding-bottom: 0.14em;
   }
   .caption-box[data-clipped="true"] {
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 1.6em);
-    mask-image: linear-gradient(to bottom, transparent, #000 1.6em);
+    /* A mask reads only the alpha of its colour. */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, var(--color-on-surface) 1.6em);
+    mask-image: linear-gradient(to bottom, transparent, var(--color-on-surface) 1.6em);
   }
 
   .skeleton {
-    background: linear-gradient(90deg, var(--md-sys-color-surface-container) 25%, var(--md-sys-color-surface-container-high) 50%, var(--md-sys-color-surface-container) 75%);
+    background: linear-gradient(90deg, var(--color-surface-container) 25%, var(--color-surface-container-high) 50%, var(--color-surface-container) 75%);
     background-size: 200% 100%;
     animation: var(--animate-shimmer);
     border-radius: var(--radius-md);
@@ -295,6 +332,21 @@
     transition: transform 90ms linear;
     will-change: transform;
   }
+
+  /* Press-and-hold fill (ui/HoldButton.tsx). The fill is the countdown, so it keeps running under reduced motion. */
+  .hold-fill {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 160ms var(--ease-out);
+  }
+  .hold-fill[data-holding="true"] {
+    transform: scaleX(1);
+    transition: transform var(--hold-ms, 1500ms) linear;
+  }
+
+  /* Dialog (native <dialog>): opacity and a small rise, 200 ms. */
+  dialog[open] { animation: rise 200ms var(--ease-out) both; }
+  dialog::backdrop { animation: fade-in 200ms var(--ease-out) both; }
 
   .no-select { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
 }
@@ -309,4 +361,6 @@
   .orb-ring { transform: none; }
   /* A busy indicator is status, not decoration: keep it turning, slowly. */
   .spinner { animation: spin 1.6s linear infinite !important; animation-iteration-count: infinite !important; animation-duration: 1.6s !important; }
+  /* So is the hold countdown: without its fill the press would give no sign it is counting. */
+  .hold-fill[data-holding="true"] { transition-duration: var(--hold-ms, 1500ms) !important; }
 }

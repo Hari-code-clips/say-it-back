@@ -1,65 +1,12 @@
 import type { Briefing, Conflict, Question, Script, Step } from '../api/types.ts'
 import { splitSentences } from '../lib/sentences.ts'
 import { langNameEn, rawTask } from './catalog.ts'
+import { demoFor, type DemoScript } from './demos.ts'
 import { longInstruction } from './longScripts.ts'
 
-// Canned "model" output: step extraction and script writing. The Singapore lead demo
-// (panel-isolation, English supervisor, Tamil worker) is written out in full; every other pair
-// is derived from the catalog's reference steps and labelled as mock text.
-
-export const isLeadDemo = (b: Briefing): boolean => b.taskId === 'panel-isolation' && b.workerLang === 'ta'
-
-interface LeadStep {
-  /** Tamil sentence that delivers the step. */
-  sentence: string
-  sentenceEn: string
-  question: string
-  questionEn: string
-  /** What the worker says when asked (re-explain rounds). */
-  answer: string
-  answerEn: string
-  quote: string
-  quoteEn: string
-}
-
-export const LEAD: Record<string, LeadStep> = {
-  s1: {
-    sentence: 'பிரேக்கரை ஆஃப் செய்யுங்கள்.',
-    sentenceEn: 'Switch off the breaker.',
-    question: 'முதலில் பிரேக்கரில் என்ன செய்வீர்கள்?',
-    questionEn: 'What will you do first at the breaker?',
-    answer: 'முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன்.',
-    answerEn: "First I'll switch off the breaker.",
-    quote: 'பிரேக்கரை ஆஃப் பண்ணுவேன்',
-    quoteEn: "I'll switch off the breaker",
-  },
-  s2: {
-    sentence: 'அதில் உங்கள் லாக்கையும் டேக்கையும் போடுங்கள்.',
-    sentenceEn: 'Put your lock and tag on it.',
-    question: 'யாரும் மீண்டும் ஆன் செய்யாமல் இருக்க பிரேக்கரில் என்ன போடுவீர்கள்?',
-    questionEn: 'What will you put on the breaker so nobody switches it on again?',
-    answer: 'லாக் போட்டு டேக் மாட்டுவேன்.',
-    answerEn: "I'll put on the lock and hang the tag.",
-    quote: 'லாக் போட்டு டேக் மாட்டுவேன்',
-    quoteEn: "I'll put on the lock and hang the tag",
-  },
-  s3: {
-    sentence: 'கரண்ட் இல்லை என்று டெஸ்டரில் சரிபார்த்த பிறகுதான் பேனலைத் திறங்கள்.',
-    sentenceEn: 'Open the panel only after you check with the tester that there is no power.',
-    question: 'கம்பிகளைத் தொடும் முன் கரண்ட் இல்லை என்று எப்படித் தெரிந்துகொள்வீர்கள்?',
-    questionEn: 'How will you know there is no power before you touch the wires?',
-    answer: 'டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் தொடுவேன்.',
-    answerEn: "I'll check with the tester that there's no current before I touch it.",
-    quote: 'டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான்',
-    quoteEn: "I'll check with the tester that there's no current",
-  },
-}
-
-/** Round 1 of the lead demo: the worker answers loosely, so s2 and s3 stay open. */
-export const LEAD_ROUND1_ANSWERS: Record<string, { original: string; translation: string }> = {
-  q1: { original: 'நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.', translation: "I'll switch off the breaker and open it." },
-  q2: { original: 'ஆஃப் பண்ணிட்டா கரண்ட் இருக்காது.', translation: 'If I switch it off, there will be no current.' },
-}
+// Canned "model" output: step extraction and script writing. The demo pairs (demos.ts: the lifting lead and the panel, English
+// supervisor, Tamil worker) are written out in full; every other pair is derived from the catalog's reference steps and
+// labelled as mock text.
 
 const THANKS: Record<string, string> = {
   ta: 'நன்றி. உங்கள் சூப்பர்வைசருக்காகக் காத்திருங்கள்.',
@@ -68,6 +15,7 @@ const THANKS: Record<string, string> = {
   zh: '谢谢。请等待您的主管。',
   my: 'ကျေးဇူးတင်ပါတယ်။ ကျေးဇူးပြု၍ သင့်ကြီးကြပ်သူကို စောင့်ပါ။',
   or: 'ଧନ୍ୟବାଦ। ଦୟାକରି ଆପଣଙ୍କ ସୁପରଭାଇଜରଙ୍କୁ ଅପେକ୍ଷା କରନ୍ତୁ।',
+  te: 'ధన్యవాదాలు. దయచేసి మీ సూపర్‌వైజర్ కోసం వేచి ఉండండి.', // DRAFT, 17 Oct (build-notes/37-telugu-consent.md)
   en: 'Thank you. Please wait for your supervisor.',
 }
 export const closingFor = (b: Briefing): string => THANKS[b.workerLang] ?? THANKS.en ?? ''
@@ -80,6 +28,7 @@ export const NEUTRAL_THANKS: Record<string, string> = {
   zh: '谢谢。',
   my: 'ကျေးဇူးတင်ပါတယ်။',
   or: 'ଧନ୍ୟବାଦ।',
+  te: 'ధన్యవాదాలు.',
   en: 'Thank you.',
 }
 
@@ -146,27 +95,16 @@ const mockText = (b: Briefing, text: string): string => (b.workerLang === 'en' ?
 /** The backend writes one sentence per line; stepMap indexes the lines (docs/API.md, Deviations). */
 const LINE = '\n'
 
-function leadInitial(b: Briefing, stepIds: string[]): Script {
-  const sentences = stepIds.map((id) => LEAD[id]?.sentence ?? '')
-  const questions: Question[] = [
-    {
-      id: 'q1',
-      text: 'பேனலைத் திறப்பதற்கு முன் என்ன செய்வீர்கள்?',
-      backTranslation: 'What will you do before you open the panel?',
-      stepIds: ['s1', 's2', 's3'],
-    },
-    {
-      id: 'q2',
-      text: 'கம்பிகளைத் தொடுவது பாதுகாப்பானது என்று எப்படித் தெரிந்துகொள்வீர்கள்?',
-      backTranslation: 'How will you know it is safe to touch the wires?',
-      stepIds: ['s3'],
-    },
-  ]
+function demoScript(b: Briefing, demo: DemoScript, stepIds: string[], firstQuestionNumber: number): Script {
+  const questions =
+    firstQuestionNumber === 1
+      ? // Only steps still in scope (the supervisor may have removed one).
+        demo.questions.map((q) => ({ ...q, stepIds: q.stepIds.filter((id) => stepIds.includes(id)) })).filter((q) => q.stepIds.length > 0)
+      : demo.reexplain(stepIds, firstQuestionNumber)
   return {
-    instruction: sentences.join(LINE),
-    instructionBackTranslation: stepIds.map((id) => LEAD[id]?.sentenceEn ?? '').join(LINE),
-    // Only steps still in scope (the supervisor may have removed one).
-    questions: questions.map((q) => ({ ...q, stepIds: q.stepIds.filter((id) => stepIds.includes(id)) })).filter((q) => q.stepIds.length > 0),
+    instruction: stepIds.map((id) => demo.steps[id]?.sentence ?? '').join(LINE),
+    instructionBackTranslation: stepIds.map((id) => demo.steps[id]?.sentenceEn ?? '').join(LINE),
+    questions,
     stepMap: Object.fromEntries(stepIds.map((id, i) => [id, [i]])),
     closing: closingFor(b),
   }
@@ -182,22 +120,8 @@ export function makeScript(b: Briefing, stepIds: string[], firstQuestionNumber: 
 }
 
 function baseScript(b: Briefing, stepIds: string[], firstQuestionNumber: number): Script {
-  if (isLeadDemo(b) && stepIds.every((id) => LEAD[id])) {
-    if (firstQuestionNumber === 1) return leadInitial(b, stepIds)
-    const questions: Question[] = stepIds.map((id, i) => ({
-      id: `q${firstQuestionNumber + i}`,
-      text: LEAD[id]?.question ?? '',
-      backTranslation: LEAD[id]?.questionEn ?? '',
-      stepIds: [id],
-    }))
-    return {
-      instruction: stepIds.map((id) => LEAD[id]?.sentence ?? '').join(LINE),
-      instructionBackTranslation: stepIds.map((id) => LEAD[id]?.sentenceEn ?? '').join(LINE),
-      questions: questions.slice(0, 2),
-      stepMap: Object.fromEntries(stepIds.map((id, i) => [id, [i]])),
-      closing: closingFor(b),
-    }
-  }
+  const demo = demoFor(b)
+  if (demo && stepIds.every((id) => demo.steps[id])) return demoScript(b, demo, stepIds, firstQuestionNumber)
 
   const inScope = b.steps.filter((s) => stepIds.includes(s.id))
   const sentences = firstQuestionNumber === 1 && splitSentences(b.instruction).length >= inScope.length ? splitSentences(b.instruction) : inScope.map((s) => `${s.text}.`)

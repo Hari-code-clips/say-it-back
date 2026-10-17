@@ -8,17 +8,24 @@ import { MAX_ROUNDS, canReexplain, openSteps } from '../flow/phases.ts'
 import { recoverFromConflict } from '../flow/recover.ts'
 import { useLangName, useT } from '../i18n/index.tsx'
 import { apiErrorText } from '../lib/apiError.ts'
+import { retryFor } from '../lib/dailyLimit.ts'
 import { Button } from '../ui/Button.tsx'
-import { Card, Section } from '../ui/Card.tsx'
+import { Card, RowList, Section } from '../ui/Card.tsx'
 import { RadioCard } from '../ui/Choice.tsx'
-import { BusyPanel } from '../ui/Feedback.tsx'
 import { useFeedback } from '../ui/FeedbackProvider.tsx'
 import { Icon } from '../ui/Icon.tsx'
 import { TextArea } from '../ui/TextField.tsx'
-import { VerdictChip } from '../ui/VerdictChip.tsx'
+import { StepRow } from './result/StepRow.tsx'
+import { WaitInView } from './instruction/WaitInView.tsx'
 
 type Method = 'generate' | 'own'
 const NOTE_MAX = 1000
+
+/* Hallmark · screen: re-explain · genre: modern-minimal · macrostructure: Workbench · theme: design.md
+ * Both ways of re-explaining are visible above the sticky bar, then the open steps they are for. The 15-40 s wait takes the place of the
+ * choices, at the top, so it is on screen at 320-414 px (it used to sit below the fold, behind the bar).
+ * states: default · invalid (own words empty: the bar says so) · loading (WaitInView) · error (snackbar with Retry) · success (navigates).
+ */
 
 /** Re-explain the open steps: a generated focused re-explanation, or the supervisor's own words. */
 export function ReexplainScreen() {
@@ -51,84 +58,81 @@ export function ReexplainScreen() {
     } catch (e) {
       setBusy(false)
       if (await recoverFromConflict(e, refresh, navigate)) return
-      feedback.snack({
-        message: apiErrorText(t, e),
-        tone: 'error',
-        actionLabel: t('action.retry'),
-        onAction: () => void submit(),
-      })
+      feedback.snack({ message: apiErrorText(t, e), tone: 'error', ...retryFor(e, t('action.retry'), () => void submit()) })
     }
   }
 
   return (
     <FlowFrame
       step="reexplain"
-      eyebrow={t('script.round', { n: briefing.rounds.length + 1, max: MAX_ROUNDS })}
+      round={t('script.round', { n: briefing.rounds.length + 1, max: MAX_ROUNDS })}
       title={t('reexplain.title')}
       subtitle={t('reexplain.subtitle')}
       leaveTo={`/b/${briefing.id}/result`}
       primary={
-        <Button size="lg" icon="checklist" disabled={!valid} busy={busy} onClick={() => void submit()}>
+        <Button size="lg" icon="checklist" disabled={!valid} disabledReason={valid ? undefined : t('reexplain.need')} busy={busy} onClick={() => void submit()}>
           {t('reexplain.write')}
         </Button>
       }
       secondary={
-        <Button size="lg" variant="text" disabled={busy} onClick={() => navigate(`/b/${briefing.id}/result`)}>
+        <Button variant="text" disabled={busy} onClick={() => navigate(`/b/${briefing.id}/result`)}>
           {t('action.back')}
         </Button>
       }
     >
-      <Section title={t('reexplain.open', { n: open.length })} id="reexplain-open">
-        <ul className="space-y-2">
-          {open.map((s) => (
-            <Card as="li" key={s.id} className="flex flex-wrap items-center gap-3 p-4">
-              <VerdictChip verdict={briefing.latestVerdicts[s.id] ?? 'unclear'} />
-              <span lang={lang} className="script-text min-w-0 flex-1 text-body-lg">
-                {s.text}
-              </span>
-            </Card>
-          ))}
-        </ul>
-      </Section>
+      {busy ? (
+        <WaitInView title={t('reexplain.busy', { lang: workerName })} hint={t('steps.writingHint')} />
+      ) : (
+        <section aria-labelledby="reexplain-how">
+          {/* The heading is for assistive technology only: the subtitle above already says "choose how", and the two choices belong
+              in the first screen, above the bar, at 320-414 px. */}
+          <h2 id="reexplain-how" className="sr-only">
+            {t('reexplain.how')}
+          </h2>
+          <fieldset className="space-y-4">
+            <legend className="sr-only">{t('reexplain.how')}</legend>
+            <div role="radiogroup" aria-labelledby="reexplain-how" className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <RadioCard
+                name="method"
+                value="generate"
+                checked={method === 'generate'}
+                onChange={() => setMethod('generate')}
+                icon={<Icon name="auto_awesome" />}
+                title={t('reexplain.generate')}
+                subtitle={t('reexplain.generateHint', { lang: workerName })}
+              />
+              <RadioCard
+                name="method"
+                value="own"
+                checked={method === 'own'}
+                onChange={() => setMethod('own')}
+                icon={<Icon name="edit_note" />}
+                title={t('reexplain.own')}
+                subtitle={t('reexplain.ownHint', { lang: workerName })}
+              />
+            </div>
+            {method === 'own' && (
+              <TextArea className="animate-fade-in" label={t('reexplain.ownLabel')} value={note} onChange={setNote} rows={4} maxLength={NOTE_MAX} lang={lang} />
+            )}
+          </fieldset>
+        </section>
+      )}
 
-      <Section title={t('reexplain.how')} id="reexplain-how">
-        <fieldset disabled={busy} className="space-y-4">
-          <legend className="sr-only">{t('reexplain.how')}</legend>
-          <div role="radiogroup" aria-labelledby="reexplain-how" className="grid gap-3 sm:grid-cols-2">
-            <RadioCard
-              name="method"
-              value="generate"
-              checked={method === 'generate'}
-              onChange={() => setMethod('generate')}
-              icon={<Icon name="auto_awesome" />}
-              title={t('reexplain.generate')}
-              subtitle={t('reexplain.generateHint', { lang: workerName })}
-            />
-            <RadioCard
-              name="method"
-              value="own"
-              checked={method === 'own'}
-              onChange={() => setMethod('own')}
-              icon={<Icon name="edit_note" />}
-              title={t('reexplain.own')}
-              subtitle={t('reexplain.ownHint', { lang: workerName })}
-            />
-          </div>
-          {method === 'own' && (
-            <TextArea
-              className="animate-fade-in"
-              label={t('reexplain.ownLabel')}
-              value={note}
-              onChange={setNote}
-              rows={4}
-              maxLength={NOTE_MAX}
-              lang={lang}
-            />
-          )}
-        </fieldset>
+      <Section title={t('reexplain.open', { n: open.length })} hint={t('reexplain.openHint')} id="reexplain-open">
+        <Card>
+          <RowList>
+            {open.map((s) => (
+              <StepRow key={s.id} verdict={briefing.latestVerdicts[s.id] ?? 'unclear'} text={s.text} lang={lang} />
+            ))}
+          </RowList>
+        </Card>
+        {/* Compassion pass (16 Oct): teach-back's rule is to re-teach differently, never to repeat louder. Below the list, so both
+            choices stay above the bar (F6). */}
+        <p className="mt-4 flex items-start gap-3 text-body-md text-on-surface-variant">
+          <Icon name="record_voice_over" className="mt-px text-[1.125rem]" />
+          <span className="min-w-0">{t('reexplain.kind')}</span>
+        </p>
       </Section>
-
-      {busy && <BusyPanel title={t('reexplain.busy', { lang: workerName })} hint={t('steps.writingHint')} />}
     </FlowFrame>
   )
 }

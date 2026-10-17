@@ -34,10 +34,13 @@ export const core = {
   'error.live_not_recorded': 'குரல் அமர்வு சர்வரில் சேமிக்கப்படவில்லை; எனவே இந்தப் பதில்களைச் சரிபார்க்க முடியாது.',
   'error.device_required': 'இது எந்த உலாவி என்பதை சர்வரால் அறிய முடியவில்லை. பக்கத்தை மீண்டும் ஏற்றி மீண்டும் முயலுங்கள்.',
   'error.tts_text_not_in_script': 'இந்தச் சுற்றின் ஸ்கிரிப்டில் உள்ளதை மட்டுமே குரலால் வாசிக்க முடியும்; அந்த வரி அதில் இல்லை. பிரீஃபிங்கை மீண்டும் ஏற்றி மீண்டும் முயலுங்கள்.',
+  'error.script_not_approved': 'நீங்கள் ஸ்கிரிப்டை உறுதிசெய்யும் வரை எதுவும் பேசப்படாது. ஸ்கிரிப்டுக்குத் திரும்பி, அங்கே உறுதிசெய்யுங்கள்.', // 16 Oct handover (F1): approving and handing over are two screens now. DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'error.hazard_open': 'Go பூட்டப்பட்டுள்ளது: தொழிலாளர் சொன்ன ஒரு பிரச்சனைக்கு இன்னும் குறிப்பு இல்லை. முதலில் நீங்கள் என்ன செய்தீர்கள் என்று எழுதுங்கள்.',
+  'error.note_required': 'நீங்கள் என்ன செய்தீர்கள் என்று குறைந்தது 5 எழுத்துகள் எழுதுங்கள்.',
+  'error.too_many_hazards': 'இந்தப் பிரீஃபிங்கில் இனி பிரச்சனைப் பதிவுகளைச் சேர்க்க முடியாது. தொழிலாளரிடம் நேரில் பேசுங்கள்.',
+  'error.no_demo_answer': 'மாதிரிப் பதில் இந்தச் சர்வரில் இல்லை.',
 
-  'flow.context': 'பணி, SOP மற்றும் மொழிகள்',
   'flow.leave': 'இந்த பிரீஃபிங்கிலிருந்து வெளியேறு. பதிவுகளிலிருந்து மீண்டும் தொடரலாம்.',
-  'flow.step': 'படி {n} / {total}',
   'flow.notFound': 'பிரீஃபிங் கிடைக்கவில்லை',
   'flow.notFoundHint': 'இது நீக்கப்பட்டிருக்கலாம், அல்லது வேறொரு உலாவியில் உருவாக்கப்பட்டிருக்கலாம். இந்த உலாவியில் நடத்திய பிரீஃபிங்குகளைப் பார்க்க பதிவுகளைத் திறவுங்கள்.',
   'flow.unexpected': 'இந்த பிரீஃபிங் எதிர்பாராத நிலையில் உள்ளது',
@@ -52,11 +55,51 @@ export const core = {
   'phase.reexplain': 'மீண்டும் விளக்கம்',
   'phase.decision': 'தீர்மானம்',
   'phase.record': 'பதிவு',
+  // Named phases of the flow header (web/design.md). New in the UI-system pass; ta and zh are drafts pending native review.
+  'phasebar.label': 'முன்னேற்றம்',
+  'phasebar.steps': 'படிகள்',
+  'phasebar.script': 'ஸ்கிரிப்ட்',
+  'phasebar.worker': 'தொழிலாளர்',
+  'phasebar.result': 'முடிவு',
+  'phasebar.decision': 'தீர்மானம்',
 
   'mic.denied': 'மைக்ரோஃபோன் அனுமதி மறுக்கப்பட்டது. உலாவி அமைப்புகளில் இந்தத் தளத்துக்கு மைக்ரோஃபோனை அனுமதித்து மீண்டும் முயலுங்கள்.',
   'mic.no_device': 'இந்தச் சாதனத்தில் மைக்ரோஃபோன் இல்லை.',
   'mic.unsupported': 'இந்த உலாவியால் மைக்ரோஃபோன் ஒலியைப் பதிவு செய்ய முடியாது. Chrome, Edge, Safari அல்லது Firefox முயலுங்கள்.',
   'mic.failed': 'மைக்ரோஃபோன் தொடங்கவில்லை. மீண்டும் முயலுங்கள்.',
+
+  // v0.5: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'browser.micTitle': 'மைக்ரோஃபோனைப் பயன்படுத்த இந்தப் பக்கத்தை Chrome அல்லது Safari-யில் திறக்கவும்.',
+  'browser.micBody': 'LinkedIn, WhatsApp, WeChat, Instagram போன்ற செயலிகளுக்குள் உள்ள உலாவிகள் பெரும்பாலும் ஒலிப்பதிவு செய்ய முடியாது. செயலியின் மெனுவில் இந்த இணைப்பை உங்கள் உலாவியில் திறக்கவும்.',
+
+  'wait.elapsed': 'கடந்த நேரம் {time}',
+  'wait.slow': 'இன்னும் வேலை நடக்கிறது. Gemini பரபரப்பாக உள்ளது; இதற்கு 2 நிமிடங்கள் வரை ஆகலாம். இந்தப் பக்கத்தைத் திறந்தே வைத்திருங்கள்.',
+
+  // v0.5.1: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'facts.decided': 'அறிவுறுத்தலிலிருந்து தீர்மானம் வரை: {time}',
+  'facts.soFar': 'இதுவரை: {time}',
+  'facts.s': '{s}\u00a0வி',
+  'facts.ms': '{m}\u00a0நிமி {s}\u00a0வி',
+  'facts.hm': '{h}\u00a0மணி {m}\u00a0நிமி',
+  'facts.round1': '1\u00a0சுற்று',
+  'facts.rounds': '{n}\u00a0சுற்றுகள்',
+  'facts.reexplained1': '1\u00a0படி மீண்டும் விளக்கப்பட்டது',
+  'facts.reexplained': '{n}\u00a0படிகள் மீண்டும் விளக்கப்பட்டன',
+  'facts.problem1': '1\u00a0பிரச்சனை தெரிவிக்கப்பட்டது',
+  'facts.problems': '{n}\u00a0பிரச்சனைகள் தெரிவிக்கப்பட்டன',
+
+  // v0.5.2: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'permit.chip': '{ref} · தொழிலாளர் {slot} / {crew}',
+  'permit.held': 'நிறுத்தி வைக்கப்பட்டது',
+  'permit.released': 'விடுவிக்கப்பட்டது',
+  'permit.delivered': 'அனுமதி அமைப்புக்கு அனுப்பப்பட்டது',
+  'permit.retrying': 'இன்னும் சேரவில்லை: மீண்டும் அனுப்புகிறது',
+  'permit.notDelivered': 'அனுமதி அமைப்புக்குச் சேரவில்லை. அனுமதி அலுவலகத்திடம் சொல்லுங்கள்.',
+
+  'demo.watch': 'டெமோ வீடியோ',
+  'demo.limitTitle': 'இன்றைய நேரடி டெமோ வரம்பு முடிந்தது',
+  'demo.limitBody': 'இது 00:00 UTC-க்கு மீண்டும் தொடங்கும்: சிங்கப்பூரில் 8:00, சென்னையில் 5:30.',
+  'demo.limitVideo': 'அதுவரை பதிவுசெய்த டெமோவைப் பார்க்கலாம்.',
 
   'notFound.title': 'பக்கம் கிடைக்கவில்லை',
   'notFound.body': 'இந்தப் பக்கம் இல்லை. தொடக்கத்துக்குத் திரும்புங்கள்.',
@@ -68,7 +111,7 @@ export const core = {
   'status.judged': 'தீர்மானம் நிலுவையில்',
   'status.decided': 'தீர்மானிக்கப்பட்டது',
 
-  'verdict.covered': 'புரிந்தது',
+  'verdict.covered': 'சொல்லப்பட்டது',
   'verdict.missed': 'விடுபட்டது',
   'verdict.contradicted': 'தவறு',
   'verdict.unclear': 'மீண்டும் கேளுங்கள்',
@@ -81,4 +124,7 @@ export const core = {
   'flag.not_asked': 'கேட்கப்படவில்லை',
   'flag.low_audio': 'ஒலி குறைவு',
   'flag.partly_unclear': 'ஓரளவு தெளிவில்லை',
+  'flag.delivery_mismatch': 'குரல் ஸ்கிரிப்டை விட்டு விலகியது',
+  // v0.5.1: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'flag.model_refused': 'செயலாக்க முடியவில்லை',
 }

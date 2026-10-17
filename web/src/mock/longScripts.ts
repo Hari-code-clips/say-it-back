@@ -6,8 +6,11 @@ import type { Lang } from '../api/types.ts'
 //
 // Opt in with `localStorage.setItem('sib.mock.longScript', '6')` or `'21'` (the number of sentences in the
 // instruction read-out), then run the flow. The worker's spoken answer also becomes a long one, and the mock's speech
-// lasts as long as real speech does (spokenSeconds in ./audio.ts), so a caption can be compared with the voice. Tamil is
-// the text the real model read out in that integration run; Chinese and English say the same thing.
+// lasts as long as real speech does (spokenSeconds in ./audio.ts), so a caption can be compared with the voice. Tamil was
+// the text the real model read out in that integration run; Chinese and English say the same thing. On 16 Oct the Tamil
+// instruction lines were reworded to the word a worker on site says (the prompt's rule, PROMPT_VERSION .12, build-notes/27:
+// no English term spelled letter for letter, and no English word left in Latin script). DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+// The worker's `answer` is not changed: workers do say those words, and the judge accepts them.
 
 const FLAG = 'sib.mock.longScript'
 
@@ -25,21 +28,21 @@ interface Text {
 const TEXT: Record<LongLang, Text> = {
   ta: {
     six: [
-      'Upstream breaker-ஐ சுவிட்ச் ஆஃப் செய்து ஐசோலேட் செய்யவும்.',
-      'மின்சாரம் தாக்காமல் இருக்க பவர்-ஐ ஆஃப் செய்யவும்.',
-      'உங்கள் பர்சனல் lock-ஐ breaker-ல் மாட்டவும்.',
+      'மேலே உள்ள பிரேக்கரை ஆஃப் செய்து, கரண்ட் வராதபடி துண்டிக்கவும்.',
+      'மின்சாரம் தாக்காமல் இருக்க கரண்டை ஆஃப் செய்யவும்.',
+      'உங்கள் சொந்தப் பூட்டை பிரேக்கரில் மாட்டவும்.',
       'சாவி உங்களிடமே இருக்கட்டும், யாரும் ஆன் செய்யக்கூடாது.',
-      'அப்ரூவ்டு voltage tester-ஐ பயன்படுத்தி மின்சாரம் இல்லையென உறுதி செய்யவும்.',
-      'டெஸ்ட் செய்த பிறகு பேனல் டெட் என்று தெரிந்தால் மட்டும் கவர்-ஐ திறக்கவும்.',
+      'அனுமதி பெற்ற டெஸ்டரால் கரண்ட் இல்லை என்பதை உறுதி செய்யவும்.',
+      'டெஸ்ட் செய்த பிறகு பேனலில் கரண்ட் இல்லை என்று தெரிந்தால் மட்டும் மூடியைத் திறக்கவும்.',
     ],
     seven: [
-      'வேலை தொடங்கும் முன் upstream breaker-ஐ ஆஃப் செய்து isolate செய்யுங்கள்.',
-      'isolate செய்யாமல் வேலையைத் தொடங்காதீர்கள்.',
-      'isolate செய்தவுடன் உங்கள் சொந்த lock-ஐ breaker-இல் மாட்டுங்கள்.',
-      'lock-இன் சாவியை எப்போதும் உங்களிடமே வைத்திருங்கள்.',
-      'முன்பும் பின்பும் tester-ஐ தெரிந்த லைவ் சோர்ஸில் சரிபாருங்கள்.',
-      'panel மூடியைத் திறக்கும் முன் கரண்ட் இல்லை என்பதை டெஸ்ட் செய்யுங்கள்.',
-      'டெஸ்ட் செய்யாமல் panel மூடியை ஒருபோதும் திறக்காதீர்கள்.',
+      'வேலை தொடங்கும் முன் மேலே உள்ள பிரேக்கரை ஆஃப் செய்து, கரண்ட் வராதபடி துண்டியுங்கள்.',
+      'கரண்டைத் துண்டிக்காமல் வேலையைத் தொடங்காதீர்கள்.',
+      'கரண்டைத் துண்டித்தவுடன் உங்கள் சொந்தப் பூட்டை பிரேக்கரில் மாட்டுங்கள்.',
+      'பூட்டின் சாவியை எப்போதும் உங்களிடமே வைத்திருங்கள்.',
+      'முன்பும் பின்பும், கரண்ட் இருப்பது தெரிந்த இடத்தில் டெஸ்டரைச் சரிபாருங்கள்.',
+      'பேனல் மூடியைத் திறக்கும் முன் கரண்ட் இல்லை என்பதை டெஸ்ட் செய்யுங்கள்.',
+      'டெஸ்ட் செய்யாமல் பேனல் மூடியை ஒருபோதும் திறக்காதீர்கள்.',
     ],
     answer:
       'முதல்ல நான் upstream breaker-ஐ ஆஃப் பண்ணுவேன். அப்புறம் என்னோட lock-ஐ breaker-ல மாட்டுவேன். சாவியை என் பாக்கெட்டுலயே வச்சுக்குவேன். அதுக்கப்புறம் tester வச்சு கரண்ட் இல்லன்னு செக் பண்ணுவேன். கரண்ட் இல்லன்னு தெரிஞ்சப்புறம்தான் panel கவரை திறப்பேன்.',

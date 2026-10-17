@@ -34,10 +34,13 @@ export const core = {
   'error.live_not_recorded': '服务器没有保存这次语音会话，因此无法核对这些回答。',
   'error.device_required': '服务器无法识别这是哪个浏览器。请刷新页面后重试。',
   'error.tts_text_not_in_script': '语音只能朗读这一轮的话术，而这一句不在其中。请重新加载这次交底后重试。',
+  'error.script_not_approved': '在你确认话术之前，不会对工人说任何内容。请回到话术页，在那里确认。', // 16 Oct handover (F1): approving and handing over are two screens now. DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'error.hazard_open': '“开工”已锁定：工人报告的一个问题还没有处理记录。请先写下你采取了什么措施。',
+  'error.note_required': '请至少写 5 个字，说明你做了什么。',
+  'error.too_many_hazards': '这次交底的问题报告已达到上限。请当面和工人沟通。',
+  'error.no_demo_answer': '此服务器上没有示例回答。',
 
-  'flow.context': '任务、SOP 和语言',
   'flow.leave': '离开本次交底。可以在“记录”中继续。',
-  'flow.step': '第 {n} 步，共 {total} 步',
   'flow.notFound': '找不到这次交底',
   'flow.notFoundHint': '它可能已被删除，或是在另一个浏览器中创建的。打开“记录”查看在此浏览器中进行的交底。',
   'flow.unexpected': '这次交底处于意外状态',
@@ -52,11 +55,51 @@ export const core = {
   'phase.reexplain': '再次讲解',
   'phase.decision': '决定',
   'phase.record': '记录',
+  // Named phases of the flow header (web/design.md). New in the UI-system pass; ta and zh are drafts pending native review.
+  'phasebar.label': '进度',
+  'phasebar.steps': '步骤',
+  'phasebar.script': '话术',
+  'phasebar.worker': '工人',
+  'phasebar.result': '结果',
+  'phasebar.decision': '决定',
 
   'mic.denied': '麦克风权限被拒绝。请在浏览器设置中允许本网站使用麦克风，然后重试。',
   'mic.no_device': '此设备上找不到麦克风。',
   'mic.unsupported': '此浏览器无法采集麦克风音频。请使用 Chrome、Edge、Safari 或 Firefox。',
   'mic.failed': '麦克风无法启动，请重试。',
+
+  // v0.5: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'browser.micTitle': '要使用麦克风，请在 Chrome 或 Safari 中打开此页面。',
+  'browser.micBody': 'LinkedIn、WhatsApp、微信、Instagram 等应用内置的浏览器常常无法录音。请在应用菜单中选择用浏览器打开此链接。',
+
+  'wait.elapsed': '已用时 {time}',
+  'wait.slow': '仍在处理。Gemini 正忙，最多可能需要 2 分钟。请保持此页面打开。',
+
+  // v0.5.1: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'facts.decided': '从指令到决定：{time}',
+  'facts.soFar': '交底至今：{time}',
+  'facts.s': '{s}\u00a0秒',
+  'facts.ms': '{m}\u00a0分 {s}\u00a0秒',
+  'facts.hm': '{h}\u00a0小时 {m}\u00a0分',
+  'facts.round1': '1\u00a0轮',
+  'facts.rounds': '{n}\u00a0轮',
+  'facts.reexplained1': '再次讲解 1\u00a0个步骤',
+  'facts.reexplained': '再次讲解 {n}\u00a0个步骤',
+  'facts.problem1': '报告 1\u00a0个问题',
+  'facts.problems': '报告 {n}\u00a0个问题',
+
+  // v0.5.2: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'permit.chip': '{ref} · 第 {slot} 名工人，共 {crew} 名',
+  'permit.held': '暂缓',
+  'permit.released': '已放行',
+  'permit.delivered': '已发送到作业许可系统',
+  'permit.retrying': '尚未送达：正在重试',
+  'permit.notDelivered': '未能送达作业许可系统。请告知许可办公室。',
+
+  'demo.watch': '观看演示视频',
+  'demo.limitTitle': '今天的在线演示次数已用完',
+  'demo.limitBody': '额度在 UTC 00:00 重置：新加坡 8:00，金奈 5:30。',
+  'demo.limitVideo': '在此之前，可以先观看录制的演示。',
 
   'notFound.title': '找不到页面',
   'notFound.body': '此页面不存在。请回到开始页。',
@@ -81,4 +124,7 @@ export const core = {
   'flag.not_asked': '未提问',
   'flag.low_audio': '音量过低',
   'flag.partly_unclear': '部分听不清',
+  'flag.delivery_mismatch': '语音偏离了脚本',
+  // v0.5.1: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+  'flag.model_refused': '无法处理',
 }

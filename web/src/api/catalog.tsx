@@ -1,6 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import { useAsync, type AsyncState } from '../lib/useAsync.ts'
-import type { IconName } from '../theme/iconNames.ts'
 import { api } from './endpoints.ts'
 import type { Catalog, CatalogTask, Lang } from './types.ts'
 
@@ -25,18 +24,8 @@ export function pickText(value: string | Partial<Record<Lang, string>> | undefin
   return value[lang] ?? value.en ?? Object.values(value)[0] ?? ''
 }
 
-const TASK_ICONS: Record<string, IconName> = {
-  electric: 'bolt',
-  height: 'stairs',
-  fire: 'local_fire_department',
-  crane: 'precision_manufacturing',
-  trench: 'plumbing',
-}
-
-/** Catalog icon id -> Material Symbol. */
-export const taskIcon = (id: string | undefined): IconName => (id ? TASK_ICONS[id] : undefined) ?? 'construction'
-
-export const CUSTOM_TASK_ID = 'custom'
+export { CUSTOM_TASK_ID } from './customTask.ts'
+export { taskIcon } from './taskIcons.ts'
 
 export function findTask(catalog: Catalog | undefined, id: string): CatalogTask | undefined {
   return catalog?.tasks.find((t) => t.id === id)

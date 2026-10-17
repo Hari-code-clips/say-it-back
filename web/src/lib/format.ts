@@ -14,3 +14,10 @@ export function formatDate(iso: string, lang: string): string {
   if (Number.isNaN(date.getTime())) return iso
   return new Intl.DateTimeFormat(localeOf(lang), { dateStyle: 'medium' }).format(date)
 }
+
+/** e.g. "1:22:05 pm": a compact time for a list of events on one day. */
+export function formatTime(iso: string, lang: string): string {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return iso
+  return new Intl.DateTimeFormat(localeOf(lang), { timeStyle: 'medium' }).format(date)
+}

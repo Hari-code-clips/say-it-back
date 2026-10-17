@@ -28,6 +28,8 @@ export function EvalScreen() {
   const langs = useMemo(() => [...new Set((all ?? []).map((i) => i.workerLang))], [all])
   const filtered = useMemo(() => (all ?? []).filter((i) => lang === 'all' || i.workerLang === lang), [all, lang])
   const noReport = report.error?.code === 'no_report' || report.error?.status === 404
+  // A deployment without the test set answers 404 here: that is "no items", not a failure to show.
+  const noItems = items.error?.status === 404 || (all !== undefined && all.length === 0)
 
   return (
     <AppShell>
@@ -46,7 +48,7 @@ export function EvalScreen() {
             <Skeleton className="h-32" />
           </div>
         )}
-        {report.data && <MetricsPanel report={report.data} />}
+        {report.data && <MetricsPanel report={report.data} illustrative={IS_MOCK} />}
         {noReport && <EmptyState icon="analytics" title={t('eval.noReport')} body={t('eval.noReportHint')} />}
         {report.error && !noReport && <ErrorState title={t('error.load')} message={apiErrorText(t, report.error)} retryLabel={t('action.retry')} onRetry={report.reload} />}
 
@@ -63,9 +65,9 @@ export function EvalScreen() {
             />
           )}
           {items.loading && <Skeleton className="h-48 w-full" />}
-          {items.error && <ErrorState title={t('error.load')} message={apiErrorText(t, items.error)} retryLabel={t('action.retry')} onRetry={items.reload} />}
-          {all && all.length === 0 && <EmptyState icon="analytics" title={t('eval.noItems')} />}
-          <ul className="grid gap-4 lg:grid-cols-2">
+          {items.error && !noItems && <ErrorState title={t('error.load')} message={apiErrorText(t, items.error)} retryLabel={t('action.retry')} onRetry={items.reload} />}
+          {noItems && <EmptyState icon="analytics" title={t('eval.noItems')} body={t('eval.noItemsHint')} />}
+          <ul className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             {filtered.slice(0, shown).map((item) => (
               <EvalItemCard key={item.id} item={item} />
             ))}

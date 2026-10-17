@@ -20,6 +20,15 @@ export const CODE_TEXT: Readonly<Record<string, StringKey>> = {
   // v0.3: the request carried no usable device key (401), or asked the voice for a line the round's script does not hold (422).
   device_required: 'error.device_required',
   tts_text_not_in_script: 'error.tts_text_not_in_script',
+  // v0.4: the round's script was never confirmed (409); Go with a reported problem still open (409); an acknowledgement
+  // with too short a note (422); the briefing holds the most problem reports it can (422); no stored sample answer (404).
+  script_not_approved: 'error.script_not_approved',
+  hazard_open: 'error.hazard_open',
+  note_required: 'error.note_required',
+  too_many_hazards: 'error.too_many_hazards',
+  no_demo_answer: 'error.no_demo_answer',
+  // 2026-10-16 signal: a retried upload's first try is still being checked on the server (409, Idempotency-Key).
+  check_in_progress: 'signal.checkInProgress',
 }
 
 /** The i18n key for a backend error code, or undefined when the code has no localised sentence. */

@@ -6,8 +6,9 @@ import { StatusChip } from '../../ui/Chip.tsx'
 import { Icon } from '../../ui/Icon.tsx'
 import { VerdictChip } from '../../ui/VerdictChip.tsx'
 
-// The product in three cards, using the Singapore demo moment from the concept brief.
-// Illustrative only (static text): it is labelled as an example.
+// The product in three cards, using the Singapore lead demo: the crane lifting zone, English to Tamil. The worker's words are the
+// catalog's round-1 scripted answer (demoScripts `sg-lead`): the right words for the wrong action. Illustrative only (static
+// text): it is labelled as an example.
 
 function Beat({ n, icon, title, children }: { n: number; icon: IconName; title: string; children: ReactNode }) {
   return (
@@ -48,17 +49,19 @@ export function Storyboard() {
         </Beat>
         <Beat n={3} icon="fact_check" title={t('landing.s3.label')}>
           <ul className="space-y-2">
-            <li className="flex flex-wrap items-center gap-2">
-              <VerdictChip verdict="covered" />
-              <span className="text-body-lg">{t('landing.s3.got')}</span>
+            <li className="flex flex-col items-start gap-1">
+              <VerdictChip verdict="contradicted" />
+              <span className="min-w-0 text-body-lg">{t('landing.s3.wrong')}</span>
             </li>
-            <li className="flex flex-wrap items-center gap-2">
+            <li className="flex flex-col items-start gap-1">
               <VerdictChip verdict="missed" />
-              <span className="text-body-lg">{t('landing.s3.miss1')}</span>
+              <span className="min-w-0 text-body-lg">{t('landing.s3.miss')}</span>
             </li>
-            <li className="flex flex-wrap items-center gap-2">
-              <VerdictChip verdict="missed" />
-              <span className="text-body-lg">{t('landing.s3.miss2')}</span>
+            <li className="flex flex-col items-start gap-1">
+              <StatusChip tone="warning" icon="description">
+                {t('steps.sopOnly')}
+              </StatusChip>
+              <span className="min-w-0 text-body-lg">{t('landing.s3.sop')}</span>
             </li>
           </ul>
           <p className="flex flex-wrap items-center gap-2 border-t border-outline-variant pt-3 text-body-lg">

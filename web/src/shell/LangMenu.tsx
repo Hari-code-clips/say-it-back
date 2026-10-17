@@ -18,7 +18,7 @@ export function LangMenu() {
         type="button"
         popoverTarget="ui-lang-menu"
         aria-label={`${t('nav.language')}: ${NATIVE[lang]}`}
-        className="state-layer inline-flex min-h-12 items-center gap-2 rounded-full px-3 text-label-lg text-on-surface-variant"
+        className="state-layer inline-flex min-h-12 items-center gap-2 rounded-md px-3 text-label-lg text-on-surface"
       >
         <Icon name="translate" />
         <span lang={TAGS[lang]} className="hidden sm:inline">
@@ -31,7 +31,7 @@ export function LangMenu() {
         popover="auto"
         role="menu"
         aria-label={t('nav.language')}
-        className="fixed inset-auto right-4 top-16 m-0 w-48 rounded-md bg-surface-container p-2 text-on-surface shadow-elev-2 sm:right-6"
+        className="fixed inset-auto right-4 top-16 m-0 w-48 rounded-xl border border-outline-variant bg-surface-container-lowest p-2 text-on-surface shadow-elev-2 sm:right-6"
       >
         {UI_LANGS.map((code) => (
           <button
@@ -45,8 +45,8 @@ export function LangMenu() {
               menu.current?.hidePopover()
             }}
             className={cx(
-              'state-layer flex min-h-12 w-full items-center gap-3 rounded-sm px-3 text-left text-body-lg',
-              lang === code && 'bg-secondary-container text-on-secondary-container',
+              'state-layer flex min-h-12 w-full items-center gap-3 rounded-md px-3 text-left text-body-lg',
+              lang === code && 'bg-secondary-container font-semibold',
             )}
           >
             <Icon name="check" className={cx('text-[1.125rem]', lang !== code && 'invisible')} />

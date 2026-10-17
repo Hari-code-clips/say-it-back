@@ -1,3 +1,4 @@
+import { Link } from 'wouter'
 import { api } from '../api/endpoints.ts'
 import { useT, type StringKey } from '../i18n/index.tsx'
 import { useAsync } from '../lib/useAsync.ts'
@@ -22,6 +23,8 @@ const GUARDRAILS: readonly Guardrail[] = [
   { icon: 'record_voice_over', title: 'about.g4.title', body: 'about.g4.body' },
   { icon: 'visibility_off', title: 'about.g5.title', body: 'about.g5.body' },
   { icon: 'security', title: 'about.g6.title', body: 'about.g6.body' },
+  { icon: 'report', title: 'about.g7.title', body: 'about.g7.body' },
+  { icon: 'verified', title: 'about.g8.title', body: 'about.g8.body' },
 ]
 
 function Deployment() {
@@ -31,6 +34,7 @@ function Deployment() {
   if (error || !data) return <p className="text-body-md text-on-surface-variant">{t('about.deploy.unavailable')}</p>
   const rows: [string, string][] = [
     ['Flash', `${data.models.flash} (${data.backends.flash})`],
+    ...(data.models.judgeB ? ([[t('about.deploy.judgeB'), `${data.models.judgeB} (${data.backends.flash})`]] as [string, string][]) : []),
     ['Live', `${data.models.live} (${data.backends.live})`],
     ['TTS', `${data.models.tts} (${data.backends.tts})`],
     [t('about.deploy.store'), data.store],
@@ -38,7 +42,7 @@ function Deployment() {
     [t('about.deploy.prompt'), data.promptVersion],
   ]
   return (
-    <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+    <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
       {rows.map(([k, v]) => (
         <div key={k} className="space-y-0.5">
           <dt className="text-label-lg text-on-surface-variant">{k}</dt>
@@ -49,6 +53,13 @@ function Deployment() {
   )
 }
 
+const FUTURE_OF_WORK: { icon: IconName; text: StringKey }[] = [
+  { icon: 'translate', text: 'about.fow.sop' },
+  { icon: 'fact_check', text: 'about.fow.evidence' },
+  { icon: 'gavel', text: 'about.fow.human' },
+  { icon: 'receipt_long', text: 'about.fow.permit' },
+]
+
 export function AboutScreen() {
   const t = useT()
   return (
@@ -56,24 +67,43 @@ export function AboutScreen() {
       <div className="mx-auto max-w-5xl space-y-12">
         <PageHeading title={t('about.title')} subtitle={t('about.subtitle')} />
 
+        {/* v0.5.1: the work this changes, in four plain claims, each one something the app does (no figures). */}
+        <Section title={t('about.fow')} id="about-fow">
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+            {FUTURE_OF_WORK.map((f) => (
+              <li key={f.text} className="flex gap-3">
+                <Icon name={f.icon} className="mt-0.5 text-primary" />
+                <p className="min-w-0 break-words text-body-lg text-on-surface">{t(f.text)}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
         <Section title={t('about.guardrails')} hint={t('about.guardrailsHint')} id="about-guardrails">
-          <ul className="grid gap-4 md:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {GUARDRAILS.map((g) => (
               <Card as="li" key={g.title} className="flex gap-4 p-5">
                 <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary-container text-on-primary-container">
                   <Icon name={g.icon} />
                 </span>
-                <div className="min-w-0 space-y-1">
+                <div className="min-w-0 space-y-1 break-words">
                   <h3 className="text-title-md">{t(g.title)}</h3>
                   <p className="text-body-lg text-on-surface-variant">{t(g.body)}</p>
                 </div>
               </Card>
             ))}
           </ul>
+          {/* Privacy, 16 Oct: the page that says what is collected, kept and deleted, and the worker's consent. */}
+          <p className="max-w-[65ch] text-body-lg text-on-surface">
+            {t('privacy.aboutLine')}{' '}
+            <Link href="/privacy" className="font-semibold text-primary underline underline-offset-4">
+              {t('privacy.link')}
+            </Link>
+          </p>
         </Section>
 
         <Section title={t('about.google')} hint={t('about.googleHint')} id="about-google">
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {GOOGLE_PRODUCTS.map((p) => (
               <Card as="li" key={p.name} variant="filled" className="space-y-2 p-4">
                 <div className="flex items-start gap-3">

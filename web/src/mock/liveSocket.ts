@@ -1,9 +1,13 @@
 import type { Briefing, Round } from '../api/types.ts'
 import type { LiveSocket, SocketFactory } from '../live/socket.ts'
 import { seedOf, speechPcm, spokenSeconds } from './audio.ts'
+import { demoFor, replyFor } from './demos.ts'
+import { demoAnswer } from './judge.ts'
 import { longAnswer } from './longScripts.ts'
-import { LEAD, LEAD_ROUND1_ANSWERS, NEUTRAL_THANKS, isLeadDemo } from './script.ts'
+import { NEUTRAL_THANKS } from './script.ts'
 import { getBriefing } from './store.ts'
+
+export { MOCK_BUNDLE_SENTINEL } from './sentinel.ts'
 
 // A mock of the Live relay (endpoint 20) that speaks the real protocol: ready, cue -> audio +
 // captions + turn_complete, answer windows with mic bytes, neutral thanks, stop. The audio is
@@ -131,7 +135,9 @@ export class MockLiveSocket implements LiveSocket {
     this.windowQid = null
     // Like the real relay: what Live heard is sent once, as a final caption, after the window closes.
     if (heard) this.text({ type: 'caption', role: 'worker', text: heard, final: true })
-    this.speak(NEUTRAL_THANKS[this.briefing?.workerLang ?? 'en'] ?? 'Thank you.')
+    // The lifting demo's round 1: after q2 the voice says more than a thank-you (the delivery check flags it, guard rule 8).
+    const off = this.briefing && this.round ? replyFor(demoFor(this.briefing), this.round.n, qid) : undefined
+    this.speak(off ?? NEUTRAL_THANKS[this.briefing?.workerLang ?? 'en'] ?? 'Thank you.')
   }
 
   private answerFor(qid: string): string {
@@ -139,12 +145,8 @@ export class MockLiveSocket implements LiveSocket {
     const q = this.round?.script.questions.find((x) => x.id === qid)
     const long = b && longAnswer(b.workerLang) // QA flag: a worker who talks for 20 seconds
     if (long) return long
-    if (b && isLeadDemo(b) && this.round && q) {
-      const first = this.round.n === 1 ? LEAD_ROUND1_ANSWERS[qid] : undefined
-      if (first) return first.original
-      const step = q.stepIds[0] ? LEAD[q.stepIds[0]] : undefined
-      if (step) return step.answer
-    }
+    const demo = b && demoFor(b)
+    if (demo && this.round && q) return demoAnswer(demo, this.round, q).original || '(mock answer)'
     return '(mock answer)'
   }
 

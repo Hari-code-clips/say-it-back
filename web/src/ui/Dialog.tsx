@@ -1,3 +1,8 @@
+/* Hallmark · component: dialog · genre: modern-minimal · theme: design.md
+ * Native <dialog>: focus trap, Esc, inert page and backdrop come from the browser. 16 px corners, a hairline and the one shadow that
+ * floats. Opens with a 200 ms opacity + 6 px rise (index.css). Actions: full-width buttons stacked on a phone (the last, the
+ * primary, at the bottom), one row from 600 px.
+ */
 import { useEffect, useId, useRef, type ReactNode } from 'react'
 
 interface DialogProps {
@@ -5,11 +10,10 @@ interface DialogProps {
   onClose: () => void
   title: string
   children?: ReactNode
-  /** Buttons, right-aligned. */
+  /** Buttons, in reading order: the quieter ones first, the primary last. */
   actions: ReactNode
 }
 
-/** M3 basic dialog on the native <dialog>: focus trap, Esc to close and an inert page come from the browser. */
 export function Dialog({ open, onClose, title, children, actions }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
@@ -26,13 +30,13 @@ export function Dialog({ open, onClose, title, children, actions }: DialogProps)
       ref={ref}
       aria-labelledby={titleId}
       onClose={onClose}
-      className="m-auto w-[min(28rem,calc(100vw-2rem))] rounded-xl bg-surface-container-high p-6 text-on-surface shadow-elev-3 backdrop:bg-scrim/32"
+      className="m-auto w-[min(28rem,calc(100vw-2rem))] rounded-xl border border-outline-variant bg-surface-container-lowest p-6 text-on-surface shadow-elev-3 backdrop:bg-scrim/40"
     >
       <h2 id={titleId} className="text-headline-sm">
         {title}
       </h2>
-      {children && <div className="mt-4 text-body-lg text-on-surface-variant">{children}</div>}
-      <div className="mt-6 flex flex-wrap justify-end gap-2">{actions}</div>
+      {children && <div className="mt-3 text-body-lg text-on-surface-variant">{children}</div>}
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">{actions}</div>
     </dialog>
   )
 }

@@ -19,6 +19,8 @@ export interface FailurePlan {
   offerRetry: boolean
   /** Retry is the quieter button because turn-by-turn leads. */
   retryQuiet: boolean
+  /** v0.4: the round's script is not confirmed (409 `script_not_approved`): only the script screen can help. */
+  backToScript: boolean
 }
 
 /**
@@ -27,14 +29,16 @@ export interface FailurePlan {
  *   the same budget, and no retry of a session, because it cannot work today. Nothing retries by itself either.
  * - `limit` (both voice tickets for the round are used): trying Live again cannot work, but turn-by-turn needs no ticket.
  * - `live_not_recorded` (the relay never saved the session): the delivery cannot be verified, so turn-by-turn re-reads the script.
+ * - `script_not_approved` (v0.4): the script was never confirmed, so nothing may be spoken: back to the script screen.
  */
 export function failurePlan({ kind, mode, code, micProblem }: FailureInput): FailurePlan {
+  if (code === 'script_not_approved') return { offerTurn: false, hint: null, offerRetry: false, retryQuiet: false, backToScript: true }
   if (kind === 'submit_failed') {
     // The answers are recorded on this device, so Retry (the check call again) always stays.
     const notRecorded = code === 'live_not_recorded'
-    return { offerTurn: notRecorded, hint: notRecorded ? 'not_recorded' : null, offerRetry: true, retryQuiet: notRecorded }
+    return { offerTurn: notRecorded, hint: notRecorded ? 'not_recorded' : null, offerRetry: true, retryQuiet: notRecorded, backToScript: false }
   }
   const dailyLimit = code === 'daily_limit'
   const offerTurn = mode === 'live' && !micProblem && !dailyLimit
-  return { offerTurn, hint: offerTurn ? 'turn' : null, offerRetry: code !== 'limit' && !dailyLimit, retryQuiet: offerTurn }
+  return { offerTurn, hint: offerTurn ? 'turn' : null, offerRetry: code !== 'limit' && !dailyLimit, retryQuiet: offerTurn, backToScript: false }
 }

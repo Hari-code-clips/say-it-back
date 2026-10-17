@@ -1,0 +1,9 @@
+{
+  "scanned": "2026-10-16",
+  "framework": "React 19 + Vite 8 + wouter, Tailwind v4 (@theme in src/styles/index.css)",
+  "fonts": "Noto Sans + Noto Sans Tamil/Bengali/Devanagari/Oriya/Myanmar/SC (Google Fonts via vite.config.ts), Material Symbols Outlined (icon subset from src/theme/iconNames.ts)",
+  "palette": "OKLCH tokens in @theme (see design.md); the runtime Material scheme generator is gone",
+  "motion": "no animation library; CSS only, 200 ms at most, prefers-reduced-motion respected",
+  "spacing": "Tailwind default 4 px scale",
+  "design_md": "web/design.md (locked)"
+}

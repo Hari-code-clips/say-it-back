@@ -1,0 +1,21 @@
+[
+  {
+    "date": "2026-10-16",
+    "scope": "app",
+    "macrostructure": "Workbench (script check, supervisor handover) + one-function worker screens",
+    "theme": "design.md (locked)",
+    "theme_axes": "light / geometric-sans / neutral",
+    "enrichment": "none",
+    "brief": "Say It Back web · F1 approve then hand over, F2 worker-only screens, F3 hand-back gate (ScriptScreen, screens/brief/*)"
+  },
+  {
+    "date": "2026-10-16",
+    "scope": "app",
+    "macrostructure": "Workbench (app screens) + Long Document (About, Eval, Sample)",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / neutral",
+    "vibe": "warm paper, near-black ink, chroma only for verdicts",
+    "enrichment": "none",
+    "brief": "Say It Back web · UI system pass (tokens, shared components, flow chrome); design.md locked; screens follow in later passes"
+  }
+]

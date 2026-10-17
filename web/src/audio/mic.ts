@@ -1,4 +1,5 @@
 import { rms } from './endpoint.ts'
+import { SinkRouter, type ChunkSink, type ChunkSource } from './source.ts'
 import { MIC_RATE } from './wav.ts'
 
 export type MicErrorCode = 'denied' | 'no_device' | 'unsupported' | 'failed'
@@ -12,7 +13,7 @@ export class MicError extends Error {
   }
 }
 
-export type ChunkSink = (chunk: Int16Array) => void
+export type { ChunkSink } from './source.ts'
 
 const WORKLET_URL = `${import.meta.env.BASE_URL}pcm-capture.js`
 
@@ -28,15 +29,27 @@ function toMicError(e: unknown): MicError {
  * It runs from open() to close(); chunks only reach a consumer through setSink(), which is how
  * the Live driver guarantees that audio leaves the device only inside an answer window.
  * open() must be called from a user gesture (the AudioContext is created before the permission prompt).
+ *
+ * `side` is a second consumer for the worker's problem report (endpoint 21), recorded while the briefing goes on. It gets
+ * chunks only while no answer window holds the main sink, so a report never takes in an answer and an answer never
+ * loses a chunk to a report.
  */
-export class Mic {
+export class Mic implements ChunkSource {
   readonly ctx: AudioContext
   private readonly stream: MediaStream
   private readonly source: MediaStreamAudioSourceNode
   private readonly node: AudioWorkletNode
-  private sink: ChunkSink | null = null
+  private readonly router = new SinkRouter()
   private smoothed = 0
   private closed = false
+
+  /** The problem-report consumer: fed only while the main sink is free (see the class comment). */
+  readonly side: ChunkSource = ((mic: Mic) => ({
+    setSink: (sink: ChunkSink | null) => mic.router.setSide(sink),
+    get level() {
+      return mic.level
+    },
+  }))(this)
 
   private constructor(ctx: AudioContext, stream: MediaStream, source: MediaStreamAudioSourceNode, node: AudioWorkletNode) {
     this.ctx = ctx
@@ -46,7 +59,7 @@ export class Mic {
     node.port.onmessage = (e: MessageEvent<ArrayBuffer>) => {
       const chunk = new Int16Array(e.data)
       this.smoothed = Math.max(rms(chunk), this.smoothed * 0.88)
-      this.sink?.(chunk)
+      this.router.push(chunk)
     }
   }
 
@@ -82,7 +95,7 @@ export class Mic {
 
   /** Route chunks to one consumer (or null to drop them). */
   setSink(sink: ChunkSink | null): void {
-    this.sink = sink
+    this.router.setMain(sink)
   }
 
   /** Smoothed input level, 0..1, for the listening orb. */
@@ -93,7 +106,7 @@ export class Mic {
   async close(): Promise<void> {
     if (this.closed) return
     this.closed = true
-    this.sink = null
+    this.router.clear()
     this.node.port.onmessage = null
     this.source.disconnect()
     this.node.disconnect()

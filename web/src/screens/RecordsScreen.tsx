@@ -1,3 +1,9 @@
+/* Hallmark · screen: records · genre: modern-minimal · macrostructure: Workbench (one hairline list) · theme: design.md
+ * One card of hairline-divided rows, each row a whole-row link to the briefing at its current phase: task, the facts in one line, and the
+ * decision as a chip (Go: ink, No-go: neutral outline) or the phase it is still in; the chip sits under the text until 840 px so the text
+ * keeps its width. No icon discs, no pills.
+ * states: loading (skeleton) · empty (what belongs here and the way in) · error (retry) · default · hover/focus/active (state layer, ring)
+ */
 import { useRef, type MouseEvent } from 'react'
 import { Link } from 'wouter'
 import { findTask, langNative, pickText, taskIcon, useCatalog } from '../api/catalog.tsx'
@@ -6,12 +12,15 @@ import type { BriefingSummary, Status } from '../api/types.ts'
 import { siteName, taskTitle } from '../i18n/catalogText.ts'
 import { useT, useUiLang, type StringKey } from '../i18n/index.tsx'
 import { apiErrorText } from '../lib/apiError.ts'
+import { formatDuration, secondsToDecision } from '../lib/briefingFacts.ts'
+import { permitLabel } from '../lib/permit.ts'
 import { downloadBlob } from '../lib/download.ts'
 import { formatDateTime } from '../lib/format.ts'
 import { useAsync } from '../lib/useAsync.ts'
 import { AppShell } from '../shell/AppShell.tsx'
 import { AnchorButton, LinkButton } from '../ui/Button.tsx'
 import { StatusChip } from '../ui/Chip.tsx'
+import { Card, RowList } from '../ui/Card.tsx'
 import { EmptyState, ErrorState, Skeleton } from '../ui/Feedback.tsx'
 import { useFeedback } from '../ui/FeedbackProvider.tsx'
 import { Icon } from '../ui/Icon.tsx'
@@ -34,28 +43,27 @@ function RecordRow({ item }: { item: BriefingSummary }) {
   const task = findTask(catalog, item.taskId)
   const title = (task && taskTitle(task, item.supervisorLang)) || pickText(item.taskTitle, item.supervisorLang) || item.taskId
   const site = catalog?.sites.find((s) => s.id === item.siteId)
-  const status = item.decision ? <DecisionChip decision={item.decision} /> : <StatusChip tone="warning">{t(STATUS_LABEL[item.status])}</StatusChip>
+  const status = item.decision ? <DecisionChip decision={item.decision} /> : <StatusChip>{t(STATUS_LABEL[item.status])}</StatusChip>
+  // v0.5.1: instruction to decision, from the record's own two timestamps; nothing before a decision.
+  const seconds = secondsToDecision(item.createdAt, item.decision?.at)
   return (
     <li>
-      <Link
-        href={`/b/${item.id}`}
-        className="state-layer flex items-start gap-4 rounded-lg border border-outline-variant bg-surface-container-lowest p-4 sm:items-center sm:p-5"
-      >
-        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-secondary-container text-on-secondary-container">
-          <Icon name={taskIcon(task?.icon)} />
-        </span>
+      <Link href={`/b/${item.id}`} className="state-layer flex items-start gap-4 px-4 py-4 focus-visible:-outline-offset-[3px] sm:px-5 md:items-center">
+        <Icon name={taskIcon(task?.icon)} className="mt-0.5 text-[1.5rem] text-on-surface-variant md:mt-0" />
         <span className="min-w-0 flex-1 space-y-1.5">
           <span lang={item.supervisorLang} className="block text-title-md text-on-surface">
             {title}
           </span>
           <span className="block text-body-md text-on-surface-variant">
             {site ? siteName(site, lang) : item.siteId} · {langNative(catalog, item.supervisorLang)} → {langNative(catalog, item.workerLang)} ·{' '}
-            {t('records.rounds', { n: item.rounds })} · {formatDateTime(item.createdAt, lang)}
+            {t('records.rounds', { n: item.rounds })}
+            {seconds !== null && ` · ${formatDuration(seconds, lang)}`} · {formatDateTime(item.createdAt, lang)}
+            {item.permit && ` · ${permitLabel(item.permit, lang)}`}
           </span>
-          <span className="block pt-1 sm:hidden">{status}</span>
+          <span className="block pt-1 md:hidden">{status}</span>
         </span>
-        <span className="hidden sm:inline-flex">{status}</span>
-        <Icon name="arrow_forward" className="hidden text-on-surface-variant sm:inline-block" />
+        <span className="hidden md:inline-flex">{status}</span>
+        <Icon name="arrow_forward" className="hidden text-on-surface-variant md:inline-block" />
       </Link>
     </li>
   )
@@ -87,7 +95,7 @@ export function RecordsScreen() {
       <div className="mx-auto max-w-3xl space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <PageHeading title={t('records.title')} subtitle={t('records.subtitle')} />
-          <AnchorButton href="#export" variant="tonal" icon="download" onClick={(e) => void exportCsv(e)}>
+          <AnchorButton href="#export" variant="outlined" icon="download" onClick={(e) => void exportCsv(e)}>
             {t('records.export')}
           </AnchorButton>
         </div>
@@ -113,11 +121,13 @@ export function RecordsScreen() {
           />
         )}
         {data && data.items.length > 0 && (
-          <ul className="space-y-3">
-            {data.items.map((item) => (
-              <RecordRow key={item.id} item={item} />
-            ))}
-          </ul>
+          <Card>
+            <RowList>
+              {data.items.map((item) => (
+                <RecordRow key={item.id} item={item} />
+              ))}
+            </RowList>
+          </Card>
         )}
         <p className="text-body-md text-on-surface-variant">{t('records.note')}</p>
       </div>

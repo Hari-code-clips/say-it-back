@@ -5,18 +5,20 @@ import { api } from '../api/endpoints.ts'
 import type { CreateBriefingBody, Lang } from '../api/types.ts'
 import { MicError } from '../audio/mic.ts'
 import { useBriefing } from '../flow/BriefingContext.tsx'
-import { INSTRUCTION_MAX, customSopValid, setDraft, useDraft, patchDraft } from '../flow/draft.ts'
+import { INSTRUCTION_MAX, customSopValid, permitDraftValid, setDraft, useDraft, patchDraft } from '../flow/draft.ts'
 import { FlowFrame, type ContextInfo } from '../flow/FlowFrame.tsx'
 import { saveStartBriefing } from '../flow/startBriefing.ts'
 import { useT, type Translate } from '../i18n/index.tsx'
 import { apiErrorText } from '../lib/apiError.ts'
+import { retryFor } from '../lib/dailyLimit.ts'
+import { permitLink } from '../lib/permit.ts'
 import { Button } from '../ui/Button.tsx'
 import { AssistChip } from '../ui/Chip.tsx'
-import { BusyPanel } from '../ui/Feedback.tsx'
 import { useFeedback } from '../ui/FeedbackProvider.tsx'
 import { TextArea } from '../ui/TextField.tsx'
 import { HoldToSpeak } from './instruction/HoldToSpeak.tsx'
 import { useDictation } from './instruction/useDictation.ts'
+import { WaitInView } from './instruction/WaitInView.tsx'
 
 const MIN_LENGTH = 3
 
@@ -65,7 +67,7 @@ function InstructionView({ context, supervisorLang, sample, initial, onChange, s
       await submit(text.trim(), (phase) => setBusy(phase))
     } catch (e) {
       setBusy(null)
-      feedback.snack({ message: errorMessage(t, e), tone: 'error', actionLabel: t('action.retry'), onAction: () => void send() })
+      feedback.snack({ message: errorMessage(t, e), tone: 'error', ...retryFor(e, t('action.retry'), () => void send()) })
     }
   }
 
@@ -78,11 +80,13 @@ function InstructionView({ context, supervisorLang, sample, initial, onChange, s
       context={context}
       leaveTo={leaveTo}
       primary={
-        <Button size="lg" icon="checklist" disabled={!valid} busy={busy !== null} onClick={() => void send()}>
+        <Button size="lg" icon="checklist" disabled={!valid} disabledReason={valid ? undefined : t('instr.need')} busy={busy !== null} onClick={() => void send()}>
           {t('instr.find')}
         </Button>
       }
     >
+      {/* The 15-40 s wait comes first, so it is on screen at 320-414 px, not behind the bar (note 25, "Also"). */}
+      {busy && <WaitInView title={busy === 'save' ? t('instr.saving') : t('instr.extracting')} hint={t('instr.extractingHint')} />}
       <fieldset disabled={busy !== null} className="space-y-6">
         <legend className="sr-only">{t('instr.title')}</legend>
         <TextArea
@@ -104,7 +108,6 @@ function InstructionView({ context, supervisorLang, sample, initial, onChange, s
         </div>
         <p className="max-w-xl text-body-md text-on-surface-variant">{t('instr.holdHint')}</p>
       </fieldset>
-      {busy && <BusyPanel title={busy === 'save' ? t('instr.saving') : t('instr.extracting')} hint={t('instr.extractingHint')} />}
     </FlowFrame>
   )
 }
@@ -118,7 +121,9 @@ export function NewInstructionScreen() {
   // the Retry action of the error message keeps the `submit` of the render it was made in.
   const created = useRef<{ id: string | null }>({ id: null }).current
 
-  if (!draft || !customSopValid(draft)) return <Redirect to="/new" replace />
+  if (!draft || !customSopValid(draft) || !permitDraftValid(draft)) return <Redirect to="/new" replace />
+  // v0.5.2: the permit-to-work this briefing is for, as the contract takes it (permitDraftValid has checked it).
+  const permit = draft.permit ? permitLink(draft.permit) : null
 
   const task = findTask(catalog, draft.taskId)
   const context: ContextInfo = {
@@ -127,6 +132,7 @@ export function NewInstructionScreen() {
     customTitle: draft.customTitle,
     supervisorLang: draft.supervisorLang,
     workerLang: draft.workerLang,
+    permit,
   }
 
   const submit: ViewProps['submit'] = async (instruction, report) => {
@@ -139,6 +145,8 @@ export function NewInstructionScreen() {
           workerLang: draft.workerLang,
           instruction,
           ...(draft.taskId === CUSTOM_TASK_ID ? { sop: { title: draft.customTitle.trim(), text: draft.customSop.trim() } } : {}),
+          ...(permit ? { permit } : {}),
+          ...(draft.sopRef && draft.taskId !== CUSTOM_TASK_ID ? { sopRef: draft.sopRef } : {}), // library: no extraction call
         }
         return api.createBriefing(body)
       },

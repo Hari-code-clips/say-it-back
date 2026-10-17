@@ -12,6 +12,14 @@ const TASK_TITLES: Partial<Record<Lang, Record<string, string>>> = {
     'hot-work': '切割或打磨（动火作业）',
     'lifting-zone': '吊装作业：吊装区',
     'trench-entry': '进入沟槽铺设管道',
+    // v0.5: DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+    'confined-space': '进入受限空间（检修井）',
+    'fragile-roof': '在易碎屋面上作业',
+    // 17 Oct demo suites (build-notes/37-domain-suites.md): DRAFT, NEEDS NATIVE-SPEAKER REVIEW.
+    'hydro-jetting': '船体高压水射流清洗',
+    'steam-line-break': '打开蒸汽管线检修（管线打开作业）',
+    'press-lockout': '清除冲床卡料（上锁挂牌）',
+    'telecom-tower': '攀爬通信塔维修天线',
   },
 }
 

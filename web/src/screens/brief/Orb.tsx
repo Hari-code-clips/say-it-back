@@ -20,9 +20,12 @@ interface OrbProps {
 }
 
 /**
- * The state indicator on the worker screen: blue + speaker = the phone is talking, green + mic =
- * the worker's turn, grey + hourglass = wait. The outer ring swells with the live audio level;
- * with reduced motion it stays still and the colour, icon and word still say what is happening.
+ * The state indicator on the worker screen: the phone is talking (speaker), the worker's turn (mic, green), wait (hourglass).
+ * The outer ring swells with the live audio level; with reduced motion it stays still and the colour, icon and word still
+ * say what is happening.
+ *
+ * The swell never leaves the orb's own box: `.orb-ring` grows to 1.32x (index.css), so it rests at 76% of the box and tops
+ * out at the box's edge. It used to rest at 100% and grow into the "Speak now" line under it.
  */
 export function Orb({ tone, icon, getLevel }: OrbProps) {
   const ring = useRef<HTMLDivElement>(null)
@@ -47,11 +50,11 @@ export function Orb({ tone, icon, getLevel }: OrbProps) {
   return (
     // A screen that needs the room for something else (the worker screen's caption) sets --orb-size on a parent.
     <div aria-hidden="true" className="relative mx-auto grid size-[var(--orb-size,clamp(9rem,min(52vw,32dvh),16rem))] shrink-0 place-items-center">
-      <div ref={ring} className={cx('orb-ring absolute inset-0 rounded-full transition-colors duration-300', look.halo)} />
-      <div className={cx('absolute inset-[12%] rounded-full transition-colors duration-300', look.ring)} />
+      <div ref={ring} className={cx('orb-ring absolute inset-[12%] rounded-full transition-colors duration-200', look.halo)} />
+      <div className={cx('absolute inset-[18%] rounded-full transition-colors duration-200', look.ring)} />
       <div
         className={cx(
-          'relative grid size-[58%] place-items-center rounded-full shadow-elev-2 transition-colors duration-300',
+          'relative grid size-[52%] place-items-center rounded-full shadow-elev-2 transition-colors duration-200',
           look.core,
           !live && 'animate-orb-breathe',
         )}

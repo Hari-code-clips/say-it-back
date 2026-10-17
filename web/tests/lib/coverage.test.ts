@@ -1,25 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import type { Script } from '../../src/api/types.ts'
-import { deliveryIssues, scriptCoverage, stepsBySentence } from '../../src/lib/coverage.ts'
-
-describe('deliveryIssues', () => {
-  it('flags a segment the voice never said, one in the wrong script, and one that strayed from the script', () => {
-    const delivery = [
-      { segment: 'instruction', similarity: 0.97, scriptOk: true },
-      { segment: 'q1', similarity: 0, scriptOk: false }, // never spoken
-      { segment: 'q2', similarity: 0.9, scriptOk: false }, // right words, wrong script (Odia drifting to Hindi)
-      { segment: 'q3', similarity: 0.55, scriptOk: true }, // paraphrased
-      { segment: 'closing', similarity: 0.7, scriptOk: true }, // at the limit still passes
-    ]
-
-    assert.deepEqual(deliveryIssues(delivery).map((d) => d.segment), ['q1', 'q2', 'q3'])
-  })
-
-  it('has nothing to say about a round with no delivery check (Turn mode)', () => {
-    assert.deepEqual(deliveryIssues([]), [])
-  })
-})
+import { scriptCoverage, stepsBySentence } from '../../src/lib/coverage.ts'
 
 const script = (over: Partial<Script> = {}): Script => ({
   instruction: 'Switch off. Lock it. Test it.',

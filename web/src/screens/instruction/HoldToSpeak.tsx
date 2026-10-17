@@ -1,3 +1,8 @@
+/* Hallmark · component: hold-to-speak · genre: modern-minimal · theme: design.md
+ * states: default (outlined) · hover (state layer) · focus-visible (ring) · active (state layer) · disabled (transcribing) ·
+ *         loading (starting / transcribing spinner) · recording (ink fill and the level ring) · error and success are the snackbar's.
+ */
+
 import { useEffect, useRef } from 'react'
 import { useT } from '../../i18n/index.tsx'
 import { cx } from '../../ui/cx.ts'
@@ -64,8 +69,10 @@ export function HoldToSpeak({ state, start, stop, getLevel }: HoldToSpeakProps) 
       }}
       onContextMenu={(e) => e.preventDefault()}
       className={cx(
-        'state-layer no-select inline-flex min-h-16 items-center gap-3 rounded-full px-8 text-title-md transition-colors',
-        recording ? 'bg-primary text-on-primary' : 'bg-secondary-container text-on-secondary-container',
+        // 360 px and below: less padding and gap, so every state's label keeps to one line.
+        // 12 px corners, not a pill (design.md). Idle: an outlined control; recording: ink fill, the one state that is "on".
+        'state-layer no-select inline-flex min-h-16 items-center gap-3 rounded-md border-[1.5px] px-6 text-title-md transition-colors max-[22.5rem]:gap-2 max-[22.5rem]:px-4',
+        recording ? 'border-primary bg-primary text-on-primary' : 'border-outline bg-transparent text-on-surface',
         busy && 'opacity-80',
       )}
     >

@@ -17,13 +17,18 @@ export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   json?: unknown
   form?: FormData
-  /** Gemini-backed calls get 60 s: the backend answers 503 `upstream_busy` itself at 55 s (SIB_REQUEST_TIMEOUT_S), and that, not a client timeout, is what the user should see. */
+  /**
+   * Gemini-backed calls get 125 s: the backend answers 503 `upstream_busy` itself at 120 s (SIB_REQUEST_TIMEOUT_S, v0.4), and
+   * that, not a client timeout, is what the user should see. The browser calls Cloud Run directly, so no 60 s proxy cut applies.
+   */
   timeoutMs?: number
   signal?: AbortSignal
+  /** Extra request headers (2026-10-16: the check upload's `Idempotency-Key`). They never replace the device key. */
+  headers?: Record<string, string>
 }
 
 const DEFAULT_TIMEOUT_MS = 20_000
-export const GEMINI_TIMEOUT_MS = 60_000
+export const GEMINI_TIMEOUT_MS = 125_000
 
 export interface TransportDeps {
   /** `/api`, or the API's absolute URL plus `/api` (see base.ts). */
@@ -32,6 +37,13 @@ export interface TransportDeps {
   send: (url: string, init: RequestInit) => Promise<Response>
   /** This browser's device key. */
   deviceKey: () => string
+  /** Told of every failed call before it is thrown (the app watches for `daily_limit`, src/lib/dailyLimit.ts). */
+  onError?: (e: ApiError) => void
+  /**
+   * Pilot accounts (VITE_AUTH_MODE=firebase, build-notes/34): the ID token for each request, sent as `Authorization: Bearer`.
+   * `force` asks for a fresh one after a 401 `bad_token`, and the request is then sent once more. Absent in the default build.
+   */
+  authToken?: (force: boolean) => Promise<string | null>
 }
 
 export interface Transport {
@@ -52,13 +64,31 @@ async function toError(res: Response): Promise<ApiError> {
   return new ApiError(res.status, code, message)
 }
 
-export function createTransport({ base, send, deviceKey }: TransportDeps): Transport {
+export function createTransport({ base, send, deviceKey, onError, authToken }: TransportDeps): Transport {
   async function fetchOk(path: string, opts: RequestOptions): Promise<Response> {
+    try {
+      try {
+        return await fetchOnce(path, opts)
+      } catch (e) {
+        if (!authToken || !(e instanceof ApiError) || e.status !== 401 || e.code !== 'bad_token') throw e
+        return await fetchOnce(path, opts, true) // the server refused the token: one fresh token, one more try
+      }
+    } catch (e) {
+      if (e instanceof ApiError) onError?.(e)
+      throw e
+    }
+  }
+
+  async function fetchOnce(path: string, opts: RequestOptions, freshToken = false): Promise<Response> {
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), opts.timeoutMs ?? DEFAULT_TIMEOUT_MS)
     opts.signal?.addEventListener('abort', () => controller.abort(), { once: true })
     // The key goes on every request, whatever its kind: JSON, multipart upload or blob download. It is a header and never part of the URL.
-    const headers = new Headers({ [DEVICE_HEADER]: deviceKey() })
+    const headers = new Headers({ ...opts.headers, [DEVICE_HEADER]: deviceKey() })
+    if (authToken) {
+      const token = await authToken(freshToken)
+      if (token) headers.set('Authorization', `Bearer ${token}`)
+    }
     const init: RequestInit = { method: opts.method ?? 'GET', signal: controller.signal, headers }
     if (opts.json !== undefined) {
       init.body = JSON.stringify(opts.json)

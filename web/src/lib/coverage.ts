@@ -1,13 +1,7 @@
-import type { DeliveryCheck, Script } from '../api/types.ts'
+import type { Script } from '../api/types.ts'
 import { scriptSentences } from './sentences.ts'
 
-/** Live mode: below this a spoken segment is too far from the approved text to pass without a word to the supervisor. */
-export const DELIVERY_MIN_SIMILARITY = 0.7
-
-/** Segments the voice did not say, said in the wrong script, or said too differently from the approved script. */
-export function deliveryIssues(delivery: readonly DeliveryCheck[]): DeliveryCheck[] {
-  return delivery.filter((d) => !d.scriptOk || d.similarity < DELIVERY_MIN_SIMILARITY)
-}
+// The delivery check (what Live said vs the approved script) is the server's: see delivery.ts. The browser applies no threshold.
 
 export interface Coverage {
   /** Steps in scope that no instruction sentence delivers. */

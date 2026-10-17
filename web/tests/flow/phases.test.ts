@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import type { Briefing, Round, Status, Step } from '../../src/api/types.ts'
-import { allowedPhases, canReexplain, defaultPhase, isPhase, openSteps } from '../../src/flow/phases.ts'
+import { allowedPhases, canReexplain, defaultPhase, isPhase, openHazards, openSteps } from '../../src/flow/phases.ts'
 
 const step = (id: string): Step => ({ id, text: id, hazard: '', essential: [], source: 'instruction', speakable: true })
 
@@ -60,5 +60,35 @@ describe('openSteps / canReexplain', () => {
     assert.equal(canReexplain(briefing('judged', { ...open, rounds: rounds(3) })), false)
     assert.equal(canReexplain(briefing('judged', { latestVerdicts: { s1: 'covered', s2: 'covered' }, rounds: rounds(1) })), false)
     assert.equal(canReexplain(briefing('briefing', { ...open, rounds: rounds(1) })), false)
+  })
+})
+
+describe('v0.4: the worker screen opens only once the script is confirmed (endpoint 23)', () => {
+  const round = (over: Partial<Round>) => ({ n: 1, ...over }) as Round
+
+  it('a briefing recovered with an unconfirmed round goes back to its script', () => {
+    const b = briefing('briefing', { rounds: [round({})] })
+    assert.deepEqual(allowedPhases(b), ['script'])
+    assert.equal(defaultPhase(b), 'script')
+  })
+
+  it('a confirmed round opens the worker screen too', () => {
+    assert.deepEqual(allowedPhases(briefing('briefing', { rounds: [round({ approvedAt: '2026-10-14T10:00:00Z' })] })), ['script', 'brief'])
+  })
+
+  it('only the latest round counts: a re-explain round needs its own confirmation', () => {
+    const rounds = [round({ approvedAt: '2026-10-14T10:00:00Z' }), round({ n: 2 })]
+    assert.deepEqual(allowedPhases(briefing('briefing', { rounds })), ['script'])
+  })
+})
+
+describe('openHazards', () => {
+  it('a reported problem locks Go until it is acknowledged; an older record without hazards has none', () => {
+    const hazards = [
+      { id: 'h1', kind: 'tap', original: '', translation: '', detectedLang: 'none', raisedAt: '' },
+      { id: 'h2', kind: 'tap', original: '', translation: '', detectedLang: 'none', raisedAt: '', ack: { note: 'Fixed it.', at: '' } },
+    ] as const
+    assert.deepEqual(openHazards(briefing('judged', { hazards: [...hazards] })).map((h) => h.id), ['h1'])
+    assert.deepEqual(openHazards(briefing('judged')), [])
   })
 })

@@ -1,5 +1,7 @@
-// The app's API client: the request logic of transport.ts wired to this build's environment (the API base, mock mode)
-// and to this browser's device key. The only module here that reads Vite's environment, so the rest runs under node:test.
+// The app's API client: the request logic of transport.ts wired to this build's environment (the API base, mock mode,
+// the demo video link) and to this browser's device key. The only module here that reads Vite's environment, so the rest runs under node:test.
+import { dailyLimit } from '../lib/dailyLimit.ts'
+import { demoVideoUrl } from '../lib/demoVideo.ts'
 import { apiBase, apiLocation } from './base.ts'
 import { deviceKey } from './deviceKey.ts'
 import { createTransport } from './transport.ts'
@@ -23,4 +25,14 @@ async function send(url: string, init: RequestInit): Promise<Response> {
   return fetch(url, init)
 }
 
-export const { request, requestBlob } = createTransport({ base: API_BASE, send, deviceKey })
+// Pilot accounts (build-notes/34): a VITE_AUTH_MODE=firebase build sends the Firebase ID token too. A literal comparison, so the
+// default build drops it and the Firebase SDK with it.
+const authToken =
+  import.meta.env.VITE_AUTH_MODE === 'firebase'
+    ? async (force: boolean) => (await import('../auth/firebase.ts')).idToken(force)
+    : undefined
+
+export const { request, requestBlob } = createTransport({ base: API_BASE, send, deviceKey, onError: dailyLimit.note, authToken })
+
+/** The recorded demo (VITE_DEMO_VIDEO_URL), or null when unset: no link is shown then. */
+export const DEMO_VIDEO_URL = demoVideoUrl(import.meta.env.VITE_DEMO_VIDEO_URL)
