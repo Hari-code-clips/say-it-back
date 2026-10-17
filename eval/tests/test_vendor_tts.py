@@ -4,6 +4,7 @@ call goes to a fake `post`."""
 import base64
 import io
 import json
+import shutil
 import urllib.error
 import wave
 
@@ -131,6 +132,7 @@ def test_a_spec_voice_overrides_the_gemini_rotation_and_must_be_a_vendor_voice_f
             bt._resolve(bad, tasks, {})
 
 
+@pytest.mark.skipif(shutil.which("ffmpeg") is None, reason="needs ffmpeg (render_item converts to 16 kHz)")
 def test_render_item_routes_a_vendor_voice_to_the_vendor_and_records_it_in_the_manifest(isolated, monkeypatch):
     monkeypatch.setattr(bt, "AUDIO_DIR", isolated / "audio")
     monkeypatch.setattr(bt, "WORK_DIR", isolated / "work")
