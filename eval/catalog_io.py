@@ -4,7 +4,7 @@ import json
 import re
 from pathlib import Path
 
-from config import CATALOG_PATH
+from config import CATALOG_PATH, WORKER_LANGS
 
 
 def load_catalog(path: Path = CATALOG_PATH) -> dict:
@@ -16,12 +16,24 @@ def task_map(catalog: dict) -> dict[str, dict]:
 
 
 def site_worker_langs(catalog: dict, task: dict) -> list[str]:
+    """The task's site worker languages that the eval set covers (config.WORKER_LANGS). A site language the set has no
+    items in yet (Telugu, 17 Oct) adds no question translation to the paid plan until it joins WORKER_LANGS."""
     site = next(s for s in catalog["sites"] if s["id"] == task["demoSite"])
-    return list(site["workerLanguages"])
+    return [lang for lang in site["workerLanguages"] if lang in WORKER_LANGS]
 
 
 def question_by_id(task: dict, question_id: str) -> dict:
     return next(q for q in task["referenceQuestions"] if q["id"] == question_id)
+
+
+def round_answers(turn: dict) -> list[dict]:
+    """A demo round's scripted answers: its own ({questionId, answer, expected}) and, since 16 Oct, its followUps."""
+    return [turn, *turn.get("followUps", [])]
+
+
+def demo_answer(turn: dict, question_id: str) -> dict | None:
+    """The answer a demo round scripts for one question, or None if it scripts none."""
+    return next((answer for answer in round_answers(turn) if answer["questionId"] == question_id), None)
 
 
 def steps_for_question(task: dict, question_id: str) -> list[dict]:

@@ -1,0 +1,4250 @@
+{
+  "generatedAt": "2026-10-17T07:21:40Z",
+  "promptVersion": "2026-10-16.12",
+  "models": {
+    "flash": "gemini-3.8-flash",
+    "judgeB": "gemini-3.1-flash-lite"
+  },
+  "judgePasses": 2,
+  "repeat": 1,
+  "nItems": 99,
+  "nStepRatings": 179,
+  "complete": true,
+  "testset": {
+    "version": "2026-10-15",
+    "nItems": 99,
+    "synthetic": 88,
+    "recorded": 11,
+    "ttsModels": [
+      "bulbul:v3",
+      "bulbul:v4-flash",
+      "gemini-3.8-flash-tts"
+    ]
+  },
+  "testsetSha256": "4018e55c0b14579bec5cf624597120f29cbfb8916554b6fecaf4779ae5789343",
+  "settings": {
+    "promptVersion": "2026-10-16.12",
+    "models": {
+      "flash": "gemini-3.8-flash",
+      "judgeB": "gemini-3.1-flash-lite"
+    },
+    "judgePasses": 2,
+    "thinking": {
+      "blind_transcriber": "low",
+      "judge_a": "low",
+      "judge_b": "low"
+    },
+    "testsetSha256": "4018e55c0b14579bec5cf624597120f29cbfb8916554b6fecaf4779ae5789343",
+    "repeat": 1
+  },
+  "selection": null,
+  "errors": [],
+  "metrics": {
+    "exactAccuracy": 0.8659217877094972,
+    "unsafeErrors": 0,
+    "unsafeDenominator": 92,
+    "unsafeUpperBound95": 0.03260869565217391,
+    "catchRate": 1.0,
+    "overFlagRate": 0.05747126436781609,
+    "unclearRate": 0.13966480446927373,
+    "correctPassRate": 0.9425287356321839,
+    "unsafeUpperBound95Items": 0.05084745762711865,
+    "unsafeItemDenominator": 59
+  },
+  "counts": {
+    "stepRatings": 179,
+    "goldMiss": 92,
+    "falsePasses": 0,
+    "goldCovered": 87,
+    "correctPasses": 82,
+    "askedAgain": 25
+  },
+  "passBar": {
+    "exactAccuracyMin": 0.8,
+    "unsafeErrorsMax": 0,
+    "correctPassMin": 0.75,
+    "passed": true
+  },
+  "byLanguage": {
+    "bn": {
+      "n": 34,
+      "exactAccuracy": 0.8823529411764706,
+      "unsafeErrors": 0
+    },
+    "hi": {
+      "n": 29,
+      "exactAccuracy": 0.896551724137931,
+      "unsafeErrors": 0
+    },
+    "my": {
+      "n": 9,
+      "exactAccuracy": 0.5555555555555556,
+      "unsafeErrors": 0
+    },
+    "or": {
+      "n": 20,
+      "exactAccuracy": 0.95,
+      "unsafeErrors": 0
+    },
+    "ta": {
+      "n": 66,
+      "exactAccuracy": 0.8939393939393939,
+      "unsafeErrors": 0
+    },
+    "te": {
+      "n": 6,
+      "exactAccuracy": 1.0,
+      "unsafeErrors": 0
+    },
+    "zh": {
+      "n": 15,
+      "exactAccuracy": 0.6666666666666666,
+      "unsafeErrors": 0
+    }
+  },
+  "byPattern": {
+    "code_switch": {
+      "n": 9,
+      "exactAccuracy": 0.7777777777777778,
+      "unsafeErrors": 0
+    },
+    "complete": {
+      "n": 15,
+      "exactAccuracy": 1.0,
+      "unsafeErrors": 0
+    },
+    "contradicted": {
+      "n": 25,
+      "exactAccuracy": 0.92,
+      "unsafeErrors": 0
+    },
+    "demo": {
+      "n": 58,
+      "exactAccuracy": 0.9310344827586207,
+      "unsafeErrors": 0
+    },
+    "echo": {
+      "n": 3,
+      "exactAccuracy": 0.6666666666666666,
+      "unsafeErrors": 0
+    },
+    "fluent_wrong": {
+      "n": 14,
+      "exactAccuracy": 0.5714285714285714,
+      "unsafeErrors": 0
+    },
+    "negation": {
+      "n": 13,
+      "exactAccuracy": 0.7692307692307693,
+      "unsafeErrors": 0
+    },
+    "numbers": {
+      "n": 6,
+      "exactAccuracy": 0.8333333333333334,
+      "unsafeErrors": 0
+    },
+    "one_missing": {
+      "n": 12,
+      "exactAccuracy": 0.9166666666666666,
+      "unsafeErrors": 0
+    },
+    "silence": {
+      "n": 3,
+      "exactAccuracy": 1.0,
+      "unsafeErrors": 0
+    },
+    "two_missing": {
+      "n": 7,
+      "exactAccuracy": 0.42857142857142855,
+      "unsafeErrors": 0
+    },
+    "vague": {
+      "n": 11,
+      "exactAccuracy": 1.0,
+      "unsafeErrors": 0
+    },
+    "wrong_language": {
+      "n": 3,
+      "exactAccuracy": 1.0,
+      "unsafeErrors": 0
+    }
+  },
+  "byHeldOut": {
+    "heldOut": {
+      "n": 27,
+      "nItems": 14,
+      "exactAccuracy": 0.9259259259259259,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 15,
+      "unsafeUpperBound95": 0.2,
+      "catchRate": 1.0,
+      "overFlagRate": 0.08333333333333333,
+      "unclearRate": 0.07407407407407407,
+      "correctPassRate": 0.9166666666666666,
+      "unsafeUpperBound95Items": 0.3333333333333333,
+      "unsafeItemDenominator": 9
+    },
+    "inSet": {
+      "n": 152,
+      "nItems": 85,
+      "exactAccuracy": 0.8552631578947368,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 77,
+      "unsafeUpperBound95": 0.03896103896103896,
+      "catchRate": 1.0,
+      "overFlagRate": 0.05333333333333334,
+      "unclearRate": 0.1513157894736842,
+      "correctPassRate": 0.9466666666666667,
+      "unsafeUpperBound95Items": 0.06,
+      "unsafeItemDenominator": 50
+    }
+  },
+  "modelOnly": {
+    "excludedPatterns": [
+      "silence",
+      "wrong_language"
+    ],
+    "n": 173,
+    "nItems": 95,
+    "exactAccuracy": 0.861271676300578,
+    "unsafeErrors": 0,
+    "unsafeDenominator": 86,
+    "unsafeUpperBound95": 0.03488372093023256,
+    "catchRate": 1.0,
+    "overFlagRate": 0.05747126436781609,
+    "unclearRate": 0.10982658959537572,
+    "correctPassRate": 0.9425287356321839,
+    "unsafeUpperBound95Items": 0.05454545454545454,
+    "unsafeItemDenominator": 55
+  },
+  "bySource": {
+    "synthetic_tts": {
+      "n": 156,
+      "nItems": 88,
+      "exactAccuracy": 0.8589743589743589,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 76,
+      "unsafeUpperBound95": 0.039473684210526314,
+      "catchRate": 1.0,
+      "overFlagRate": 0.0625,
+      "unclearRate": 0.15384615384615385,
+      "correctPassRate": 0.9375,
+      "unsafeUpperBound95Items": 0.06,
+      "unsafeItemDenominator": 50
+    },
+    "recorded": {
+      "n": 23,
+      "nItems": 11,
+      "exactAccuracy": 0.9130434782608695,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 16,
+      "unsafeUpperBound95": 0.1875,
+      "catchRate": 1.0,
+      "overFlagRate": 0.0,
+      "unclearRate": 0.043478260869565216,
+      "correctPassRate": 1.0,
+      "unsafeUpperBound95Items": 0.3333333333333333,
+      "unsafeItemDenominator": 9
+    }
+  },
+  "byVoice": {
+    "gemini": {
+      "n": 112,
+      "nItems": 58,
+      "exactAccuracy": 0.8303571428571429,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 68,
+      "unsafeUpperBound95": 0.04411764705882353,
+      "catchRate": 1.0,
+      "overFlagRate": 0.06818181818181818,
+      "unclearRate": 0.1875,
+      "correctPassRate": 0.9318181818181818,
+      "unsafeUpperBound95Items": 0.07142857142857142,
+      "unsafeItemDenominator": 42
+    },
+    "otherVendor": {
+      "n": 44,
+      "nItems": 30,
+      "exactAccuracy": 0.9318181818181818,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 8,
+      "unsafeUpperBound95": 0.375,
+      "catchRate": 1.0,
+      "overFlagRate": 0.05555555555555555,
+      "unclearRate": 0.06818181818181818,
+      "correctPassRate": 0.9444444444444444,
+      "unsafeUpperBound95Items": 0.375,
+      "unsafeItemDenominator": 8
+    },
+    "recorded": {
+      "n": 23,
+      "nItems": 11,
+      "exactAccuracy": 0.9130434782608695,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 16,
+      "unsafeUpperBound95": 0.1875,
+      "catchRate": 1.0,
+      "overFlagRate": 0.0,
+      "unclearRate": 0.043478260869565216,
+      "correctPassRate": 1.0,
+      "unsafeUpperBound95Items": 0.3333333333333333,
+      "unsafeItemDenominator": 9
+    }
+  },
+  "recordedNoise": {
+    "clean": {
+      "n": 23,
+      "nItems": 11,
+      "exactAccuracy": 0.9130434782608695,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 16,
+      "unsafeUpperBound95": 0.1875,
+      "catchRate": 1.0,
+      "overFlagRate": 0.0,
+      "unclearRate": 0.043478260869565216,
+      "correctPassRate": 1.0,
+      "unsafeUpperBound95Items": 0.3333333333333333,
+      "unsafeItemDenominator": 9
+    },
+    "siteNoise": {
+      "n": 0,
+      "nItems": 0,
+      "exactAccuracy": null,
+      "unsafeErrors": 0,
+      "unsafeDenominator": 0,
+      "unsafeUpperBound95": null,
+      "catchRate": null,
+      "overFlagRate": null,
+      "unclearRate": null,
+      "correctPassRate": null,
+      "unsafeUpperBound95Items": null,
+      "unsafeItemDenominator": 0
+    },
+    "bySnr": {
+      "snr10": {
+        "n": 0,
+        "nItems": 0,
+        "exactAccuracy": null,
+        "unsafeErrors": 0,
+        "unsafeDenominator": 0,
+        "unsafeUpperBound95": null,
+        "catchRate": null,
+        "overFlagRate": null,
+        "unclearRate": null,
+        "correctPassRate": null,
+        "unsafeUpperBound95Items": null,
+        "unsafeItemDenominator": 0
+      },
+      "snr5": {
+        "n": 0,
+        "nItems": 0,
+        "exactAccuracy": null,
+        "unsafeErrors": 0,
+        "unsafeDenominator": 0,
+        "unsafeUpperBound95": null,
+        "catchRate": null,
+        "overFlagRate": null,
+        "unclearRate": null,
+        "correctPassRate": null,
+        "unsafeUpperBound95Items": null,
+        "unsafeItemDenominator": 0
+      },
+      "snr0": {
+        "n": 0,
+        "nItems": 0,
+        "exactAccuracy": null,
+        "unsafeErrors": 0,
+        "unsafeDenominator": 0,
+        "unsafeUpperBound95": null,
+        "catchRate": null,
+        "overFlagRate": null,
+        "unclearRate": null,
+        "correctPassRate": null,
+        "unsafeUpperBound95Items": null,
+        "unsafeItemDenominator": 0
+      }
+    },
+    "byNoise": {}
+  },
+  "items": [
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "I will stand under the load, hold it with my hands, and keep it straight.",
+      "original": "லோடுக்கு அடியில நின்னு கையால புடிச்சு அத நேரா வைப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "லோடுக்கு அடியில நின்னு கையால புடிச்சு அத நேரா வைப்பேன்",
+          "quoteTranslation": "I will stand under the load, hold it with my hands, and keep it straight.",
+          "reason": "The worker explicitly states they will stand under the load, directly contradicting the requirement to never go under it."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "லோடுக்கு அடியில நின்னு",
+          "quoteTranslation": "standing under the load",
+          "reason": "By stating they will stand under the load, the worker indicates they will not be staying outside the barrier until the load is landed.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will stand outside the barricade when the load is moving. I will not go inside until the load comes down. I will never go under the load.",
+      "original": "லோடு நகரும் போது பாரிகேடுக்கு வெளியே நிப்பேன். லோடு கீழே இறங்குற வரைக்கும் உள்ள போக மாட்டேன். லோடுக்கு அடியில ஒருபோதும் போக மாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "லோடுக்கு அடியில ஒருபோதும் போக மாட்டேன்.",
+          "quoteTranslation": "I will never go under the load.",
+          "reason": "The worker clearly stated that they will never go underneath the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "பாரிகேடுக்கு வெளியே நிப்பேன்...லோடு கீழே இறங்குற வரைக்கும் உள்ள போக மாட்டேன்.",
+          "quoteTranslation": "I will stand outside the barricade...I will not go inside until the load comes down.",
+          "reason": "The worker stated that they will stand outside the barricade and not go inside until the load is lowered down."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "I will only listen to what the signalman says.",
+      "original": "சிக்னல் மேன் சொல்றதை மட்டும்தான் கேப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "சிக்னல் மேன் சொல்றதை மட்டும்தான் கேப்பேன்.",
+          "quoteTranslation": "I will only listen to what the signalman says.",
+          "reason": "The worker clearly stated that they will only follow directions from the signalman."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s4": "contradicted"
+      },
+      "pred": {
+        "s4": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "If the load swings, I will hold it with my hands and stop it from swinging.",
+      "original": "லோட் ஆடுனா கையால புடிச்சி ஆடாம நிறுத்துவேன்",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "contradicted",
+          "quote": "லோட் ஆடுனா கையால புடிச்சி ஆடாம நிறுத்துவேன்",
+          "quoteTranslation": "If the load swings, I will hold it with my hands and stop it from swinging.",
+          "reason": "The worker explicitly states they will hold the swinging load with their hands to stop it, directly contradicting the requirement to use tag lines and never steady the load by hand."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "I will listen only to what the signalman says. I will not listen to anyone else giving signals.",
+      "original": "சிக்னல்மேன் சொல்றது மட்டும்தான் கேட்பேன். வேற யார் சிக்னல் கொடுத்தாலும் கேட்க மாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "சிக்னல்மேன் சொல்றது மட்டும்தான் கேட்பேன். வேற யார் சிக்னல் கொடுத்தாலும் கேட்க மாட்டேன்.",
+          "quoteTranslation": "I will listen only to what the signalman says. I will not listen to anyone else giving signals.",
+          "reason": "The worker explicitly states that they will listen only to the signalman and nobody else."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s4": "covered"
+      },
+      "pred": {
+        "s4": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "If the load sways, I will only stop it using a tag line; I will never catch the load with my hands.",
+      "original": "லோடு ஆடுனா டேக் லைன் வெச்சு மட்டும்தான் நிறுத்துவேன் லோட கையால ஒருபோதும் பிடிக்க மாட்டேன்",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "covered",
+          "quote": "லோடு ஆடுனா டேக் லைன் வெச்சு மட்டும்தான் நிறுத்துவேன் லோட கையால ஒருபோதும் பிடிக்க மாட்டேன்",
+          "quoteTranslation": "If the load sways, I will only stop it using a tag line; I will never catch the load with my hands.",
+          "reason": "The worker explicitly confirms they will control the load using only the tag line and never hold it with their hands."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.negation.clean",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will not go under the load. But when it comes down, I will go inside the barrier and guide it by hand.",
+      "original": "நான் லோடுக்கு அடியில போக மாட்டேன். ஆனா அது கீழ வரும்போது பாரியர்குள்ள போயி கையால கைட் பண்ணுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "நான் லோடுக்கு அடியில போக மாட்டேன்",
+          "quoteTranslation": "I will not go under the load.",
+          "reason": "The worker explicitly states that they will not go under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "ஆனா அது கீழ வரும்போது பாரியர்குள்ள போயி கையால கைட் பண்ணுவேன்",
+          "quoteTranslation": "But when it comes down, I will go inside the barrier and guide it by hand.",
+          "reason": "The worker directly contradicts the safety requirement to remain outside the barrier until the load has landed by stating they will enter the barrier to guide the lowering load."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.fluent_wrong.snr10",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "model_refused",
+          "passes_disagreed",
+          "quote_not_found"
+        ],
+        "s2": [
+          "model_refused",
+          "passes_disagreed",
+          "quote_not_found"
+        ]
+      },
+      "translation": "",
+      "original": "",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "quote_not_found",
+            "model_refused"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "quote_not_found",
+            "model_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.demo.clean.r1",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will turn off the breaker and open it.",
+      "original": "நான் பிரேக்கர் ஆப் பண்ணிட்டு திறப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "நான் பிரேக்கர் ஆப் பண்ணிட்டு திறப்பேன்.",
+          "quoteTranslation": "I will turn off the breaker and open it.",
+          "reason": "The worker clearly stated that they will turn off the breaker before opening the panel."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker did not mention locking or tagging the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker did not mention testing that the panel is dead with a voltage tester."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.demo.clean.r2",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "First, I will turn off the breaker. Then I will lock it and put on a tag. After opening the panel, before touching anything, I will check with a tester that there is no current.",
+      "original": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன். அப்புறம் லாக் போட்டு டேக் மாட்டுவேன். பேனலை திறந்த பிறகு எதையும் தொடுறதுக்கு முன்னாடி டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன்",
+          "quoteTranslation": "First, I will turn off the breaker.",
+          "reason": "The worker clearly stated that they will first switch off the breaker."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "அப்புறம் லாக் போட்டு டேக் மாட்டுவேன்",
+          "quoteTranslation": "Then I will lock it and put on a tag.",
+          "reason": "The worker explicitly mentioned applying a lock and tag."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "பேனலை திறந்த பிறகு எதையும் தொடுறதுக்கு முன்னாடி டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணுவேன்",
+          "quoteTranslation": "After opening the panel, before touching anything, I will check with a tester that there is no current.",
+          "reason": "The worker clearly states that after opening the panel and before touching anything, they will test with a tester to ensure there is no power."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.contradicted.clean",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "First, I will open the panel, then I will check with a tester, and after that, I will switch off the breaker.",
+      "original": "நான் முதல்ல பேனலை திறப்பேன், அப்புறம் டெஸ்டர் வச்சி செக் பண்ணுவேன், அதுக்கப்புறம் பிரேக்கர ஆப் பண்ணுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "நான் முதல்ல பேனலை திறப்பேன்... அதுக்கப்புறம் பிரேக்கர ஆப் பண்ணுவேன்",
+          "quoteTranslation": "First, I will open the panel... and after that, I will switch off the breaker",
+          "reason": "The worker states they will open the panel first and only turn off the breaker afterwards, which violates the required sequence of isolating the supply before opening."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker does not mention locking or tagging the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "அப்புறம் டெஸ்டர் வச்சி செக் பண்ணுவேன், அதுக்கப்புறம் பிரேக்கர ஆப் பண்ணுவேன்",
+          "quoteTranslation": "then I will check with a tester, and after that, I will switch off the breaker",
+          "reason": "The worker states they will test with a tester before switching off the breaker, rather than testing to confirm it is dead after isolation."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.vague.snr10",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "vague",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "Okay, understood.",
+      "original": "சரிங்க புரிஞ்சது",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only acknowledged understanding without mentioning switching off or isolating the breaker."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker only acknowledged understanding without mentioning locking and tagging the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker only acknowledged understanding without mentioning testing for dead with a tester."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "First, I will turn off the breaker and put my lock and tag. Then, after checking with a tester that there is no current, I will open the panel.",
+      "original": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு என் லாக் மற்றும் டேக் போடுவேன். அப்புறம் கரண்ட் இல்லைன்னு டெஸ்டர வச்சு செக் பண்ணிட்டு பேனலைத் திறப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு",
+          "quoteTranslation": "First, I will turn off the breaker",
+          "reason": "The worker clearly states that they will switch off the breaker first."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "என் லாக் மற்றும் டேக் போடுவேன்",
+          "quoteTranslation": "put my lock and tag",
+          "reason": "The worker explicitly mentions applying their lock and tag to the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "அப்புறம் கரண்ட் இல்லைன்னு டெஸ்டர வச்சு செக் பண்ணிட்டு பேனலைத் திறப்பேன்",
+          "quoteTranslation": "Then, after checking with a tester that there is no current, I will open the panel",
+          "reason": "The worker states they will test for current before opening the panel, which is physically impossible and inverts the required sequence of testing after opening.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q2.ta.negation.snr5",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Until the tester shows that there is no current, I will not touch the wires.",
+      "original": "டெஸ்டர்ல கரண்ட் இல்லைன்னு காட்டும் வரைக்கும் நான் வயர்களை தொட மாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "டெஸ்டர்ல கரண்ட் இல்லைன்னு காட்டும் வரைக்கும் நான் வயர்களை தொட மாட்டேன்.",
+          "quoteTranslation": "Until the tester shows that there is no current, I will not touch the wires.",
+          "reason": "The worker explicitly states that they will not touch the wires until a tester indicates there is no current."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.bn.two_missing.snr10",
+      "taskId": "panel-isolation",
+      "workerLang": "bn",
+      "pattern": "two_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "passes_disagreed"
+        ],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will put my lock on the breaker and then open the panel.",
+      "original": "আমি ব্রেকারে আমার লক লাগাবো তারপর প্যানেল খুলবো।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "quote": "আমি ব্রেকারে আমার লক লাগাবো",
+          "quoteTranslation": "I will put my lock on the breaker",
+          "reason": "The worker mentions locking the breaker, which implies isolation, but does not explicitly state switching off or isolating the supply.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "আমি ব্রেকারে আমার লক লাগাবো",
+          "quoteTranslation": "I will put my lock on the breaker",
+          "reason": "The worker explicitly states that they will put their lock on the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker does not mention testing with a voltage tester before touching anything."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.bn.contradicted.snr5",
+      "taskId": "panel-isolation",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "contradicted",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will not get into the hassle of locking it. I will switch it off and open it, because it is faster this way.",
+      "original": "আমি লক লাগানোর ঝামেলায় যাব না। সুইচ অফ করব আর খুলে ফেলব, কারণ এতে তাড়াতাড়ি হয়।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "সুইচ অফ করব",
+          "quoteTranslation": "I will switch it off",
+          "reason": "The worker clearly states that they will switch off the supply."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "আমি লক লাগানোর ঝামেলায় যাব না",
+          "quoteTranslation": "I will not get into the hassle of locking it",
+          "reason": "The worker explicitly refuses to lock out the breaker, which is an unsafe violation of the critical safety step."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker did not mention testing for dead before touching anything."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.zh.complete.clean",
+      "taskId": "panel-isolation",
+      "workerLang": "zh",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "First, I pull the breaker, then put my lock and tag on it. Next, I open the panel door, and before touching anything, use a tester to check to make sure there's no electricity.",
+      "original": "首先我拉掉breaker，然后把我的lock和tag挂上去。接着我打开箱门，在碰任何东西之前，用tester测一下确保没电。",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "首先我拉掉breaker",
+          "quoteTranslation": "First, I pull the breaker",
+          "reason": "The worker explicitly states that they will first switch off the breaker."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "然后把我的lock和tag挂上去",
+          "quoteTranslation": "then put my lock and tag on it",
+          "reason": "The worker clearly mentions hanging their lock and tag on the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "接着我打开箱门，在碰任何东西之前，用tester测一下确保没电",
+          "quoteTranslation": "Next, I open the panel door, and before touching anything, use a tester to check to make sure there's no electricity",
+          "reason": "The worker states that after opening the door and before touching anything, they will test with a tester to ensure there is no power."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.zh.one_missing.clean",
+      "taskId": "panel-isolation",
+      "workerLang": "zh",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "I will switch off the breaker, use a tester to check that there is no current, and then open the panel.",
+      "original": "我会关掉 breaker，用 tester 测一下没电流，然后打开 panel。",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "我会关掉 breaker",
+          "quoteTranslation": "I will switch off the breaker",
+          "reason": "The worker explicitly stated they will switch off the breaker."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker made no mention of locking or tagging out the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "用 tester 测一下没电流，然后打开 panel",
+          "quoteTranslation": "use a tester to check that there is no current, and then open the panel",
+          "reason": "The worker mentions testing with a tester before opening the panel rather than after opening it to verify there is no power before touching components.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.demo.clean.r1",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will wear the harness and climb up.",
+      "original": "मैं हार्नेस पहनूंगा और ऊपर चढ़ जाऊंगा",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "मैं हार्नेस पहनूंगा",
+          "quoteTranslation": "I will wear the harness",
+          "reason": "The worker clearly stated that they will wear the harness."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker mentioned climbing up after wearing the harness but did not mention clipping the lanyard to the lifeline."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.demo.clean.r2",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "First, I will wear the harness and check the buckle, then before taking the first step, I will attach the hook to the lifeline.",
+      "original": "पहले हार्नेस पहनकर बकल चेक करूंगा, फिर पहला कदम रखने से पहले हुक को लाइफलाइन में लगाऊंगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "पहले हार्नेस पहनकर बकल चेक करूंगा",
+          "quoteTranslation": "First, I will wear the harness and check the buckle",
+          "reason": "The worker explicitly states that they will put on the harness and check the buckle."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "फिर पहला कदम रखने से पहले हुक को लाइफलाइन में लगाऊंगा",
+          "quoteTranslation": "then before taking the first step, I will attach the hook to the lifeline",
+          "reason": "The worker clearly specifies clipping the hook to the lifeline before taking their first step onto the scaffold."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q2.hi.demo.clean.r1",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "After reaching the top I will open the hook so that I can work comfortably.",
+      "original": "ऊपर पहुंच के हुक खोल दूंगा ताकि आराम से काम कर सकूं।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "ऊपर पहुंच के हुक खोल दूंगा ताकि आराम से काम कर सकूं।",
+          "quoteTranslation": "After reaching the top I will open the hook so that I can work comfortably.",
+          "reason": "The worker explicitly stated that they will unhook once they reach the top, directly contradicting the requirement to remain clipped on at all times."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q2.hi.demo.clean.r2",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Only after coming down to the ground. The hook will remain attached the whole time and I will change only one hook at a time.",
+      "original": "नीचे ज़मीन पर आने के बाद ही पूरे टाइम हुक लगा रहेगा और एक बार में एक ही हुक बदलूँगा।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "नीचे ज़मीन पर आने के बाद ही पूरे टाइम हुक लगा रहेगा और एक बार में एक ही हुक बदलूँगा।",
+          "quoteTranslation": "Only after coming down to the ground. The hook will remain attached the whole time and I will change only one hook at a time.",
+          "reason": "The worker explicitly confirms that the hook stays attached the whole time until reaching the ground, and only one hook is changed at a time."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.bn.demo.clean.r1",
+      "taskId": "hot-work",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before starting cutting, everything that can burn within 10 meters will be removed. Otherwise, it will be covered. A fire extinguisher cylinder will be kept nearby. And there will be a person to watch for fire.",
+      "original": "কাটিং শুরুর আগে ১০ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব। না হলে ঢেকে দেব। আগুন নেভানোর সিলিন্ডার পাশে রাখব। আর আগুন পাহারা দেওয়ার একজন লোক থাকবে।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "কাটিং শুরুর আগে ১০ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব। না হলে ঢেকে দেব।",
+          "quoteTranslation": "Before starting cutting, everything that can burn within 10 meters will be removed. Otherwise, it will be covered.",
+          "reason": "The worker explicitly states that before cutting, anything that can burn within 10 meters will be removed or covered."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "আগুন নেভানোর সিলিন্ডার পাশে রাখব। আর আগুন পাহারা দেওয়ার একজন লোক থাকবে।",
+          "quoteTranslation": "A fire extinguisher cylinder will be kept nearby. And there will be a person to watch for fire.",
+          "reason": "The worker confirms keeping a fire extinguisher nearby and having a fire watcher present."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q2.bn.demo.clean.r1",
+      "taskId": "hot-work",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "As soon as the cutting is finished, I will pack up the machine and leave immediately.",
+      "original": "কাটিং শেষ হলেই মেশিন গুছিয়ে সাথে সাথে চলে যাব।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "কাটিং শেষ হলেই মেশিন গুছিয়ে সাথে সাথে চলে যাব",
+          "quoteTranslation": "As soon as the cutting is finished, I will pack up the machine and leave immediately.",
+          "reason": "The worker states they will leave immediately upon finishing rather than keeping watch for 30 minutes, directly contradicting the fire-watch requirement."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.bn.demo.clean.r2",
+      "taskId": "hot-work",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before starting cutting, within 10 meters, everything that can burn, I will remove it all or cover it up. I will keep a fire extinguishing cylinder close at hand. If there is no fire watch person nearby, I will not start cutting.",
+      "original": "কাটিং শুরুর আগে ১০ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলবো বা ঢেকে দেবো। আগুন নেভানোর সিলিন্ডার হাতের কাছে রাখবো। আগুন পাহারা দেওয়ার লোক পাশে না থাকলে কাটিং শুরু করবো না।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "১০ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলবো বা ঢেকে দেবো",
+          "quoteTranslation": "within 10 meters, everything that can burn, I will remove it all or cover it up",
+          "reason": "The worker explicitly states that they will remove or cover anything that can burn within 10 meters before starting cutting."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "আগুন নেভানোর সিলিন্ডার হাতের কাছে রাখবো...আগুন পাহারা দেওয়ার লোক পাশে না থাকলে কাটিং শুরু করবো না",
+          "quoteTranslation": "I will keep a fire extinguishing cylinder close at hand...If there is no fire watch person nearby, I will not start cutting",
+          "reason": "The worker mentions keeping a fire extinguisher close at hand and ensuring a fire watcher is present before starting cutting."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q2.bn.demo.clean.r2",
+      "taskId": "hot-work",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Even after the cutting is done, I will keep an eye on the fire for 30 minutes. I will not leave the place before 30 minutes.",
+      "original": "কাটিং শেষ হওয়ার পরও ৩০ মিনিট ধরে আগুনের দিকে নজর রাখবো। ৩০ মিনিটের আগে জায়গা ছেড়ে যাব না।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "কাটিং শেষ হওয়ার পরও ৩০ মিনিট ধরে আগুনের দিকে নজর রাখবো। ৩০ মিনিটের আগে জায়গা ছেড়ে যাব না।",
+          "quoteTranslation": "Even after the cutting is done, I will keep an eye on the fire for 30 minutes. I will not leave the place before 30 minutes.",
+          "reason": "The worker explicitly states that they will watch for fire for 30 minutes after cutting finishes and will not leave before that time."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.demo.clean.r1",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will only go down using the stairs and climb up using the stairs.",
+      "original": "ମୁଁ କେବଳ ସିଡ଼ି ଦେଇ ତଳକୁ ଓହ୍ଲାଇବି ଆଉ ସିଡ଼ି ଦେଇ ଉପରକୁ ଉଠିବି",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker made no mention of checking the shoring or trench support before entering."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ମୁଁ କେବଳ ସିଡ଼ି ଦେଇ ତଳକୁ ଓହ୍ଲାଇବି ଆଉ ସିଡ଼ି ଦେଇ ଉପରକୁ ଉଠିବି",
+          "quoteTranslation": "I will only go down using the ladder and climb up using the ladder.",
+          "reason": "The worker clearly stated that they will only use the ladder to climb down and get back up."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.or.demo.clean.r1",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "If I see water or cracks on the wall, I will immediately come outside and inform the supervisor.",
+      "original": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ବାହାରକୁ ଚାଲି ଆସିବି ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ବାହାରକୁ ଚାଲି ଆସିବି ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।",
+          "quoteTranslation": "If I see water or cracks on the wall, I will immediately come outside and inform the supervisor.",
+          "reason": "The worker explicitly states that if they see water or cracks, they will immediately come out and inform the supervisor."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.demo.clean.r2",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will check before going inside whether the support holding the wall is fixed properly or not. If there is no support, I will not go inside. I will only go and come using the stairs. I will never go by any route other than the stairs.",
+      "original": "ଭିତରକୁ ଯିବା ଆଗରୁ ଦେଖିବି। କାନ୍ଥକୁ ଧରି ରଖିଥିବା ସପୋର୍ଟ ଠିକ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ସପୋର୍ଟ ନଥିଲେ ଭିତରକୁ ଯିବି ନାହିଁ। କେବଳ ସିଡ଼ି ଦେଇ ଯିବି ଆସିବି। ସିଡ଼ି ଛଡ଼ା ଅନ୍ୟ ବାଟରେ କେବେବି ଯିବି ନାହିଁ।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ଭିତରକୁ ଯିବା ଆଗରୁ ଦେଖିବି। କାନ୍ଥକୁ ଧରି ରଖିଥିବା ସପୋର୍ଟ ଠିକ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ସପୋର୍ଟ ନଥିଲେ ଭିତରକୁ ଯିବି ନାହିଁ।",
+          "quoteTranslation": "I will check before going inside whether the support holding the wall is fixed properly or not. If there is no support, I will not go inside.",
+          "reason": "The worker explicitly mentions checking that the wall support/shoring is properly in place before entering, and will not enter if it is not supported."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "କେବଳ ସିଡ଼ି ଦେଇ ଯିବି ଆସିବି। ସିଡ଼ି ଛଡ଼ା ଅନ୍ୟ ବାଟରେ କେବେବି ଯିବି ନାହିଁ।",
+          "quoteTranslation": "I will only go and come using the stairs. I will never go by any route other than the stairs.",
+          "reason": "The worker clearly states they will only enter and exit using the ladder/stairs ('ସିଡ଼ି') and no other way."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.or.demo.clean.r2",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "If I see water or cracks on the wall, I will immediately climb out using the ladder. And I will inform the supervisor. I will not stay inside and continue working.",
+      "original": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ସିଡ଼ି ଦେଇ ବାହାରକୁ ଚାଲିଆସିବି। ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି। ଭିତରେ ରହି କାମ ଜାରି ରଖିବି ନାହିଁ।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ସିଡ଼ି ଦେଇ ବାହାରକୁ ଚାଲିଆସିବି। ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।",
+          "quoteTranslation": "If I see water or cracks on the wall, I will immediately climb out using the ladder. And I will inform the supervisor.",
+          "reason": "The worker clearly stated that if they see water or cracks, they will immediately get out via the ladder and tell the supervisor."
+        }
+      ]
+    },
+    {
+      "id": "hydro-jetting.q1.bn.demo.clean.r1",
+      "taskId": "hydro-jetting",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "model_refused",
+          "passes_disagreed"
+        ],
+        "s2": [
+          "model_refused",
+          "passes_disagreed"
+        ]
+      },
+      "translation": "",
+      "original": "",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "model_refused"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "model_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydro-jetting.q2.bn.demo.clean.r1",
+      "taskId": "hydro-jetting",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Before changing the nozzle, I will turn off the pump. Then I will release the pressure completely. Only when the meter needle drops to zero will I touch the nozzle.",
+      "original": "নজেল বদলানোর আগে পাম্প বন্ধ করবো। তার পর চাপ পুরো ছেড়ে দেবো। মিটারের কাঁটা শূন্যে নামলে তবেই নজেলে হাত দেবো।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "নজেল বদলানোর আগে পাম্প বন্ধ করবো। তার পর চাপ পুরো ছেড়ে দেবো। মিটারের কাঁটা শূন্যে নামলে তবেই নজেলে হাত দেবো।",
+          "quoteTranslation": "Before changing the nozzle, I will turn off the pump. Then I will release the pressure completely. Only when the meter needle drops to zero will I touch the nozzle.",
+          "reason": "The worker explicitly states that they will stop the pump, release the pressure, and only touch the nozzle when the meter needle reaches zero."
+        }
+      ]
+    },
+    {
+      "id": "hydro-jetting.q1.bn.demo.clean.r2",
+      "taskId": "hydro-jetting",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "While the pump is running, no one except members of our team will enter inside the barricaded area. I will never aim the water gun at anyone. I will never tie the trigger. If my hands hurt, I will lower the gun and take rest.",
+      "original": "পাম্প চলার সময় ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কেউ ঢুকবে না। পানির বন্দুক কখনও কারও দিকে তাক করব না। ট্রিগার কখনও বাঁধব না। হাত ব্যথা হলে বন্দুক নামিয়ে বিশ্রাম নেব।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "পাম্প চলার সময় ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কেউ ঢুকবে না",
+          "quoteTranslation": "While the pump is running, no one except members of our team will enter inside the barricaded area.",
+          "reason": "The worker explicitly states that while the pump is running, no one other than their team members will enter the barricaded area."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "পানির বন্দুক কখনও কারও দিকে তাক করব না...ট্রিগার কখনও বাঁধব না",
+          "quoteTranslation": "I will never aim the water gun at anyone...I will never tie the trigger.",
+          "reason": "The worker clearly states that they will never aim the water gun at anyone and will never tie the trigger."
+        }
+      ]
+    },
+    {
+      "id": "hydro-jetting.q2.bn.demo.clean.r2",
+      "taskId": "hydro-jetting",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Before changing the nozzle, I will turn off the pump and release the pressure completely. I will not touch the nozzle until the meter gauge drops to zero.",
+      "original": "নজ়েল বদলানোর আগে পাম্প বন্ধ করে চাপ পুরো ছেড়ে দেবো। মিটারের কাঁটা শূন্যে না নামা পর্যন্ত নজ়েলে হাত দেবো না।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "নজ়েল বদলানোর আগে পাম্প বন্ধ করে চাপ পুরো ছেড়ে দেবো। মিটারের কাঁটা শূন্যে না নামা পর্যন্ত নজ়েলে হাত দেবো না।",
+          "quoteTranslation": "Before changing the nozzle, I will turn off the pump and release the pressure completely. I will not touch the nozzle until the meter gauge drops to zero.",
+          "reason": "The worker explicitly stated they will turn off the pump, release the pressure, and avoid touching the nozzle until the meter gauge drops to zero."
+        }
+      ]
+    },
+    {
+      "id": "steam-line-break.q1.ta.demo.clean.r1",
+      "taskId": "steam-line-break",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "The operator has already closed both valves. So there is no need to put my lock. Only after opening the drain valve and the gauge shows zero will I touch the bolt.",
+      "original": "ரெண்டு வால்வையும் ஆபரேட்டர் ஏற்கனவே மூடிட்டாரு. அதனால என் பூட்டு போட வேண்டியதில்லை. ட்ரைன் வால்வை திறந்து கேஜ்ல பூஜ்ஜியம் காட்டுனதுக்கு அப்புறம்தான் போல்ட்டைத் தொடுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "ரெண்டு வால்வையும் ஆபரேட்டர் ஏற்கனவே மூடிட்டாரு. அதனால என் பூட்டு போட வேண்டியதில்லை.",
+          "quoteTranslation": "The operator has already closed both valves. So there is no need to put my lock.",
+          "reason": "The worker explicitly refused to put their own lock on the valves because the operator had already closed them."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ட்ரைன் வால்வை திறந்து கேஜ்ல பூஜ்ஜியம் காட்டுனதுக்கு அப்புறம்தான் போல்ட்டைத் தொடுவேன்.",
+          "quoteTranslation": "Only after opening the drain valve and the gauge shows zero will I touch the bolt.",
+          "reason": "The worker clearly stated they will open the drain valve and verify zero on the gauge before touching any bolt."
+        }
+      ]
+    },
+    {
+      "id": "steam-line-break.q2.ta.demo.clean.r1",
+      "taskId": "steam-line-break",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "First, I will only loosen the bolts on the opposite side to me. The remaining steam inside will go that side. Without keeping the face directly in front of the joint, I will stand aside and do it.",
+      "original": "முதல்ல எனக்கு எதிர்பக்கம் இருக்கிற போல்ட்டுகளை தான் லூஸ் பண்ணுவேன். உள்ள மிச்சமிருக்கிற நீராவி அந்தப் பக்கமா போகும். முகத்தை இணைப்புக்கு நேரா வைக்காம ஓரமா நின்னு செய்வேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "முதல்ல எனக்கு எதிர்பக்கம் இருக்கிற போல்ட்டுகளை தான் லூஸ் பண்ணுவேன்...முகத்தை இணைப்புக்கு நேரா வைக்காம ஓரமா நின்னு செய்வேன்.",
+          "quoteTranslation": "First, I will only loosen the bolts on the opposite side to me...Without keeping the face directly in front of the joint, I will stand aside and do it.",
+          "reason": "The worker explicitly mentions loosening the far-side bolts first and keeping their face and body out of direct alignment with the pipe joint."
+        }
+      ]
+    },
+    {
+      "id": "steam-line-break.q1.ta.demo.clean.r2",
+      "taskId": "steam-line-break",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will check if both valves are closed and put my own lock and tag on both. Then, I will open the drain valve. Until the gauge shows zero, I will not touch any bolt.",
+      "original": "ரெண்டு வால்வும் மூடி இருக்கான்னு பார்த்து ரெண்டுலையும் என் சொந்த பூட்டையும் டேக்கையும் போடுவேன் அப்புறம் ட்ரெயின் வால்வை திறப்பேன் கேஜ்ல பூஜ்ஜியம் காட்டுற வரைக்கும் எந்த போல்டையும் தொட மாட்டேன்",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ரெண்டு வால்வும் மூடி இருக்கான்னு பார்த்து ரெண்டுலையும் என் சொந்த பூட்டையும் டேக்கையும் போடுவேன்",
+          "quoteTranslation": "I will check if both valves are closed and put my own lock and tag on both.",
+          "reason": "The worker clearly confirms checking that both valves are closed and applying their own lock and tag to each."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ட்ரெயின் வால்வை திறப்பேன் கேஜ்ல பூஜ்ஜியம் காட்டுற வரைக்கும் எந்த போல்டையும் தொட மாட்டேன்",
+          "quoteTranslation": "I will open the drain valve. Until the gauge shows zero, I will not touch any bolt.",
+          "reason": "The worker explicitly states they will open the drain valve and will not touch any bolt until the gauge reads zero."
+        }
+      ]
+    },
+    {
+      "id": "steam-line-break.q2.ta.demo.clean.r2",
+      "taskId": "steam-line-break",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "First, I will loosen the bolts on the opposite side only. If there is leftover steam, it will hit towards that side. I will not put my face directly in front of the joint. I will only do it standing to the side.",
+      "original": "முதல்ல எதிர்ப்ப போல்ட்டுகளை தான் லூஸ் பண்ணுவேன். நீராவி மிச்சம் இருந்தால் அந்தப் பக்கமா அடிக்கும். இணைப்புக்கு நேரா முகத்தை வைக்க மாட்டேன். ஓரமா நின்னு தான் செய்வேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "முதல்ல எதிர்ப்ப போல்ட்டுகளை தான் லூஸ் பண்ணுவேன்...இணைப்புக்கு நேரா முகத்தை வைக்க மாட்டேன். ஓரமா நின்னு தான் செய்வேன்.",
+          "quoteTranslation": "First, I will loosen the bolts on the opposite side only...I will not put my face directly in front of the joint. I will only do it standing to the side.",
+          "reason": "The worker explicitly states that they will loosen the opposite/far-side bolts first and keep their face and body away from the line of the joint by standing to the side."
+        }
+      ]
+    },
+    {
+      "id": "press-lockout.q1.hi.demo.clean.r1",
+      "taskId": "press-lockout",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "First, I will stop the machine and turn off the main switch, and I will put my lock and tag on it. Then, I will press the start button to check if the machine runs. After that, I will place a block between the upper and lower die.",
+      "original": "पहले मशीन रोक कर मेन स्विच ऑफ करूँगा और उस पर अपना ताला और टैग लगाऊँगा। फिर स्टार्ट बटन दबा कर देखूँगा कि मशीन चलती तो नहीं। उसके बाद ऊपर और नीचे की डाई के बीच ब्लॉक लगाऊँगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "पहले मशीन रोक कर मेन स्विच ऑफ करूँगा और उस पर अपना ताला और टैग लगाऊँगा।",
+          "quoteTranslation": "First, I will stop the machine and turn off the main switch, and I will put my lock and tag on it.",
+          "reason": "The worker explicitly states that they will switch off the main switch and apply their own lock."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "फिर स्टार्ट बटन दबा कर देखूँगा कि मशीन चलती तो नहीं।",
+          "quoteTranslation": "Then, I will press the start button to check if the machine runs.",
+          "reason": "The worker clearly states they will push the start button to verify that the machine does not operate."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "ऊपर और नीचे की डाई के बीच ब्लॉक लगाऊँगा",
+          "quoteTranslation": "I will place a block between the upper and lower die",
+          "reason": "The worker mentions placing the block but fails to explicitly state that this must be done before reaching or leaning in.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "press-lockout.q2.hi.demo.clean.r1",
+      "taskId": "press-lockout",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s4": "contradicted"
+      },
+      "pred": {
+        "s4": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "I will quickly pull out the stuck piece by hand, it takes time to find the tongs.",
+      "original": "फंसा हुआ पीस हाथ से जल्दी खींच लूंगा चिमटा ढूंढने में टाइम लगता है।",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "contradicted",
+          "quote": "फंसा हुआ पीस हाथ से जल्दी खींच लूंगा चिमटा ढूंढने में टाइम लगता है।",
+          "quoteTranslation": "I will quickly pull out the stuck piece by hand, it takes time to find the tongs.",
+          "reason": "The worker explicitly stated they will pull the stuck piece out by hand instead of using the tongs, directly contradicting the safety instruction."
+        }
+      ]
+    },
+    {
+      "id": "press-lockout.q1.hi.demo.clean.r2",
+      "taskId": "press-lockout",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "First I will stop the machine and turn off the main switch. I will put my lock and tag on it and keep the key with myself. Then I will press the start button to make sure that the machine does not run. After that, I will place a block between the dies. Without the block, I will not lean inside.",
+      "original": "पहले मशीन रोक कर मेन स्विच ऑफ करूंगा उस पर अपना ताला और टैग लगाऊंगा और चाबी अपने पास रखूंगा फिर स्टार्ट बटन दबाकर पक्का करूंगा कि मशीन नहीं चलती उसके बाद डाई के बीच ब्लॉक लगाऊंगा ब्लॉक के बिना अंदर नहीं झुकूंगा",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "मेन स्विच ऑफ करूंगा उस पर अपना ताला और टैग लगाऊंगा",
+          "quoteTranslation": "I will turn off the main switch and put my lock and tag on it",
+          "reason": "The worker explicitly mentions turning off the main switch and applying their own lock."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "फिर स्टार्ट बटन दबाकर पक्का करूंगा कि मशीन नहीं चलती",
+          "quoteTranslation": "Then I will press the start button to make sure that the machine does not run",
+          "reason": "The worker clearly states that they will press the start button to verify that the machine does not run."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "उसके बाद डाई के बीच ब्लॉक लगाऊंगा ब्लॉक के बिना अंदर नहीं झुकूंगा",
+          "quoteTranslation": "After that, I will place a block between the dies. Without the block, I will not lean inside.",
+          "reason": "The worker clearly explains putting the block between the dies and not leaning in without it."
+        }
+      ]
+    },
+    {
+      "id": "press-lockout.q2.hi.demo.clean.r2",
+      "taskId": "press-lockout",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s4": "covered"
+      },
+      "pred": {
+        "s4": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "I will remove the stuck piece only using tongs, I will never put my hand or finger between the die.",
+      "original": "फंसा हुआ पीस सिर्फ चिमटे से निकालूंगा डाई के बीच कभी हाथ या उंगली नहीं डालूंगा।",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "covered",
+          "quote": "फंसा हुआ पीस सिर्फ चिमटे से निकालूंगा डाई के बीच कभी हाथ या उंगली नहीं डालूंगा।",
+          "quoteTranslation": "I will remove the stuck piece only using tongs, I will never put my hand or finger between the die.",
+          "reason": "The worker explicitly states that they will extract the stuck piece only using tongs and will never put their hand or fingers between the dies."
+        }
+      ]
+    },
+    {
+      "id": "telecom-tower.q1.te.demo.clean.r1",
+      "taskId": "telecom-tower",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before climbing, I will make sure that no one is under the tower. I will put all the tools in a bag and pull them up with a rope.",
+      "original": "ఎక్కేముందు టవర్ కింద ఎవరూ లేరని చూసుకుంటాను పనిముట్లన్నీ సంచిలో పెట్టి తాడుతో పైకి లాగుతాను",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ఎక్కేముందు టవర్ కింద ఎవరూ లేరని చూసుకుంటాను పనిముట్లన్నీ సంచిలో పెట్టి తాడుతో పైకి లాగుతాను",
+          "quoteTranslation": "Before climbing, I will make sure that no one is under the tower. I will put all the tools in a bag and pull them up with a rope.",
+          "reason": "The worker explicitly confirmed checking that nobody is under the tower and hoisting the tools up in a bag using a rope."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker made no mention of contacting the control room to turn off the antenna or waiting for confirmation before climbing."
+        }
+      ]
+    },
+    {
+      "id": "telecom-tower.q2.te.demo.clean.r1",
+      "taskId": "telecom-tower",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "While climbing up, one hook is always attached to the tower. At a time, I remove only one hook and move it upwards.",
+      "original": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవర్ కి తగిలించే ఉంటుంది. ఒకసారికి ఒక్క హుక్కు మాత్రమే తీసి పైకి మారుస్తాను.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవర్ కి తగిలించే ఉంటుంది...ఒకసారికి ఒక్క హుక్కు మాత్రమే తీసి పైకి మారుస్తాను",
+          "quoteTranslation": "While climbing up, one hook is always attached to the tower...At a time, I remove only one hook and move it upwards.",
+          "reason": "The worker explicitly stated that one hook always remains attached to the tower and that only one hook is moved at a time while climbing."
+        }
+      ]
+    },
+    {
+      "id": "telecom-tower.q1.te.demo.clean.r2",
+      "taskId": "telecom-tower",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before climbing, I will make sure no one is under the tower. I will put the tools in a bag and send them up using a rope. I will call the control room and ask them to turn off the antenna I will be working on. One should not climb until they confirm it is turned off.",
+      "original": "ఎక్కే ముందు టవర్ కింద ఎవరూ లేకుండా చూసుకుంటాను. పనిముట్లు సంచిలో పెట్టి తాడుతో పైకి పంపిస్తాను. కంట్రోల్ రూం కి ఫోన్ చేసి నేను పని చేసే ఆంటెనాని ఆఫ్ చేయమంటాను. ఆఫ్ అయ్యిందని వాళ్ళు చెప్పేవరకు ఎక్కకూడదు.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ఎక్కే ముందు టవర్ కింద ఎవరూ లేకుండా చూసుకుంటాను. పనిముట్లు సంచిలో పెట్టి తాడుతో పైకి పంపిస్తాను.",
+          "quoteTranslation": "Before climbing, I will make sure no one is under the tower. I will put the tools in a bag and send them up using a rope.",
+          "reason": "The worker explicitly confirms that no one should be under the tower and that the tools will be placed in a bag and sent up with a rope."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "కంట్రోల్ రూం కి ఫోన్ చేసి నేను పని చేసే ఆంటెనాని ఆఫ్ చేయమంటాను. ఆఫ్ అయ్యిందని వాళ్ళు చెప్పేవరకు ఎక్కకూడదు.",
+          "quoteTranslation": "I will call the control room and ask them to turn off the antenna I will be working on. One should not climb until they confirm it is turned off.",
+          "reason": "The worker states that they will call the control room to turn off the antenna and will not climb until the control room confirms it is switched off."
+        }
+      ]
+    },
+    {
+      "id": "telecom-tower.q2.te.demo.clean.r2",
+      "taskId": "telecom-tower",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "While climbing up, one hook is always attached to the tower. At a time, I change only one hook. Both hooks should not be removed at once.",
+      "original": "పైకి ఎక్కేటప్పుడు ఎప్పుడు ఒక హుక్ టవర్ కి తగిలించే ఉంటుంది. ఒకసారికి ఒక హుక్ మాత్రమే మారుస్తాను. రెండు హుక్కులు ఒకేసారి తీయకూడదు.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "పైకి ఎక్కేటప్పుడు ఎప్పుడు ఒక హుక్ టవర్ కి తగిలించే ఉంటుంది...ఒకసారికి ఒక హుక్ మాత్రమే మారుస్తాను...రెండు హుక్కులు ఒకేసారి తీయకూడదు",
+          "quoteTranslation": "While climbing up, one hook is always attached to the tower...At a time, I change only one hook...Both hooks should not be removed at once",
+          "reason": "The worker explicitly confirms that at least one hook is always attached to the tower while climbing and that they only move one hook at a time without removing both at once."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.one_missing.snr10",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before taking the first step on the scaffold, I will clip the lanyard to the lifeline.",
+      "original": "स्कैफोल्ड पर पहला कदम रखने से पहले मैं लैनयार्ड को लाइफ़लाइन पर क्लिप कर दूंगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker did not mention wearing the harness or checking its straps and buckles."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "स्कैफोल्ड पर पहला कदम रखने से पहले मैं लैनयार्ड को लाइफ़लाइन पर क्लिप कर दूंगा।",
+          "quoteTranslation": "Before taking the first step on the scaffold, I will clip the lanyard to the lifeline.",
+          "reason": "The worker clearly stated that they will clip the lanyard to the lifeline before stepping onto the scaffold."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.fluent_wrong.clean",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "passes_disagreed"
+        ],
+        "s2": []
+      },
+      "translation": "I will wear the harness and climb up the frame quickly. There is no need to hook it for a short climb.",
+      "original": "मैं हार्नेस पहन लूंगा और फ्रेम पर जल्दी से ऊपर चढ़ जाऊंगा। थोड़ी सी चढ़ाई के लिए हुक लगाने की जरूरत नहीं है।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "quote": "मैं हार्नेस पहन लूंगा",
+          "quoteTranslation": "I will wear the harness",
+          "reason": "The worker mentions wearing the harness but fails to state they will check the straps and buckles as required.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "थोड़ी सी चढ़ाई के लिए हुक लगाने की जरूरत नहीं है",
+          "quoteTranslation": "There is no need to hook it for a short climb",
+          "reason": "The worker directly contradicted the requirement by stating there is no need to hook the lanyard for a short climb."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q2.hi.negation.clean",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "As long as I am on the scaffold, I will not remove the clip.",
+      "original": "जब तक मैं स्कैफोल्ड पर हूँ मैं क्लिप नहीं निकालूँगा।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "जब तक मैं स्कैफोल्ड पर हूँ मैं क्लिप नहीं निकालूँगा।",
+          "quoteTranslation": "As long as I am on the scaffold, I will not remove the clip.",
+          "reason": "The worker explicitly states that they will not remove the clip while on the scaffold."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.bn.contradicted.snr5",
+      "taskId": "scaffold-harness",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will climb onto the scaffold first, then after going up I will hook the lanyard.",
+      "original": "আমি আগে স্ক্যাফোল্ডে উঠব তারপর ওপরে উঠে ল্যানইয়ার্ড আটকে নেব।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker does not mention wearing the full-body harness or checking its straps and buckles."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "আমি আগে স্ক্যাফোল্ডে উঠব তারপর ওপরে উঠে ল্যানইয়ার্ড আটকে নেব",
+          "quoteTranslation": "I will climb onto the scaffold first, then after going up I will hook the lanyard",
+          "reason": "The worker explicitly states that they will climb onto the scaffold first and only attach the lanyard after getting up, directly contradicting the requirement to clip on before stepping onto the scaffold."
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.two_missing.clean",
+      "taskId": "scaffold-harness",
+      "workerLang": "hi",
+      "pattern": "two_missing",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "I will quickly climb up onto the scaffold",
+      "original": "मैं स्कैफ़ोल्ड पर जल्दी से ऊपर चढ़ जाऊंगा",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only mentions quickly climbing up onto the scaffold, saying nothing about putting on or checking a harness."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "मैं स्कैफ़ोल्ड पर जल्दी से ऊपर चढ़ जाऊंगा",
+          "quoteTranslation": "I will quickly climb up onto the scaffold",
+          "reason": "The worker plans to climb the scaffold immediately without mentioning clipping onto the lifeline, implying they will step on without fall protection.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.bn.code_switch.clean",
+      "taskId": "scaffold-harness",
+      "workerLang": "bn",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before taking the first step, I will wear the harness, check the buckles, and attach the lanyard to the lifeline.",
+      "original": "প্রথম পা ফেলার আগে আমি হারনেস পরব, বাকলগুলো চেক করব আর লাইফলাইনের সাথে ল্যানিয়ার্ড আটকে নেব।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "প্রথম পা ফেলার আগে আমি হারনেস পরব, বাকলগুলো চেক করব",
+          "quoteTranslation": "Before taking the first step, I will wear the harness, check the buckles",
+          "reason": "The worker explicitly states that they will wear the harness and check the buckles before stepping onto the scaffold."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "প্রথম পা ফেলার আগে আমি... লাইফলাইনের সাথে ল্যানিয়ার্ড আটকে নেব।",
+          "quoteTranslation": "Before taking the first step, I will... attach the lanyard to the lifeline.",
+          "reason": "The worker explicitly mentions clipping the lanyard to the lifeline before taking their first step."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.ta.numbers.clean",
+      "taskId": "hot-work",
+      "workerLang": "ta",
+      "pattern": "numbers",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will remove flammable materials within five meters. Nearby, along with the fire watcher, I will keep an extinguisher.",
+      "original": "ஐந்து மீட்டர்க்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்துவேன். பக்கத்துல ஃபையர் வாச்சர் கூட எக்ஸ்டிங்குவிஷரை வச்சுக்குவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "quote": "ஐந்து மீட்டர்க்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்துவேன்",
+          "quoteTranslation": "I will remove flammable materials within five meters",
+          "reason": "The worker mentions removing flammable items within five meters, missing the required 10-meter clearance distance."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "பக்கத்துல ஃபையர் வாச்சர் கூட எக்ஸ்டிங்குவிஷரை வச்சுக்குவேன்",
+          "quoteTranslation": "Nearby, along with the fire watcher, I will keep an extinguisher",
+          "reason": "The worker explicitly states keeping a fire extinguisher nearby with a fire watcher present."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q2.bn.numbers.snr10",
+      "taskId": "hot-work",
+      "workerLang": "bn",
+      "pattern": "numbers",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "After finishing the work, I will keep watch for 10 minutes.",
+      "original": "কাজ শেষ করার পর আমি ১০ মিনিট নজর রাখব।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "কাজ শেষ করার পর আমি ১০ মিনিট নজর রাখব।",
+          "quoteTranslation": "After finishing the work, I will keep watch for 10 minutes.",
+          "reason": "The worker stated they would keep watch for only 10 minutes instead of the required 30 minutes."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q2.zh.numbers.snr5",
+      "taskId": "hot-work",
+      "workerLang": "zh",
+      "pattern": "numbers",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "After finishing cutting, I will continue to keep an eye on it for 30 minutes.",
+      "original": "割完之后我会继续盯着30分钟",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "割完之后我会继续盯着30分钟",
+          "quoteTranslation": "After finishing cutting, I will continue to keep an eye on it for 30 minutes.",
+          "reason": "The worker explicitly states that they will keep watching for 30 minutes after finishing the cutting."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.zh.echo.clean",
+      "taskId": "hot-work",
+      "workerLang": "zh",
+      "pattern": "echo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "What should I do before starting to cut? What should I do before I start cutting?",
+      "original": "开始切割前我要做什么 我开始切割前要做什么",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only repeated the question back and did not mention clearing or covering flammable materials."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker only repeated the question back and did not mention having a fire extinguisher or a fire watcher."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.zh.fluent_wrong.clean",
+      "taskId": "hot-work",
+      "workerLang": "zh",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "model_refused",
+          "passes_disagreed"
+        ],
+        "s2": [
+          "model_refused",
+          "passes_disagreed"
+        ]
+      },
+      "translation": "",
+      "original": "",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "model_refused"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "model_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.my.negation.clean",
+      "taskId": "lifting-zone",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "I don't go under the load",
+      "original": "ကျွန်တော် လုပ်အောက်မဝင်ဘူး",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ကျွန်တော် လုပ်အောက်မဝင်ဘူး",
+          "quoteTranslation": "I don't go under the load",
+          "reason": "The worker clearly states that they will not go under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "reason": "The worker mentions staying away from the load, but does not explicitly mention staying outside the barrier or waiting until it is landed.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.my.negation.clean.2",
+      "taskId": "lifting-zone",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will go underneath to guide the route.",
+      "original": "လမ်းကြောင်းပြဖို့ အောက်ထဲ ဝင်သွားမယ်",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "လမ်းကြောင်းပြဖို့ အောက်ထဲ ဝင်သွားမယ်",
+          "quoteTranslation": "I will go underneath to guide the route.",
+          "reason": "The worker explicitly stated that they will go underneath the load to guide it, directly violating the instruction to never stand or walk under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "လမ်းကြောင်းပြဖို့ အောက်ထဲ ဝင်သွားမယ်",
+          "quoteTranslation": "I will go underneath to guide the route.",
+          "reason": "The worker states they will enter the area directly underneath the load, which contradicts the rule to stay outside the barrier until it is landed."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.my.complete.clean",
+      "taskId": "lifting-zone",
+      "workerLang": "my",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will never go under the load. I will stay outside the barrier until the load is lowered.",
+      "original": "load အောက် လုံးဝ မဝင်ဘူး။ load ချပြီးတဲ့အထိ barrier အပြင်မှာပဲ နေမယ်။",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "load အောက် လုံးဝ မဝင်ဘူး",
+          "quoteTranslation": "I will never go under the load.",
+          "reason": "The worker clearly states that they will never go under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "load ချပြီးတဲ့အထိ barrier အပြင်မှာပဲ နေမယ်",
+          "quoteTranslation": "I will stay outside the barrier until the load is lowered.",
+          "reason": "The worker explicitly confirms they will stay outside the barrier until the load is landed."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.my.code_switch.snr5",
+      "taskId": "lifting-zone",
+      "workerLang": "my",
+      "pattern": "code_switch",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "Instructions are given from the signalman.",
+      "original": "ဆစ်ဂနယ်မန်းဆီက ညွှန်ကြားချက်ပေးကြတယ်",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "ဆစ်ဂနယ်မန်းဆီက ညွှန်ကြားချက်ပေးကြတယ်",
+          "quoteTranslation": "Instructions are given from the signalman.",
+          "reason": "The worker mentioned instructions coming from the signalman, but did not specify that they will follow directions *only* from the signalman.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.fluent_wrong.snr10",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "I will only follow whatever signal the crane driver gives. Because only he knows the load well.",
+      "original": "கிரேன் டிரைவர் என்ன சிக்னல் கொடுக்கிறாரோ அதைத்தான் கேட்பேன். ஏன்னா அவருக்குத்தான் லோடு நல்லா தெரியும்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "கிரேன் டிரைவர் என்ன சிக்னல் கொடுக்கிறாரோ அதைத்தான் கேட்பேன்",
+          "quoteTranslation": "I will only follow whatever signal the crane driver gives",
+          "reason": "The worker states they will follow signals from the crane driver instead of the designated signalman, directly contradicting the requirement."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.zh.two_missing.snr10",
+      "taskId": "lifting-zone",
+      "workerLang": "zh",
+      "pattern": "two_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I just wait next to the crane, watching the load.",
+      "original": "我就在 crane 旁边等着，看着 load。",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "quote": "我就在 crane 旁边等着，看着 load",
+          "quoteTranslation": "I just wait next to the crane, watching the load",
+          "reason": "The worker states they will wait next to the crane watching the load, but does not explicitly state never standing or walking under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "quote": "我就在 crane 旁边等着，看着 load",
+          "quoteTranslation": "I just wait next to the crane, watching the load",
+          "reason": "The worker mentions waiting next to the crane, but fails to mention staying outside the barrier until the load is landed."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.zh.silence.clean",
+      "taskId": "lifting-zone",
+      "workerLang": "zh",
+      "pattern": "silence",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "no_speech"
+        ],
+        "s2": [
+          "no_speech",
+          "passes_disagreed"
+        ]
+      },
+      "translation": "safety measures",
+      "original": "安全措施",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "reason": "The worker only mentioned being in a safe area and did not state not to stand or walk under the load.",
+          "flags": [
+            "no_speech"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "reason": "The worker mentioned being in a safe area, but did not specify staying outside the barrier or waiting until the load is landed.",
+          "flags": [
+            "passes_disagreed",
+            "no_speech"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.contradicted.clean",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "While the load is moving, I will go inside the barrier to hold it by hand and balance it.",
+      "original": "லோட் மூவ் ஆகிட்டு இருக்கும்போதே அத கையால பிடிச்சு பேலன்ஸ் பண்ண பேரியர்குள்ள போவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "லோட் மூவ் ஆகிட்டு இருக்கும்போதே அத கையால பிடிச்சு பேலன்ஸ் பண்ண பேரியர்குள்ள போவேன்",
+          "quoteTranslation": "While the load is moving, I will go inside the barrier to hold it by hand and balance it.",
+          "reason": "The worker states they will go inside to physically hold and balance the load while it is moving, which directly contradicts staying away from and not standing under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "லோட் மூவ் ஆகிட்டு இருக்கும்போதே அத கையால பிடிச்சு பேலன்ஸ் பண்ண பேரியர்குள்ள போவேன்",
+          "quoteTranslation": "While the load is moving, I will go inside the barrier to hold it by hand and balance it.",
+          "reason": "The worker explicitly states they will go inside the barrier while the load is moving, directly contradicting the requirement to stay outside the barrier until it is landed."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.complete.clean",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "Before going inside, I will check whether the shoring is properly installed or not. And I will enter and exit only using a ladder.",
+      "original": "ଭିତରକୁ ଯିବା ଆଗରୁ ମୁଁ ଦେଖିବି ଶୋରିଙ୍ଗ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ଆଉ କେବଳ ଲ୍ୟାଡର ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ଭିତରକୁ ଯିବା ଆଗରୁ ମୁଁ ଦେଖିବି ଶୋରିଙ୍ଗ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ।",
+          "quoteTranslation": "Before going inside, I will check whether the shoring is properly installed or not.",
+          "reason": "The worker explicitly stated that before entering, they will verify whether the shoring is properly in place."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ଆଉ କେବଳ ଲ୍ୟାଡର ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+          "quoteTranslation": "And I will enter and exit only using a ladder.",
+          "reason": "The worker explicitly stated that they will only enter and leave using a ladder."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.one_missing.snr10",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will use a ladder to go inside and come out.",
+      "original": "ମୁଁ ଭିତରକୁ ଯିବା ଆସିବା ପାଇଁ ଲାଡର ବ୍ୟବହାର କରିବି।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker did not mention checking the shoring or trench support before entering."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ମୁଁ ଭିତରକୁ ଯିବା ଆସିବା ପାଇଁ ଲାଡର ବ୍ୟବହାର କରିବି।",
+          "quoteTranslation": "I will use a ladder to go inside and come out.",
+          "reason": "The worker explicitly confirmed they will use a ladder to enter and exit the trench."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.or.echo.clean",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "echo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "missed"
+      },
+      "pred": {
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "If I see water or a crack on the wall, what should I do? If I see water or a crack on the wall,",
+      "original": "ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ, ମୁଁ କ'ଣ କରିବି? ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ,",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "reason": "The worker only repeats the scenario provided in the question without stating any action to take.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.fluent_wrong.clean",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will enter from the wall side. The soil looks firm there. So this will be quicker than the ladder.",
+      "original": "ମୁଁ କାନ୍ଥ ପାଖ ପଟୁ ଭିତରକୁ ପଶିଯିବି। ସେଠି ମାଟି ଟାଣ ଦିଶୁଛି। ତେଣୁ ଲ୍ୟାଡ଼ର ଠାରୁ ଏଇଟା ଶୀଘ୍ର ହେବ।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker did not mention checking the shoring or trench support before entering."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "ମୁଁ କାନ୍ଥ ପାଖ ପଟୁ ଭିତରକୁ ପଶିଯିବି...ତେଣୁ ଲ୍ୟାଡ଼ର ଠାରୁ ଏଇଟା ଶୀଘ୍ର ହେବ",
+          "quoteTranslation": "I will enter from the wall side...So this will be quicker than the ladder",
+          "reason": "The worker stated they would enter from the wall side instead of using a ladder."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.hi.contradicted.clean",
+      "taskId": "trench-entry",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will first go down into the trench and check the shoring after going inside.",
+      "original": "मैं पहले ट्रेंच में नीचे उतर जाऊंगा और अंदर जाने के बाद शोरिंग चेक करूंगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "मैं पहले ट्रेंच में नीचे उतर जाऊंगा और अंदर जाने के बाद शोरिंग चेक करूंगा।",
+          "quoteTranslation": "I will first go down into the trench and check the shoring after going inside.",
+          "reason": "The worker explicitly contradicted the safety timing by stating they will enter the trench first and check the shoring only after going inside."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker made no mention of using a ladder to get in and out of the trench."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.hi.contradicted.snr5",
+      "taskId": "trench-entry",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "If water is seen, I will keep the work going and check the wall with my hand.",
+      "original": "अगर पानी दिखा तो मैं काम चालू रखूंगा और हाथ से दीवार चेक कर लूंगा।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "अगर पानी दिखा तो मैं काम चालू रखूंगा और हाथ से दीवार चेक कर लूंगा।",
+          "quoteTranslation": "If water is seen, I will keep the work going and check the wall with my hand.",
+          "reason": "The worker states they will keep working and check the wall by hand instead of climbing out immediately and notifying the supervisor."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.hi.vague.clean",
+      "taskId": "trench-entry",
+      "workerLang": "hi",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "missed"
+      },
+      "pred": {
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Okay, understood.",
+      "original": "ठीक है, समझ गया।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker only acknowledged understanding without stating any actions such as climbing out or notifying the supervisor."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.bn.complete.snr10",
+      "taskId": "trench-entry",
+      "workerLang": "bn",
+      "pattern": "complete",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "If I see water or cracks on the wall, I will come up immediately and inform the supervisor.",
+      "original": "যদি দেয়ালে পানি বা ফাটল দেখি, সাথে সাথে উঠে আসবো আর সুপারভাইজারকে বলবো।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "যদি দেয়ালে পানি বা ফাটল দেখি, সাথে সাথে উঠে আসবো আর সুপারভাইজারকে বলবো।",
+          "quoteTranslation": "If I see water or cracks on the wall, I will come up immediately and inform the supervisor.",
+          "reason": "The worker explicitly states that if they see water or cracks on the wall, they will climb out immediately and inform the supervisor."
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.wrong_language.clean",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "wrong_language",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "pred": {
+        "s1": "unclear",
+        "s2": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "language_mismatch"
+        ],
+        "s2": [
+          "language_mismatch"
+        ]
+      },
+      "translation": "I will check that the shoring is in its place, and I will enter and exit only using the ladder.",
+      "original": "मैं चेक करूंगा कि शोरिंग अपनी जगह पर है, और अंदर-बाहर सिर्फ लैडर से ही आऊंगा-जाऊंगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "quote": "मैं चेक करूंगा कि शोरिंग अपनी जगह पर है",
+          "quoteTranslation": "I will check that the shoring is in its place",
+          "reason": "The worker explicitly confirms checking that the shoring is properly in place.",
+          "flags": [
+            "language_mismatch"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "unclear",
+          "quote": "अंदर-बाहर सिर्फ लैडर से ही आऊंगा-जाऊंगा",
+          "quoteTranslation": "and I will enter and exit only using the ladder.",
+          "reason": "The worker clearly states that they will enter and exit using only the ladder.",
+          "flags": [
+            "language_mismatch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.or.wrong_language.clean",
+      "taskId": "trench-entry",
+      "workerLang": "or",
+      "pattern": "wrong_language",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "unclear"
+      },
+      "pred": {
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": [
+          "language_mismatch"
+        ]
+      },
+      "translation": "If I see water or cracks, I will immediately come out and inform the supervisor.",
+      "original": "अगर मुझे पानी या दरारें दिखीं तो मैं तुरंत बाहर निकल आऊंगा और सुपरवाइजर को बता दूंगा।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "अगर मुझे पानी या दरारें दिखीं तो मैं तुरंत बाहर निकल आऊंगा और सुपरवाइजर को बता दूंगा।",
+          "quoteTranslation": "If I see water or cracks, I will immediately come out and inform the supervisor.",
+          "reason": "The worker explicitly stated that if they see water or cracks, they will immediately come out and tell the supervisor.",
+          "flags": [
+            "language_mismatch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trench-entry.q2.bn.silence.clean",
+      "taskId": "trench-entry",
+      "workerLang": "bn",
+      "pattern": "silence",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": false,
+      "gold": {
+        "s3": "unclear"
+      },
+      "pred": {
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": [
+          "no_speech",
+          "passes_disagreed"
+        ]
+      },
+      "translation": "I will do the work.",
+      "original": "কাজ করব।",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "কাজ করব।",
+          "quoteTranslation": "I will do the work.",
+          "reason": "The worker stated that they would continue working instead of getting out immediately and informing the supervisor upon seeing water or cracks.",
+          "flags": [
+            "passes_disagreed",
+            "no_speech"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q1.hi.complete.clean",
+      "taskId": "confined-space",
+      "workerLang": "hi",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "Before going down, I will check the air with a gas meter and keep it on as long as I am inside. The blower will also keep running. And before getting inside, I will wear a harness and remain connected to the hook of the tripod winch rope.",
+      "original": "नीचे जाने से पहले मैं गैस मीटर से हवा चेक करूंगा और जब तक अंदर रहूंगा उसे चालू ही रखूंगा। ब्लोअर भी चलता रहेगा। और अंदर उतरने से पहले मैं हार्नेस पहन कर ट्राइपॉड वाली विंच रोप के हुक से जुड़ा रहूंगा।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "नीचे जाने से पहले मैं गैस मीटर से हवा चेक करूंगा और जब तक अंदर रहूंगा उसे चालू ही रखूंगा।",
+          "quoteTranslation": "Before going down, I will check the air with a gas meter and keep it on as long as I am inside.",
+          "reason": "The worker clearly stated that they will test the air with a gas meter before entering and keep it on while inside."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ब्लोअर भी चलता रहेगा।",
+          "quoteTranslation": "The blower will also keep running.",
+          "reason": "The worker mentioned that the blower will keep running during the task."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "अंदर उतरने से पहले मैं हार्नेस पहन कर ट्राइपॉड वाली विंच रोप के हुक से जुड़ा रहूंगा।",
+          "quoteTranslation": "before getting inside, I will wear a harness and remain connected to the hook of the tripod winch rope.",
+          "reason": "The worker explicitly mentioned wearing a harness and staying hooked to the tripod winch retrieval rope before entering."
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q1.or.one_missing.snr10",
+      "taskId": "confined-space",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "covered"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "Before going inside, I will check the air with the gas meter. And until coming out, I will keep it on and with me. I will wear a harness and attach the winch rope to it.",
+      "original": "ଭିତରକୁ ଯିବା ଆଗରୁ ଗ୍ୟାସ ମିଟରରେ ପବନ ଚେକ୍ କରିବି। ଆଉ ବାହାରକୁ ଆସିବା ଯାଏ ତାକୁ ଅନ୍ କରି ମୋ ପାଖରେ ରଖିବି। ହାର୍ନେସ ପିନ୍ଧିବି ଆଉ ସେଥିରେ ୱିଞ୍ଚ ଦଉଡ଼ି ଲଗେଇବି।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "ଭିତରକୁ ଯିବା ଆଗରୁ ଗ୍ୟାସ ମିଟରରେ ପବନ ଚେକ୍ କରିବି। ଆଉ ବାହାରକୁ ଆସିବା ଯାଏ ତାକୁ ଅନ୍ କରି ମୋ ପାଖରେ ରଖିବି।",
+          "quoteTranslation": "Before going inside, I will check the air with the gas meter. And until coming out, I will keep it on and with me.",
+          "reason": "The worker explicitly states checking the air with the gas detector before entering and keeping it turned on by their side until leaving."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker does not mention using or running a blower or forced ventilation."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "ହାର୍ନେସ ପିନ୍ଧିବି ଆଉ ସେଥିରେ ୱିଞ୍ଚ ଦଉଡ଼ି ଲଗେଇବି।",
+          "quoteTranslation": "I will wear a harness and attach the winch rope to it.",
+          "reason": "The worker clearly mentions putting on a harness and attaching the winch rope (retrieval line) to it."
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q1.bn.contradicted.snr5",
+      "taskId": "confined-space",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will go down first and upon reaching the very bottom, I will turn on the gas meter. In such a narrow hole, the harness gets stuck with the ladder, so I will leave that up above.",
+      "original": "আমি আগে নিচে নেমে যাব আর একদম নিচে পৌঁছে গ্যাস মিটারটা চালু করব। এই রকম সরু গর্তে ল্যাডারের সাথে হার্নেস আটকে যায়, তাই ওটা উপরেই রেখে যাব।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "আমি আগে নিচে নেমে যাব আর একদম নিচে পৌঁছে গ্যাস মিটারটা চালু করব",
+          "quoteTranslation": "I will go down first and upon reaching the very bottom, I will turn on the gas meter.",
+          "reason": "The worker states they will descend first and only turn on the gas detector after reaching the bottom, which dangerously contradicts testing the air before entering."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker does not mention the blower or forced ventilation at all."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "এই রকম সরু গর্তে ল্যাডারের সাথে হার্নেস আটকে যায়, তাই ওটা উপরেই রেখে যাব",
+          "quoteTranslation": "In such a narrow hole, the harness gets stuck with the ladder, so I will leave that up above.",
+          "reason": "The worker explicitly says they will leave the harness above instead of wearing it."
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q2.hi.negation.clean",
+      "taskId": "confined-space",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s4": "covered"
+      },
+      "pred": {
+        "s4": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "If my companion stopped responding, I will not go down after him. I will shout for help and operate the winch from above itself to pull him up.",
+      "original": "अगर मेरे साथी ने जवाब देना बंद कर दिया तो मैं उसके पीछे नीचे नहीं जाऊंगा। मैं मदद के लिए चिल्लाऊंगा और ऊपर से ही विंच चला कर उसे ऊपर खींच लूंगा।",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "covered",
+          "quote": "मैं उसके पीछे नीचे नहीं जाऊंगा। मैं मदद के लिए चिल्लाऊंगा",
+          "quoteTranslation": "I will not go down after him. I will shout for help",
+          "reason": "The worker explicitly states that they will not enter to rescue their partner and will call out for help."
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q2.or.fluent_wrong.clean",
+      "taskId": "confined-space",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s4": "contradicted"
+      },
+      "pred": {
+        "s4": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": []
+      },
+      "translation": "If my partner becomes silent, I will go straight down and lift him out myself. Waiting for help will waste time. And the gas has already been checked since morning.",
+      "original": "ଯଦି ମୋ ସାଥୀ ଚୁପ୍ ହୋଇଯାଏ, ମୁଁ ସିଧା ତଳକୁ ଯାଇ ତାକୁ ନିଜେ ବାହାରକୁ ଟେକି ଆଣିବି। ସାହାଯ୍ୟ ପାଇଁ ଅପେକ୍ଷା କଲେ ସମୟ ନଷ୍ଟ ହେବ। ଆଉ ଗ୍ୟାସ୍ ତ ସକାଳୁ ଚେକ୍ ହୋଇସାରିଛି।",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "contradicted",
+          "quote": "ମୁଁ ସିଧା ତଳକୁ ଯାଇ ତାକୁ ନିଜେ ବାହାରକୁ ଟେକି ଆଣିବି। ସାହାଯ୍ୟ ପାଇଁ ଅପେକ୍ଷା କଲେ ସମୟ ନଷ୍ଟ ହେବ",
+          "quoteTranslation": "I will go straight down and lift him out myself. Waiting for help will waste time",
+          "reason": "The worker explicitly states they will enter the confined space to rescue their partner themselves rather than staying outside and raising the alarm."
+        }
+      ]
+    },
+    {
+      "id": "confined-space.q1.bn.vague.clean",
+      "taskId": "confined-space",
+      "workerLang": "bn",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I have been going down into this kind of pit for 20 years. I know all of this very well.",
+      "original": "আমি ২০ বছর ধরে এই ধরনের গর্তে নামছি। এইসব আমার খুব ভালো করেই জানা আছে।",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only claimed past experience and did not mention using a gas detector to test the air."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker made no mention of running a blower or ventilation."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker did not mention wearing a harness attached to a retrieval line."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.complete.clean",
+      "taskId": "fragile-roof",
+      "workerLang": "ta",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s2": [],
+        "s3": []
+      },
+      "translation": "When going fully across, I will stay only on the crawling boards. I will not step on the sheets or on the skylights.",
+      "original": "முழுசா அக்ராஸ் போகும்போது crawling boards மேலேயே இருப்பேன். Sheets மேலயும் skylights மேலயும் கால் வைக்கமாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "Sheets மேலயும் skylights மேலயும் கால் வைக்கமாட்டேன்.",
+          "quoteTranslation": "I will not step on the sheets or on the skylights.",
+          "reason": "The worker explicitly states that they will not place their feet on the sheets or skylights."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "முழுசா அக்ராஸ் போகும்போது crawling boards மேலேயே இருப்பேன்.",
+          "quoteTranslation": "When going fully across, I will stay only on the crawling boards.",
+          "reason": "The worker confirms they will stay directly on the crawling boards while crossing."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.bn.one_missing.snr10",
+      "taskId": "fragile-roof",
+      "workerLang": "bn",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "pred": {
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will cross slowly, and avoid skylights and roof sheets.",
+      "original": "আমি আস্তে আস্তে পার হব, আর স্কাইলাইট আর ছাদের শীটগুলো এড়িয়ে চলব।",
+      "ratings": [
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "আর স্কাইলাইট আর ছাদের শীটগুলো এড়িয়ে চলব।",
+          "quoteTranslation": "and avoid skylights and roof sheets.",
+          "reason": "The worker explicitly states they will avoid the skylights and roof sheets."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker does not mention using or walking only on crawling boards."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q1.my.negation.clean",
+      "taskId": "fragile-roof",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "covered"
+      },
+      "pred": {
+        "s1": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "model_refused",
+          "passes_disagreed"
+        ]
+      },
+      "translation": "",
+      "original": "",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "model_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.contradicted.snr5",
+      "taskId": "fragile-roof",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will walk over the sheets along the screw line, and then use boards only near the skylights.",
+      "original": "ஸ்க்ரூ லைன் வழியா ஷீட்ஸ் மேல நடந்து போவேன் அப்புறம் ஸ்கை லைட்ஸ் பக்கத்துல மட்டும் போர்ட்ஸ் யூஸ் பண்ணுவேன்",
+      "ratings": [
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "ஸ்க்ரூ லைன் வழியா ஷீட்ஸ் மேல நடந்து போவேன்",
+          "quoteTranslation": "I will walk over the sheets along the screw line",
+          "reason": "The worker explicitly contradicts the rule by stating they will walk directly on the roof sheets along the screw line."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "ஸ்கை லைட்ஸ் பக்கத்துல மட்டும் போர்ட்ஸ் யூஸ் பண்ணுவேன்",
+          "quoteTranslation": "and then use boards only near the skylights",
+          "reason": "The worker states they will only use boards near the skylights rather than walking solely on crawling boards across the roof."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q3.bn.fluent_wrong.clean",
+      "taskId": "fragile-roof",
+      "workerLang": "bn",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s4": "contradicted"
+      },
+      "pred": {
+        "s4": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s4": [
+          "model_refused",
+          "passes_disagreed",
+          "quote_not_found"
+        ]
+      },
+      "translation": "",
+      "original": "",
+      "ratings": [
+        {
+          "stepId": "s4",
+          "verdict": "unclear",
+          "reason": "The checker could not process this answer; ask again or check in person.",
+          "flags": [
+            "passes_disagreed",
+            "quote_not_found",
+            "model_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q1.my.vague.snr10",
+      "taskId": "fragile-roof",
+      "workerLang": "my",
+      "pattern": "vague",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "heldOut": true,
+      "gold": {
+        "s1": "missed"
+      },
+      "pred": {
+        "s1": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": []
+      },
+      "translation": "I have worked on many roofs like this. I will go up and get it done.",
+      "original": "ဒီလို ခေါင်မိုးမျိုးတွေ အများကြီးပေါ်မှာ ကျွန်တော် လုပ်ဖူးပါတယ်။ အပေါ်တက်ပြီး ပြီးအောင် လုပ်လိုက်မယ်။",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only stated that they have worked on many roofs like this and will go up to finish the work, completely omitting any mention of clipping their harness to the lifeline."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.negation.clean.rec.V01",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": []
+      },
+      "translation": "I will not go under the load. But when it comes down, I will go inside the barrier and guide it with my hand.",
+      "original": "நான் லோடுக்கு அடியில போக மாட்டேன். ஆனா அது கீழ வரும்போது barrier-க்குள்ள போய் கையால guide பண்ணுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "நான் லோடுக்கு அடியில போக மாட்டேன்",
+          "quoteTranslation": "I will not go under the load.",
+          "reason": "The worker explicitly states that they will not go under the load."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "ஆனா அது கீழ வரும்போது barrier-க்குள்ள போய் கையால guide பண்ணுவேன்",
+          "quoteTranslation": "But when it comes down, I will go inside the barrier and guide it with my hand.",
+          "reason": "The worker states that they will enter inside the barrier while the load is coming down to guide it by hand, directly contradicting the instruction to stay outside the barrier until it is landed."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.fluent_wrong.snr10.rec.V01",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "First I will stay outside the barrier only. When the load is slightly above the ground, I will go under it and line it up so that it comes straight down correctly.",
+      "original": "முதல்ல பேரியருக்கு வெளியதான் இருப்பேன். லோட் தரைக்கு கொஞ்சம் மேல இருக்கும்போது அதுக்கு அடியில போய் சரியா நேரா இறங்குற மாதிரி லைன் அப் பண்ணுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "லோட் தரைக்கு கொஞ்சம் மேல இருக்கும்போது அதுக்கு அடியில போய் சரியா நேரா இறங்குற மாதிரி லைன் அப் பண்ணுவேன்",
+          "quoteTranslation": "When the load is slightly above the ground, I will go under it and line it up so that it comes straight down correctly",
+          "reason": "The worker explicitly contradicted safety rules by stating they will go underneath the suspended load to line it up."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "முதல்ல பேரியருக்கு வெளியதான் இருப்பேன்... லோட் தரைக்கு கொஞ்சம் மேல இருக்கும்போது அதுக்கு அடியில போய் சரியா நேரா இறங்குற மாதிரி லைன் அப் பண்ணுவேன்",
+          "quoteTranslation": "First I will stay outside the barrier only... When the load is slightly above the ground, I will go under it and line it up so that it comes straight down correctly",
+          "reason": "The worker plans to enter the area before the load is landed rather than staying outside the barrier until it is safely down.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.contradicted.clean.rec.V01",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "First, I will open the panel. Then, I will check using a tester. After that, I will turn off the breaker.",
+      "original": "நான் மொதல்ல பேனலை திறப்பேன். அப்புறம் டெஸ்டர் வச்சி செக் பண்ணுவேன். அதுக்கப்புறம் பிரேக்கரை ஆஃப் பண்ணிடுவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "நான் மொதல்ல பேனலை திறப்பேன்...அதுக்கப்புறம் பிரேக்கரை ஆஃப் பண்ணிடுவேன்",
+          "quoteTranslation": "First, I will open the panel...After that, I will turn off the breaker",
+          "reason": "The worker states they will open the panel first and only turn off the breaker afterwards, reversing the required safety order."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker does not mention locking or tagging the breaker at all."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "அப்புறம் டெஸ்டர் வச்சி செக் பண்ணுவேன். அதுக்கப்புறம் பிரேக்கரை ஆஃப் பண்ணிடுவேன்",
+          "quoteTranslation": "Then, I will check using a tester. After that, I will turn off the breaker",
+          "reason": "The worker states they will test with a tester before turning off the breaker, contradicting the safe procedure of testing for dead after isolation."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.vague.snr10.rec.V01",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "pred": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": []
+      },
+      "translation": "Okay, understood.",
+      "original": "சரிங்க புரிஞ்சுது",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "missed",
+          "reason": "The worker only acknowledged understanding without stating that they would switch off or isolate the supply at the breaker."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "missed",
+          "reason": "The worker did not mention locking and tagging the breaker."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "missed",
+          "reason": "The worker did not mention testing that the panel is dead with a voltage tester."
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean.rec.V01",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "unclear"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [],
+        "s2": [],
+        "s3": [
+          "passes_disagreed"
+        ]
+      },
+      "translation": "First, after switching off the breaker, I will put my lock, my lock and tag. Then, after checking with a tester that there is no current, I will open the panel.",
+      "original": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு என் லாக் என் லாக்கும் டேக் போட்டுடுவேன். அப்புறம் கரண்ட் இல்லைன்னு டெஸ்டர் வச்சு செக் பண்ணிட்டு பேனலை திறப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "covered",
+          "quote": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு",
+          "quoteTranslation": "First, after switching off the breaker",
+          "reason": "The worker explicitly states that they will switch off the breaker first."
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "என் லாக் என் லாக்கும் டேக் போட்டுடுவேன்",
+          "quoteTranslation": "I will put my lock, my lock and tag",
+          "reason": "The worker clearly states they will put their lock and tag on."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "unclear",
+          "quote": "அப்புறம் கரண்ட் இல்லைன்னு டெஸ்டர் வச்சு செக் பண்ணிட்டு பேனலை திறப்பேன்",
+          "quoteTranslation": "Then, after checking with a tester that there is no current, I will open the panel",
+          "reason": "The worker mentions testing with a tester before opening the panel rather than after opening it to verify it is dead before touching internal parts.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panel-isolation.q2.ta.negation.snr5.rec.V01",
+      "taskId": "panel-isolation",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s3": "covered"
+      },
+      "pred": {
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "Until the tester shows that there is no current, I will not touch the wires.",
+      "original": "டெஸ்ட்டர்ல கரண்ட் இல்லன்னு காட்டும் வரைக்கும் நான் வயர்களை தொடமாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "டெஸ்ட்டர்ல கரண்ட் இல்லன்னு காட்டும் வரைக்கும் நான் வயர்களை தொடமாட்டேன்.",
+          "quoteTranslation": "Until the tester shows that there is no current, I will not touch the wires.",
+          "reason": "The worker explicitly confirms that they will not touch the wires until a tester indicates there is no current."
+        }
+      ]
+    },
+    {
+      "id": "hot-work.q1.ta.numbers.clean.rec.V01",
+      "taskId": "hot-work",
+      "workerLang": "ta",
+      "pattern": "numbers",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "passes_disagreed"
+        ],
+        "s2": []
+      },
+      "translation": "I will remove flammable materials within five meters and keep an extinguisher with a fire watcher nearby.",
+      "original": "அஞ்சு மீட்டர்க்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்திட்டு பக்கத்துல ஃபையர் வாட்சர் கூட எக்ஸ்டிங்குவிஷரும் வச்சிருப்பேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "அஞ்சு மீட்டர்க்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்திட்டு",
+          "quoteTranslation": "After removing flammable materials within five meters",
+          "reason": "The worker mentioned clearing flammable materials within 5 meters instead of the required 10 meters.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "பக்கத்துல ஃபையர் வாட்சர் கூட எக்ஸ்டிங்குவிஷரும் வச்சிருப்பேன்",
+          "quoteTranslation": "I will keep an extinguisher nearby along with a fire watcher.",
+          "reason": "The worker clearly stated that they will have a fire extinguisher and a fire watcher nearby."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.fluent_wrong.snr10.rec.V01",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s3": []
+      },
+      "translation": "I will listen to whatever signal the crane driver gives. Because he is the one who knows the load well.",
+      "original": "கிரேன் டிரைவர் என்ன சிக்னல் கொடுக்கிறாரோ அதைத்தான் கேட்பேன். ஏன்னா அவருக்குத்தான் லோடு நல்லா தெரியும்.",
+      "ratings": [
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "கிரேன் டிரைவர் என்ன சிக்னல் கொடுக்கிறாரோ அதைத்தான் கேட்பேன்",
+          "quoteTranslation": "I will listen to whatever signal the crane driver gives.",
+          "reason": "The worker states they will take signals from the crane driver instead of exclusively following the signalman, which directly contradicts the requirement."
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.contradicted.clean.rec.V01",
+      "taskId": "lifting-zone",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": false,
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "pred": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s1": [
+          "passes_disagreed"
+        ],
+        "s2": []
+      },
+      "translation": "When the load is moving, to balance it by holding it with the hand, I will go inside the barrier.",
+      "original": "லோடு மூவ் ஆகிட்டு இருக்கும் போது அத கையால புடிச்சி பேலன்ஸ் பண்ண பேரியர் உள்ள போவேன்.",
+      "ratings": [
+        {
+          "stepId": "s1",
+          "verdict": "contradicted",
+          "quote": "லோடு மூவ் ஆகிட்டு இருக்கும் போது...பேரியர் உள்ள போவேன்.",
+          "quoteTranslation": "When the load is moving... I will go inside the barrier.",
+          "reason": "The worker states an intention to enter the barrier while the load is moving, which directly contradicts the requirement to never go under/near the load.",
+          "flags": [
+            "passes_disagreed"
+          ]
+        },
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "லோடு மூவ் ஆகிட்டு இருக்கும் போது அத கையால புடிச்சி பேலன்ஸ் பண்ண பேரியர் உள்ள போவேன்.",
+          "quoteTranslation": "When the load is moving, to balance it by holding it with the hand, I will go inside the barrier.",
+          "reason": "The worker explicitly stated that they will go inside the barrier while the load is moving, directly contradicting the requirement to stay outside the barrier."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.complete.clean.rec.V01",
+      "taskId": "fragile-roof",
+      "workerLang": "ta",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": true,
+      "gold": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "pred": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "unsafe": false,
+      "flags": {
+        "s2": [],
+        "s3": []
+      },
+      "translation": "When moving completely, I will stay on the crawling boards. I will not step on the sheets or skylights.",
+      "original": "முழுசா போகும்போது கிராலிங் போர்ட்ஸ் மேலேயே இருப்பேன். ஷீட்ஸ் மேலயும் ஸ்கைலைட்ஸ் மேலயும் கால் வைக்க மாட்டேன்.",
+      "ratings": [
+        {
+          "stepId": "s2",
+          "verdict": "covered",
+          "quote": "ஷீட்ஸ் மேலயும் ஸ்கைலைட்ஸ் மேலயும் கால் வைக்க மாட்டேன்",
+          "quoteTranslation": "I will not step on the sheets or skylights.",
+          "reason": "The worker explicitly states that they will not place their foot/step on the sheets or skylights."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "covered",
+          "quote": "முழுசா போகும்போது கிராலிங் போர்ட்ஸ் மேலேயே இருப்பேன்",
+          "quoteTranslation": "When moving completely, I will stay on the crawling boards.",
+          "reason": "The worker confirms that they will stay completely on the crawling boards while moving across."
+        }
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.contradicted.snr5.rec.V01",
+      "taskId": "fragile-roof",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "heldOut": true,
+      "gold": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "pred": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "unsafe": false,
+      "flags": {
+        "s2": [],
+        "s3": []
+      },
+      "translation": "I will walk on the sheet along the screw lines, then I will use boards only near the skylights.",
+      "original": "ஸ்க்ரூ லைன்ஸ் வழியா ஷீட் மேல நடந்து போவேன் அப்புறம் ஸ்கை லைட்ஸ் பக்கத்துல மட்டும் போர்ட்ஸ் யூஸ் பண்ணுவேன்",
+      "ratings": [
+        {
+          "stepId": "s2",
+          "verdict": "contradicted",
+          "quote": "ஸ்க்ரூ லைன்ஸ் வழியா ஷீட் மேல நடந்து போவேன்",
+          "quoteTranslation": "I will walk on the sheet along the screw lines",
+          "reason": "The worker explicitly states that they will walk on the roof sheet along the screw lines, which directly violates the rule to never step on roof sheets."
+        },
+        {
+          "stepId": "s3",
+          "verdict": "contradicted",
+          "quote": "ஸ்கை லைட்ஸ் பக்கத்துல மட்டும் போர்ட்ஸ் யூஸ் பண்ணுவேன்",
+          "quoteTranslation": "I will use boards only near the skylights",
+          "reason": "The worker states that they will walk directly on the sheets and use crawling boards only near skylights, contradicting the instruction to walk only on crawling boards."
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "keyword": {
+      "n": 179,
+      "nItems": 99,
+      "exactAccuracy": 0.2681564245810056,
+      "unsafeErrors": 6,
+      "unsafeDenominator": 92,
+      "unsafeUpperBound95": 0.13505960279305834,
+      "catchRate": 0.9347826086956522,
+      "overFlagRate": 0.8045977011494253,
+      "unclearRate": 0.5865921787709497,
+      "correctPassRate": 0.19540229885057472,
+      "unsafeUpperBound95Items": 0.2046404624673654,
+      "unsafeItemDenominator": 59
+    },
+    "keywordNegation": {
+      "n": 179,
+      "nItems": 99,
+      "exactAccuracy": 0.329608938547486,
+      "unsafeErrors": 1,
+      "unsafeDenominator": 92,
+      "unsafeUpperBound95": 0.05902928886156092,
+      "catchRate": 0.9891304347826086,
+      "overFlagRate": 0.8045977011494253,
+      "unclearRate": 0.4692737430167598,
+      "correctPassRate": 0.19540229885057472,
+      "unsafeUpperBound95Items": 0.08995937462385319,
+      "unsafeItemDenominator": 59
+    }
+  },
+  "headline": "0 false passes in 92 gold-miss step ratings (95% upper bound 3.3% by the rule of three over those ratings, which assumes independent ratings); exact 86.6%; correct passes 82 of 87; asked again 14.0%. 99 answers in synthetic Gemini TTS voices (bulbul:v3, bulbul:v4-flash, gemini-3.8-flash-tts) and 11 consented recordings, judged by Gemini (gemini-3.8-flash; judge B gemini-3.1-flash-lite)."
+}

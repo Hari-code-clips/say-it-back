@@ -82,15 +82,21 @@ def mean_square(samples: array.array) -> float:
     return sum(x * x for x in samples) / len(samples)
 
 
-def mix_at_snr(speech: array.array, noise: array.array, snr_db: float) -> array.array:
-    """Add noise so that mean-square speech / mean-square noise equals snr_db over the clip."""
+def mix_at_snr(speech: array.array, noise: array.array, snr_db: float,
+               active: list[bool] | None = None) -> array.array:
+    """Add noise so that mean-square speech / mean-square noise equals snr_db over the clip, or (16 Oct, real
+    recordings) over the samples where `active` is true: site_noise.speech_mask, the speech without its pauses."""
     n = len(speech)
     if len(noise) < n:
         raise ValueError("noise bed is shorter than the speech")
-    p_noise = mean_square(noise[:n])
+    if active is None:
+        voiced, bed = speech, noise[:n]
+    else:
+        voiced, bed = [s for s, a in zip(speech, active) if a], [z for z, a in zip(noise, active) if a]
+    p_noise = mean_square(bed)
     if p_noise == 0.0:
         raise ValueError("noise bed is silent")
-    gain = math.sqrt(mean_square(speech) / (p_noise * 10 ** (snr_db / 10)))
+    gain = math.sqrt(mean_square(voiced) / (p_noise * 10 ** (snr_db / 10)))
     return _limit_peak([speech[i] + gain * noise[i] for i in range(n)])
 
 

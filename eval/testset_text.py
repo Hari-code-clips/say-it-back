@@ -1,18 +1,20 @@
 """Translation and back-translation for the synthetic set.
 
-Forward translation is one batch per spoken language (answers plus that language's question texts).
-Back-translation is a separate call per half of the set and never sees the English gloss.
+Only the rows given are sent: the build passes the answers and questions that its ledger (the previous
+items.json) cannot supply. Forward translation is one batch per spoken language (answers plus that
+language's question texts). Back-translation is a separate call per BACK_BATCH rows and never sees the
+English gloss. In an offline run a batch that is not cached is skipped and its rows stay pending.
 """
 
 import json
-from math import ceil
 
 from catalog_io import site_worker_langs
-from gemini_client import GeminiCalls
+from config import BACK_BATCH
+from gemini_client import GeminiCalls, OfflineMiss
 
 LANG_NAMES = {
     "ta": "Tamil", "bn": "Bengali", "zh": "Simplified Chinese (Mandarin)",
-    "my": "Burmese", "hi": "Hindi", "or": "Odia",
+    "my": "Burmese", "hi": "Hindi", "or": "Odia", "te": "Telugu",
 }
 SITE_TERMS = (
     "breaker, lock, tag, tester, harness, buckle, lanyard, lifeline, scaffold, ladder, shoring, "
@@ -82,15 +84,27 @@ def questions_by_language(catalog: dict) -> dict[str, list[dict]]:
 
 
 def translate_all(calls: GeminiCalls, answers: dict[str, list[dict]], questions: dict[str, list[dict]],
-                  ) -> tuple[dict[str, str], dict[tuple[str, str], str]]:
-    """Returns (answer id -> worker text, (question key, lang) -> worker text)."""
+                  ) -> tuple[dict[str, str], dict[tuple[str, str], str], list[str]]:
+    """Returns (answer id -> worker text, (question key, lang) -> worker text, languages left pending).
+
+    A language with no rows makes no call. A language whose batch an offline run has not cached is
+    returned in the third list and none of its rows is filled.
+    """
     texts: dict[str, str] = {}
     qtexts: dict[tuple[str, str], str] = {}
+    missed: list[str] = []
     for lang in sorted(set(answers) | set(questions)):
-        answer_map, question_map = translate_language(calls, lang, answers.get(lang, []), questions.get(lang, []))
+        rows_a, rows_q = answers.get(lang, []), questions.get(lang, [])
+        if not rows_a and not rows_q:
+            continue
+        try:
+            answer_map, question_map = translate_language(calls, lang, rows_a, rows_q)
+        except OfflineMiss:
+            missed.append(lang)
+            continue
         texts.update(answer_map)
         qtexts.update({(key, lang): text for key, text in question_map.items()})
-    return texts, qtexts
+    return texts, qtexts, missed
 
 
 def translate_language(calls: GeminiCalls, lang: str, answers: list[dict], questions: list[dict],
@@ -107,14 +121,17 @@ def translate_language(calls: GeminiCalls, lang: str, answers: list[dict], quest
             {row["key"]: row["text"] for row in data["questions"]})
 
 
-def back_translate_all(calls: GeminiCalls, spoken: list[dict]) -> dict[str, str]:
-    """spoken: [{id, lang, text}]. Two calls, so each batch stays small."""
+def back_translate_all(calls: GeminiCalls, spoken: list[dict]) -> tuple[dict[str, str], list[str]]:
+    """spoken: [{id, lang, text}], in batches of BACK_BATCH. Returns (id -> English, ids left pending)."""
     out: dict[str, str] = {}
-    half = ceil(len(spoken) / 2)
-    for part, batch in enumerate((spoken[:half], spoken[half:]), start=1):
-        if batch:
+    missed: list[str] = []
+    batches = [spoken[i:i + BACK_BATCH] for i in range(0, len(spoken), BACK_BATCH)]
+    for part, batch in enumerate(batches, start=1):
+        try:
             out.update(_back_batch(calls, part, batch))
-    return out
+        except OfflineMiss:
+            missed.extend(row["id"] for row in batch)
+    return out, missed
 
 
 def _back_batch(calls: GeminiCalls, part: int, batch: list[dict]) -> dict[str, str]:

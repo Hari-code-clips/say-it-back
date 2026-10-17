@@ -1,0 +1,797 @@
+{
+  "about": "What each clip in this folder says, written by build_testset.py when it renders the clip. An item's clip is current when its entry's text and voice equal the item's answer and voice and the file's SHA-256 equals sha256; any other item is pending 'audio' in items.json. render: interactions or generate_content (Gemini TTS), sarvam (a second vendor's TTS, vendor_tts.py) or local (silence, no model). cacheKey: the first 12 characters of the TTS cache key, as gemini_calls.log or vendor_calls.log lists it.",
+  "clips": {
+    "confined-space.q1.bn.contradicted.snr5": {
+      "text": "আমি আগে নিচে নেমে যাব আর একদম নিচে পৌঁছে গ্যাস মিটারটা চালু করব। এইরকম সরু গর্তে ladder-এর সাথে harness আটকে যায়, তাই ওটা উপরেই রেখে যাব।",
+      "voice": "Charon",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "56e6b0e87f0d",
+      "backend": "agent-platform",
+      "sha256": "1d8ef91eca18221568250dbe358b4a3ad08368aa800c5e1c916f3b7556dcdab7"
+    },
+    "confined-space.q1.bn.vague.clean": {
+      "text": "আমি কুড়ি বছর ধরে এই ধরনের গর্তে নামছি। এইসব আমার খুব ভালো করেই চেনা আছে।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "c8cf0a6c98a1",
+      "backend": "agent-platform",
+      "sha256": "07a25b9773e7c903f1c7643accf53b9b822023039dd311f39dc8b678db5aa10f"
+    },
+    "confined-space.q1.hi.complete.clean": {
+      "text": "नीचे जाने से पहले मैं गैस मीटर से हवा चेक करूँगा, और जब तक अंदर रहूँगा उसे चालू ही रखूँगा। ब्लोअर भी चलता रहेगा। और अंदर उतरने से पहले मैं harness पहनकर tripod वाली winch रोप के hook से जुड़ा रहूँगा।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "3bc23953e89e",
+      "backend": "agent-platform",
+      "sha256": "2110bae0c55a39fab65f513be8dd45e02dabfccfa9b88ae1f77dead84c67d9dd"
+    },
+    "confined-space.q1.or.one_missing.snr10": {
+      "text": "ଭିତରକୁ ଯିବା ଆଗରୁ ଗ୍ୟାସ ମିଟରରେ ପବନ ଚେକ୍ କରିବି, ଆଉ ବାହାରକୁ ଆସିବା ଯାଏଁ ତାକୁ ଅନ୍ କରି ମୋ ପାଖରେ ରଖିବି। ହାର୍ନେସ ପିନ୍ଧିବି ଆଉ ସେଥିରେ ୱିଞ୍ଚ ଦଉଡ଼ି ଲଗାଇବି।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "9c6e107b3501",
+      "backend": "agent-platform",
+      "sha256": "6ffb6de1d9722d4ac6e8948f16431dd45b2ac55715dead3ccf6e1ab028af5e08"
+    },
+    "confined-space.q2.hi.negation.clean": {
+      "text": "अगर मेरे साथी ने जवाब देना बंद कर दिया, तो मैं उसके पीछे नीचे नहीं जाऊँगा। मैं मदद के लिए चिल्लाऊँगा और ऊपर से ही winch चलाकर उसे ऊपर खींच लूँगा।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "07eda06a3ed5",
+      "backend": "agent-platform",
+      "sha256": "1bbae684be1c87609c803d86abe25cba0da37e2bcdc0f30155f0205438557acc"
+    },
+    "confined-space.q2.or.fluent_wrong.clean": {
+      "text": "ଯଦି ମୋ ସାଥୀ ଚୁପ୍ ହୋଇଯାଏ, ମୁଁ ସିଧା ତଳକୁ ଯାଇ ତାକୁ ନିଜେ ବାହାରକୁ ଟେକି ଆଣିବି। ସାହାଯ୍ୟ ପାଇଁ ଅପେକ୍ଷା କଲେ ସମୟ ନଷ୍ଟ ହେବ, ଆଉ ଗ୍ୟାସ୍ ତ ସକାଳୁ ଚେକ୍ ହୋଇସାରିଛି।",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "6e0b399b8158",
+      "backend": "agent-platform",
+      "sha256": "a9f9b0e951b006545d0e7043a18943f99419f209351e5e3b42d14ee015fd7f42"
+    },
+    "fragile-roof.q1.my.negation.clean": {
+      "text": "ကျွန်တော့် harness ကို lifeline မှာ ချိတ်မပြီးမချင်း ခေါင်မိုးပေါ် ခြေတစ်ဖက်တောင် ချမှာမဟုတ်ဘူး။",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "04acd25cb954",
+      "backend": "agent-platform",
+      "sha256": "6384172bd1ffc29cddd3e59822b4c8a47a6ff80c5d8a466380f7cb047122bae0"
+    },
+    "fragile-roof.q1.my.vague.snr10": {
+      "text": "ဒီလို ခေါင်မိုးမျိုးတွေ အများကြီးပေါ်မှာ ကျွန်တော် လုပ်ဖူးပါတယ်။ အပေါ်တက်ပြီး ပြီးအောင်လုပ်လိုက်မယ်။",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "bc1095ac2ad8",
+      "backend": "agent-platform",
+      "sha256": "e7886aaf899fd234c516564b297bde714b77cdb6fc32d318ddc649e6fbf59336"
+    },
+    "fragile-roof.q2.bn.one_missing.snr10": {
+      "text": "আমি আস্তে আস্তে পার হব আর স্কাইলাইট আর ছাদের শিটগুলো এড়িয়ে চলব।",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "86a3180f485d",
+      "backend": "agent-platform",
+      "sha256": "45028c4e195ae93e87733ba018ffdfca7a97655f49552f2dc9de065b9c7c74fb"
+    },
+    "fragile-roof.q2.ta.complete.clean": {
+      "text": "முழுசா அக்ராஸ் போகும்போது crawling boards மேலயே இருப்பேன், sheets மேலயும் skylights மேலயும் கால் வைக்க மாட்டேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "1da8beb7bd4f",
+      "backend": "agent-platform",
+      "sha256": "3781b9f1d985077bc44beb9bdd4465b56b0a45bc49694b4e0ceea11485892f9a"
+    },
+    "fragile-roof.q2.ta.contradicted.snr5": {
+      "text": "ஸ்க்ரூ லைன் வழியா sheets மேல நடந்து போவேன், அப்புறம் skylights பக்கத்துல மட்டும் boards யூஸ் பண்ணுவேன்.",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "a4230546de3c",
+      "backend": "agent-platform",
+      "sha256": "8eb296ddd1f34b69393a36a3cbceaaf6e05671d5823fd6c3b22aeac244159dcb"
+    },
+    "fragile-roof.q3.bn.fluent_wrong.clean": {
+      "text": "রেলিংটা যদি পথের মধ্যে আটকায়, আমি এক মিনিটের জন্য ওই একটা সেকশন খুলে নেব, শিটগুলো উপরে তুলে দেব, তারপর সাথে সাথে আবার লাগিয়ে দেব। তখন তো কিনারার কাছে কেউ থাকবে না, তাই কোনো সমস্যা নেই।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "3ee4261be287",
+      "backend": "agent-platform",
+      "sha256": "58aacb4fb2507f84d94c528371cc4e3a78cf3fc9ac44fdb52a7466a5be0fc4aa"
+    },
+    "hot-work.q1.bn.demo.clean.r1": {
+      "text": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব, নাহলে ঢেকে দেব। আগুন নেভানোর সিলিন্ডার পাশে রাখব, আর আগুন পাহারা দেওয়ার একজন লোক থাকবে।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "24707d86060e",
+      "backend": "sarvam",
+      "sha256": "f7198eaf7f89e5f61b8ff18759a7c09bbaa8595f5ebb7ffd0a650c34ad3087ca"
+    },
+    "hot-work.q1.bn.demo.clean.r2": {
+      "text": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব বা ঢেকে দেব। আগুন নেভানোর সিলিন্ডার হাতের কাছে রাখব। আগুন পাহারা দেওয়ার লোক পাশে না থাকলে কাটিং শুরু করব না।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "80f4bf1921b7",
+      "backend": "sarvam",
+      "sha256": "54850f5667a71a22a451187607bc585fcc7dcbb40364138efb7b15ec170efe1c"
+    },
+    "hot-work.q1.ta.numbers.clean": {
+      "text": "ஐந்து மீட்டருக்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்துவேன், பக்கத்துல fire watcher கூட extinguisher-ஐ வச்சுக்குவேன்.",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "514cbc186905",
+      "backend": "agent-platform",
+      "sha256": "9a2c87e56bd1dacd7169a7721a81f0a1012c0564dfb0028b93877686a0f1afd4"
+    },
+    "hot-work.q1.zh.echo.clean": {
+      "text": "开始切割前我要做什么？我开始切割前，要做什么？",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "8bb26fe752b0",
+      "backend": "agent-platform",
+      "sha256": "2a913f7d5a4aba15e1abc13fc0cb9430dd13cc314e4a68dd93826dbe3890ef04"
+    },
+    "hot-work.q1.zh.fluent_wrong.clean": {
+      "text": "我把extinguisher放在库房里免得挡道，然后直接开切。小活儿不需要fire watcher。",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "9c7773358d5b",
+      "backend": "agent-platform",
+      "sha256": "a65dc2651b57141059b8f899b966bbc7ef46c932dcaa7d41ddc48a99954e0213"
+    },
+    "hot-work.q2.bn.demo.clean.r1": {
+      "text": "কাটিং শেষ হলেই মেশিন গুছিয়ে সাথে সাথে চলে যাব।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "8e229da8e585",
+      "backend": "sarvam",
+      "sha256": "3bb4addb14a9e4b4be0a2f6172b69222472d6c96d1eaa374e2b2752d4a2fd1c5"
+    },
+    "hot-work.q2.bn.demo.clean.r2": {
+      "text": "কাটিং শেষ হওয়ার পরও ত্রিশ মিনিট ধরে আগুনের দিকে নজর রাখব। ত্রিশ মিনিটের আগে জায়গা ছেড়ে যাব না।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "fbe756008df3",
+      "backend": "sarvam",
+      "sha256": "aa2e51d74bba9d1aa42871a77ee464a9bd6ed6093feb965f00aaf737714e6fc6"
+    },
+    "hot-work.q2.bn.numbers.snr10": {
+      "text": "কাজ শেষ করার পর আমি দশ মিনিট নজর রাখব।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "7b927f29abb9",
+      "backend": "agent-platform",
+      "sha256": "629e4e6bb1023459299ff08b9c56beea23bf2336766248c3f4fa667a4749dfa8"
+    },
+    "hot-work.q2.zh.numbers.snr5": {
+      "text": "干完之后我会继续盯着三十分钟。",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "14b63a771329",
+      "backend": "agent-platform",
+      "sha256": "ac6494c32da68dcf0567b6ceee6f3a9bb975fcb63725f0f81b25912aaace8860"
+    },
+    "hydro-jetting.q1.bn.demo.clean.r1": {
+      "text": "পাম্প চলার সময় ফিতা দিয়ে ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কাউকে ঢুকতে দেব না। হাত ব্যথা হয়ে গেলে ট্রিগারটা দড়ি দিয়ে বেঁধে রাখব।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "6b487e066b6c",
+      "backend": "sarvam",
+      "sha256": "502b6f28d5f14448a3c01e5f2c8ad6a5854307ddd0038cca03be2d299e3a8255"
+    },
+    "hydro-jetting.q1.bn.demo.clean.r2": {
+      "text": "পাম্প চলার সময় ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কেউ ঢুকবে না। পানির বন্দুক কখনো কারও দিকে তাক করব না। ট্রিগার কখনো বাঁধব না; হাত ব্যথা হলে বন্দুক নামিয়ে বিশ্রাম নেব।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "9ecee597fbae",
+      "backend": "sarvam",
+      "sha256": "81a8886790ec99c8b81572be3f9ea75e52ddd9ff70a8ec4e9cf5554cf69c9760"
+    },
+    "hydro-jetting.q2.bn.demo.clean.r1": {
+      "text": "নজেল বদলানোর আগে পাম্প বন্ধ করব, তারপর চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে নামলে তবেই নজেলে হাত দেব।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "6402f61209c2",
+      "backend": "sarvam",
+      "sha256": "80a65cfc1ea9bb89fee4e508f7a40684435485f439679eff595cb4b69e1a4930"
+    },
+    "hydro-jetting.q2.bn.demo.clean.r2": {
+      "text": "নজেল বদলানোর আগে পাম্প বন্ধ করে চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে না নামা পর্যন্ত নজেলে হাত দেব না।",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "054b9648dc9d",
+      "backend": "sarvam",
+      "sha256": "cf8ca33bf9db24fbfffb9e1ec2610bca52e2ff0bf08383bdae69915006a3daba"
+    },
+    "lifting-zone.q1.my.complete.clean": {
+      "text": "load အောက် လုံးဝမဝင်ဘူး။ load ချပြီးတဲ့အထိ barrier အပြင်မှာပဲ နေမယ်။",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "6788fd139364",
+      "backend": "agent-platform",
+      "sha256": "9e0bbf486b3bd8788ff6cf2f9a62155965e06fd03a206ff6a9ada983655509c0"
+    },
+    "lifting-zone.q1.my.negation.clean": {
+      "text": "ကျွန်တော် load အောက် မဝင်ဘူး။",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "b48c789d877a",
+      "backend": "agent-platform",
+      "sha256": "727538653ce6bea22bec50f1418381834b1c3b958d63c2fd748aebb7b630ba5d"
+    },
+    "lifting-zone.q1.my.negation.clean.2": {
+      "text": "လမ်းကြောင်းပြဖို့ အောက်ထဲ ဝင်သွားမယ်။",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "d7a9e8b4858f",
+      "backend": "agent-platform",
+      "sha256": "a6cd80faef4e51b1822ec2fa5d69dd62df31c6fdb2c89e87c9c55ef4c1c1b098"
+    },
+    "lifting-zone.q1.ta.contradicted.clean": {
+      "text": "load மூவ் ஆகிட்டு இருக்கும்போதே அதை கையால பிடிச்சு பேலன்ஸ் பண்ண barrier உள்ள போவேன்.",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "5a37516dad6a",
+      "backend": "agent-platform",
+      "sha256": "ec53a40a5fc3026bb4a660ff9efee5674078b864c96479b38afe2ad1591379c4"
+    },
+    "lifting-zone.q1.ta.demo.clean.r1": {
+      "text": "லோடுக்கு அடியில நின்னு, கையால பிடிச்சு அதை நேரா வைப்பேன்.",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "52db69b51668",
+      "backend": "agent-platform",
+      "sha256": "6ded8a396f42cb7ee1479fca411720190f82b789a749c50e0963350cf89a4dc5"
+    },
+    "lifting-zone.q1.ta.demo.clean.r2": {
+      "text": "லோடு நகரும்போது பேரிகேடுக்கு வெளியே நிப்பேன். லோடு கீழே இறங்குற வரைக்கும் உள்ள போக மாட்டேன். லோடுக்கு அடியில ஒருபோதும் போக மாட்டேன்.",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "134b626fb700",
+      "backend": "agent-platform",
+      "sha256": "558e074e1c8645cbc343166d449d59879a02ec283055da14db4a2303d67173c9"
+    },
+    "lifting-zone.q1.ta.fluent_wrong.snr10": {
+      "text": "முதல்ல barrier-க்கு வெளியே இருப்பேன். load தரைக்கு கொஞ்சம் மேல இருக்கும்போது, அதுக்கு அடியில போய் சரியா நேர இறங்குற மாதிரி line up பண்ணுவேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "4578551e1057",
+      "backend": "agent-platform",
+      "sha256": "204f9c4c4b52a71a333da55d4983266233c4cd7e29a54a0d647a2a7cdbd16ca2"
+    },
+    "lifting-zone.q1.ta.negation.clean": {
+      "text": "நான் load-க்கு அடியில போக மாட்டேன். ஆனா அது கீழ வரும்போது, barrier-க்குள்ள போய் கையால guide பண்ணுவேன்.",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "4afc7dbcb54a",
+      "backend": "agent-platform",
+      "sha256": "a8f3ffc80e525e4571894b48100a8cbdf4a51e2a832657432ec9ef1e9a663a3f"
+    },
+    "lifting-zone.q1.zh.silence.clean": {
+      "text": "",
+      "voice": null,
+      "model": null,
+      "render": "local",
+      "cacheKey": null,
+      "backend": null,
+      "sha256": "67783f7354b4ed10a160ce1cf4e2fd4c031fa0a6324a3405e895edb90f711437"
+    },
+    "lifting-zone.q1.zh.two_missing.snr10": {
+      "text": "我就在crane旁边等着，看着load。",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "f9bf60b4f309",
+      "backend": "agent-platform",
+      "sha256": "19484c880e1d7431a5d6c04af346bfbd14953c07adf069303c1dbef5cfe65585"
+    },
+    "lifting-zone.q2.my.code_switch.snr5": {
+      "text": "signalman ဆီက ညွှန်ကြားချက်ပဲ ယူတယ်။",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "9bbe5d9e16c3",
+      "backend": "agent-platform",
+      "sha256": "c5ae9b68a52bc35b6cb3f82b48d537e3c0eea8cb793d6c49fadb4e4c4705e601"
+    },
+    "lifting-zone.q2.ta.demo.clean.r1": {
+      "text": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "cfa6e44f39b8",
+      "backend": "sarvam",
+      "sha256": "98c10abb6405dc0f316491e4461345eec3c5e9e15af1fa37cf82b48d261ee8b1"
+    },
+    "lifting-zone.q2.ta.demo.clean.r2": {
+      "text": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன். வேற யார் சிக்னல் குடுத்தாலும் கேக்க மாட்டேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "93f6cbfeecf6",
+      "backend": "sarvam",
+      "sha256": "1ff796a28a304a8305b06a075ddfaa472952de8aa13b22d9118dbb9c3dcc0618"
+    },
+    "lifting-zone.q2.ta.fluent_wrong.snr10": {
+      "text": "crane டிரைவர் என்ன சிக்னல் குடுக்கிறாரோ அதைத்தான் கேட்பேன், ஏன்னா அவருக்குத்தான் load நல்லா தெரியும்.",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "a6eb14537586",
+      "backend": "agent-platform",
+      "sha256": "fd424ed2af43b5d3f95a9f637e11f19fe803e3c91e639331b3cf6c80a7a45470"
+    },
+    "lifting-zone.q3.ta.demo.clean.r1": {
+      "text": "லோடு ஆடுனா, கையால பிடிச்சு ஆடாம நிறுத்துவேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "daf08f0c5bcb",
+      "backend": "sarvam",
+      "sha256": "e832f06cb1842714369792782055091126b4e87a968d518016e2cd2e9d2e8270"
+    },
+    "lifting-zone.q3.ta.demo.clean.r2": {
+      "text": "லோடு ஆடுனா டேக் லைன் வச்சு மட்டும்தான் நிறுத்துவேன். லோடை கையால ஒருபோதும் பிடிக்க மாட்டேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "98ac4398c0cc",
+      "backend": "sarvam",
+      "sha256": "b19346be551b16a6bb1d5a56062ec4450bace105c2c055e4b8aef83d3102a0f1"
+    },
+    "panel-isolation.q1.bn.contradicted.snr5": {
+      "text": "আমি lock লাগানোর ঝামেলায় যাব না। সুইচ অফ করব আর খুলে ফেলব, কারণ এতে তাড়াতাড়ি হয়।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "9627396a75c4",
+      "backend": "agent-platform",
+      "sha256": "b0678d7a906f0b2963d92e2060f8e854b87c4c862b7c65b4fff56d02e1f01843"
+    },
+    "panel-isolation.q1.bn.two_missing.snr10": {
+      "text": "আমি breaker-এ আমার lock লাগাব, তারপর panel খুলব।",
+      "voice": "Charon",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "4a13bfa42a39",
+      "backend": "agent-platform",
+      "sha256": "5dab21059cbf98799ad8de4cb3ec6526ccf7bc6fcf7b90c6bc0fbb474dc63de7"
+    },
+    "panel-isolation.q1.ta.code_switch.clean": {
+      "text": "முதல்ல breaker-ஐ ஆஃப் பண்ணிட்டு, என் lock மற்றும் tag போடுவேன், அப்புறம் current இல்லைன்னு tester வச்சு செக் பண்ணிட்டு panel-ஐ திறப்பேன்.",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "8cd959da4e8b",
+      "backend": "agent-platform",
+      "sha256": "86759009ee8f112cb6dea963f34a247e73bae42affbfb8c759f69c12c7e2e5a7"
+    },
+    "panel-isolation.q1.ta.contradicted.clean": {
+      "text": "நான் முதல்ல panel-ஐ திறப்பேன், அப்புறம் tester வச்சு செக் பண்ணுவேன், அதுக்கப்புறம் breaker-ஐ ஆஃப் பண்ணுவேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "12381826ca57",
+      "backend": "agent-platform",
+      "sha256": "e6c2be6e810ae1fd703d58bf64a5f822eaad61c8e593fd97e17c96b23eb59675"
+    },
+    "panel-isolation.q1.ta.demo.clean.r1": {
+      "text": "நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "a661d122fbe1",
+      "backend": "agent-platform",
+      "sha256": "4296213e59e6d5bc846d80296cda36bf68bbe5599e40688df757c70c5a87052f"
+    },
+    "panel-isolation.q1.ta.demo.clean.r2": {
+      "text": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன். பேனலைத் திறந்த பிறகு, எதையும் தொடுறதுக்கு முன்னாடி டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணுவேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "f1ad28e0ae8e",
+      "backend": "agent-platform",
+      "sha256": "70ab322eb74798260b154014d911d59427ed9b318549393e2a318e53598622ea"
+    },
+    "panel-isolation.q1.ta.vague.snr10": {
+      "text": "சரிங்க, புரிஞ்சது.",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "40c9612c6764",
+      "backend": "agent-platform",
+      "sha256": "15a569af65873e0bdd8adc0359da9aed297dd84d3955967ba4fc0b0c06911406"
+    },
+    "panel-isolation.q1.zh.complete.clean": {
+      "text": "首先我拉掉 breaker，然后把我的 lock 和 tag 挂上去。接着我打开箱门，在碰任何东西之前，用 tester 测一下确保没电。",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "c50af53314e5",
+      "backend": "agent-platform",
+      "sha256": "868ee07b2a69869ca9b1c567d015c5a7abf43f724d7ef05e1ff3e69d27717ec4"
+    },
+    "panel-isolation.q1.zh.one_missing.clean": {
+      "text": "我会关掉breaker，用tester测一下没电流，然后打开panel。",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "a5d6884921a2",
+      "backend": "agent-platform",
+      "sha256": "e03d434db53e1696c6ebc881940e9fae9a60a48d8a1d18c193b3a271a487395d"
+    },
+    "panel-isolation.q2.ta.negation.snr5": {
+      "text": "tester-ல current இல்லைன்னு காட்டும் வரைக்கும் நான் வயர்களை தொட மாட்டேன்.",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "554a9811f1fc",
+      "backend": "agent-platform",
+      "sha256": "da72ad1b35dd4232693159e77d86b17110a5b6fba4527156a2db07062a78776c"
+    },
+    "press-lockout.q1.hi.demo.clean.r1": {
+      "text": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा और उस पर अपना ताला और टैग लगाऊँगा। फिर स्टार्ट बटन दबाकर देखूँगा कि मशीन चलती तो नहीं। उसके बाद ऊपर और नीचे की डाई के बीच ब्लॉक लगाऊँगा।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "4524dfbf12ba",
+      "backend": "sarvam",
+      "sha256": "0f991662eac6edeb92b1d81ffadfa630ff63a7eac1a5deabe102c4153566e5b9"
+    },
+    "press-lockout.q1.hi.demo.clean.r2": {
+      "text": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा, उस पर अपना ताला और टैग लगाऊँगा और चाबी अपने पास रखूँगा। फिर स्टार्ट बटन दबाकर पक्का करूँगा कि मशीन नहीं चलती। उसके बाद डाई के बीच ब्लॉक लगाऊँगा; ब्लॉक के बिना अंदर नहीं झुकूँगा।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "de8333fc94ed",
+      "backend": "sarvam",
+      "sha256": "d8f3bc267b9d87003ad210e19154543e62a4ad492d6e470168c44ca681f9446a"
+    },
+    "press-lockout.q2.hi.demo.clean.r1": {
+      "text": "फँसा हुआ पीस हाथ से जल्दी खींच लूँगा, चिमटा ढूँढने में टाइम लगता है।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "1c84eb4baa5c",
+      "backend": "sarvam",
+      "sha256": "76fcfce47c18b66ea88aafa67ab087eb60e2e83cc6b98e5c7eb5ef249a0e6c2d"
+    },
+    "press-lockout.q2.hi.demo.clean.r2": {
+      "text": "फँसा हुआ पीस सिर्फ़ चिमटे से निकालूँगा। डाई के बीच कभी हाथ या उँगली नहीं डालूँगा।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "14741c21e617",
+      "backend": "sarvam",
+      "sha256": "1aef6b64692e9c9d5238a0615fda65dc8c323c4ba46b8a5ead5d4d6eb2f24e19"
+    },
+    "scaffold-harness.q1.bn.code_switch.clean": {
+      "text": "প্রথম পা ফেলার আগে, আমি harness পরব, buckle-গুলো চেক করব, আর lifeline-এর সাথে lanyard আটকে নেব।",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "ee0b4fbf98e6",
+      "backend": "agent-platform",
+      "sha256": "b7fb242088510fd86fcecd46005e78ce1e5dcef66100562b4cfb039406bfdde2"
+    },
+    "scaffold-harness.q1.bn.contradicted.snr5": {
+      "text": "আমি আগে scaffold-এ উঠব, তারপর উপরে উঠে lanyard আটকে নেব।",
+      "voice": "Charon",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "d3d877f55630",
+      "backend": "agent-platform",
+      "sha256": "6d94d7762edf98aeea527a942df638a4ed0e07ae79c4849123d1b05149152471"
+    },
+    "scaffold-harness.q1.hi.demo.clean.r1": {
+      "text": "मैं हार्नेस पहनूँगा और ऊपर चढ़ जाऊँगा।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "858f62c02e41",
+      "backend": "agent-platform",
+      "sha256": "3a97edf2dae4c2b7d7b48db7a2019b4248b17d2db5ca471df3df9bf630846253"
+    },
+    "scaffold-harness.q1.hi.demo.clean.r2": {
+      "text": "पहले हार्नेस पहनकर बकल चेक करूँगा, फिर पहला कदम रखने से पहले हुक को लाइफ़लाइन में लगाऊँगा।",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "166fa34eb52c",
+      "backend": "agent-platform",
+      "sha256": "7bf7caf782e5299e9eaa81ae54a12c6a34f8a163cee1182091bd21b9393fb6d5"
+    },
+    "scaffold-harness.q1.hi.fluent_wrong.clean": {
+      "text": "मैं harness पहन लूंगा और frame पर जल्दी से ऊपर चढ़ जाऊंगा। थोड़ी सी चढ़ाई के लिए hook लगाने की ज़रूरत नहीं है।",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "275d1a988d87",
+      "backend": "agent-platform",
+      "sha256": "870b64b7ac28763f91fddd1db9a21732daa0876cc859f8182b25954542b959d5"
+    },
+    "scaffold-harness.q1.hi.one_missing.snr10": {
+      "text": "Scaffold पर पहला कदम रखने से पहले मैं lanyard को lifeline पर clip कर दूंगा।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "e1aceb9d070f",
+      "backend": "agent-platform",
+      "sha256": "83199fb7c5b33dcc383f05b26ad754709fa14a47fa436b3ff1690a13e77dcf8d"
+    },
+    "scaffold-harness.q1.hi.two_missing.clean": {
+      "text": "मैं scaffold पर जल्दी से ऊपर चढ़ जाऊंगा।",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "377657dcf564",
+      "backend": "agent-platform",
+      "sha256": "09dc9e6e63ed054dccede78bd6f32d6a111eb889c59ec08ac56212e588234a14"
+    },
+    "scaffold-harness.q2.hi.demo.clean.r1": {
+      "text": "ऊपर पहुँच के हुक खोल दूँगा, ताकि आराम से काम कर सकूँ।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "dacfe96ad8d6",
+      "backend": "sarvam",
+      "sha256": "443811d9cb0f34f2de53b0771e4dc1be3119cdf8d293992df7b8e841124a5c02"
+    },
+    "scaffold-harness.q2.hi.demo.clean.r2": {
+      "text": "नीचे ज़मीन पर आने के बाद ही। पूरे टाइम हुक लगा रहेगा, और एक बार में एक ही हुक बदलूँगा।",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "8eb14e9fd836",
+      "backend": "sarvam",
+      "sha256": "1ffd96c49c8720a6aad56562333dd08de92d63e2ec52629c2024b23faa4f106e"
+    },
+    "scaffold-harness.q2.hi.negation.clean": {
+      "text": "जब तक मैं scaffold पर हूं, मैं clip नहीं निकालूंगा।",
+      "voice": "Orus",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "0d700ce37045",
+      "backend": "agent-platform",
+      "sha256": "26d2689516ae4e0ae9c74377774e500dcb47f050bbc33935ab04981a2950c80d"
+    },
+    "steam-line-break.q1.ta.demo.clean.r1": {
+      "text": "ரெண்டு வால்வையும் ஆபரேட்டர் ஏற்கனவே மூடிட்டாரு, அதனால என் பூட்டு போட வேண்டியதில்லை. டிரெயின் வால்வைத் திறந்து, கேஜ்ல பூஜ்ஜியம் காட்டுனதுக்கு அப்புறம்தான் போல்ட்டைத் தொடுவேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "335b250e4069",
+      "backend": "sarvam",
+      "sha256": "0257436dbe1d7f7200641341c04a56bea4604b131524872f34cdb2c535f4c255"
+    },
+    "steam-line-break.q1.ta.demo.clean.r2": {
+      "text": "ரெண்டு வால்வும் மூடியிருக்கான்னு பார்த்து, ரெண்டுலயும் என் சொந்தப் பூட்டையும் டேக்கையும் போடுவேன். அப்புறம் டிரெயின் வால்வைத் திறப்பேன்; கேஜ்ல பூஜ்ஜியம் காட்டுற வரைக்கும் எந்த போல்ட்டையும் தொட மாட்டேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "17a23b65f09c",
+      "backend": "sarvam",
+      "sha256": "c3392ba9533010723541f8539116014d15b1bd2805fc53ecff99acba0e01e583"
+    },
+    "steam-line-break.q2.ta.demo.clean.r1": {
+      "text": "முதல்ல எனக்கு எதிர்ப் பக்கம் இருக்கிற போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன்; உள்ள மிச்சம் இருக்கிற நீராவி அந்தப் பக்கமா போகும். முகத்தை இணைப்புக்கு நேரா வைக்காம, ஓரமா நின்னு செய்வேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "85feb6f434fe",
+      "backend": "sarvam",
+      "sha256": "77cfb3676da60c6b7349cf6bce26d2a2fca8d2ce5692f1225de4c91dfc4ad967"
+    },
+    "steam-line-break.q2.ta.demo.clean.r2": {
+      "text": "முதல்ல எதிர்ப் பக்க போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன், நீராவி மிச்சம் இருந்தா அந்தப் பக்கமா அடிக்கும். இணைப்புக்கு நேரா முகத்தை வைக்க மாட்டேன், ஓரமா நின்னுதான் செய்வேன்.",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "1984878c8a06",
+      "backend": "sarvam",
+      "sha256": "f4fbdf46c04db1dda5a4115278ce516f1d156a7a0b5cdfe6f9e254d9e69d9871"
+    },
+    "telecom-tower.q1.te.demo.clean.r1": {
+      "text": "ఎక్కే ముందు టవరు కింద ఎవరూ లేరని చూసుకుంటాను. పనిముట్లన్నీ సంచిలో పెట్టి తాడుతో పైకి లాగుతాను.",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "515418446438",
+      "backend": "sarvam",
+      "sha256": "d42c6afeaf281a25b5d1eab2c5726bef269b10f58e49e7963457429b0323f2e9"
+    },
+    "telecom-tower.q1.te.demo.clean.r2": {
+      "text": "ఎక్కే ముందు టవరు కింద ఎవరూ లేకుండా చూసుకుంటాను, పనిముట్లు సంచిలో పెట్టి తాడుతో పైకి పంపిస్తాను. కంట్రోల్ రూముకి ఫోన్ చేసి నేను పని చేసే యాంటెన్నాను ఆఫ్ చేయమంటాను; ఆఫ్ అయిందని వాళ్ళు చెప్పేవరకు ఎక్కకూడదు.",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "6dd908bff11f",
+      "backend": "sarvam",
+      "sha256": "c047a09a8128802230819d528557d479a646a1380110670c36a3223c177d98bc"
+    },
+    "telecom-tower.q2.te.demo.clean.r1": {
+      "text": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది. ఒకసారికి ఒక్క హుక్కు మాత్రమే తీసి పైకి మారుస్తాను.",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "1db5b43e7756",
+      "backend": "sarvam",
+      "sha256": "dc61314c83e4dea6a87b0975847b280963ac6e97c556d489329ef7b46d7fd5cf"
+    },
+    "telecom-tower.q2.te.demo.clean.r2": {
+      "text": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది, ఒకసారికి ఒక్క హుక్కు మాత్రమే మారుస్తాను. రెండు హుక్కులూ ఒకేసారి తీయకూడదు.",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "model": "bulbul:v4-flash",
+      "render": "sarvam",
+      "cacheKey": "b17323512095",
+      "backend": "sarvam",
+      "sha256": "df014e4ef69b61745657f5d7511b13f68de225f54556c17b0e84d70a0a02f4e2"
+    },
+    "trench-entry.q1.hi.contradicted.clean": {
+      "text": "मैं पहले trench में नीचे उतर जाऊंगा और अंदर जाने के बाद shoring चेक करूंगा।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "82f458b70da8",
+      "backend": "agent-platform",
+      "sha256": "027d2ebff9f67985dc31ac445e8a7fe70316ad172f761d54a3200ab40ecaa3b2"
+    },
+    "trench-entry.q1.or.complete.clean": {
+      "text": "ଭିତରକୁ ଯିବା ଆଗରୁ, ମୁଁ ଦେଖିବି shoring ଠିକ୍‌ ଭାବରେ ଲାଗିଛି କି ନାହିଁ, ଆଉ କେବଳ ladder ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "c763f58553f6",
+      "backend": "agent-platform",
+      "sha256": "c218f9a753378f786f3ac32d5e7d435c21764d7068e7ccbc901340fcfed2e8a6"
+    },
+    "trench-entry.q1.or.demo.clean.r1": {
+      "text": "ମୁଁ କେବଳ ସିଡ଼ି ଦେଇ ତଳକୁ ଓହ୍ଲାଇବି, ଆଉ ସିଡ଼ି ଦେଇ ଉପରକୁ ଉଠିବି।",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "model": "bulbul:v3",
+      "render": "sarvam",
+      "cacheKey": "88a6fc322c9d",
+      "backend": "sarvam",
+      "sha256": "238ad8d015a6eb6fd537e9f06eb2b47c5efdef014ff00f047bc33d9cd04c6072"
+    },
+    "trench-entry.q1.or.demo.clean.r2": {
+      "text": "ଭିତରକୁ ଯିବା ଆଗରୁ ଦେଖିବି, କାନ୍ଥକୁ ଧରି ରଖିଥିବା ସପୋର୍ଟ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ସପୋର୍ଟ ନ ଥିଲେ ଭିତରକୁ ଯିବି ନାହିଁ। କେବଳ ସିଡ଼ି ଦେଇ ଯିବି ଆସିବି, ସିଡ଼ି ଛଡ଼ା ଅନ୍ୟ ବାଟରେ କେବେ ବି ଯିବି ନାହିଁ।",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "model": "bulbul:v3",
+      "render": "sarvam",
+      "cacheKey": "66c92394ed19",
+      "backend": "sarvam",
+      "sha256": "3a2628783c3bf1aa42734a65bf699999eb9e88b93b799d0c36c097172cb7dba5"
+    },
+    "trench-entry.q1.or.fluent_wrong.clean": {
+      "text": "ମୁଁ କାନ୍ଥ ପାଖ ପଟୁ ଭିତରକୁ ପଶିଯିବି, ସେଠି ମାଟି ଟାଣ ଦିଶୁଛି, ତେଣୁ ladder ଠାରୁ ଏଇଟା ଶୀଘ୍ର ହେବ।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "c53d401c5640",
+      "backend": "agent-platform",
+      "sha256": "2dbad7bcdade5897f92f309c87b5e6973c8e650e7953663e7743c1f739fef655"
+    },
+    "trench-entry.q1.or.one_missing.snr10": {
+      "text": "ମୁଁ ଭିତରକୁ ଯିବା ଆସିବା ପାଇଁ ladder ବ୍ୟବହାର କରିବି।",
+      "voice": "Aoede",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "6a699a7d4524",
+      "backend": "agent-platform",
+      "sha256": "0fabdfb850106c67906edd798f849287063c5439e46efaa3ec9024a9f98a85af"
+    },
+    "trench-entry.q1.or.wrong_language.clean": {
+      "text": "मैं चेक करूंगा कि shoring अपनी जगह पर है, और अंदर-बाहर सिर्फ ladder से ही आऊंगा-जाऊंगा।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "f02f31a05351",
+      "backend": "agent-platform",
+      "sha256": "a34a0f7a44c3a30677c15616a124043223b1b61d911aa250f4bf78971997011e"
+    },
+    "trench-entry.q2.bn.complete.snr10": {
+      "text": "যদি দেয়ালে পানি বা ফাটল দেখি, সাথে সাথে উঠে আসব আর supervisor-কে বলব।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "798621fce593",
+      "backend": "agent-platform",
+      "sha256": "8b137a1044dbc963ae9c12d1d436fc00ab4000c42f3ba97610768929d22ca8af"
+    },
+    "trench-entry.q2.bn.silence.clean": {
+      "text": "",
+      "voice": null,
+      "model": null,
+      "render": "local",
+      "cacheKey": null,
+      "backend": null,
+      "sha256": "ae4f2e100cd1d7c2f88ee53f9c53ee8b379baa89225c3ff909049f1f2108c327"
+    },
+    "trench-entry.q2.hi.contradicted.snr5": {
+      "text": "अगर पानी दिखा, तो मैं काम चालू रखूंगा और हाथ से दीवार चेक कर लूंगा।",
+      "voice": "Leda",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "5f407ed1dcb5",
+      "backend": "agent-platform",
+      "sha256": "278e7a1c0a1567aeb8e6fb38f9169960b0bb25354c58c42191f7919bb1637ce7"
+    },
+    "trench-entry.q2.hi.vague.clean": {
+      "text": "ठीक है, समझ गया।",
+      "voice": "Puck",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "5053f243990b",
+      "backend": "agent-platform",
+      "sha256": "ef482e9390b482ded6844d94e18699cf1b4b83d2973d2914c4dd799a38260185"
+    },
+    "trench-entry.q2.or.demo.clean.r1": {
+      "text": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "model": "bulbul:v3",
+      "render": "sarvam",
+      "cacheKey": "e21cb2091e15",
+      "backend": "sarvam",
+      "sha256": "f1f879fb00c32b3bb64fae5423472b4531faa6887e4ca09968e3331fcaac1c4b"
+    },
+    "trench-entry.q2.or.demo.clean.r2": {
+      "text": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ସିଡ଼ି ଦେଇ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି। ଭିତରେ ରହି କାମ ଜାରି ରଖିବି ନାହିଁ।",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "model": "bulbul:v3",
+      "render": "sarvam",
+      "cacheKey": "604bf011cdb7",
+      "backend": "sarvam",
+      "sha256": "346aa738052246aa5d9c517945116b0a0070bd532bb74d0c755724b44ecdcb7f"
+    },
+    "trench-entry.q2.or.echo.clean": {
+      "text": "ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ, ମୁଁ କ'ଣ କରିବି? ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖେ...",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "18695c6e1a4c",
+      "backend": "agent-platform",
+      "sha256": "ad9f2ed6867cb7c7d5f47b9845653d0e8889b162b00e7f5f4b072d52e6289b73"
+    },
+    "trench-entry.q2.or.wrong_language.clean": {
+      "text": "अगर मुझे पानी या दरारें दिखीं, तो मैं तुरंत बाहर निकल आऊंगा और supervisor को बता दूंगा।",
+      "voice": "Kore",
+      "model": "gemini-3.8-flash-tts",
+      "render": "generate_content",
+      "cacheKey": "17b732279354",
+      "backend": "agent-platform",
+      "sha256": "6cca796501aa8c89800211bff8cc88efaf1fad103862c138d0b8efe32e601b02"
+    }
+  }
+}

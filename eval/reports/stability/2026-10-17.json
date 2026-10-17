@@ -1,0 +1,353 @@
+{
+  "kind": "demo-stability",
+  "day": "2026-10-17",
+  "generatedAt": "2026-10-17T06:59:40Z",
+  "verdict": "pass",
+  "complete": true,
+  "stopped": null,
+  "falsePasses": 0,
+  "goldMissSteps": 3,
+  "repeat": 10,
+  "nItems": 6,
+  "itemIds": [
+    "lifting-zone.q1.ta.demo.clean.r1",
+    "lifting-zone.q2.ta.demo.clean.r1",
+    "lifting-zone.q3.ta.demo.clean.r1",
+    "lifting-zone.q1.ta.demo.clean.r2",
+    "lifting-zone.q2.ta.demo.clean.r2",
+    "lifting-zone.q3.ta.demo.clean.r2"
+  ],
+  "selection": {
+    "scripts": [
+      "sg-lead"
+    ]
+  },
+  "checksPlanned": 60,
+  "checksRun": 60,
+  "callsPerCheck": 3,
+  "callsLogged": 180,
+  "logLines": 348,
+  "promptVersion": "2026-10-16.12",
+  "models": {
+    "flash": "gemini-3.8-flash",
+    "judgeB": "gemini-3.1-flash-lite"
+  },
+  "settings": {
+    "promptVersion": "2026-10-16.12",
+    "models": {
+      "flash": "gemini-3.8-flash",
+      "judgeB": "gemini-3.1-flash-lite"
+    },
+    "judgePasses": 2,
+    "thinking": {
+      "blind_transcriber": "low",
+      "judge_a": "low",
+      "judge_b": "low"
+    },
+    "testsetSha256": "4018e55c0b14579bec5cf624597120f29cbfb8916554b6fecaf4779ae5789343",
+    "repeat": 10,
+    "maxOutputTokens": 4096,
+    "backend": "agent-platform"
+  },
+  "errors": [],
+  "items": [
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "voice": "Kore",
+      "clipSha256": "6ded8a396f42cb7ee1479fca411720190f82b789a749c50e0963350cf89a4dc5",
+      "runs": 10,
+      "distinctTranscripts": 3,
+      "steps": [
+        {
+          "stepId": "s1",
+          "gold": "contradicted",
+          "counts": {
+            "covered": 0,
+            "missed": 0,
+            "contradicted": 10,
+            "unclear": 0
+          },
+          "sequence": [
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        },
+        {
+          "stepId": "s2",
+          "gold": "missed",
+          "counts": {
+            "covered": 0,
+            "missed": 0,
+            "contradicted": 10,
+            "unclear": 0
+          },
+          "sequence": [
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted"
+          ],
+          "flags": {
+            "passes_disagreed": 5
+          },
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "clipSha256": "98c10abb6405dc0f316491e4461345eec3c5e9e15af1fa37cf82b48d261ee8b1",
+      "runs": 10,
+      "distinctTranscripts": 4,
+      "steps": [
+        {
+          "stepId": "s3",
+          "gold": "covered",
+          "counts": {
+            "covered": 10,
+            "missed": 0,
+            "contradicted": 0,
+            "unclear": 0
+          },
+          "sequence": [
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q3",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "clipSha256": "e832f06cb1842714369792782055091126b4e87a968d518016e2cd2e9d2e8270",
+      "runs": 10,
+      "distinctTranscripts": 6,
+      "steps": [
+        {
+          "stepId": "s4",
+          "gold": "contradicted",
+          "counts": {
+            "covered": 0,
+            "missed": 0,
+            "contradicted": 10,
+            "unclear": 0
+          },
+          "sequence": [
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted",
+            "contradicted"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "voice": "Orus",
+      "clipSha256": "558e074e1c8645cbc343166d449d59879a02ec283055da14db4a2303d67173c9",
+      "runs": 10,
+      "distinctTranscripts": 10,
+      "steps": [
+        {
+          "stepId": "s1",
+          "gold": "covered",
+          "counts": {
+            "covered": 10,
+            "missed": 0,
+            "contradicted": 0,
+            "unclear": 0
+          },
+          "sequence": [
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        },
+        {
+          "stepId": "s2",
+          "gold": "covered",
+          "counts": {
+            "covered": 10,
+            "missed": 0,
+            "contradicted": 0,
+            "unclear": 0
+          },
+          "sequence": [
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "clipSha256": "1ff796a28a304a8305b06a075ddfaa472952de8aa13b22d9118dbb9c3dcc0618",
+      "runs": 10,
+      "distinctTranscripts": 6,
+      "steps": [
+        {
+          "stepId": "s3",
+          "gold": "covered",
+          "counts": {
+            "covered": 10,
+            "missed": 0,
+            "contradicted": 0,
+            "unclear": 0
+          },
+          "sequence": [
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q3",
+      "workerLang": "ta",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "clipSha256": "b19346be551b16a6bb1d5a56062ec4450bace105c2c055e4b8aef83d3102a0f1",
+      "runs": 10,
+      "distinctTranscripts": 5,
+      "steps": [
+        {
+          "stepId": "s4",
+          "gold": "covered",
+          "counts": {
+            "covered": 10,
+            "missed": 0,
+            "contradicted": 0,
+            "unclear": 0
+          },
+          "sequence": [
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered",
+            "covered"
+          ],
+          "flags": {},
+          "falsePass": false,
+          "stable": true
+        }
+      ]
+    }
+  ]
+}

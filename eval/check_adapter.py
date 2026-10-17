@@ -45,7 +45,12 @@ async def _await(awaitable: Any) -> Any:
 
 
 def normalize_result(result: Any) -> dict:
-    """{ratings: {stepId: {verdict, flags, evidence}}, passB: bool, modelIds: {...}} from a CheckResult.
+    """{ratings: {stepId: {verdict, flags, evidence, quote, quoteTranslation, reason}}, passB: bool,
+    modelIds: {...}, transcripts: {questionId: translation}, originals: {questionId: original}} from a CheckResult.
+
+    The ratings are the final, guarded ones. transcripts holds the blind transcriber's English translation (v0.5: the
+    keyword baseline's input); originals (v0.5.1) its text in the worker's language, which the report keeps so a
+    stored result shows the worker's own words.
 
     Accepts Pydantic models, dataclasses or plain dicts, with camelCase or snake_case keys.
     """
@@ -58,13 +63,29 @@ def normalize_result(result: Any) -> dict:
             "verdict": _text(rating.get("verdict")),
             "flags": [str(flag) for flag in rating.get("flags") or []],
             "evidence": str(rating.get("quote") or rating.get("reason") or ""),
+            "quote": _optional(rating.get("quote")),
+            "quoteTranslation": _optional(rating.get("quoteTranslation", rating.get("quote_translation"))),
+            "reason": _optional(rating.get("reason")),
         }
+    transcripts: dict[str, str] = {}
+    originals: dict[str, str] = {}
+    for raw in data.get("transcripts") or []:
+        transcript = _plain(raw)
+        question_id = str(transcript.get("questionId", transcript.get("question_id")))
+        transcripts[question_id] = str(transcript.get("translation") or "")
+        originals[question_id] = str(transcript.get("original") or "")
     model_ids = data.get("modelIds", data.get("model_ids")) or {}
     return {
         "ratings": ratings,
         "passB": bool(data.get("passB", data.get("pass_b"))),
         "modelIds": {str(k): str(v) for k, v in dict(model_ids).items()},
+        "transcripts": transcripts,
+        "originals": originals,
     }
+
+
+def _optional(value: Any) -> str | None:
+    return str(value) if value not in (None, "") else None
 
 
 def _plain(obj: Any) -> dict:

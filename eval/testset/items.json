@@ -1,6 +1,40 @@
 {
-  "version": "2026-10-13",
+  "version": "2026-10-15",
   "questions": {
+    "confined-space": {
+      "q1": {
+        "bn": "ম্যানহোলের নিচে নামার আগে তুমি কী করবে?",
+        "hi": "मैनहोल में नीचे उतरने से पहले तुम क्या करोगे?",
+        "or": "ମ୍ୟାନହୋଲ ଭିତରକୁ ଯିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ କରିବ?",
+        "te": "Manhole లోపలికి దిగే ముందు నువ్వు ఏం చేస్తావు?"
+      },
+      "q2": {
+        "bn": "ভিতরে থাকা তোমার পার্টনার যদি কোনো জবাব দেওয়া বন্ধ করে দেয়, তুমি কী করবে?",
+        "hi": "अगर अंदर मौजूद तुम्हारा साथी जवाब देना बंद कर दे, तो तुम क्या करोगे?",
+        "or": "ଯଦି ଭିତରେ ଥିବା ତୁମ ସାଥୀ ଉତ୍ତର ଦେବା ବନ୍ଦ କରିଦିଏ, ତେବେ ତୁମେ କ'ଣ କରିବ?",
+        "te": "లోపల ఉన్న నీ పార్ట్‌నర్ నీకు సమాధానం ఇవ్వడం ఆపేస్తే, నువ్వు ఏం చేస్తావు?"
+      }
+    },
+    "fragile-roof": {
+      "q1": {
+        "bn": "ছাদে পা দেওয়ার আগে তুমি কী করবে?",
+        "my": "ခေါင်မိုးပေါ် မတက်ခင်မှာ ခင်ဗျား ဘာလုပ်မှာလဲ။",
+        "ta": "roof மேல கால் வைக்கிறதுக்கு முன்னாடி என்ன பண்ணுவீங்க?",
+        "zh": "在你踩上屋顶之前，你会先做什么？"
+      },
+      "q2": {
+        "bn": "ছাদ পার হয়ে ওই শেষ মাথায় তুমি কীভাবে যাবে?",
+        "my": "ဟိုဘက်အခြမ်းကို ရောက်အောင် ခေါင်မိုးကို ဘယ်လို ဖြတ်သွားမှာလဲ။",
+        "ta": "roof வழியா அந்தப் பக்கத்துக்கு எப்படி போவீங்க?",
+        "zh": "你要怎么穿过屋顶到对面去？"
+      },
+      "q3": {
+        "bn": "উপরে মালপত্র তোলার সময় guardrail যদি আটকে যায়, তুমি তখন কী করবে?",
+        "my": "ပစ္စည်းတွေ အပေါ်လှမ်းပေးတဲ့အခါ guardrail က ခံနေရင် ခင်ဗျား ဘာလုပ်မှာလဲ။",
+        "ta": "மேல மெட்டீரியல் பாஸ் பண்ணும்போது guardrail தடையா இருந்தா, என்ன பண்ணுவீங்க?",
+        "zh": "往上递材料的时候要是栏杆挡手了，你会怎么办？"
+      }
+    },
     "hot-work": {
       "q1": {
         "bn": "কাটিং শুরু করার আগে আপনি কী করবেন?",
@@ -15,6 +49,20 @@
         "zh": "切割完了之后你会做什么？"
       }
     },
+    "hydro-jetting": {
+      "q1": {
+        "bn": "পাম্প চলার সময় আপনি কী কী খেয়াল রাখবেন?",
+        "my": "Pump မောင်းနေတုန်း ဘာကို သေချာစစ်ဆေးမလဲ။",
+        "ta": "Pump ஓடிக்கிட்டு இருக்கும்போது, நீங்க எதை கவனிச்சு உறுதிப்படுத்துவீங்க?",
+        "zh": "泵在运转的时候，你要确认好什么？"
+      },
+      "q2": {
+        "bn": "নজেল বদলানোর আগে আপনি কী করবেন?",
+        "my": "Nozzle မလဲခင် ဘာလုပ်မလဲ။",
+        "ta": "Nozzle-ஐ மாத்துறதுக்கு முன்னாடி நீங்க என்ன பண்ணுவீங்க?",
+        "zh": "换喷嘴之前你会先做什么？"
+      }
+    },
     "lifting-zone": {
       "q1": {
         "bn": "load সরানোর সময় আপনি কোথায় থাকবেন?",
@@ -27,6 +75,12 @@
         "my": "load ရွှေ့နေတုန်း မင်း ဘယ်သူ့ဆီက ညွှန်ကြားချက် ယူမှာလဲ။",
         "ta": "லிப்ட் பண்ணும்போது யாரு சொல்ற வழிமுறைகளை கேட்பீங்க?",
         "zh": "吊装过程中，你听谁的指挥？"
+      },
+      "q3": {
+        "bn": "যদি load ঝুলতে বা দুলতে শুরু করে, তুমি তখন কী করবে?",
+        "my": "load က လွှဲယမ်းလာရင် ခင်ဗျား ဘာလုပ်မှာလဲ။",
+        "ta": "load ஆட ஆரம்பிச்சா, நீங்க என்ன பண்ணுவீங்க?",
+        "zh": "如果 load 开始晃动，你会怎么做？"
       }
     },
     "panel-isolation": {
@@ -43,32 +97,437 @@
         "zh": "你怎么确认碰电线是安全的？"
       }
     },
+    "press-lockout": {
+      "q1": {
+        "bn": "জ্যাম ছাড়ানোর আগে তুমি কী করবে?",
+        "hi": "मशीन में फँसा पीस निकालने से पहले आप क्या-क्या करेंगे?",
+        "or": "ଜାମ୍ ଖୋଲିବା ଆଗରୁ ତମେ କ'ଣ କରିବ?",
+        "te": "జామ్‌ను క్లియర్ చేసే ముందు నువ్వు ఏం చేస్తావు?"
+      },
+      "q2": {
+        "bn": "আটকে থাকা টুকরোটা তুমি কীভাবে বের করবে?",
+        "hi": "फँसा हुआ पीस आप कैसे निकालेंगे?",
+        "or": "ଅଟକି ରହିଥିବା ଖଣ୍ଡଟିକୁ କେମିତି ବାହାର କରିବ?",
+        "te": "ఇరుక్కుపోయిన ముక్కను నువ్వు ఎలా బయటకు తీస్తావు?"
+      }
+    },
     "scaffold-harness": {
       "q1": {
         "bn": "scaffold-এ প্রথম পা ফেলার আগে আপনি কী করবেন?",
         "hi": "Scaffold पर पहला कदम रखने से पहले तुम क्या करोगे?",
-        "or": "scaffold ଉପରେ ପ୍ରଥମ ପାଦ ରଖିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ କରିବ?"
+        "or": "scaffold ଉପରେ ପ୍ରଥମ ପାଦ ରଖିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ କରିବ?",
+        "te": "Scaffold మీదికి మొదటి అడుగు వేసే ముందు నువ్వు ఏం చేస్తావు?"
       },
       "q2": {
         "bn": "কখন আপনি clip খুলে ফেলতে পারবেন?",
         "hi": "तुम clip कब निकाल सकते हो?",
-        "or": "ତୁମେ କେତେବେଳେ clip କାଢ଼ିପାରିବ?"
+        "or": "ତୁମେ କେତେବେଳେ clip କାଢ଼ିପାରିବ?",
+        "te": "నువ్వు క్లిప్‌ను ఎప్పుడు తీయవచ్చు?"
+      }
+    },
+    "steam-line-break": {
+      "q1": {
+        "bn": "প্রথম বোল্ট হাত দেওয়ার আগে তুমি কী করবে?",
+        "my": "ပထမဆုံး bolt ကို မကိုင်ခင် ဘာလုပ်မလဲ။",
+        "ta": "முதல் போல்ட்டைத் தொடுவதற்கு முன் நீங்கள் என்ன செய்வீர்கள்?",
+        "zh": "动第一个螺栓之前你要先做什么？"
+      },
+      "q2": {
+        "bn": "জোড়াটা তুমি কীভাবে খুলবে?",
+        "my": "Joint ကို ဘယ်လို ဖြုတ်မလဲ။",
+        "ta": "குழாய் இணைப்பை நீங்கள் எப்படித் திறப்பீர்கள்?",
+        "zh": "这个接头你打算怎么拆开？"
+      }
+    },
+    "telecom-tower": {
+      "q1": {
+        "bn": "ওপরে ওঠা শুরু করার আগে তুমি কী করবে?",
+        "hi": "ऊपर चढ़ना शुरू करने से पहले आप क्या करेंगे?",
+        "or": "ଚଢ଼ିବା ଆରମ୍ଭ କରିବା ଆଗରୁ ତମେ କ'ଣ କରିବ?",
+        "te": "టవరు ఎక్కడం మొదలుపెట్టే ముందు మీరు ఏం చేస్తారు?"
+      },
+      "q2": {
+        "bn": "টাওয়ারে তুমি কীভাবে ওপরে উঠবে?",
+        "hi": "आप टावर पर ऊपर कैसे चढ़ेंगे?",
+        "or": "ଟାୱାର ଉପରକୁ କେମିତି ଚଢ଼ିବ?",
+        "te": "టవరు పైకి మీరు ఎలా ఎక్కుతారు?"
       }
     },
     "trench-entry": {
       "q1": {
         "bn": "trench-এ নামার আগে আপনি কী চেক করবেন এবং কী করবেন?",
         "hi": "Trench में उतरने से पहले तुम क्या चेक करोगे और क्या करोगे?",
-        "or": "trench ଭିତରକୁ ଯିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ ଯାଞ୍ଚ କରିବ ଓ କ'ଣ କରିବ?"
+        "or": "trench ଭିତରକୁ ଯିବା ପୂର୍ବରୁ ତୁମେ କ'ଣ ଯାଞ୍ଚ କରିବ ଓ କ'ଣ କରିବ?",
+        "te": "Trench లోపలికి వెళ్ళే ముందు నువ్వు ఏం చెక్ చేస్తావు మరియు ఏం చేస్తావు?"
       },
       "q2": {
         "bn": "দেয়ালে পানি বা ফাটল দেখলে আপনি কী করবেন?",
         "hi": "दीवार में पानी या दरारें दिखने पर तुम क्या करोगे?",
-        "or": "ଯଦି କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିବ ତେବେ ତୁମେ କ'ଣ କରିବ?"
+        "or": "ଯଦି କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିବ ତେବେ ତୁମେ କ'ଣ କରିବ?",
+        "te": "గోడలో నీళ్ళు లేదా పగుళ్ళు కనిపిస్తే నువ్వు ఏం చేస్తావు?"
       }
     }
   },
+  "questionSources": {
+    "confined-space": {
+      "q1": {
+        "bn": "What will you do before you go down the manhole?",
+        "hi": "What will you do before you go down the manhole?",
+        "or": "What will you do before you go down the manhole?",
+        "te": "What will you do before you go down the manhole?"
+      },
+      "q2": {
+        "bn": "If your partner inside stops answering you, what will you do?",
+        "hi": "If your partner inside stops answering you, what will you do?",
+        "or": "If your partner inside stops answering you, what will you do?",
+        "te": "If your partner inside stops answering you, what will you do?"
+      }
+    },
+    "fragile-roof": {
+      "q1": {
+        "bn": "What will you do before you step onto the roof?",
+        "my": "What will you do before you step onto the roof?",
+        "ta": "What will you do before you step onto the roof?",
+        "zh": "What will you do before you step onto the roof?"
+      },
+      "q2": {
+        "bn": "How will you get across the roof to the far side?",
+        "my": "How will you get across the roof to the far side?",
+        "ta": "How will you get across the roof to the far side?",
+        "zh": "How will you get across the roof to the far side?"
+      },
+      "q3": {
+        "bn": "If the guardrail is in your way when you pass materials up, what will you do?",
+        "my": "If the guardrail is in your way when you pass materials up, what will you do?",
+        "ta": "If the guardrail is in your way when you pass materials up, what will you do?",
+        "zh": "If the guardrail is in your way when you pass materials up, what will you do?"
+      }
+    },
+    "hot-work": {
+      "q1": {
+        "bn": "What will you do before you start cutting?",
+        "my": "What will you do before you start cutting?",
+        "ta": "What will you do before you start cutting?",
+        "zh": "What will you do before you start cutting?"
+      },
+      "q2": {
+        "bn": "What will you do after you finish cutting?",
+        "my": "What will you do after you finish cutting?",
+        "ta": "What will you do after you finish cutting?",
+        "zh": "What will you do after you finish cutting?"
+      }
+    },
+    "hydro-jetting": {
+      "q1": {
+        "bn": "While the pump is running, what will you make sure of?",
+        "my": "While the pump is running, what will you make sure of?",
+        "ta": "While the pump is running, what will you make sure of?",
+        "zh": "While the pump is running, what will you make sure of?"
+      },
+      "q2": {
+        "bn": "What will you do before you change the nozzle?",
+        "my": "What will you do before you change the nozzle?",
+        "ta": "What will you do before you change the nozzle?",
+        "zh": "What will you do before you change the nozzle?"
+      }
+    },
+    "lifting-zone": {
+      "q1": {
+        "bn": "Where will you be while the load is moving?",
+        "my": "Where will you be while the load is moving?",
+        "ta": "Where will you be while the load is moving?",
+        "zh": "Where will you be while the load is moving?"
+      },
+      "q2": {
+        "bn": "During the lift, who will you take directions from?",
+        "my": "During the lift, who will you take directions from?",
+        "ta": "During the lift, who will you take directions from?",
+        "zh": "During the lift, who will you take directions from?"
+      },
+      "q3": {
+        "bn": "If the load starts to swing, what will you do?",
+        "my": "If the load starts to swing, what will you do?",
+        "ta": "If the load starts to swing, what will you do?",
+        "zh": "If the load starts to swing, what will you do?"
+      }
+    },
+    "panel-isolation": {
+      "q1": {
+        "bn": "What will you do before you open the panel?",
+        "my": "What will you do before you open the panel?",
+        "ta": "What will you do before you open the panel?",
+        "zh": "What will you do before you open the panel?"
+      },
+      "q2": {
+        "bn": "How will you know it is safe to touch the wires?",
+        "my": "How will you know it is safe to touch the wires?",
+        "ta": "How will you know it is safe to touch the wires?",
+        "zh": "How will you know it is safe to touch the wires?"
+      }
+    },
+    "press-lockout": {
+      "q1": {
+        "bn": "What will you do before you clear the jam?",
+        "hi": "What will you do before you clear the jam?",
+        "or": "What will you do before you clear the jam?",
+        "te": "What will you do before you clear the jam?"
+      },
+      "q2": {
+        "bn": "How will you take out the stuck piece?",
+        "hi": "How will you take out the stuck piece?",
+        "or": "How will you take out the stuck piece?",
+        "te": "How will you take out the stuck piece?"
+      }
+    },
+    "scaffold-harness": {
+      "q1": {
+        "bn": "What will you do before your first step onto the scaffold?",
+        "hi": "What will you do before your first step onto the scaffold?",
+        "or": "What will you do before your first step onto the scaffold?",
+        "te": "What will you do before your first step onto the scaffold?"
+      },
+      "q2": {
+        "bn": "When can you take the clip off?",
+        "hi": "When can you take the clip off?",
+        "or": "When can you take the clip off?",
+        "te": "When can you take the clip off?"
+      }
+    },
+    "steam-line-break": {
+      "q1": {
+        "bn": "What will you do before you touch the first bolt?",
+        "my": "What will you do before you touch the first bolt?",
+        "ta": "What will you do before you touch the first bolt?",
+        "zh": "What will you do before you touch the first bolt?"
+      },
+      "q2": {
+        "bn": "How will you open the joint?",
+        "my": "How will you open the joint?",
+        "ta": "How will you open the joint?",
+        "zh": "How will you open the joint?"
+      }
+    },
+    "telecom-tower": {
+      "q1": {
+        "bn": "What will you do before you start to climb?",
+        "hi": "What will you do before you start to climb?",
+        "or": "What will you do before you start to climb?",
+        "te": "What will you do before you start to climb?"
+      },
+      "q2": {
+        "bn": "How will you go up the tower?",
+        "hi": "How will you go up the tower?",
+        "or": "How will you go up the tower?",
+        "te": "How will you go up the tower?"
+      }
+    },
+    "trench-entry": {
+      "q1": {
+        "bn": "What will you check and do before you go into the trench?",
+        "hi": "What will you check and do before you go into the trench?",
+        "or": "What will you check and do before you go into the trench?",
+        "te": "What will you check and do before you go into the trench?"
+      },
+      "q2": {
+        "bn": "What will you do if you see water or cracks in the wall?",
+        "hi": "What will you do if you see water or cracks in the wall?",
+        "or": "What will you do if you see water or cracks in the wall?",
+        "te": "What will you do if you see water or cracks in the wall?"
+      }
+    }
+  },
+  "pendingQuestions": [],
   "items": [
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "லோடுக்கு அடியில நின்னு, கையால பிடிச்சு அதை நேரா வைப்பேன்.",
+      "answerGloss": "I'll stand under the load and hold it straight with my hand.",
+      "backTranslation": "I will stand under the load, hold it with my hands and keep it straight.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "audio": "audio/lifting-zone.q1.ta.demo.clean.r1.wav",
+      "voice": "Kore",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "லோடு நகரும்போது பேரிகேடுக்கு வெளியே நிப்பேன். லோடு கீழே இறங்குற வரைக்கும் உள்ள போக மாட்டேன். லோடுக்கு அடியில ஒருபோதும் போக மாட்டேன்.",
+      "answerGloss": "While the load is moving I'll stand outside the barricade. I won't go in until the load is down. I'll never go under the load.",
+      "backTranslation": "While the load is moving, I will stand outside the barricade. Until the load comes down, I will not go inside. I will never go under the load.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/lifting-zone.q1.ta.demo.clean.r2.wav",
+      "voice": "Orus",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன்.",
+      "answerGloss": "I'll listen only to what the signalman says.",
+      "backTranslation": "I will listen only to what the signalman says.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/lifting-zone.q2.ta.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r1",
+      "taskId": "lifting-zone",
+      "questionId": "q3",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "லோடு ஆடுனா, கையால பிடிச்சு ஆடாம நிறுத்துவேன்.",
+      "answerGloss": "If the load swings, I'll grab it with my hand and stop it swinging.",
+      "backTranslation": "If the load swings, I will hold it with my hand and stop it from swinging.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/lifting-zone.q3.ta.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-lead",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q2.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "சிக்னல்மேன் சொல்றதை மட்டும்தான் கேப்பேன். வேற யார் சிக்னல் குடுத்தாலும் கேக்க மாட்டேன்.",
+      "answerGloss": "I'll listen only to the signalman. I won't follow anyone else's signals.",
+      "backTranslation": "I will listen only to what the signalman says. Whoever else gives a signal, I will not listen.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/lifting-zone.q2.ta.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q3.ta.demo.clean.r2",
+      "taskId": "lifting-zone",
+      "questionId": "q3",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "லோடு ஆடுனா டேக் லைன் வச்சு மட்டும்தான் நிறுத்துவேன். லோடை கையால ஒருபோதும் பிடிக்க மாட்டேன்.",
+      "answerGloss": "If the load swings, I'll steady it only with the tag line. I'll never hold the load with my hand.",
+      "backTranslation": "If the load swings, I will stop it only using a tagline. I will never hold the load with my hand.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "covered"
+      },
+      "audio": "audio/lifting-zone.q3.ta.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-lead",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q1.ta.negation.clean",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "நான் load-க்கு அடியில போக மாட்டேன். ஆனா அது கீழ வரும்போது, barrier-க்குள்ள போய் கையால guide பண்ணுவேன்.",
+      "answerGloss": "I won't go under the load. But while it's coming down, I'll go inside the barrier and guide it with my hand.",
+      "backTranslation": "I will not go under the load. But when it comes down, I will go inside the barrier and guide it by hand.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/lifting-zone.q1.ta.negation.clean.wav",
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q1.ta.fluent_wrong.snr10",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "முதல்ல barrier-க்கு வெளியே இருப்பேன். load தரைக்கு கொஞ்சம் மேல இருக்கும்போது, அதுக்கு அடியில போய் சரியா நேர இறங்குற மாதிரி line up பண்ணுவேன்.",
+      "answerGloss": "I'll stay outside the barrier at first. When the load is just above the ground, I'll go under it and line it up, so it lands straight.",
+      "backTranslation": "First I will stay outside the barrier. When the load is a little above the ground, I will go under it and line it up so that it comes down correctly straight.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "audio": "audio/lifting-zone.q1.ta.fluent_wrong.snr10.wav",
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
+    },
     {
       "id": "panel-isolation.q1.ta.demo.clean.r1",
       "taskId": "panel-isolation",
@@ -77,17 +536,23 @@
       "pattern": "demo",
       "noise": "clean",
       "source": "synthetic_tts",
-      "answer": "நான் அதை ஆஃப் பண்ணிட்டு திறப்பேன்.",
-      "answerGloss": "I'll switch it off and open it.",
-      "backTranslation": "I will turn it off and open it.",
-      "fidelity": "ok",
+      "answer": "நான் பிரேக்கரை ஆஃப் பண்ணிட்டு திறப்பேன்.",
+      "answerGloss": "I'll switch off the breaker and open it.",
+      "backTranslation": "I will turn off the breaker and open it.",
+      "fidelity": "review",
       "gold": {
         "s1": "covered",
         "s2": "missed",
         "s3": "missed"
       },
       "audio": "audio/panel-isolation.q1.ta.demo.clean.r1.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": {
+        "script": "sg-panel",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.ta.demo.clean.r2",
@@ -97,17 +562,23 @@
       "pattern": "demo",
       "noise": "clean",
       "source": "synthetic_tts",
-      "answer": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன், டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணிட்டுதான் பேனலைத் திறப்பேன்.",
-      "answerGloss": "First I'll switch off the breaker, then put on the lock and tag, and only after checking with the tester that there's no current will I open the panel.",
-      "backTranslation": "First I will turn off the breaker, then put the lock and attach the tag, check that there is no current using a tester, and only then open the panel.",
-      "fidelity": "ok",
+      "answer": "முதல்ல பிரேக்கரை ஆஃப் பண்ணுவேன், அப்புறம் லாக் போட்டு டேக் மாட்டுவேன். பேனலைத் திறந்த பிறகு, எதையும் தொடுறதுக்கு முன்னாடி டெஸ்டர் வச்சு கரண்ட் இல்லைன்னு செக் பண்ணுவேன்.",
+      "answerGloss": "First I'll switch off the breaker, then put on the lock and tag. After I open the panel, I'll check with the tester that there's no current before I touch anything.",
+      "backTranslation": "First I will turn off the breaker, then put the lock and attach the tag. After opening the panel, before touching anything, I will check with a tester that there is no current.",
+      "fidelity": "review",
       "gold": {
         "s1": "covered",
         "s2": "covered",
         "s3": "covered"
       },
       "audio": "audio/panel-isolation.q1.ta.demo.clean.r2.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": {
+        "script": "sg-panel",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.ta.contradicted.clean",
@@ -127,7 +598,10 @@
         "s3": "contradicted"
       },
       "audio": "audio/panel-isolation.q1.ta.contradicted.clean.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.ta.vague.snr10",
@@ -147,7 +621,10 @@
         "s3": "missed"
       },
       "audio": "audio/panel-isolation.q1.ta.vague.snr10.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.ta.code_switch.clean",
@@ -164,10 +641,13 @@
       "gold": {
         "s1": "covered",
         "s2": "covered",
-        "s3": "covered"
+        "s3": "contradicted"
       },
       "audio": "audio/panel-isolation.q1.ta.code_switch.clean.wav",
-      "voice": "Orus"
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q2.ta.negation.snr5",
@@ -185,7 +665,10 @@
         "s3": "covered"
       },
       "audio": "audio/panel-isolation.q2.ta.negation.snr5.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.bn.two_missing.snr10",
@@ -205,7 +688,10 @@
         "s3": "missed"
       },
       "audio": "audio/panel-isolation.q1.bn.two_missing.snr10.wav",
-      "voice": "Charon"
+      "voice": "Charon",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.bn.contradicted.snr5",
@@ -225,7 +711,10 @@
         "s3": "missed"
       },
       "audio": "audio/panel-isolation.q1.bn.contradicted.snr5.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.zh.complete.clean",
@@ -235,17 +724,20 @@
       "pattern": "complete",
       "noise": "clean",
       "source": "synthetic_tts",
-      "answer": "先关掉breaker，然后挂上我的lock和tag，接着用tester测一下确认没电，最后才打开panel。",
-      "answerGloss": "First I switch off the breaker, then I put my lock and tag on it, then I test with the tester that there's no power, and only then open the panel.",
-      "backTranslation": "First turn off the breaker, then hang my lock and tag, next test with the tester to confirm there is no electricity, and finally open the panel.",
-      "fidelity": "ok",
+      "answer": "首先我拉掉 breaker，然后把我的 lock 和 tag 挂上去。接着我打开箱门，在碰任何东西之前，用 tester 测一下确保没电。",
+      "answerGloss": "First I switch off the breaker, then I put my lock and tag on it. Then I open the panel, and before I touch anything, I test with the tester that there's no power.",
+      "backTranslation": "First I trip the breaker, then hang my lock and tag on it. Next I open the cabinet door, and before touching anything, test with a tester to make sure there is no electricity.",
+      "fidelity": "review",
       "gold": {
         "s1": "covered",
         "s2": "covered",
         "s3": "covered"
       },
       "audio": "audio/panel-isolation.q1.zh.complete.clean.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "panel-isolation.q1.zh.one_missing.clean",
@@ -262,10 +754,13 @@
       "gold": {
         "s1": "covered",
         "s2": "missed",
-        "s3": "covered"
+        "s3": "contradicted"
       },
       "audio": "audio/panel-isolation.q1.zh.one_missing.clean.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.hi.demo.clean.r1",
@@ -284,7 +779,13 @@
         "s2": "missed"
       },
       "audio": "audio/scaffold-harness.q1.hi.demo.clean.r1.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": {
+        "script": "chennai-second",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.hi.demo.clean.r2",
@@ -303,7 +804,651 @@
         "s2": "covered"
       },
       "audio": "audio/scaffold-harness.q1.hi.demo.clean.r2.wav",
-      "voice": "Orus"
+      "voice": "Orus",
+      "demo": {
+        "script": "chennai-second",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "scaffold-harness.q2.hi.demo.clean.r1",
+      "taskId": "scaffold-harness",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ऊपर पहुँच के हुक खोल दूँगा, ताकि आराम से काम कर सकूँ।",
+      "answerGloss": "Once I'm up, I'll unclip the hook so I can work comfortably.",
+      "backTranslation": "Upon reaching the top, I will unhook, so that I can work comfortably.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/scaffold-harness.q2.hi.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-second",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "scaffold-harness.q2.hi.demo.clean.r2",
+      "taskId": "scaffold-harness",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "नीचे ज़मीन पर आने के बाद ही। पूरे टाइम हुक लगा रहेगा, और एक बार में एक ही हुक बदलूँगा।",
+      "answerGloss": "Only once I'm back on the ground. The hook stays on the whole time, and I move one hook at a time.",
+      "backTranslation": "Only after coming down to the ground. The hook will remain attached the whole time, and I will change only one hook at a time.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/scaffold-harness.q2.hi.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-second",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hot-work.q1.bn.demo.clean.r1",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব, নাহলে ঢেকে দেব। আগুন নেভানোর সিলিন্ডার পাশে রাখব, আর আগুন পাহারা দেওয়ার একজন লোক থাকবে।",
+      "answerGloss": "Before I start cutting, I'll move away everything within ten metres that can burn, or else cover it. I'll keep the fire extinguisher beside me, and one person will be there keeping watch for fire.",
+      "backTranslation": "Before starting cutting, anything that can burn within ten meters, I will remove everything, otherwise I will cover it. I will keep a fire extinguishing cylinder nearby, and there will be a person guarding the fire.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/hot-work.q1.bn.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hot-work",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hot-work.q2.bn.demo.clean.r1",
+      "taskId": "hot-work",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "কাটিং শেষ হলেই মেশিন গুছিয়ে সাথে সাথে চলে যাব।",
+      "answerGloss": "As soon as the cutting is finished, I'll pack up the machine and leave straight away.",
+      "backTranslation": "As soon as the cutting is finished, I will pack up the machine and leave immediately.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/hot-work.q2.bn.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hot-work",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hot-work.q1.bn.demo.clean.r2",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "কাটিং শুরুর আগে দশ মিটারের মধ্যে যা কিছু পুড়তে পারে, সব সরিয়ে ফেলব বা ঢেকে দেব। আগুন নেভানোর সিলিন্ডার হাতের কাছে রাখব। আগুন পাহারা দেওয়ার লোক পাশে না থাকলে কাটিং শুরু করব না।",
+      "answerGloss": "Before I start cutting, I'll move away or cover everything within ten metres that can burn. I'll keep the fire extinguisher within reach. I won't start cutting unless the person keeping watch for fire is beside me.",
+      "backTranslation": "Before starting cutting, anything that can burn within ten meters, I will remove everything or cover it. I will keep a fire extinguishing cylinder within hand's reach. If a person guarding the fire is not nearby, I will not start cutting.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/hot-work.q1.bn.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hot-work",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hot-work.q2.bn.demo.clean.r2",
+      "taskId": "hot-work",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "কাটিং শেষ হওয়ার পরও ত্রিশ মিনিট ধরে আগুনের দিকে নজর রাখব। ত্রিশ মিনিটের আগে জায়গা ছেড়ে যাব না।",
+      "answerGloss": "After the cutting is finished, I'll keep watching for fire for thirty minutes. I won't leave the place before thirty minutes.",
+      "backTranslation": "Even after the cutting is finished, I will keep watch on the fire for thirty minutes. I will not leave the place before thirty minutes.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/hot-work.q2.bn.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hot-work",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "trench-entry.q1.or.demo.clean.r1",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ମୁଁ କେବଳ ସିଡ଼ି ଦେଇ ତଳକୁ ଓହ୍ଲାଇବି, ଆଉ ସିଡ଼ି ଦେଇ ଉପରକୁ ଉଠିବି।",
+      "answerGloss": "I'll go down only by the ladder, and come back up by the ladder.",
+      "backTranslation": "I will only descend down using a ladder, and ascend up using a ladder.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "audio": "audio/trench-entry.q1.or.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "demo": {
+        "script": "chennai-trench",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "trench-entry.q2.or.demo.clean.r1",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି।",
+      "answerGloss": "If I see water or a crack in the wall, I'll come out straight away and tell the supervisor.",
+      "backTranslation": "If I see water or a crack on the wall, I will immediately come outside, and tell the supervisor.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/trench-entry.q2.or.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "demo": {
+        "script": "chennai-trench",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "trench-entry.q1.or.demo.clean.r2",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ଭିତରକୁ ଯିବା ଆଗରୁ ଦେଖିବି, କାନ୍ଥକୁ ଧରି ରଖିଥିବା ସପୋର୍ଟ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ସପୋର୍ଟ ନ ଥିଲେ ଭିତରକୁ ଯିବି ନାହିଁ। କେବଳ ସିଡ଼ି ଦେଇ ଯିବି ଆସିବି, ସିଡ଼ି ଛଡ଼ା ଅନ୍ୟ ବାଟରେ କେବେ ବି ଯିବି ନାହିଁ।",
+      "answerGloss": "Before going in, I'll check that the supports holding up the walls (the shoring) are properly in place. If the supports aren't there, I won't go in. I'll go in and come out only by the ladder; I'll never go any other way than the ladder.",
+      "backTranslation": "Before going inside, I will check whether the support holding the wall is properly fitted or not. If there is no support, I will not go inside. I will only come and go using the ladder, I will never go by any way other than the ladder.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/trench-entry.q1.or.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "demo": {
+        "script": "chennai-trench",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "trench-entry.q2.or.demo.clean.r2",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "କାନ୍ଥରେ ପାଣି କିମ୍ବା ଫାଟ ଦେଖିଲେ ସଙ୍ଗେ ସଙ୍ଗେ ସିଡ଼ି ଦେଇ ବାହାରକୁ ଚାଲିଆସିବି, ଆଉ ସୁପରଭାଇଜରଙ୍କୁ କହିବି। ଭିତରେ ରହି କାମ ଜାରି ରଖିବି ନାହିଁ।",
+      "answerGloss": "If I see water or a crack in the wall, I'll climb out by the ladder straight away and tell the supervisor. I won't stay inside and carry on working.",
+      "backTranslation": "If I see water or a crack on the wall, I will immediately come outside using the ladder, and tell the supervisor. I will not stay inside and continue working.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/trench-entry.q2.or.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v3/shubh",
+      "demo": {
+        "script": "chennai-trench",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hydro-jetting.q1.bn.demo.clean.r1",
+      "taskId": "hydro-jetting",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "পাম্প চলার সময় ফিতা দিয়ে ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কাউকে ঢুকতে দেব না। হাত ব্যথা হয়ে গেলে ট্রিগারটা দড়ি দিয়ে বেঁধে রাখব।",
+      "answerGloss": "While the pump is running, I won't let anyone but our crew inside the taped-off area. If my hand starts to hurt, I'll tie the trigger down with a rope.",
+      "backTranslation": "While the pump is running, except for our team's people, I will not let anyone enter inside the tape-barricaded area. If the hand hurts, I will tie the trigger with a rope.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/hydro-jetting.q1.bn.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hydrojet",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hydro-jetting.q2.bn.demo.clean.r1",
+      "taskId": "hydro-jetting",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "নজেল বদলানোর আগে পাম্প বন্ধ করব, তারপর চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে নামলে তবেই নজেলে হাত দেব।",
+      "answerGloss": "Before changing the nozzle, I'll stop the pump and then release all the pressure. I'll touch the nozzle only once the gauge needle drops to zero.",
+      "backTranslation": "Before changing the nozzle, I will shut off the pump, then release the pressure completely. Only when the meter needle comes down to zero will I touch the nozzle.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/hydro-jetting.q2.bn.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hydrojet",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hydro-jetting.q1.bn.demo.clean.r2",
+      "taskId": "hydro-jetting",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "পাম্প চলার সময় ঘেরা জায়গার ভেতরে আমাদের দলের লোক ছাড়া কেউ ঢুকবে না। পানির বন্দুক কখনো কারও দিকে তাক করব না। ট্রিগার কখনো বাঁধব না; হাত ব্যথা হলে বন্দুক নামিয়ে বিশ্রাম নেব।",
+      "answerGloss": "While the pump is running, nobody but our crew will come inside the fenced-off area. I'll never point the water gun at anyone. I'll never tie the trigger; if my hand hurts, I'll put the gun down and rest.",
+      "backTranslation": "While the pump is running, except for our team's people, no one will enter inside the cordoned-off area. I will never aim the water gun at anyone. I will never tie the trigger; if the hand hurts, I will put down the gun and rest.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/hydro-jetting.q1.bn.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hydrojet",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "hydro-jetting.q2.bn.demo.clean.r2",
+      "taskId": "hydro-jetting",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "নজেল বদলানোর আগে পাম্প বন্ধ করে চাপ পুরো ছেড়ে দেব। মিটারের কাঁটা শূন্যে না নামা পর্যন্ত নজেলে হাত দেব না।",
+      "answerGloss": "Before changing the nozzle, I'll stop the pump and release all the pressure. I won't touch the nozzle until the gauge needle drops to zero.",
+      "backTranslation": "Before changing the nozzle, I will shut off the pump and release the pressure completely. Until the meter needle drops to zero, I will not touch the nozzle.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/hydro-jetting.q2.bn.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/roopa_bn_conversational",
+      "demo": {
+        "script": "sg-hydrojet",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "steam-line-break.q1.ta.demo.clean.r1",
+      "taskId": "steam-line-break",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ரெண்டு வால்வையும் ஆபரேட்டர் ஏற்கனவே மூடிட்டாரு, அதனால என் பூட்டு போட வேண்டியதில்லை. டிரெயின் வால்வைத் திறந்து, கேஜ்ல பூஜ்ஜியம் காட்டுனதுக்கு அப்புறம்தான் போல்ட்டைத் தொடுவேன்.",
+      "answerGloss": "The operator has already closed both valves, so I don't need to put my lock on. I'll open the drain valve, and I'll touch a bolt only after the gauge shows zero.",
+      "backTranslation": "The operator has already closed both valves, so there is no need to put my lock. Only after opening the drain valve and the gauge showing zero, I will touch the bolt.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "audio": "audio/steam-line-break.q1.ta.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-steam-line",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "steam-line-break.q2.ta.demo.clean.r1",
+      "taskId": "steam-line-break",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "முதல்ல எனக்கு எதிர்ப் பக்கம் இருக்கிற போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன்; உள்ள மிச்சம் இருக்கிற நீராவி அந்தப் பக்கமா போகும். முகத்தை இணைப்புக்கு நேரா வைக்காம, ஓரமா நின்னு செய்வேன்.",
+      "answerGloss": "First I'll loosen the bolts on the side away from me, so any steam left inside goes out that way. I'll keep my face out of line with the joint and work standing to the side.",
+      "backTranslation": "First I will only loosen the bolts that are on the opposite side to me; the remaining steam inside will go that side. Without keeping my face facing the joint, I will stand aside and do it.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/steam-line-break.q2.ta.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-steam-line",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "steam-line-break.q1.ta.demo.clean.r2",
+      "taskId": "steam-line-break",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ரெண்டு வால்வும் மூடியிருக்கான்னு பார்த்து, ரெண்டுலயும் என் சொந்தப் பூட்டையும் டேக்கையும் போடுவேன். அப்புறம் டிரெயின் வால்வைத் திறப்பேன்; கேஜ்ல பூஜ்ஜியம் காட்டுற வரைக்கும் எந்த போல்ட்டையும் தொட மாட்டேன்.",
+      "answerGloss": "I'll check that both valves are closed and put my own lock and tag on both of them. Then I'll open the drain valve; until the gauge shows zero, I won't touch any bolt.",
+      "backTranslation": "I will check whether both valves are closed, and put my own lock and tag on both. Then I will open the drain valve; I will not touch any bolt until the gauge shows zero.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/steam-line-break.q1.ta.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-steam-line",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "steam-line-break.q2.ta.demo.clean.r2",
+      "taskId": "steam-line-break",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "முதல்ல எதிர்ப் பக்க போல்ட்டுகளைத்தான் லூஸ் பண்ணுவேன், நீராவி மிச்சம் இருந்தா அந்தப் பக்கமா அடிக்கும். இணைப்புக்கு நேரா முகத்தை வைக்க மாட்டேன், ஓரமா நின்னுதான் செய்வேன்.",
+      "answerGloss": "First I'll loosen only the far-side bolts, so any steam left will blow out that way. I won't put my face in line with the joint; I'll only work standing to the side.",
+      "backTranslation": "First I will loosen only the bolts on the opposite side, if there is remaining steam it will blow towards that side. I will not put my face directly facing the joint, I will stand aside and only then do it.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/steam-line-break.q2.ta.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/vijay_ta_narration",
+      "demo": {
+        "script": "sg-steam-line",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "press-lockout.q1.hi.demo.clean.r1",
+      "taskId": "press-lockout",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा और उस पर अपना ताला और टैग लगाऊँगा। फिर स्टार्ट बटन दबाकर देखूँगा कि मशीन चलती तो नहीं। उसके बाद ऊपर और नीचे की डाई के बीच ब्लॉक लगाऊँगा।",
+      "answerGloss": "First I'll stop the machine, switch off the main switch and put my own lock and tag on it. Then I'll press the start button to check the machine doesn't run. After that I'll put the block between the upper and lower dies.",
+      "backTranslation": "First, after stopping the machine, I will turn off the main switch and put my lock and tag on it. Then, by pressing the start button, I will check whether the machine runs. After that, I will place a block between the upper and lower die.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/press-lockout.q1.hi.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-press",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "press-lockout.q2.hi.demo.clean.r1",
+      "taskId": "press-lockout",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "फँसा हुआ पीस हाथ से जल्दी खींच लूँगा, चिमटा ढूँढने में टाइम लगता है।",
+      "answerGloss": "I'll quickly pull the stuck piece out by hand; finding the tongs takes time.",
+      "backTranslation": "I will quickly pull out the stuck piece with my hand, it takes time to find the tongs.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/press-lockout.q2.hi.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-press",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "press-lockout.q1.hi.demo.clean.r2",
+      "taskId": "press-lockout",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "पहले मशीन रोककर मेन स्विच ऑफ़ करूँगा, उस पर अपना ताला और टैग लगाऊँगा और चाबी अपने पास रखूँगा। फिर स्टार्ट बटन दबाकर पक्का करूँगा कि मशीन नहीं चलती। उसके बाद डाई के बीच ब्लॉक लगाऊँगा; ब्लॉक के बिना अंदर नहीं झुकूँगा।",
+      "answerGloss": "First I'll stop the machine and switch off the main switch, put my own lock and tag on it and keep the key with me. Then I'll press the start button to make sure the machine doesn't run. After that I'll put the block between the dies; I won't lean in without the block.",
+      "backTranslation": "First, after stopping the machine, I will turn off the main switch, put my lock and tag on it, and keep the key with myself. Then, by pressing the start button, I will make sure that the machine does not run. After that, I will place a block between the dies; without the block, I will not lean inside.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/press-lockout.q1.hi.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-press",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "press-lockout.q2.hi.demo.clean.r2",
+      "taskId": "press-lockout",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "फँसा हुआ पीस सिर्फ़ चिमटे से निकालूँगा। डाई के बीच कभी हाथ या उँगली नहीं डालूँगा।",
+      "answerGloss": "I'll take the stuck piece out only with the tongs. I'll never put a hand or a finger between the dies.",
+      "backTranslation": "I will take out the stuck piece only with tongs. I will never put my hand or finger between the dies.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "covered"
+      },
+      "audio": "audio/press-lockout.q2.hi.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/rahul_hi_conversational",
+      "demo": {
+        "script": "chennai-press",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "telecom-tower.q1.te.demo.clean.r1",
+      "taskId": "telecom-tower",
+      "questionId": "q1",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ఎక్కే ముందు టవరు కింద ఎవరూ లేరని చూసుకుంటాను. పనిముట్లన్నీ సంచిలో పెట్టి తాడుతో పైకి లాగుతాను.",
+      "answerGloss": "Before I climb, I'll make sure nobody is under the tower. I'll put all the tools in the bag and pull them up with the rope.",
+      "backTranslation": "Before climbing, I will make sure no one is under the tower. I will put all the tools in a bag and pull them up with a rope.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed"
+      },
+      "audio": "audio/telecom-tower.q1.te.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "demo": {
+        "script": "chennai-tower",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "telecom-tower.q2.te.demo.clean.r1",
+      "taskId": "telecom-tower",
+      "questionId": "q2",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది. ఒకసారికి ఒక్క హుక్కు మాత్రమే తీసి పైకి మారుస్తాను.",
+      "answerGloss": "While I climb up, one hook always stays on the tower. I'll take off only one hook at a time and move it higher.",
+      "backTranslation": "While climbing up, one hook will always remain attached to the tower. I will remove only one hook at a time and move it upward.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/telecom-tower.q2.te.demo.clean.r1.wav",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "demo": {
+        "script": "chennai-tower",
+        "round": 0
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "telecom-tower.q1.te.demo.clean.r2",
+      "taskId": "telecom-tower",
+      "questionId": "q1",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ఎక్కే ముందు టవరు కింద ఎవరూ లేకుండా చూసుకుంటాను, పనిముట్లు సంచిలో పెట్టి తాడుతో పైకి పంపిస్తాను. కంట్రోల్ రూముకి ఫోన్ చేసి నేను పని చేసే యాంటెన్నాను ఆఫ్ చేయమంటాను; ఆఫ్ అయిందని వాళ్ళు చెప్పేవరకు ఎక్కకూడదు.",
+      "answerGloss": "Before I climb, I'll make sure nobody is under the tower, and I'll send the tools up in the bag on the rope. I'll phone the control room and ask them to switch off the antenna I'll work on; I must not climb until they say it is off.",
+      "backTranslation": "Before climbing, I will make sure no one is under the tower, put the tools in a bag and send them up with a rope. I will phone the control room and tell them to turn off the antenna I work on; one must not climb until they say it is turned off.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/telecom-tower.q1.te.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "demo": {
+        "script": "chennai-tower",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "telecom-tower.q2.te.demo.clean.r2",
+      "taskId": "telecom-tower",
+      "questionId": "q2",
+      "workerLang": "te",
+      "pattern": "demo",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "పైకి ఎక్కేటప్పుడు ఎప్పుడూ ఒక హుక్కు టవరుకి తగిలించే ఉంటుంది, ఒకసారికి ఒక్క హుక్కు మాత్రమే మారుస్తాను. రెండు హుక్కులూ ఒకేసారి తీయకూడదు.",
+      "answerGloss": "While I climb up, one hook always stays on the tower, and I'll move only one hook at a time. I must never take both hooks off at once.",
+      "backTranslation": "While climbing up, one hook will always remain attached to the tower, I will move only one hook at a time. Both hooks must not be removed at the same time.",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/telecom-tower.q2.te.demo.clean.r2.wav",
+      "voice": "sarvam/bulbul:v4-flash/tarun_te_narration",
+      "demo": {
+        "script": "chennai-tower",
+        "round": 1
+      },
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.hi.one_missing.snr10",
@@ -322,7 +1467,10 @@
         "s2": "covered"
       },
       "audio": "audio/scaffold-harness.q1.hi.one_missing.snr10.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.hi.fluent_wrong.clean",
@@ -341,7 +1489,10 @@
         "s2": "contradicted"
       },
       "audio": "audio/scaffold-harness.q1.hi.fluent_wrong.clean.wav",
-      "voice": "Orus"
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q2.hi.negation.clean",
@@ -359,7 +1510,10 @@
         "s3": "covered"
       },
       "audio": "audio/scaffold-harness.q2.hi.negation.clean.wav",
-      "voice": "Orus"
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.bn.contradicted.snr5",
@@ -378,7 +1532,10 @@
         "s2": "contradicted"
       },
       "audio": "audio/scaffold-harness.q1.bn.contradicted.snr5.wav",
-      "voice": "Charon"
+      "voice": "Charon",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.hi.two_missing.clean",
@@ -397,7 +1554,10 @@
         "s2": "missed"
       },
       "audio": "audio/scaffold-harness.q1.hi.two_missing.clean.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "scaffold-harness.q1.bn.code_switch.clean",
@@ -416,7 +1576,10 @@
         "s2": "covered"
       },
       "audio": "audio/scaffold-harness.q1.bn.code_switch.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "hot-work.q1.ta.numbers.clean",
@@ -435,7 +1598,10 @@
         "s2": "covered"
       },
       "audio": "audio/hot-work.q1.ta.numbers.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "hot-work.q2.bn.numbers.snr10",
@@ -453,7 +1619,10 @@
         "s3": "contradicted"
       },
       "audio": "audio/hot-work.q2.bn.numbers.snr10.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "hot-work.q2.zh.numbers.snr5",
@@ -471,7 +1640,10 @@
         "s3": "covered"
       },
       "audio": "audio/hot-work.q2.zh.numbers.snr5.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "hot-work.q1.zh.echo.clean",
@@ -490,7 +1662,10 @@
         "s2": "missed"
       },
       "audio": "audio/hot-work.q1.zh.echo.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "hot-work.q1.zh.fluent_wrong.clean",
@@ -509,7 +1684,10 @@
         "s2": "contradicted"
       },
       "audio": "audio/hot-work.q1.zh.fluent_wrong.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.my.negation.clean",
@@ -528,7 +1706,10 @@
         "s2": "missed"
       },
       "audio": "audio/lifting-zone.q1.my.negation.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.my.negation.clean.2",
@@ -547,7 +1728,10 @@
         "s2": "missed"
       },
       "audio": "audio/lifting-zone.q1.my.negation.clean.2.wav",
-      "voice": "Orus"
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.my.complete.clean",
@@ -566,7 +1750,10 @@
         "s2": "covered"
       },
       "audio": "audio/lifting-zone.q1.my.complete.clean.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q2.my.code_switch.snr5",
@@ -584,7 +1771,10 @@
         "s3": "covered"
       },
       "audio": "audio/lifting-zone.q2.my.code_switch.snr5.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q2.ta.fluent_wrong.snr10",
@@ -602,7 +1792,10 @@
         "s3": "contradicted"
       },
       "audio": "audio/lifting-zone.q2.ta.fluent_wrong.snr10.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.zh.two_missing.snr10",
@@ -621,7 +1814,10 @@
         "s2": "missed"
       },
       "audio": "audio/lifting-zone.q1.zh.two_missing.snr10.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.zh.silence.clean",
@@ -640,7 +1836,10 @@
         "s2": "unclear"
       },
       "audio": "audio/lifting-zone.q1.zh.silence.clean.wav",
-      "voice": null
+      "voice": null,
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "lifting-zone.q1.ta.contradicted.clean",
@@ -659,7 +1858,10 @@
         "s2": "contradicted"
       },
       "audio": "audio/lifting-zone.q1.ta.contradicted.clean.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q1.or.complete.clean",
@@ -678,7 +1880,10 @@
         "s2": "covered"
       },
       "audio": "audio/trench-entry.q1.or.complete.clean.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q1.or.one_missing.snr10",
@@ -697,7 +1902,10 @@
         "s2": "covered"
       },
       "audio": "audio/trench-entry.q1.or.one_missing.snr10.wav",
-      "voice": "Aoede"
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.or.echo.clean",
@@ -715,7 +1923,10 @@
         "s3": "missed"
       },
       "audio": "audio/trench-entry.q2.or.echo.clean.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q1.or.fluent_wrong.clean",
@@ -734,7 +1945,10 @@
         "s2": "contradicted"
       },
       "audio": "audio/trench-entry.q1.or.fluent_wrong.clean.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q1.hi.contradicted.clean",
@@ -753,7 +1967,10 @@
         "s2": "missed"
       },
       "audio": "audio/trench-entry.q1.hi.contradicted.clean.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.hi.contradicted.snr5",
@@ -771,7 +1988,10 @@
         "s3": "contradicted"
       },
       "audio": "audio/trench-entry.q2.hi.contradicted.snr5.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.hi.vague.clean",
@@ -789,7 +2009,10 @@
         "s3": "missed"
       },
       "audio": "audio/trench-entry.q2.hi.vague.clean.wav",
-      "voice": "Puck"
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.bn.complete.snr10",
@@ -807,7 +2030,10 @@
         "s3": "covered"
       },
       "audio": "audio/trench-entry.q2.bn.complete.snr10.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q1.or.wrong_language.clean",
@@ -826,7 +2052,10 @@
         "s2": "unclear"
       },
       "audio": "audio/trench-entry.q1.or.wrong_language.clean.wav",
-      "voice": "Leda"
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.or.wrong_language.clean",
@@ -844,7 +2073,10 @@
         "s3": "unclear"
       },
       "audio": "audio/trench-entry.q2.or.wrong_language.clean.wav",
-      "voice": "Kore"
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": false,
+      "pending": []
     },
     {
       "id": "trench-entry.q2.bn.silence.clean",
@@ -862,7 +2094,560 @@
         "s3": "unclear"
       },
       "audio": "audio/trench-entry.q2.bn.silence.clean.wav",
-      "voice": null
+      "voice": null,
+      "demo": null,
+      "heldOut": false,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q1.hi.complete.clean",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "नीचे जाने से पहले मैं गैस मीटर से हवा चेक करूँगा, और जब तक अंदर रहूँगा उसे चालू ही रखूँगा। ब्लोअर भी चलता रहेगा। और अंदर उतरने से पहले मैं harness पहनकर tripod वाली winch रोप के hook से जुड़ा रहूँगा।",
+      "answerGloss": "Before I go down, I'll test the air with the gas meter, and I'll keep it switched on the whole time I'm inside. The blower stays running. And I'll be in my harness, hooked to the winch rope on the tripod, before I climb in.",
+      "backTranslation": "Before going down I will check the air with the gas meter, and as long as I remain inside I will keep it on. The blower will also keep running. And before going inside I will wear the harness and stay connected to the hook of the tripod winch rope.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/confined-space.q1.hi.complete.clean.wav",
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q1.or.one_missing.snr10",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "ଭିତରକୁ ଯିବା ଆଗରୁ ଗ୍ୟାସ ମିଟରରେ ପବନ ଚେକ୍ କରିବି, ଆଉ ବାହାରକୁ ଆସିବା ଯାଏଁ ତାକୁ ଅନ୍ କରି ମୋ ପାଖରେ ରଖିବି। ହାର୍ନେସ ପିନ୍ଧିବି ଆଉ ସେଥିରେ ୱିଞ୍ଚ ଦଉଡ଼ି ଲଗାଇବି।",
+      "answerGloss": "I'll test the air with the gas meter before I go in, and keep it on me, switched on, until I'm out. I'll wear the harness with the winch rope clipped to it.",
+      "backTranslation": "Before going inside I will check the air with the gas meter, and keep it turned on with me until coming out. I will wear the harness and attach the winch rope to it.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "covered"
+      },
+      "audio": "audio/confined-space.q1.or.one_missing.snr10.wav",
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q1.bn.contradicted.snr5",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "আমি আগে নিচে নেমে যাব আর একদম নিচে পৌঁছে গ্যাস মিটারটা চালু করব। এইরকম সরু গর্তে ladder-এর সাথে harness আটকে যায়, তাই ওটা উপরেই রেখে যাব।",
+      "answerGloss": "I'll climb down first and switch on the gas meter when I reach the bottom. The harness catches on the ladder in a narrow hole, so I'll leave it up top.",
+      "backTranslation": "I will go down first and upon reaching the very bottom I will turn on the gas meter. In such a narrow hole the harness gets caught with the ladder, so I will leave that up above.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "audio": "audio/confined-space.q1.bn.contradicted.snr5.wav",
+      "voice": "Charon",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q2.hi.negation.clean",
+      "taskId": "confined-space",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "अगर मेरे साथी ने जवाब देना बंद कर दिया, तो मैं उसके पीछे नीचे नहीं जाऊँगा। मैं मदद के लिए चिल्लाऊँगा और ऊपर से ही winch चलाकर उसे ऊपर खींच लूँगा।",
+      "answerGloss": "If my partner stops answering, I won't go down after them. I'll shout for help and wind them up with the winch from the top.",
+      "backTranslation": "If my partner stops replying, I will not go down after him. I will shout for help and by operating the winch from above itself, pull him up.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "covered"
+      },
+      "audio": "audio/confined-space.q2.hi.negation.clean.wav",
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q2.or.fluent_wrong.clean",
+      "taskId": "confined-space",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ଯଦି ମୋ ସାଥୀ ଚୁପ୍ ହୋଇଯାଏ, ମୁଁ ସିଧା ତଳକୁ ଯାଇ ତାକୁ ନିଜେ ବାହାରକୁ ଟେକି ଆଣିବି। ସାହାଯ୍ୟ ପାଇଁ ଅପେକ୍ଷା କଲେ ସମୟ ନଷ୍ଟ ହେବ, ଆଉ ଗ୍ୟାସ୍ ତ ସକାଳୁ ଚେକ୍ ହୋଇସାରିଛି।",
+      "answerGloss": "If my partner goes quiet, I'll go straight down and carry them out myself. Waiting for help wastes time, and the gas was already checked this morning.",
+      "backTranslation": "If my partner becomes silent, I will directly go down and lift him out myself. If waiting for help, time will be wasted, and the gas has already been checked since morning.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/confined-space.q2.or.fluent_wrong.clean.wav",
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "confined-space.q1.bn.vague.clean",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "আমি কুড়ি বছর ধরে এই ধরনের গর্তে নামছি। এইসব আমার খুব ভালো করেই চেনা আছে।",
+      "answerGloss": "I've been going down these holes for twenty years. I know my way around them.",
+      "backTranslation": "I have been going down into these kinds of pits for twenty years. All of this is very well known to me.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/confined-space.q1.bn.vague.clean.wav",
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q2.ta.complete.clean",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "முழுசா அக்ராஸ் போகும்போது crawling boards மேலயே இருப்பேன், sheets மேலயும் skylights மேலயும் கால் வைக்க மாட்டேன்.",
+      "answerGloss": "I'll stay on the crawling boards all the way across, and I'll keep my feet off the sheets and the skylights.",
+      "backTranslation": "While going fully across I will stay on the crawling boards, and I will not put my foot on the sheets and skylights.",
+      "fidelity": "review",
+      "gold": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/fragile-roof.q2.ta.complete.clean.wav",
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q2.bn.one_missing.snr10",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "one_missing",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "আমি আস্তে আস্তে পার হব আর স্কাইলাইট আর ছাদের শিটগুলো এড়িয়ে চলব।",
+      "answerGloss": "I'll cross slowly and stay clear of the skylights and the roof sheets.",
+      "backTranslation": "I will cross slowly and avoid the skylights and the roof sheets.",
+      "fidelity": "review",
+      "gold": {
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "audio": "audio/fragile-roof.q2.bn.one_missing.snr10.wav",
+      "voice": "Aoede",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q1.my.negation.clean",
+      "taskId": "fragile-roof",
+      "questionId": "q1",
+      "workerLang": "my",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "ကျွန်တော့် harness ကို lifeline မှာ ချိတ်မပြီးမချင်း ခေါင်မိုးပေါ် ခြေတစ်ဖက်တောင် ချမှာမဟုတ်ဘူး။",
+      "answerGloss": "I won't put a foot on the roof until my harness is clipped to the lifeline.",
+      "backTranslation": "Until I have finished hooking my harness to the lifeline, I will not put even one foot on the roof.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered"
+      },
+      "audio": "audio/fragile-roof.q1.my.negation.clean.wav",
+      "voice": "Kore",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q2.ta.contradicted.snr5",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "snr5",
+      "source": "synthetic_tts",
+      "answer": "ஸ்க்ரூ லைன் வழியா sheets மேல நடந்து போவேன், அப்புறம் skylights பக்கத்துல மட்டும் boards யூஸ் பண்ணுவேன்.",
+      "answerGloss": "I'll walk across on the sheets along the screw lines, and use the boards only near the skylights.",
+      "backTranslation": "I will walk on the sheets along the screw line, then only near the skylights I will use boards.",
+      "fidelity": "review",
+      "gold": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "audio": "audio/fragile-roof.q2.ta.contradicted.snr5.wav",
+      "voice": "Puck",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q3.bn.fluent_wrong.clean",
+      "taskId": "fragile-roof",
+      "questionId": "q3",
+      "workerLang": "bn",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "synthetic_tts",
+      "answer": "রেলিংটা যদি পথের মধ্যে আটকায়, আমি এক মিনিটের জন্য ওই একটা সেকশন খুলে নেব, শিটগুলো উপরে তুলে দেব, তারপর সাথে সাথে আবার লাগিয়ে দেব। তখন তো কিনারার কাছে কেউ থাকবে না, তাই কোনো সমস্যা নেই।",
+      "answerGloss": "If the rail is in the way, I'll take that one section off for a minute, pass the sheets up, and put it straight back. Nobody will be near the edge then, so it's fine.",
+      "backTranslation": "If the railing obstructs the way, I will take off that one section for a minute, lift the sheets up, then put it back immediately. At that time no one will be near the edge, so there is no problem.",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/fragile-roof.q3.bn.fluent_wrong.clean.wav",
+      "voice": "Leda",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "fragile-roof.q1.my.vague.snr10",
+      "taskId": "fragile-roof",
+      "questionId": "q1",
+      "workerLang": "my",
+      "pattern": "vague",
+      "noise": "snr10",
+      "source": "synthetic_tts",
+      "answer": "ဒီလို ခေါင်မိုးမျိုးတွေ အများကြီးပေါ်မှာ ကျွန်တော် လုပ်ဖူးပါတယ်။ အပေါ်တက်ပြီး ပြီးအောင်လုပ်လိုက်မယ်။",
+      "answerGloss": "I've worked on plenty of roofs like this one. I'll get up there and get it done.",
+      "backTranslation": "I have worked on many roofs like this. I will go up and get it done.",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed"
+      },
+      "audio": "audio/fragile-roof.q1.my.vague.snr10.wav",
+      "voice": "Orus",
+      "demo": null,
+      "heldOut": true,
+      "pending": []
+    },
+    {
+      "id": "lifting-zone.q1.ta.negation.clean.rec.V01",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "நான் லோடுக்கு அடியில் போக மாட்டேன், ஆனால் அது கீழே வரும்போது பேரியருக்குள்ளே போய் கையால் கைட் பண்ணுவேன்.",
+      "answerGloss": "I won't go under the load. But while it's coming down, I'll go inside the barrier and guide it with my hand.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.negation.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.negation.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.fluent_wrong.snr10.rec.V01",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முதல்ல பேரியருக்கு வெளியே தான் இருப்பேன். லோட் தரைக்கு கொஞ்சம் மேலே இருக்கும்போது, அதுக்கு அடியில் போய் சரியாக நேராக இறங்குற மாதிரி லைன் அப் பண்ணுவேன்.",
+      "answerGloss": "I'll stay outside the barrier at first. When the load is just above the ground, I'll go under it and line it up, so it lands straight.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.fluent_wrong.snr10.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.fluent_wrong.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.contradicted.clean.rec.V01",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "நான் முதல்ல பேனல் திறப்பேன். அப்புறம் டெஸ்டர் வச்சு செக் பண்ணுவேன். அதுக்கப்புறம் பிரேக்கரை ஆஃப் பண்ணுவேன்.",
+      "answerGloss": "I'll open the panel first, then test it with the tester, and then switch off the breaker.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.contradicted.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.contradicted.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.vague.snr10.rec.V01",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "சரிங்க, புரிஞ்சுது.",
+      "answerGloss": "OK, understood.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.vague.snr10.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.vague.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean.rec.V01",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு என் லாக், என் லாக்கும் டேக் போட்டுருவேன். அப்புறம் கரண்ட் இல்லைன்னு டெஸ்டர் வச்சு செக் பண்ணிட்டு பேனலை திறப்பேன்.",
+      "answerGloss": "First I'll switch off the breaker, put my lock and tag on it, check with the tester that there's no current, and then open the panel.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.code_switch.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.code_switch.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q2.ta.negation.snr5.rec.V01",
+      "taskId": "panel-isolation",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "டெஸ்டர்ல கரண்ட் இல்லைன்னு காட்டும் வரைக்கும் நான் வயர்களைத் தொடமாட்டேன்.",
+      "answerGloss": "I won't touch the wires until the tester shows there's no current.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/panel-isolation.q2.ta.negation.snr5.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q2.ta.negation.snr5",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "hot-work.q1.ta.numbers.clean.rec.V01",
+      "taskId": "hot-work",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "numbers",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "அஞ்சு மீட்டருக்குள்ள எரியக்கூடிய பொருட்களை அப்புறப்படுத்திட்டு பக்கத்துல ஃபயர் வாட்சர் கூட எக்ஸ்டிங்குஷரும் வச்சிருப்பேன்.",
+      "answerGloss": "Within five metres I'll clear the things that can burn, and I'll keep the extinguisher nearby with a fire watcher.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "covered"
+      },
+      "audio": "audio/recorded/hot-work.q1.ta.numbers.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "hot-work.q1.ta.numbers.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "lifting-zone.q2.ta.fluent_wrong.snr10.rec.V01",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "கிரேன் டிரைவர் என்ன சிக்னல் கொடுக்கிறாரோ அதைத்தான் கேட்பேன். ஏன்னா அவருக்குத்தான் லோடு நல்லா தெரியும்.",
+      "answerGloss": "I'll follow whatever signal the crane driver gives me, because he can see the load better.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q2.ta.fluent_wrong.snr10.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q2.ta.fluent_wrong.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.contradicted.clean.rec.V01",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "லோட் மூவ் ஆகிட்டு இருக்கும்போது அதை கையால பிடிச்சு பேலன்ஸ் பண்ண பேரியர் உள்ள போவேன்.",
+      "answerGloss": "I'll go inside the barrier to steady the load by hand while it's still moving.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.contradicted.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.contradicted.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.complete.clean.rec.V01",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முழுசா போகும்போது க்ராலிங் பூட்ஸ் மேலேயே இருப்பேன். ஷீட்ஸ் மேலேயும் ஸ்கைலைட்ஸ் மேலேயும் கால் வைக்க மாட்டேன்.",
+      "answerGloss": "I'll stay on the crawling boards all the way across, and I'll keep my feet off the sheets and the skylights.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/fragile-roof.q2.ta.complete.clean.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q2.ta.complete.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.ta.contradicted.snr5.rec.V01",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ஸ்க்ரூ லைன்ஸ் வழியா ஷீட் மேல நடந்து போவேன், அப்புறம் ஸ்கைலைட்ஸ் பக்கத்துல மட்டும் போட்ஸ் யூஸ் பண்ணுவேன்.",
+      "answerGloss": "I'll walk across on the sheets along the screw lines, and use the boards only near the skylights.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/fragile-roof.q2.ta.contradicted.snr5.rec.V01.wav",
+      "voice": "V01",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q2.ta.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ]
     }
   ]
 }

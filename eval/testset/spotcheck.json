@@ -1,0 +1,156 @@
+{
+  "model": "gemini-3.8-flash",
+  "items": [
+    {
+      "id": "lifting-zone.q1.ta.demo.clean.r1",
+      "answer": "லோடுக்கு அடியில நின்னு, கையால பிடிச்சு அதை நேரா வைப்பேன்.",
+      "transcript": "லோடுக்கு அடியில நின்னு கையால புடிச்சு அத நேரா வைப்பேன்.",
+      "language": "Tamil",
+      "similarity": 0.968,
+      "tolerantSimilarity": 0.968,
+      "tolerated": [],
+      "gap": 1,
+      "match": true
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean",
+      "answer": "முதல்ல breaker-ஐ ஆஃப் பண்ணிட்டு, என் lock மற்றும் tag போடுவேன், அப்புறம் current இல்லைன்னு tester வச்சு செக் பண்ணிட்டு panel-ஐ திறப்பேன்.",
+      "transcript": "முதல்ல பிரேக்கர ஆப் பண்ணிட்டு என் லாக் மற்றும் டேக் போடுவேன் அப்புறம் கரண்ட் இல்லன்னு டெஸ்ட்டர வெச்சு செக் பண்ணிட்டு பேனல்ல திறப்பேன்.",
+      "language": "Tamil",
+      "similarity": 0.684,
+      "tolerantSimilarity": 0.981,
+      "tolerated": [
+        {
+          "loanwords": [
+            "breaker"
+          ],
+          "heard": "பிரேக்கர"
+        },
+        {
+          "loanwords": [
+            "lock"
+          ],
+          "heard": "லாக்"
+        },
+        {
+          "loanwords": [
+            "tag"
+          ],
+          "heard": "டேக்"
+        },
+        {
+          "loanwords": [
+            "current"
+          ],
+          "heard": "கரண்ட்"
+        },
+        {
+          "loanwords": [
+            "tester"
+          ],
+          "heard": "டெஸ்ட்டர"
+        },
+        {
+          "loanwords": [
+            "panel"
+          ],
+          "heard": "பேனல்ல"
+        }
+      ],
+      "gap": 1,
+      "match": true
+    },
+    {
+      "id": "panel-isolation.q1.bn.two_missing.snr10",
+      "answer": "আমি breaker-এ আমার lock লাগাব, তারপর panel খুলব।",
+      "transcript": "আমি ব্রেকআরে আমার লক লাগাবো। তারপর প্যানেল খুলব।",
+      "language": "Bengali",
+      "similarity": 0.545,
+      "tolerantSimilarity": 0.977,
+      "tolerated": [
+        {
+          "loanwords": [
+            "breaker"
+          ],
+          "heard": "ব্রেকআরে"
+        },
+        {
+          "loanwords": [
+            "lock"
+          ],
+          "heard": "লক"
+        },
+        {
+          "loanwords": [
+            "panel"
+          ],
+          "heard": "প্যানেল"
+        }
+      ],
+      "gap": 1,
+      "match": true
+    },
+    {
+      "id": "hot-work.q2.zh.numbers.snr5",
+      "answer": "干完之后我会继续盯着三十分钟。",
+      "transcript": "干完之后，我会继续盯者30分钟。",
+      "language": "Chinese",
+      "similarity": 0.786,
+      "tolerantSimilarity": 0.929,
+      "tolerated": [],
+      "gap": 1,
+      "match": true
+    },
+    {
+      "id": "lifting-zone.q1.my.negation.clean",
+      "answer": "ကျွန်တော် load အောက် မဝင်ဘူး။",
+      "transcript": "ကျွန်တော် လုပ်အောက် မဝင်ဘူး",
+      "language": "Burmese",
+      "similarity": 0.84,
+      "tolerantSimilarity": 1.0,
+      "tolerated": [
+        {
+          "loanwords": [
+            "load"
+          ],
+          "heard": "လုပ်"
+        }
+      ],
+      "gap": 0,
+      "match": true
+    },
+    {
+      "id": "trench-entry.q1.or.complete.clean",
+      "answer": "ଭିତରକୁ ଯିବା ଆଗରୁ, ମୁଁ ଦେଖିବି shoring ଠିକ୍‌ ଭାବରେ ଲାଗିଛି କି ନାହିଁ, ଆଉ କେବଳ ladder ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+      "transcript": "ଭିତରକୁ ଯିବା ଆଗରୁ ମୁଁ ଦେଖିବି ଶୋରିଂ ଠିକ୍ ଭାବରେ ଲାଗିଛି କି ନାହିଁ। ଆଉ କେବଳ ଲ୍ୟାଡର୍ ଦେଇ ଭିତରକୁ ଯିବି ଓ ବାହାରିବି।",
+      "language": "Odia",
+      "similarity": 0.849,
+      "tolerantSimilarity": 0.993,
+      "tolerated": [
+        {
+          "loanwords": [
+            "shoring"
+          ],
+          "heard": "ଶୋରିଂ"
+        },
+        {
+          "loanwords": [
+            "ladder"
+          ],
+          "heard": "ଲ୍ୟାଡର୍"
+        }
+      ],
+      "gap": 1,
+      "match": true
+    },
+    {
+      "id": "confined-space.q2.hi.negation.clean",
+      "answer": "अगर मेरे साथी ने जवाब देना बंद कर दिया, तो मैं उसके पीछे नीचे नहीं जाऊँगा। मैं मदद के लिए चिल्लाऊँगा और ऊपर से ही winch चलाकर उसे ऊपर खींच लूँगा।",
+      "transcript": "",
+      "language": "none",
+      "similarity": 0.0,
+      "match": false,
+      "blocked": "the model returned no text: SAFETY"
+    }
+  ]
+}
