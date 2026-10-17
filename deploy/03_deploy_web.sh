@@ -52,7 +52,7 @@ rules_allowed="$(grep -E '^[[:space:]]*allow[[:space:]]' firestore.rules | sed -
   run npm ci
   run npm run typecheck
   run npm test
-  run env VITE_API_BASE="$SERVICE_URL/api" npm run build
+  run env VITE_API_BASE="$SERVICE_URL/api" VITE_DEMO_VIDEO_URL="$DEMO_VIDEO_URL" npm run build
 )
 [[ -f web/dist/index.html ]] || die "web/dist/index.html is missing after the build."
 
@@ -63,12 +63,25 @@ connect_src="$(printf '%s' "$csp_meta" | sed -n 's/.*connect-src \([^;"]*\).*/\1
 [[ "$connect_src" == "https://$SERVICE_HOST wss://$SERVICE_HOST" ]] \
   || die "The page's CSP connect-src is '$connect_src'. It must be 'https://$SERVICE_HOST wss://$SERVICE_HOST'."
 [[ "$csp_meta" != *unsafe-eval* ]] || die "The page's CSP must not allow unsafe-eval."
-if grep -rIqE 'sib\.mock|browser sessionStorage' web/dist; then
+if grep -rIqE 'sib\.mock|browser sessionStorage|__SIB_MOCK_BUNDLE__' web/dist; then
   die "web/dist holds mock-mode code. Build without VITE_API_MOCK."
+fi
+# The fuller check (the sentinel, src/mock paths, the mock catalog's text), the same one web/tests/build/noMock.test.ts runs.
+(cd "$REPO_ROOT/web" && run node noMock.ts dist) \
+  || die "web/dist holds mock-mode code (listed above). Build without VITE_API_MOCK."
+
+# A Google Cloud project needs Firebase added once before Hosting can deploy to it.
+# Run `npx firebase-tools login` once beforehand.
+# The list is read whole before it is searched: under pipefail, grep -q closing the pipe early could fail npx.
+firebase_projects="$(capture npx --yes firebase-tools projects:list --json)" \
+  || die "Could not list Firebase projects. Run 'npx firebase-tools login' first."
+if grep -Fq "\"$PROJECT_ID\"" <<< "$firebase_projects"; then
+  echo "Firebase is already added to $PROJECT_ID."
+else
+  run npx --yes firebase-tools projects:addfirebase "$PROJECT_ID"
 fi
 
 # Hosting and the Firestore rules only. --project overrides the placeholder in .firebaserc.
-# Run `npx firebase-tools login` once beforehand.
 run npx --yes firebase-tools deploy --only hosting,firestore:rules --project "$PROJECT_ID"
 
 echo "Web app: https://$PROJECT_ID.web.app (calls $SERVICE_URL/api)"

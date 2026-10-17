@@ -65,4 +65,23 @@ jobs:
         with:
           python-version: "3.13"
       - run: uv sync
+      # Every clip is rendered (16 Oct: the six demo follow-ups voiced by Sarvam, eval/vendor_tts.py), so the
+      # "every clip rendered" check runs with no skip flag. Add --allow-missing-audio back only while a clip is pending.
+      - run: uv run pytest -q -rs
+
+  ptw-stub:
+    name: PTW stub (ruff, pytest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: integrations/ptw-stub
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install uv (Python 3.13)
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          python-version: "3.13"
+      - run: uv sync --locked
+      - run: uv run ruff check .
       - run: uv run pytest -q
