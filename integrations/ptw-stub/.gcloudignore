@@ -1,0 +1,11 @@
+# gcloud run deploy --source uploads this folder; it reads this file, not the repository .gitignore.
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+tests/
+permits.json
+# Dotenv files never ship (the service reads its settings from Cloud Run).
+.env
+.env.*

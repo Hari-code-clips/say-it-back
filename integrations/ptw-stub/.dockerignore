@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+tests/
+*.json.tmp
+permits.json
+# Dotenv files never ship (the service reads its settings from Cloud Run).
+.env
+.env.*

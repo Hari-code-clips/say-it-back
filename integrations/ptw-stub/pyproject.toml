@@ -1,0 +1,59 @@
+[project]
+name = "ptw-stub"
+version = "0.1.0"
+description = "A stand-in permit-to-work system for Say It Back's signed decision webhook"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = { text = "Apache-2.0" }
+# The same versions as backend/uv.lock, so one uv cache serves both.
+dependencies = [
+  "fastapi>=0.141.1,<0.142",
+  "uvicorn>=0.54,<0.55",
+  "google-cloud-firestore==2.34.1",  # PTW_STORE=firestore (imported only then)
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=9.1.1",
+  "httpx>=0.28.1",
+  "ruff>=0.6",
+]
+
+[tool.uv]
+package = false
+# Firestore's dependencies at the versions backend/uv.lock already uses, so one uv cache serves both.
+constraint-dependencies = [
+  "google-api-core==2.34.0",
+  "google-auth==2.62.0",
+  "google-cloud-core==2.8.0",
+  "googleapis-common-protos==1.75.5",
+  "grpcio==1.84.0",
+  "grpcio-status==1.84.0",
+  "proto-plus==1.29.0",
+  "protobuf==6.33.6",
+  "pyasn1==0.6.4",
+  "pyasn1-modules==0.4.2",
+  "requests==2.34.2",
+  "urllib3==2.8.0",
+  "charset-normalizer==3.5.2",
+  "cryptography==50.0.2",
+  "cffi==2.1.1",
+  "pycparser==3.11",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+filterwarnings = ["ignore:Using .httpx. with .starlette.testclient.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "ASYNC", "S", "PTH"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "E501"]
