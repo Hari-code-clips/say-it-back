@@ -79,6 +79,8 @@ def _item_problems(item: dict, doc: dict, tasks: dict) -> list[str]:
     out.extend(_question_problems(item, doc))
     if item["source"] == "recorded":
         out.extend(_recorded_problems(item, doc))
+    elif "ambient" in item:
+        out.append(f"{item_id}: only a recording has an ambient note")
     return out
 
 
@@ -96,6 +98,9 @@ def _recorded_problems(item: dict, doc: dict) -> list[str]:
         out.append(f"{item_id}: fidelity must be review or ok")
     if item["pattern"] in RECORDED_EXCLUDED_PATTERNS:
         out.append(f"{item_id}: {item['pattern']} items are not recorded")
+    if "ambient" in item and ("augmentedFrom" in item or not isinstance(item["ambient"], str)
+                              or not item["ambient"].strip()):
+        out.append(f"{item_id}: ambient is a non-empty note of the real noise in an as-recorded clip, never a copy")
     if "augmentedFrom" in item:
         out.extend(_augmented_problems(item, doc))
     elif item["noise"] != "clean":
@@ -125,6 +130,8 @@ def _augmented_problems(item: dict, doc: dict) -> list[str]:
     if recording is None or recording["source"] != "recorded" or "augmentedFrom" in recording:
         return [f"{item_id}: augmentedFrom must name a clean recorded item"]
     out = []
+    if recording.get("ambient"):
+        out.append(f"{item_id}: site noise is added only to a quiet-room recording, not to {recording['id']}")
     if item_id != f"{recording['id']}.{item['noise']}":
         out.append(f"{item_id}: a site-noise copy is <recording id>.<noise>, noise one of {', '.join(SITE_NOISES)}")
     if any(item.get(key) != recording.get(key) for key in AUGMENTED_SAME):

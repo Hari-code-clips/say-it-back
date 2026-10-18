@@ -2648,6 +2648,924 @@
       "pending": [
         "backTranslation"
       ]
+    },
+    {
+      "id": "lifting-zone.q1.ta.negation.clean.rec.V02",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "நான் லோடுக்கு அடியில போக மாட்டேன். ஆனா அது கீழ வரும்போது பேரியர்க்குள்ள போய் கையால கைட் பண்ணுவேன், அப்பப்போ.",
+      "answerGloss": "I won't go under the load. But while it's coming down, I'll go inside the barrier and guide it with my hand.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.negation.clean.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.negation.clean",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "lifting-zone.q1.ta.fluent_wrong.snr10.rec.V02",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முதல்ல பேரியர்க்கு வெளியே இருப்பேன். லோடு தரைக்கு கொஞ்ச மேல இருக்கும் போது அதுக்கு அடியில போயிட்டு சரியா நேரா இறங்குற மாதிரி அலைன் பண்ணிடுவேன்.",
+      "answerGloss": "I'll stay outside the barrier at first. When the load is just above the ground, I'll go under it and line it up, so it lands straight.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.fluent_wrong.snr10.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.fluent_wrong.snr10",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "panel-isolation.q1.ta.contradicted.clean.rec.V02",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "நான் முதல்ல பேனலை திறப்பேன், அப்புறம் டெஸ்டரை வச்சு செக் பண்ணுவேன், அதுக்கப்புறம் பிரேக்கரை ஆஃப் பண்ணிடுவேன்",
+      "answerGloss": "I'll open the panel first, then test it with the tester, and then switch off the breaker.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.contradicted.clean.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.contradicted.clean",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "panel-isolation.q1.ta.vague.snr10.rec.V02",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "சரிங்க புரிஞ்சது",
+      "answerGloss": "OK, understood.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.vague.snr10.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.vague.snr10",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "panel-isolation.q1.ta.code_switch.clean.rec.V02",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முதல்ல பிரேக்கர் ஆஃப் பண்ணிட்டு அன்லாக் அப்புறம் டாக் போடுவேன். அப்புறம் கரண்ட் இல்லைன்னா டெஸ்டர் வச்சு செக் பண்ணிட்டு பேனல்ல திறப்பேன்",
+      "answerGloss": "First I'll switch off the breaker, put my lock and tag on it, check with the tester that there's no current, and then open the panel.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.ta.code_switch.clean.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.ta.code_switch.clean",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "panel-isolation.q2.ta.negation.snr5.rec.V02",
+      "taskId": "panel-isolation",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "டெஸ்டர்ல கரண்டு இல்லன்னு காட்டும் வரைக்கும் நான் வயர்களை தொட மாட்டேன்",
+      "answerGloss": "I won't touch the wires until the tester shows there's no current.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/panel-isolation.q2.ta.negation.snr5.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q2.ta.negation.snr5",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "lifting-zone.q2.ta.fluent_wrong.snr10.rec.V02",
+      "taskId": "lifting-zone",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "கிரேன் டிரைவர் என்ன சிக்னல் குடுக்கற வரைக்கும் அவர பாத்துகிட்டே இருக்கணும். அத கேப்பேன். ஏனா அவருக்குதான் லோடு நல்லா தெரியும்.",
+      "answerGloss": "I'll follow whatever signal the crane driver gives me, because he can see the load better.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q2.ta.fluent_wrong.snr10.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q2.ta.fluent_wrong.snr10",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "lifting-zone.q1.ta.contradicted.clean.rec.V02",
+      "taskId": "lifting-zone",
+      "questionId": "q1",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "லோடு மூவ் மூவ் ஆகிட்டு இருக்கும் போது அத கையால புடிச்சி பேலன்ஸ் பண்ணா பேரியர் உள்ள போவேன்.",
+      "answerGloss": "I'll go inside the barrier to steady the load by hand while it's still moving.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/lifting-zone.q1.ta.contradicted.clean.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "lifting-zone.q1.ta.contradicted.clean",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "fragile-roof.q2.ta.complete.clean.rec.V02",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "முழுசா அக்ராஸ் போகும்போது கிராலிங் போர்ட்ஸ் மேலயே ஏறிப்பேன். சீட்ஸ் மேலயும் ஸ்கைலைட்ஸ் மேலயும் காலையே வைக்க மாட்டேன்.",
+      "answerGloss": "I'll stay on the crawling boards all the way across, and I'll keep my feet off the sheets and the skylights.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/fragile-roof.q2.ta.complete.clean.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q2.ta.complete.clean",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "fragile-roof.q2.ta.contradicted.snr5.rec.V02",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "ta",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "இந்த ஸ்க்ரூ லைன் வழியா சீட்ஸ் மேல நடந்து போவேன் அப்புறம் ஸ்கைலைட்ஸ் பக்கத்துல மட்டும் போட்ஸ் யூஸ் பண்ணுவேன்",
+      "answerGloss": "I'll walk across on the sheets along the screw lines, and use the boards only near the skylights.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s2": "contradicted",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/fragile-roof.q2.ta.contradicted.snr5.rec.V02.wav",
+      "voice": "V02",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q2.ta.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ],
+      "ambient": "rain and other background noise, in the recording itself"
+    },
+    {
+      "id": "scaffold-harness.q1.hi.one_missing.snr10.rec.V04",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "scaffold पर कदम रखने से पहले मैं lanyard को lifeline पर क्लिप करूँगा",
+      "answerGloss": "I'll clip the lanyard to the lifeline before my first step onto the scaffold.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "audio": "audio/recorded/scaffold-harness.q1.hi.one_missing.snr10.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q1.hi.one_missing.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.fluent_wrong.clean.rec.V04",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "मैं हार्नेस पहनूंगा और फ्रेम पर उप जल्दी से ऊपर चढ़ूँगा। थोड़ी सी चढ़ाई के लिए हुक लगाने की ज़रूरत नहीं है। ज़रूरत नहीं है।",
+      "answerGloss": "I'll put on the harness and go up the frame quickly. The hook doesn't need to be on for a short climb.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/scaffold-harness.q1.hi.fluent_wrong.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q1.hi.fluent_wrong.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "scaffold-harness.q2.hi.negation.clean.rec.V04",
+      "taskId": "scaffold-harness",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "जब तक मैं स्काफोल्ड पर हूँ, मैं क्लिप नहीं निकालूँगा।",
+      "answerGloss": "I won't take the clip off while I'm on the scaffold.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/scaffold-harness.q2.hi.negation.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q2.hi.negation.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.hi.two_missing.clean.rec.V04",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "two_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "मैं स्कैफोल्ड पर जल्दी से ऊपर चढ़ जाऊंगा",
+      "answerGloss": "I'll go up the scaffold quickly.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed"
+      },
+      "audio": "audio/recorded/scaffold-harness.q1.hi.two_missing.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q1.hi.two_missing.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q1.hi.contradicted.clean.rec.V04",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "मैं पहले ट्रेंच में नीचे उतरूँगा और अंदर जाने के बाद शोरिंग चेक करूँगा।",
+      "answerGloss": "I'll go down into the trench first and check the shoring after I'm inside.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed"
+      },
+      "audio": "audio/recorded/trench-entry.q1.hi.contradicted.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q1.hi.contradicted.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q2.hi.contradicted.snr5.rec.V04",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "अगर पानी दिखा तो मैं काम चालू रखूंगा और हाथ से दीवार चेक करूंगा",
+      "answerGloss": "If I see water, I'll keep working and check the wall with my hand.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/trench-entry.q2.hi.contradicted.snr5.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q2.hi.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q2.hi.vague.clean.rec.V04",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ठीक है, समझ गया",
+      "answerGloss": "OK, understood.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/trench-entry.q2.hi.vague.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q2.hi.vague.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q1.hi.complete.clean.rec.V04",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "hi",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "नीचे जाने से पहले मैं गैस मीटर से हवा चेक करूंगा और जब तक अंदर रहूंगा उसे चालू ही रखूंगा। ब्लोअर भी चलता रहेगा और अंदर उतरने से पहले मैं हार्नेस पहनकर ट्राईपॉड वाली विंच रोप के हुक से जुड़ा रहूँगा।",
+      "answerGloss": "Before I go down, I'll test the air with the gas meter, and I'll keep it switched on the whole time I'm inside. The blower stays running. And I'll be in my harness, hooked to the winch rope on the tripod, before I climb in.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered",
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/confined-space.q1.hi.complete.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q1.hi.complete.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q2.hi.negation.clean.rec.V04",
+      "taskId": "confined-space",
+      "questionId": "q2",
+      "workerLang": "hi",
+      "pattern": "negation",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "अगर मेरे साथी ने जवाब देना बंद कर दिया तो मैं उसके पीछे नहीं जाऊंगा। मैं मदद के लिए चिल्लाऊंगा और ऊपर से ही विंच चलाकर उसे ऊपर खींचूंगा।",
+      "answerGloss": "If my partner stops answering, I won't go down after them. I'll shout for help and wind them up with the winch from the top.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s4": "covered"
+      },
+      "audio": "audio/recorded/confined-space.q2.hi.negation.clean.rec.V04.wav",
+      "voice": "V04",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q2.hi.negation.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.bn.two_missing.snr10.rec.V05",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "two_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি ব্রেকারে আমার লক লাগাব, তারপর প্যানেল খুলব।",
+      "answerGloss": "I'll put my lock on the breaker and then open the panel.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.bn.two_missing.snr10.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.bn.two_missing.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "panel-isolation.q1.bn.contradicted.snr5.rec.V05",
+      "taskId": "panel-isolation",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি লক লাগানোর আগে ঝামেলায় যাবো না। সুইচ অফ করবো আর খুলে ফেলবো। কারণ এতে তাড়াতাড়ি হয়।",
+      "answerGloss": "I won't bother with the lock. I'll switch it off and open it, because it's quicker.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "contradicted",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/panel-isolation.q1.bn.contradicted.snr5.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "panel-isolation.q1.bn.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.bn.contradicted.snr5.rec.V05",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি আগে স্ক্যাফোল্ডে উঠব, তারপর উপরে উঠে ল্যানিয়ার্ড আটকে নেব।",
+      "answerGloss": "I'll step onto the scaffold first, and clip the lanyard on at the top once I'm up.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/scaffold-harness.q1.bn.contradicted.snr5.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q1.bn.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "scaffold-harness.q1.bn.code_switch.clean.rec.V05",
+      "taskId": "scaffold-harness",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "code_switch",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "প্রথম পা ফেলার আগে আমি হারনেস পরবো বকেলগুলোকে চেক করে নেবো আর লাইফলাইনের সাথে ল্যানিয়াটাকে আটকে নেব",
+      "answerGloss": "Before my first step, I'll put on the harness, check the buckles, and clip the lanyard onto the lifeline.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/recorded/scaffold-harness.q1.bn.code_switch.clean.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "scaffold-harness.q1.bn.code_switch.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "hot-work.q2.bn.numbers.snr10.rec.V05",
+      "taskId": "hot-work",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "numbers",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "কাজ শেষ করার পর আমি 10 মিনিট চারিদিক নজর রাখবো",
+      "answerGloss": "I'll keep watching for ten minutes after I finish.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/hot-work.q2.bn.numbers.snr10.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "hot-work.q2.bn.numbers.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q2.bn.complete.snr10.rec.V05",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "যদি দেয়ালে জল বা ফাটল দেখি তাহলে সঙ্গে সঙ্গে উঠে আসবো এবং সুপারভাইজার কে বলবো।",
+      "answerGloss": "If I see water or cracks in the wall, I'll climb out at once and tell the supervisor.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/trench-entry.q2.bn.complete.snr10.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q2.bn.complete.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q1.bn.contradicted.snr5.rec.V05",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "contradicted",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি আগে নিচে নেমে যাব, আর একদম নিচে পৌঁছে গ্যাস মিটারটাকে চালু করব। এরকম সরু গর্তে ল্যাডারের সাথে হার্নেস আটকে যাবে, তাই ওটা উপরে রেখে যাব।",
+      "answerGloss": "I'll climb down first and switch on the gas meter when I reach the bottom. The harness catches on the ladder in a narrow hole, so I'll leave it up top.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "contradicted",
+        "s2": "missed",
+        "s3": "contradicted"
+      },
+      "audio": "audio/recorded/confined-space.q1.bn.contradicted.snr5.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q1.bn.contradicted.snr5",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q1.bn.vague.clean.rec.V05",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "bn",
+      "pattern": "vague",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি কুড়ি বছর ধরে এই রকমের গর্তে নামছি। এইসব আমার খুব ভালো করে চেনা আছে।",
+      "answerGloss": "I've been going down these holes for twenty years. I know my way around them.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "missed",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/confined-space.q1.bn.vague.clean.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q1.bn.vague.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "fragile-roof.q2.bn.one_missing.snr10.rec.V05",
+      "taskId": "fragile-roof",
+      "questionId": "q2",
+      "workerLang": "bn",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "আমি আস্তে আস্তেই পার হব আর স্কাইলাইট আর ছাদের সিঁড়িটাকে এড়িয়ে চলব।",
+      "answerGloss": "I'll cross slowly and stay clear of the skylights and the roof sheets.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s2": "covered",
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/fragile-roof.q2.bn.one_missing.snr10.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q2.bn.one_missing.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "fragile-roof.q3.bn.fluent_wrong.clean.rec.V05",
+      "taskId": "fragile-roof",
+      "questionId": "q3",
+      "workerLang": "bn",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "রেলিংটা যদি পথের মধ্যে আটকায়, আমি এক মিনিটের জন্য ওই একটা সেকশন খুলে নেব। সিটগুলো ওপরে তুলে নেব, তারপর সাথে সাথে আবার লাগিয়ে নেব। তখন যেহেতু কিনারার কাছে কেউ থাকবে না, তাই এর ক্ষেত্রে কোনো সমস্যা হবে না।",
+      "answerGloss": "If the rail is in the way, I'll take that one section off for a minute, pass the sheets up, and put it straight back. Nobody will be near the edge then, so it's fine.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/recorded/fragile-roof.q3.bn.fluent_wrong.clean.rec.V05.wav",
+      "voice": "V05",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "fragile-roof.q3.bn.fluent_wrong.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.complete.clean.rec.V03",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "complete",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ଭିତରକୁ ଯିବା ଆଗରୁ ମୁଁ ଦେଖିବି ସୋରିଂ ଠିକ ଭାବରେ ଲାଗିଚିକି ନାହିଁ। ଆଉ କେବଳ ଲ୍ୟାଡର ଦେଇ ଭିତରକୁ ଯିବି। ବାହାରକୁ ଆସିବି।",
+      "answerGloss": "Before going in, I'll check the shoring is in place, and I'll get in and out only by the ladder.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "covered"
+      },
+      "audio": "audio/recorded/trench-entry.q1.or.complete.clean.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q1.or.complete.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.one_missing.snr10.rec.V03",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ମୁଁ ଭିତରକୁ ଯିବା ପାଇଁ ladder ୟୁଜ କରିବି",
+      "answerGloss": "I'll use the ladder to get in and out.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "covered"
+      },
+      "audio": "audio/recorded/trench-entry.q1.or.one_missing.snr10.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q1.or.one_missing.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q2.or.echo.clean.rec.V03",
+      "taskId": "trench-entry",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "echo",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ପଟା ଦେଖେଁ ମୁଁ କାନ୍ନ କରିବି ଯଦି ମୁଁ କାନ୍ଥରେ ପାଣି କିମ୍ବା ପଟା ଦେଖେଁ",
+      "answerGloss": "If I see water or cracks in the wall, what will I do? If I see water or cracks in the wall...",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s3": "missed"
+      },
+      "audio": "audio/recorded/trench-entry.q2.or.echo.clean.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q2.or.echo.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "trench-entry.q1.or.fluent_wrong.clean.rec.V03",
+      "taskId": "trench-entry",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ମୁଁ କାନ୍ଥ ପାଖରୁ ଭିତରକୁ ପଶିବି ସେଥି ମାଟି ତ ମଜା ବତ ମଜାବତୁ ଦେଖାଯାଉ ଛି କିନ୍ତୁ ଲ୍ୟାଡ଼ର ତାରକୁ ଶୀଘ୍ରେ ଶୀଘ୍ରେ ଶୀଘ୍ରେ ହବ",
+      "answerGloss": "I'll go in from the wall side, the soil looks firm there, so it's faster than the ladder.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "missed",
+        "s2": "contradicted"
+      },
+      "audio": "audio/recorded/trench-entry.q1.or.fluent_wrong.clean.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": false,
+      "consent": true,
+      "recordedFrom": "trench-entry.q1.or.fluent_wrong.clean",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q1.or.one_missing.snr10.rec.V03",
+      "taskId": "confined-space",
+      "questionId": "q1",
+      "workerLang": "or",
+      "pattern": "one_missing",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ଆଉ ଭିତରକୁ ଯିବା ଆଗରୁ ଗ୍ଯାସ ମିଟରରେ ବହୁତ ପରୀକ୍ଷା କରିବି, ହେଲ୍ଲ! ଆଉ ବାହାରକୁ ଆସିବି ଆସିଯାଏ ମିଟରକୁ ମୁଁ ପାଖରେ ରଖିବି। ଔର ହାରନେସ ହାରନେସ ପିନ୍ଧିବି। ଆଉ ଶ୍ଵିନ୍ଚ ରୋପ କୁ ସେତ୍ରେ କ୍ଲିକ କରିବି।",
+      "answerGloss": "I'll test the air with the gas meter before I go in, and keep it on me, switched on, until I'm out. I'll wear the harness with the winch rope clipped to it.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s1": "covered",
+        "s2": "missed",
+        "s3": "covered"
+      },
+      "audio": "audio/recorded/confined-space.q1.or.one_missing.snr10.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q1.or.one_missing.snr10",
+      "pending": [
+        "backTranslation"
+      ]
+    },
+    {
+      "id": "confined-space.q2.or.fluent_wrong.clean.rec.V03",
+      "taskId": "confined-space",
+      "questionId": "q2",
+      "workerLang": "or",
+      "pattern": "fluent_wrong",
+      "noise": "clean",
+      "source": "recorded",
+      "answer": "ଯାଉଛି। ଯଦି ମୋ ସାଥି ଟସ୍ ଯଦି ମୋ ସାଥି ଚୁପ୍ ହୋଇ ଯିବି ମୁଁ ସିଧା ସାଲ ସିଧା ତଳକୁ ଯିବି ସିଧା ତଳକୁ ଯିବି ଆଉ ତାଙ୍କୁ ନିଜି ବାହାରକୁ ଆଣିବି। ସେଥିପାଇଁ ବହୁତ କାଳ ସମୟ ନଷ୍ଟ ହେବ। ମୁଁ ଆଜି ସକାଳେ ଗ୍ୟାସ୍ ପରୀକ୍ଷା",
+      "answerGloss": "If my partner goes quiet, I'll go straight down and carry them out myself. Waiting for help wastes time, and the gas was already checked this morning.",
+      "backTranslation": "",
+      "fidelity": "review",
+      "gold": {
+        "s4": "contradicted"
+      },
+      "audio": "audio/recorded/confined-space.q2.or.fluent_wrong.clean.rec.V03.wav",
+      "voice": "V03",
+      "demo": null,
+      "heldOut": true,
+      "consent": true,
+      "recordedFrom": "confined-space.q2.or.fluent_wrong.clean",
+      "pending": [
+        "backTranslation"
+      ]
     }
   ]
 }

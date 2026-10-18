@@ -77,7 +77,7 @@ def build_report(rows: list[Row], items: list[dict], meta: dict,
                       **group_metrics([r for r in rows if r.pattern not in ABSTAIN_PATTERNS])},
         "bySource": {source: group_metrics([r for r in rows if r.source == source]) for source in SOURCES},
         "byVoice": _by_voice(rows, items),
-        "recordedNoise": recorded_noise(rows),
+        "recordedNoise": recorded_noise(rows, items),
         "items": [_item_entry(item, rows) for item in items],
     }
     if baseline is not None:
@@ -92,13 +92,17 @@ def group_metrics(rows: list[Row]) -> dict:
     return {"n": len(rows), "nItems": len({r.item_id for r in rows}), **{key: summary[key] for key in METRIC_KEYS}}
 
 
-def recorded_noise(rows: list[Row]) -> dict:
-    """16 Oct, the recorded items by noise: as recorded (clean), every site-noise copy (augment_recorded.py), each
-    SNR over every profile, and each profile at each SNR present."""
+def recorded_noise(rows: list[Row], items: list[dict] | None = None) -> dict:
+    """16 Oct, the recorded items by noise: as recorded in a quiet room (clean), every site-noise copy
+    (augment_recorded.py), each SNR over every profile, and each profile at each SNR present. 17 Oct, additive:
+    ambient, the recordings made where real noise was present (the item's `ambient` note, for example rain); they
+    are not in clean, and no synthetic noise is mixed into them."""
+    ambient_ids = {item["id"] for item in items or [] if item.get("ambient")}
     recorded = [r for r in rows if r.source == "recorded"]
     copies = [r for r in recorded if r.noise in NOISE_NAMES]
     return {
-        "clean": group_metrics([r for r in recorded if r.noise == "clean"]),
+        "clean": group_metrics([r for r in recorded if r.noise == "clean" and r.item_id not in ambient_ids]),
+        "ambient": group_metrics([r for r in recorded if r.item_id in ambient_ids]),
         "siteNoise": group_metrics(copies),
         "bySnr": {snr: group_metrics([r for r in copies if r.noise.endswith(f".{snr}")]) for snr in SNR_LEVELS},
         "byNoise": {noise: group_metrics([r for r in copies if r.noise == noise])
@@ -380,9 +384,12 @@ def _subset_lines(rows: list[tuple[str, dict]]) -> list[str]:
 def _recorded_noise_section(report: dict) -> list[str]:
     """16 Oct: the recorded items as recorded, then their site-noise copies; nothing when no recording ran."""
     split = report["recordedNoise"]
-    if not split["clean"]["nItems"] and not split["siteNoise"]["nItems"]:
+    ambient = split.get("ambient") or {"nItems": 0}  # a report from before 17 Oct has none
+    if not split["clean"]["nItems"] and not split["siteNoise"]["nItems"] and not ambient["nItems"]:
         return []
-    rows = [("As recorded (quiet room)", split["clean"]), ("All site noise", split["siteNoise"])]
+    rows = [("As recorded (quiet room)", split["clean"])]
+    rows += [("As recorded in real background noise", ambient)] if ambient["nItems"] else []
+    rows += [("All site noise", split["siteNoise"])]
     rows += [(f"Site noise at {SNR_LEVELS[snr]:g} dB SNR", group) for snr, group in split["bySnr"].items()
              if group["nItems"]]
     rows += list(split["byNoise"].items())
@@ -390,7 +397,8 @@ def _recorded_noise_section(report: dict) -> list[str]:
         "## Real voices by noise", "",
         "- Consented recordings (eval/record_clips.py), and copies of them with procedural site noise mixed in "
         "(eval/augment_recorded.py): machinery drone, hammering, a reversing beeper and distant babble, at an SNR "
-        "measured over the speech. Real voices with synthetic noise: not a field trial.",
+        "measured over the speech. Real voices with synthetic noise: not a field trial. Recordings made in real noise "
+        "(the item's ambient note) get no synthetic noise.",
         "", *_subset_lines(rows), "",
     ]
 

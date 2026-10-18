@@ -46,7 +46,8 @@ def recordings(doc: dict, speakers: list[str] | None = None) -> list[dict]:
     """The consented recordings themselves (never a copy, never a synthetic item), optionally of some speakers."""
     return [item for item in doc["items"]
             if item["source"] == "recorded" and item.get("consent") is True and "augmentedFrom" not in item
-            and item["noise"] == "clean" and (not speakers or item["voice"] in speakers)]
+            and item["noise"] == "clean" and not item.get("ambient")  # real noise already: no synthetic noise on top
+            and (not speakers or item["voice"] in speakers)]
 
 
 def copy_item(recording: dict, profile: str, snr: str) -> dict:

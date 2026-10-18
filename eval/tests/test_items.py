@@ -51,9 +51,10 @@ def test_every_task_is_covered_and_bn_appears_on_both_sites(doc, catalog):
 
 def test_every_pattern_appears_and_about_a_third_is_noisy(doc):
     """Demo items are clean by design: they are the stored sample answers an evaluator hears. Since the four demo suites
-    (17 Oct, 36 of 88 items) the noisy share is measured over the other items, where it was set (0.38)."""
+    (17 Oct, 36 of 88 items) the noisy share is measured over the other items, where it was set (0.38). Recordings are
+    noise clean by rule (their noise is real, or added on a copy), so the share is over the synthetic items."""
     patterns = {item["pattern"] for item in doc["items"]}
-    judged = [item for item in doc["items"] if item["pattern"] != "demo"]
+    judged = [item for item in doc["items"] if item["pattern"] != "demo" and item["source"] == "synthetic_tts"]
     noisy_share = sum(item["noise"] != "clean" for item in judged) / len(judged)
 
     assert patterns == set(PATTERNS)
@@ -386,7 +387,7 @@ def test_a_missing_question_text_is_allowed_only_while_pending_and_never_with_a_
         d["pendingQuestions"] = [key] if listed else []
         item = next(i for i in d["items"] if i["id"] == item_id)
         item.update(answer="", backTranslation="", pending=["answer", "backTranslation", "audio"][:3 if clip_pending else 2])
-        return [line for line in problems(d, catalog) if line.startswith(item_id)]
+        return [line for line in problems(d, catalog) if line.startswith(f"{item_id}:")]
 
     assert problems(doc, catalog) == []
     assert without_question(listed=True, clip_pending=True) == []
