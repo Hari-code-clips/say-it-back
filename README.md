@@ -17,7 +17,7 @@
 
 ## For evaluators: two minutes, no login, no Tamil needed
 
-**Deployed app:** [say-it-back-cup.web.app](https://say-it-back-cup.web.app) · **Demo video:** [link coming]
+**Deployed app:** [say-it-back-cup.web.app](https://say-it-back-cup.web.app) · **Demo video:** [youtu.be/rHCq0T8ypQo](https://youtu.be/rHCq0T8ypQo)
 
 Use Chrome or Safari on a phone or a laptop. Browsers inside apps (LinkedIn, WhatsApp, WeChat) usually cannot use the microphone; the page says so. Each Gemini step usually takes 15 to 40 seconds, and a counter shows the time.
 
